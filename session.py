@@ -1,8 +1,9 @@
 import logging
 import threading
+from queue import Queue
 
+from IO.output import Output
 from demo import state_dict
-from sessionIO import SessionIO
 
 
 # Session is a class representing a conversation that user has with the bot after activating it.
@@ -14,21 +15,20 @@ from sessionIO import SessionIO
 # Each session runs on own thread
 
 class Session(threading.Thread):
-    def __init__(self, user_id):
+    def __init__(self, session_id):
         super().__init__()
-        self.user_id = user_id
-        self.context = dict(user_id=user_id)
+        self.session_id = session_id
+        self.context = dict(session_id=session_id)
         self.next_state = "init"
-        self.session_io = SessionIO(user_id)
         self.current_state = None
         self.logger = None
+        self.input_buffer = Queue()
+
 
 
     # start thread
-    def run(self):
-        self.execute()
 
-    def execute(self):
+    def run(self):
         self.setup_log()
         self.logger.info('Initiating new session')
         while self.next_state:
@@ -38,12 +38,21 @@ class Session(threading.Thread):
             self.next_state = self.current_state.execute(self)
         self.logger.info('Successfully Finished Conversation')
 
+    def send(self, text):
+        Output.response(text + "\n", self.session_id)
+
+    def recieve(self) -> str:
+        # waits for the buffer to contain something
+        while self.input_buffer.empty():
+            pass
+        return self.input_buffer.get()
+
     def setup_log(self):
         # set up logging to file - see previous section for more details
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                             datefmt='%m-%d %H:%M',
-                            filename='logs/' + str(self.user_id) + '.log',
+                            filename='logs/' + str(self.session_id) + '.log',
                             filemode='w')
         # define a Handler which writes INFO messages or higher to the sys.stderr
         console = logging.StreamHandler()
@@ -54,7 +63,7 @@ class Session(threading.Thread):
         console.setFormatter(formatter)
         # add the handler to the root logger
         logging.getLogger('').addHandler(console)
-        self.logger = logging.getLogger('DM.user:' + str(self.user_id))
+        self.logger = logging.getLogger('DM.user:' + str(self.session_id))
 
     def build_state(self):
         next_st = state_dict['states'][self.next_state]

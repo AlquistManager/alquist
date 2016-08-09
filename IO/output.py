@@ -1,6 +1,8 @@
 import json
-import requests
 import sys
+
+import requests
+
 
 # Handles sending messages to webhook
 class Output:
@@ -9,7 +11,7 @@ class Output:
 
     # Sends output to webhook
     @classmethod
-    def response(cls, text, user_id):
-        payload = {'text': text, 'user_id': user_id}
+    def response(cls, text, session_id):
+        payload = {'text': text, 'session_id': session_id}
         headers = {'content-type': 'application/json'}
         requests.post(cls.webhookUrl, data=json.dumps(payload), headers=headers)

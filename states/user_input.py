@@ -4,10 +4,10 @@ from .state import State
 
 class InputUser(State):
     def execute(self, parent_session) -> str:
-        parent_session.session_io.send(self.properties['text'])
+        parent_session.send(self.properties['text'])
         parent_session.logger.debug('Robot says: ' + self.properties['text'])
         parent_session.logger.info('Robot is waiting for your response ... ')
-        raw_response = parent_session.session_io.recieve()
+        raw_response = parent_session.recieve()
         parent_session.logger.debug('Client says: ' + raw_response)
 
         # TODO: NLP
@@ -23,9 +23,9 @@ class InputUser(State):
                     bad_response = False
                 else:
                     parent_session.logger.debug('Match unsuccessful.')
-                    parent_session.session_io.send(self.properties['error_text'])
+                    parent_session.send(self.properties['error_text'])
                     parent_session.logger.debug('Robot says: ' + self.properties['error_text'])
-                    response = parent_session.session_io.recieve()
+                    response = parent_session.recieve()
                     parent_session.logger.info('Robot is waiting for your response ... ')
 
         # Log latest user response to context
