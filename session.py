@@ -1,6 +1,7 @@
 import logging
 import threading
 from queue import Queue
+import os
 
 from IO.output import Output
 from demo import state_dict
@@ -49,6 +50,8 @@ class Session(threading.Thread):
 
     def setup_log(self):
         # set up logging to file - see previous section for more details
+        if not os.path.exists('logs/'):
+            os.makedirs('logs/')
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                             datefmt='%m-%d %H:%M',
