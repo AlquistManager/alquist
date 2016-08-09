@@ -1,5 +1,5 @@
 from demo_npl import NPL
-from . import State
+from .state import State
 
 
 class InputUser(State):

@@ -1,6 +1,6 @@
 from random import randint
 
-from . import State
+from .state import State
 
 
 class MessageText(State):
