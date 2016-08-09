@@ -17,6 +17,7 @@ class Session:
         self.log_console = None
 
     def execute(self):
+        self.setup_log()
         # TODO: determine exact place for build_state() function, clear_context function atd...
         while self.next_state:
             self.current_state = self.build_state()  # TODO: determine what is state_dict and where it is
@@ -42,10 +43,6 @@ class Session:
         logging.getLogger('').addHandler(console)
         self.log_console = logging.getLogger('DM.user:'+str(self.user_id))
 
-    def debug(self):
-        self.setup_log()
-        self.log_console.debug('Quick zephyrs blow, vexing daft Jim.')
-        self.log_console.info('How quickly daft jumping zebras vex.')
 
     def build_state(self):
         next_st = state_dict['states'][self.next_state]

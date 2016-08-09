@@ -30,7 +30,8 @@ class State(ABC):
 
 class MessageText(State):
     def execute(self, parent_session) -> str:
-        parent_session.session_io.send(self.properties['text'])
+        text = State.contextualize(parent_session.context, self.properties['text'])
+        parent_session.session_io.send(text)
         return self.transitions.get('next_state', False)
 
 
