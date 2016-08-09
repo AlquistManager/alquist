@@ -14,7 +14,7 @@ For example
 You can use ngrok to run webhook on your localhost.
 
 ## API
-### Register new user
+### Register new session
 To begin with dialogue, you have to register new user. You register new user by POST request to 
 
 	http://127.0.0.1:5000/start
@@ -30,5 +30,5 @@ To send input send POST with JSON containing fields ``session_id`` and ``text`` 
 Obtaining of ``session_id`` is described in ``Register new user`` section. The ``text`` field contains text, which you want to send to the dialogue manager.
 You can test it by CURL
 
-    curl -H "Content-Type: application/json; charset=\\"utf-8\\"" -X POST -d "{\\"session_id\\":\"INSTERT_SESSION_ID\", \"text\":\"text\"}" "http://127.0.0.1:5000/"
+    curl -H "Content-Type: application/json; charset=\"utf-8\"" -X POST -d "{\"session_id\":\"INSTERT_SESSION_ID\", \"text\":\"text\"}" "http://127.0.0.1:5000/"
 The answer is JSON with field ``OK`` containing value ``true`` or ``false``. Dialogue's manager response is send to webhook defined during start of dialogue manager.
