@@ -23,7 +23,7 @@ def get_input():
             # user with session_id has been created already
             session = sessions.sessions[session_id]
             text = request.json['text']
-            session.session_io.input_buffer.put(text)
+            session.input_buffer.put(text)
             return jsonify(ok=True)
         else:
             # wrong user id
