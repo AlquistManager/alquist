@@ -1,6 +1,8 @@
 import logging
+import threading
 
 from demo import state_dict
+from sessionIO import SessionIO
 
 
 # Session is a class representing a conversation that user has with the bot after activating it.
@@ -9,15 +11,22 @@ from demo import state_dict
 
 # It contains the clients ID, current session context, current state (class state) and next state (name)
 
+# Each session runs on own thread
 
-class Session:
-    def __init__(self, user_id, session_io):
+class Session(threading.Thread):
+    def __init__(self, user_id):
+        super().__init__()
         self.user_id = user_id
         self.context = dict(user_id=user_id)
         self.next_state = "init"
-        self.session_io = session_io
+        self.session_io = SessionIO(user_id)
         self.current_state = None
         self.logger = None
+
+
+    # start thread
+    def run(self):
+        self.execute()
 
     def execute(self):
         self.setup_log()
