@@ -21,7 +21,7 @@ class Session(threading.Thread):
         self.next_state = "init"
         self.session_io = SessionIO(user_id)
         self.current_state = None
-        self.log_console = None
+        self.logger = None
 
 
     # start thread
@@ -30,18 +30,20 @@ class Session(threading.Thread):
 
     def execute(self):
         self.setup_log()
-        # TODO: determine exact place for build_state() function, clear_context function atd...
+        self.logger.info('Initiating new session')
         while self.next_state:
-            self.current_state = self.build_state()  # TODO: determine what is state_dict and where it is
+            self.logger.debug('Context: ' + str(self.context))
+            self.current_state = self.build_state()
+            self.logger.debug('Executing state: ' + str(self.current_state))
             self.next_state = self.current_state.execute(self)
-        self.log_console.info('Successfully Finished Conversation')
+        self.logger.info('Successfully Finished Conversation')
 
     def setup_log(self):
         # set up logging to file - see previous section for more details
         logging.basicConfig(level=logging.DEBUG,
                             format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                             datefmt='%m-%d %H:%M',
-                            filename='test.log',
+                            filename='logs/' + str(self.user_id) + '.log',
                             filemode='w')
         # define a Handler which writes INFO messages or higher to the sys.stderr
         console = logging.StreamHandler()
@@ -52,9 +54,10 @@ class Session(threading.Thread):
         console.setFormatter(formatter)
         # add the handler to the root logger
         logging.getLogger('').addHandler(console)
-        self.log_console = logging.getLogger('DM.user:' + str(self.user_id))
+        self.logger = logging.getLogger('DM.user:' + str(self.user_id))
 
     def build_state(self):
         next_st = state_dict['states'][self.next_state]
         func = next_st.get('type', lambda: "nothing")
+        self.logger.debug('Building state: ' + str(func))
         return func(self.next_state, next_st['properties'], next_st['transitions'])
