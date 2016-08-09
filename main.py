@@ -1,6 +1,6 @@
 import sys
 
-from IO.input import *
+from io.input import *
 
 # Start with parameters:
 #   Port - port to run

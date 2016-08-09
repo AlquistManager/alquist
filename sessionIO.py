@@ -1,7 +1,7 @@
 # Input output class for session
 from queue import Queue
 
-from IO.output import Output
+from io.output import Output
 
 
 class SessionIO:
