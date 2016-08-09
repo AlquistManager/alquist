@@ -1,0 +1,61 @@
+# This is a subsequent flow of the YAML syntax and dialogue example for X DIALOG MANAGER X
+# this project was created as part of the eClob Summer Camp 2016
+# Authors: Jakub Konrád (jkonrad.dev@gmail.com), Petr Marek (ermrk.marek@gmail.com)
+#
+#
+name: weather
+states:
+  read_main_input:
+    type: input_context
+    properties:
+      entities:
+        weather_location: location
+        weather_date: date
+
+  check_location:
+    type: conditional_exists
+    properties:
+      key: '{{ weather_location }}'
+    transitions:
+      exists: check_date
+      notexists: ask_location
+
+  ask_location:
+    type: input_user
+    properties:
+      text: Where?
+      entities:
+        weather_location: location
+      require_match: true
+      error_text: Sorry, I don't understand. Where?
+
+  check_date:
+    type: conditional_exists
+    properties:
+      key: '{{ weather_date }}'
+    transitions:
+      exists: check_date
+      notexists: ask_date
+
+  ask_date:
+    type: input_user
+    properties:
+      text: When?
+      entities:
+        weather_date: date
+      require_match: true
+      error_text: Sorry, I don't understand. When?
+
+  get_weather:
+    type: actions.get_weather
+    properties:
+      param1: '{{ weather_location }}'
+      param2: '{{ weather_date }}'
+
+  print_weather:
+    type: message_text_random
+    properties:
+      responses:
+        - It will be {{ forecast }} in {{ weather_location }} {{ weather_date }}.
+        - The weather in {{ weather_location }} will be {{ forecast }} {{ weather_date }}.
+    return: true

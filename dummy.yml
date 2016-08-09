@@ -1,0 +1,74 @@
+# This is a description of YAML syntax used for X DIALOG MANAGER X
+# this project was created as part of the eClob Summer Camp 2016
+# Authors: Jakub Konrád (jkonrad.dev@gmail.com), Petr Marek (ermrk.marek@gmail.com)
+#
+#
+
+
+name: dummy # Name of the flow, unique for the whole application
+states: # List of states. States are executed sequentially
+  state1: # Name of the state. Unique in each flow
+    type: message_text # Type of state.
+                       # message_text sends text message back to the client
+    properties: # list of properties of each state
+      text: Hello World!
+
+  state2:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Hello!
+        - Hi!
+
+  state3:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      text: When? # Prompt text
+      entities: # List of entities expected in client's answer
+        entity1: date # context key: entity
+      log_json: true # determines if NLP JSON structure is stored in context
+                     # only stores latest user prompt as JSON
+      require_match: true # determines if expected entities are required
+      error_text: Sorry, I don't understand. When? # Prompt if required entity is missing
+
+  state4:
+    type: input_context # Reads latest logged JSON user query as input
+    properties:
+      entities:
+        entity1: date
+        entity2: location
+
+  state5:
+    type: conditional_equal # Compares two values and using transition creates corresponding branches
+    properties:
+        value1: '{{ intent }}' # Here we use value of a context key intent
+        value2: greeting # We compare string "greeting"
+    transitions: # defines transition states for both branches
+        equal: positive_case # transition for when values are equal
+        notequal: negative_case # transition for when values are not equal
+
+  state6:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{ intent }}' # context key to check
+    transitions:
+      exists: positive_case # transition for when key exists
+      notexists: negative_case #  transition for when the key doesn't exist
+
+  state7:
+    type: actions.action_name # used to call user defined action
+    properties: # list of action parameters
+      param1: '{{ entity1 }}'
+      param2: '{{ entity2 }}'
+
+  state8:
+    flow: flow1 # state used to change flows
+
+# Dialogue finishes and context resets automatically after reaching the end of the flow
+# Alternatively, user can force dialogue end by tag return:true
+
+  return_example: # Name of the state.
+    type: message_text # Type of state.
+    properties: # list of properties of each state
+      text: Hello World!
+    return: true # return tag
