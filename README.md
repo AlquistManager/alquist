@@ -14,8 +14,9 @@ To run Alquist use command
 	py -3 main.py [port] [webhook URL] [wit server access token]
 ``Port`` field defines the port on which the Alquist will run.
 ``Webhook URL`` field defines the URL of webhoook, where responses will be send.
-For example
 ``WIT server access token`` defines which wit.ai app will you use. For our demo use ``NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V``
+
+For example
 
 	py -3 main.py 5000 http://964bdc06.ngrok.io NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V
 You can use ngrok to run webhook on your localhost.
