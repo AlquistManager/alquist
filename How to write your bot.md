@@ -19,9 +19,9 @@ For example:
 
 
 ### State construction
-States have UNIQUE ``name`` across all your flows. There can't be two states with a same name.
+States have UNIQUE ``name`` across all your flows. There can't be two states with the same name.
 
-Each state declaration most contain fields ``type`` declaring the state type,
+Each state declaration must contain fields ``type`` declaring the state type,
 ``properties`` containing the state parameters, and ``transitions`` which holds information about next state
 
 	[name]:
@@ -60,6 +60,7 @@ Bot replaces ``'{{intent}}'`` with value of the ``intent`` key saved in the sess
 ## State descriptions
 ### message_text
 message_text sends a message to user.
+
 Example:
 
 	[name]:
@@ -73,11 +74,12 @@ Example:
 ``next_state`` field contains name of the next state
 
 Default property values:
-* ``text``: *Your message here.* 
+* ``text``: *Your message here.*
 
 
 ### message_text_random
 message_text_random sends a message from the list at random to user.
+
 Example:
 
 	[name]:
@@ -97,7 +99,8 @@ Default property values:
 
 
 ### input_user
-input_user sends user a prompt, waits for user response and saves entities from the response to the context
+input_user sends user a prompt, waits for user response and saves entities from the response to the context. 
+
 Example:
 
 	[name]:
@@ -115,12 +118,12 @@ Example:
 
 ``entities`` this field contains entities to save to context, **REQUIRED**
 
-> ``entity1`` context key under which the value is saved
+> ``entity1`` context key, under which the value is saved,
 > ``nlp_entity_name`` name of the entity in the nlp
 
-``log_json`` True/False, determines if latest user response should be saved in context for later use
+``log_json`` true/false, determines if latest user response should be saved in context for later use
 
-``require_match`` True/False, determines if entities from the entity field need to be present in order to continue
+``require_match`` true/false, determines if entities from the entity field need to be present in order to continue
 > *we recommend to use* ``require_match`` *only for matching single entity, for multiple entities sequence of conditional states is preferred*
 
 ``error_text`` text to display in case ``require_match`` is ``True`` and entities are missing
@@ -130,10 +133,10 @@ Example:
 
 Default property values:
 
-* ``text``: Your question here
-* ``log_json``: False
-* ``require_match``: False
-* ``error_text``: Sorry I don’t understand. Please try again.
+* ``text``: *Your question here*
+* ``log_json``: *false*
+* ``require_match``: *false*
+* ``error_text``: *Sorry I don’t understand. Please try again.*
 
 
 ### input_context
