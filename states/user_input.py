@@ -1,4 +1,4 @@
-from demo_npl import NPL
+from nlp import *
 from .state import State
 
 
@@ -9,9 +9,9 @@ class InputUser(State):
         parent_session.logger.info('Robot is waiting for your response ... ')
         raw_response = parent_session.recieve()
         parent_session.logger.debug('Client says: ' + raw_response)
+        response = get_entities(raw_response)
+        parent_session.logger.info('NLP response: ' + str(response))
 
-        # TODO: NLP
-        response = NPL.get_entities(raw_response)
         # Require entity match check
         if self.properties['require_match']:
             bad_response = True
@@ -39,7 +39,7 @@ class InputUser(State):
 
     def check_response(self, response):  # Checks if all required entities are present
         for entity in self.properties['entities']:
-            if entity in response:
+            if self.properties['entities'][entity]in response:
                 pass
             else:
                 return False
