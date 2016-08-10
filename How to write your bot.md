@@ -3,6 +3,19 @@ How to write your bot using ALQUIST
 Alquist is dialogue manager created by Jakub Konrád and Petr Marek.
 
 ## General tips
+### Start of the dialogue
+When writing yaml representation of your bot, keep in mind that the initial state for your bot should be called ``init``
+Ihere always needs to be ``init`` state in your yaml representation.
+
+For example:
+
+	init:
+        type: MessageText
+        properties:
+            text: Hello, mz name is Talkatron 3000
+        transitions: 
+            next_state: state2
+
 ### Transitions
 Each state must have transitions field, since it is used in constructor. If the transitions field is empty,
 conversation ends after executing current state.

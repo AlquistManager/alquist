@@ -7,7 +7,7 @@
 
 name: dummy # Name of the flow, unique for the whole application
 states: # List of states. States are executed sequentially
-  state1: # Name of the state. Unique in each flow
+  init: # Name of the state. Unique in each flow
     type: message_text # Type of state.
                        # message_text sends text message back to the client
     properties: # list of properties of each state
