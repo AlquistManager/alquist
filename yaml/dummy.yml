@@ -56,13 +56,13 @@ states: # List of states. States are executed sequentially
       notexists: negative_case #  transition for when the key doesn't exist
 
   state7:
-    type: actions.action_name # used to call user defined action
+    type: UserDefinedState # used to call user defined action
     properties: # list of action parameters
-      param1: '{{ entity1 }}'
-      param2: '{{ entity2 }}'
+      param1: [p1]
+      param2: [p2]
+    transitions:
+      flow: flow2  # jump to the first state of next flow
 
-  state8:
-    flow: flow1 # state used to change flows
 
 # Dialogue finishes and context resets automatically after reaching the end of the flow
 # Alternatively, user can force dialogue end by tag return:true
@@ -71,4 +71,4 @@ states: # List of states. States are executed sequentially
     type: message_text # Type of state.
     properties: # list of properties of each state
       text: Hello World!
-    return: true # return tag
+    transitions: return # return tag
