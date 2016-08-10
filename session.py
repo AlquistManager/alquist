@@ -4,7 +4,7 @@ from queue import Queue
 import os
 
 from IO.output import Output
-from demo import state_dict
+from loaded_states import state_dict
 
 
 # Session is a class representing a conversation that user has with the bot after activating it.
@@ -25,10 +25,7 @@ class Session(threading.Thread):
         self.logger = None
         self.input_buffer = Queue()
 
-
-
     # start thread
-
     def run(self):
         self.setup_log()
         self.logger.info('Initiating new session')

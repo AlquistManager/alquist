@@ -5,12 +5,14 @@ Alquist is dialogue manager created by Jakub Konrád and Petr Marek.
 ## Installation
 You need Python 3. To run Alquist use command
 
-	py -3 main.py [port] [webhook URL]
+	py -3 main.py [port] [webhook URL] [Wit server token] [Folder containing yamls]
 ``Port`` field defines the port on which the Alquist will run.
 ``Webhook URL`` field defines the URL of webhoook, where responses will be send.
+``Wit server token`` token used for NLP. You can find it in the setting of your Wit.ai app.
+``Folder containing yamls`` path to folder, where yaml files are located.
 For example
 
-	py -3 main.py 5000 http://964bdc06.ngrok.io
+	py -3 main.py 5000 http://964bdc06.ngrok.io TFWQQFI5YU7GJVFSMXDPEGHKLZ2EY42I C:\Users\user\yaml\
 You can use ngrok to run webhook on your localhost.
 
 ## API
