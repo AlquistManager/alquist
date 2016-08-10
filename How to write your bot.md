@@ -10,9 +10,9 @@ Ihere always needs to be ``init`` state in your yaml representation.
 For example:
 
 	init:
-        type: MessageText
+        type: message_text
         properties:
-            text: Hello, mz name is Talkatron 3000
+            text: Hello, my name is Talkatron 3000
         transitions: 
             next_state: state2
 
@@ -23,7 +23,7 @@ conversation ends after executing current state.
 For example:
 
 	state1:
-        type: MessageText
+        type: message_text
         properties:
             text: Hello World!
         transitions: 
