@@ -24,9 +24,9 @@ class State(ABC):
         return text
 
     def update_context(self, context: dict, response: dict):
-        for entity in response:
-            if entity in self.properties['entities']:
-                context.update({entity: response[entity]})
+        for entity in self.properties['entities']:
+            if self.properties['entities'][entity] in response:
+                context.update({entity: response[self.properties['entities'][entity]]})
 
     def __str__(self):
         return 'Name: ' + self.name + '\rProperties: ' + str(self.properties) + '\rTransitions: ' + str(
