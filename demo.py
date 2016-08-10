@@ -11,7 +11,7 @@ state_dict = {'name': 'main',
                   'ask_color': {'type': InputUser, 'properties': {'text': 'What is your favourite color?',
                                                              'require_match': True, 'log_json': True,
                                                              'error_text': 'I don\'t think that counts as a color... try another one?',
-                                                             'entities': {'colour': 'color'}},
+                                                             'entities': {'color': 'color'}},
                                                              'transitions': {'next_state': 'debug_recent'}},
 
                   'yes_no': {'type': ConditionalEquals, 'properties': {'value1': '\'{{yes_no}}\'', 'value2': 'yes'},
@@ -20,7 +20,7 @@ state_dict = {'name': 'main',
                   'bye': {'type': MessageRandomText, 'properties': {'responses': ['OK, bye', 'I see, it was nice talking to you anyway', 'Oh, that is a shame, bye then']},
                           'transitions': {}},
 
-                  'debug_recent': {'type': InputContext, 'properties': {'entities': {'colour': 'color'}}, 'transitions': {'next_state': 'has_color'}},
+                  'debug_recent': {'type': InputContext, 'properties': {'entities': {'color': 'color'}}, 'transitions': {'next_state': 'has_color'}},
 
                   'has_color': {'type': ConditionalExists, 'properties': {'key': '\'{{color}}\''},
                                 'transitions': {'exists': 'color_echo', 'notexists': 'leave_in_shame'}},
