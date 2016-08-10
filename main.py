@@ -15,8 +15,10 @@ from IO.input import *
 #
 #   To send message: curl -H "Content-Type: application/json; charset=\"utf-8\"" -X POST
 #                    -d "{\"id\":\"5e7f82f3-cdfd-40f4-9008-4e0247c774a7\", \"text\":\"yes\"}" "http://127.0.0.1:5000/"
-
+from yaml_parser.yaml_parser import YamlParser
 
 if __name__ == '__main__':
+    #Load and parse yaml files
+    YamlParser()
     # Start flask
     flask.run(port=int(sys.argv[1]), debug=True)
