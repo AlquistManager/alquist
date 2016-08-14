@@ -31,6 +31,8 @@ class YamlParser:
             try:
                 # load yaml to OrderedDict
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
+                # check unique names of states
+                self.check_unique_names( loaded_yaml, state_dict)
                 # checks if all stetes has type
                 self.check_types(loaded_yaml)
                 # add missing transitions
@@ -128,3 +130,10 @@ class YamlParser:
         for state_name, state_parameters in loaded_yaml['states'].items():
             if not ("type" in state_parameters):
                 raise ValueError('The node "' + state_name + '" has no type.')
+
+    # check unique names of states
+    def check_unique_names(self, loaded_yaml, state_dict):
+        for state_name, state_parameters in loaded_yaml['states'].items():
+            if 'states' in state_dict:
+                if state_name in state_dict['states'].keys():
+                    raise ValueError('There are nodes of the same name "' + state_name + '".')
