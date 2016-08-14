@@ -17,8 +17,19 @@ For example:
             next_state: state2
 
 ### Transitions
-Each state must have transitions field, since it is used in constructor. If the transitions field is empty,
-conversation ends after executing current state.
+Each state must have transitions field, since it is used in constructor. 
+Parameter of transition is name of state, where you want to go after the execution of state. The state can be even from different flow.
+ ``conditional_exists`` and ``conditional_equal`` has different transition parameters. See State descriptions section.
+
+For example:
+
+	state1:
+        type: message_text
+        properties:
+            text: Hello World!
+        transitions: state2
+ 
+If the transitions field is empty, conversation ends after executing current state.
 
 For example:
 
@@ -27,8 +38,26 @@ For example:
         properties:
             text: Hello World!
         transitions: 
+        
+If the transitions field is missing, the default transition is to next state in yaml file. If there is no next state in the yaml file, the dialogue ends.
+
+For example:
+
+	state1:
+        type: message_text
+        properties:
+            text: Hello World!
             
-            
+Use ``flow: flow_name`` parameter in the transitions field to jump to the first state of different flow.
+
+For example:
+
+	state1:
+        type: message_text
+        properties:
+            text: Hello World! 
+        transitions: 
+            flow: flow_name
 
 
 ### State construction
@@ -68,6 +97,9 @@ Bot replaces ``'{{name}}'`` with value of the ``name`` key saved in the session 
 
 Bot replaces ``'{{intent}}'`` with value of the ``intent`` key saved in the session context and compares it with string "greeting".
 
+
+### Distribution of dialogue between multiple flows
+Dialogue can be distributed between multiple yaml files. Each file contains one flow. Place flows into one folder and use it's path as program argument.
 
 
 ## State descriptions
