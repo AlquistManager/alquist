@@ -44,5 +44,7 @@ class OrderedDictYAMLLoader(yaml.Loader):
                                                         node.start_mark, 'found unacceptable key (%s)' % exc,
                                                         key_node.start_mark)
             value = self.construct_object(value_node, deep=deep)
+            if key in mapping:
+                raise KeyError('There are two same keys in the yaml file.')
             mapping[key] = value
         return mapping
