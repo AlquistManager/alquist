@@ -109,11 +109,14 @@ class YamlParser:
                 # Unknown type of node founded
                 raise ValueError('Unknown type ' + '"' + value['type'] + '"' + ' of node ' + '"' + key + '"')
 
+    # check structure of yaml files
     def check_structure(self, loaded_yaml):
         init_state_existis = False
         for key, value in loaded_yaml['states'].items():
+            # look for state with name init
             if key == 'init':
                 init_state_existis = True
                 break
+        # rise exception, if no state with name init is not present
         if not init_state_existis:
             raise ValueError('There is no "init" state in the yaml files.')
