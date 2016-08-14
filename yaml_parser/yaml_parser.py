@@ -22,6 +22,8 @@ class YamlParser:
         # load all files
         for file_name in files:
             self.load_file(file_name)
+        # check correctness of yaml's syntax
+        self.check_structure(state_dict)
 
     # load yaml file
     def load_file(self, file_name):
@@ -42,7 +44,7 @@ class YamlParser:
             except yaml.YAMLError as exc:
                 print(exc)
 
-    #Modifies transitions to intern format
+    # Modifies transitions to intern format
     def modify_transitions(self, loaded_yaml):
         i = 0
         states = list(loaded_yaml['states'].items())
@@ -68,7 +70,7 @@ class YamlParser:
         if "transitions" in state_parameters:
             if "flow" in state_parameters["transitions"]:
                 flow_name = state_parameters["transitions"]["flow"]
-                #find file with some extension and the right name
+                # find file with some extension and the right name
                 with open(glob.glob(self.path + flow_name + '.*')[0], 'r') as stream:
                     try:
                         # load yaml to OrderedDict
@@ -106,3 +108,12 @@ class YamlParser:
             else:
                 # Unknown type of node founded
                 raise ValueError('Unknown type ' + '"' + value['type'] + '"' + ' of node ' + '"' + key + '"')
+
+    def check_structure(self, loaded_yaml):
+        init_state_existis = False
+        for key, value in loaded_yaml['states'].items():
+            if key == 'init':
+                init_state_existis = True
+                break
+        if not init_state_existis:
+            raise ValueError('There is no "init" state in the yaml files.')
