@@ -22,8 +22,8 @@ class YamlParser:
         # load all files
         for file_name in files:
             self.load_file(file_name)
-        # check correctness of yaml's syntax
-        self.check_structure(state_dict)
+        # check if init state is present
+        self.check_init_state(state_dict)
 
     # load yaml file
     def load_file(self, file_name):
@@ -31,6 +31,8 @@ class YamlParser:
             try:
                 # load yaml to OrderedDict
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
+                # checks if all stetes has type
+                self.check_types(loaded_yaml)
                 # add missing transitions
                 self.modify_transitions(loaded_yaml)
                 # changes representation of node types to intern objects
@@ -109,14 +111,20 @@ class YamlParser:
                 # Unknown type of node founded
                 raise ValueError('Unknown type ' + '"' + value['type'] + '"' + ' of node ' + '"' + key + '"')
 
-    # check structure of yaml files
-    def check_structure(self, loaded_yaml):
+    # check if init state is present
+    def check_init_state(self, loaded_yaml):
         init_state_existis = False
-        for key, value in loaded_yaml['states'].items():
+        for state_name, state_parameters in loaded_yaml['states'].items():
             # look for state with name init
-            if key == 'init':
+            if state_name == 'init':
                 init_state_existis = True
                 break
         # rise exception, if no state with name init is not present
         if not init_state_existis:
             raise ValueError('There is no "init" state in the yaml files.')
+
+    # checks if all stetes has type
+    def check_types(self, loaded_yaml):
+        for state_name, state_parameters in loaded_yaml['states'].items():
+            if not ("type" in state_parameters):
+                raise ValueError('The node "' + state_name + '" has no type.')
