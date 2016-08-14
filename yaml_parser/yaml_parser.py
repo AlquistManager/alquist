@@ -1,5 +1,7 @@
 import glob
 import sys
+from collections import OrderedDict
+
 import yaml
 from loaded_states import state_dict
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
@@ -27,18 +29,23 @@ class YamlParser:
 
     # load yaml file
     def load_file(self, file_name):
+        # add missing slash to directory path
+        if not (self.path.endswith('/')):
+            self.path += '/'
         with open(self.path + file_name, 'r') as stream:
             try:
                 # load yaml to OrderedDict
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
                 # check unique names of states
-                self.check_unique_names( loaded_yaml, state_dict)
+                self.check_unique_names(loaded_yaml, state_dict)
                 # checks if all stetes has type
                 self.check_types(loaded_yaml)
                 # add missing transitions
                 self.modify_transitions(loaded_yaml)
                 # changes representation of node types to intern objects
                 self.types_to_intern_representation(loaded_yaml)
+                # sets default or missing properties
+                self.set_default_properties(loaded_yaml)
                 if not ('states' in state_dict):
                     # update whole dictionary
                     state_dict.update(loaded_yaml)
@@ -79,7 +86,7 @@ class YamlParser:
                     try:
                         # load yaml to OrderedDict
                         loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
-                        for state_name, state_parameters in loaded_yaml['states'].items():
+                        for state_name, state_parameters_intern in loaded_yaml['states'].items():
                             # change to name of transition from flow to the first state of flow
                             state_parameters["transitions"].clear()
                             state_parameters["transitions"].update({"next_state": state_name})
@@ -95,23 +102,24 @@ class YamlParser:
 
     # Change string representation of states into inner representation of objects
     def types_to_intern_representation(self, loaded_yaml):
-        for key, value in loaded_yaml['states'].items():
-            if value['type'].lower() == 'message_text':
-                value['type'] = MessageText
-            elif value['type'].lower() == 'message_text_random':
-                value['type'] = MessageRandomText
-            elif value['type'].lower() == 'input_user':
-                value['type'] = InputUser
-            elif value['type'].lower() == 'input_context':
-                value['type'] = InputContext
-            elif value['type'].lower() == 'conditional_equal':
-                value['type'] = ConditionalEquals
-            elif value['type'].lower() == 'conditional_exists':
-                value['type'] = ConditionalExists
+        for state_name, state_properties in loaded_yaml['states'].items():
+            if state_properties['type'].lower() == 'message_text':
+                state_properties['type'] = MessageText
+            elif state_properties['type'].lower() == 'message_text_random':
+                state_properties['type'] = MessageRandomText
+            elif state_properties['type'].lower() == 'input_user':
+                state_properties['type'] = InputUser
+            elif state_properties['type'].lower() == 'input_context':
+                state_properties['type'] = InputContext
+            elif state_properties['type'].lower() == 'conditional_equal':
+                state_properties['type'] = ConditionalEquals
+            elif state_properties['type'].lower() == 'conditional_exists':
+                state_properties['type'] = ConditionalExists
                 # TODO add custom actions
             else:
                 # Unknown type of node founded
-                raise ValueError('Unknown type ' + '"' + value['type'] + '"' + ' of node ' + '"' + key + '"')
+                raise ValueError(
+                    'Unknown type ' + '"' + state_properties['type'] + '"' + ' of node ' + '"' + state_name + '"')
 
     # check if init state is present
     def check_init_state(self, loaded_yaml):
@@ -128,7 +136,7 @@ class YamlParser:
     # checks if all stetes has type
     def check_types(self, loaded_yaml):
         for state_name, state_parameters in loaded_yaml['states'].items():
-            if not ("type" in state_parameters):
+            if state_parameters is None or not ("type" in state_parameters):
                 raise ValueError('The node "' + state_name + '" has no type.')
 
     # check unique names of states
@@ -137,3 +145,79 @@ class YamlParser:
             if 'states' in state_dict:
                 if state_name in state_dict['states'].keys():
                     raise ValueError('There are nodes of the same name "' + state_name + '".')
+
+    # sets missing or default properties
+    def set_default_properties(self, loaded_yaml):
+        for state_name, state_properties in loaded_yaml['states'].items():
+            if state_properties['type'] == MessageText:
+                self.set_default_properties_message_text(state_properties)
+            elif state_properties['type'] == MessageRandomText:
+                self.set_default_properties_message_text_random(state_properties)
+            elif state_properties['type'] == InputUser:
+                self.set_default_properties_input_user(state_properties)
+            elif state_properties['type'] == InputContext:
+                self.set_default_properties_input_context(state_properties)
+            elif state_properties['type'] == ConditionalEquals:
+                self.set_default_properties_conditional_equal(state_name, state_properties)
+            elif state_properties['type'] == ConditionalExists:
+                self.set_default_properties_conditional_exists(state_name, state_properties)
+                # TODO add custom actions
+
+    # adds properties to message_text node
+    def set_default_properties_message_text(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'text': 'Your message here.'}})
+        elif not ('text' in state_properties['properties']):
+            state_properties['properties'].update({'text': 'Your message here.'})
+
+    # adds properties to message_text_random node
+    def set_default_properties_message_text_random(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'responses': ['Your message here.']}})
+        elif not ('responses' in state_properties['properties']):
+            state_properties['properties'].update({'responses': ['Your message here.']})
+
+    # adds properties to input_user node
+    def set_default_properties_input_user(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'text': 'Your question here.', 'entities': {}, 'log_json': False,
+                                                    'require_match': False,
+                                                    'error_text': "Sorry I don’t understand. Please try again."}})
+        if not ('text' in state_properties['properties']):
+            state_properties['properties'].update({'text': 'Your question here.'})
+        if not ('entities' in state_properties['properties']):
+            state_properties['properties'].update({'entities': {}})
+        if not ('log_json' in state_properties['properties']):
+            state_properties['properties'].update({'log_json': False})
+        if not ('require_match' in state_properties['properties']):
+            state_properties['properties'].update({'require_match': False})
+        if not ('error_text' in state_properties['properties']):
+            state_properties['properties'].update({'error_text': "Sorry I don’t understand. Please try again."})
+
+    # adds properties to input_context node
+    def set_default_properties_input_context(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'entities': {}}})
+        if not ('entities' in state_properties['properties']):
+            state_properties['properties'].update({'entities': {}})
+
+    # adds properties to conditional_equal node
+    def set_default_properties_conditional_equal(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            raise ValueError(
+                'The "properties" field with "value1" and "value2" fields is missing in the state "' + state_name + '".')
+        if not ('value1' in state_properties['properties']):
+            raise ValueError(
+                'The "value1" field is missing in the properties of state "' + state_name + '".')
+        if not ('value2' in state_properties['properties']):
+            raise ValueError(
+                'The "value2" field is missing in the properties of state "' + state_name + '".')
+
+    # adds properties to conditional_exists node
+    def set_default_properties_conditional_exists(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            raise ValueError(
+                'The "properties" field with "key" field is missing in the state "' + state_name + '".')
+        if not ('key' in state_properties['properties']):
+            raise ValueError(
+                'The "key" field is missing in the properties of state "' + state_name + '".')
