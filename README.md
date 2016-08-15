@@ -9,6 +9,10 @@ We use WIT.ai as our npl service currently so you will need to install WIT as we
 
 	pip install wit
 	
+We use PyYaml. You need to install it by
+
+    pip install PyYaml
+
 To run Alquist use command
 
 	py -3 main.py [port] [webhook URL] [wit server access token] [Folder containing yamls]
