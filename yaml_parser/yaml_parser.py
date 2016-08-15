@@ -98,7 +98,7 @@ class YamlParser:
     def modify_return_transitions(self, state_parameters):
         if "transitions" in state_parameters:
             if state_parameters["transitions"] == "return":
-                state_parameters["transitions"] = ''
+                state_parameters["transitions"] = {'next_state': ''}
 
     # Change string representation of states into inner representation of objects
     def types_to_intern_representation(self, loaded_yaml):
