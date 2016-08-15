@@ -3,7 +3,7 @@ import threading
 import os
 from queue import Queue
 
-from demo import state_dict
+from loaded_states import state_dict
 
 
 # Session is a class representing a conversation that user has with the bot after activating it.

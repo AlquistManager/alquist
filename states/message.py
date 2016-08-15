@@ -7,7 +7,7 @@ class MessageText(State):
     def execute(self, parent_session) -> str:
         text = State.contextualize(parent_session.context, self.properties['text'])  # Add context
         parent_session.send(text)  # Send message
-        parent_session.logger.debug('Robot says: ' + text)
+        parent_session.logger.debug('Robot says: ' + str(text))
         return self.transitions.get('next_state', False)
 
 
@@ -17,5 +17,5 @@ class MessageRandomText(State):
         i = randint(0, len(resp)-1)
         text = State.contextualize(parent_session.context, resp[i])
         parent_session.send(text)
-        parent_session.logger.debug('Robot says: ' + text)
+        parent_session.logger.debug('Robot says: ' + str(text))
         return self.transitions.get('next_state', False)

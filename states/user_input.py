@@ -6,10 +6,10 @@ class InputUser(State):
     def execute(self, parent_session) -> str:
         text = State.contextualize(parent_session.context, self.properties['text'])
         parent_session.send(text)
-        parent_session.logger.debug('Robot says: ' + self.properties['text'])
+        parent_session.logger.debug('Robot says: ' + str(self.properties['text']))
         parent_session.logger.info('Robot is waiting for your response ... ')
         raw_response = parent_session.recieve()
-        parent_session.logger.debug('Client says: ' + raw_response)
+        parent_session.logger.debug('Client says: ' + str(raw_response))
         response = get_entities(raw_response)
         parent_session.logger.info('NLP response: ' + str(response))
 
@@ -26,7 +26,7 @@ class InputUser(State):
                     parent_session.logger.debug('Match unsuccessful.')
                     text = State.contextualize(parent_session.context, self.properties['error_text'])
                     parent_session.send(text)
-                    parent_session.logger.debug('Robot says: ' + self.properties['error_text'])
+                    parent_session.logger.debug('Robot says: ' + str(self.properties['error_text']))
                     response = parent_session.recieve()
                     parent_session.logger.info('Robot is waiting for your response ... ')
 
