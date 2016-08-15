@@ -19,9 +19,9 @@ class State(ABC):
     @staticmethod
     def contextualize(context, text):  # Replaces variable strings with context values
 
-        pattern_clean = re.compile('(?<=\'{{)(.*?)(?=}}\')')
+        pattern_clean = re.compile('(?<={{)(.*?)(?=}})')
         for entity in re.findall(pattern_clean, str(text)):
-            text = text.replace('\'{{' + entity + '}}\'', context[entity])
+            text = text.replace('{{' + entity + '}}', context[entity])
         return text
 
     def update_context(self, context: dict, response: dict):

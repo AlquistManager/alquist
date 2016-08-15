@@ -28,7 +28,7 @@ states:
   color_echo:
     type: message_text
     properties:
-      text: Wow, '{{color}}', really? That is super cool.
+      text: Wow, {{color}}, really? That is super cool.
     transitions: return
 
   leave_in_shame:

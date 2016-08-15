@@ -19,7 +19,7 @@ states:
     type: conditional_equal
     properties:
       value1: '{{yes_no}}'
-      value2: yes
+      value2: 'yes'
     transitions:
       equal: ask_color
       notequal: bye

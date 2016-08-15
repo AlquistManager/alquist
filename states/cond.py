@@ -19,7 +19,7 @@ class ConditionalEquals(State):
 
 class ConditionalExists(State):
     def execute(self, parent_session) -> str:
-        m = re.search('(?<=\'{{)(.*?)(?=}}\')', self.properties['key'])
+        m = re.search('(?<={{)(.*?)(?=}})', self.properties['key'])
         if m:
             entity = m.group(1)
             parent_session.logger.debug('Checking, if ' + str(entity) + ' exists')
