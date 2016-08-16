@@ -24,6 +24,7 @@ class Session(threading.Thread):
         self.current_state = None
         self.logger = None
         self.input_buffer = Queue()
+        self.session_history = []
 
     # start thread
     def run(self):
@@ -37,13 +38,17 @@ class Session(threading.Thread):
         self.logger.info('Successfully Finished Conversation')
 
     def send(self, text):
-        Output.response(text + "\n", self.session_id)
+        response = text + "\n"
+        self.session_history.append(["System", response])
+        Output.response(response, self.session_id)
 
     def recieve(self) -> str:
         # waits for the buffer to contain something
         while self.input_buffer.empty():
             pass
-        return self.input_buffer.get()
+        input_text = self.input_buffer.get()
+        self.session_history.append(["User",input_text])
+        return input_text
 
     def setup_log(self):
         # set up logging to file - see previous section for more details

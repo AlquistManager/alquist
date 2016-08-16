@@ -21,4 +21,4 @@ if __name__ == '__main__':
     #Load and parse yaml files
     YamlParser()
     # Start flask
-    flask.run(port=int(sys.argv[1]), debug=True)
+    flask.run(port=int(sys.argv[1]), debug=False)
