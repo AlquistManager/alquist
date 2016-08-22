@@ -180,19 +180,15 @@ class YamlParser:
     # adds properties to input_user node
     def set_default_properties_input_user(self, state_properties):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
-            state_properties.update({'properties': {'text': 'Your question here.', 'entities': {}, 'log_json': False,
+            state_properties.update({'properties': {'entities': {}, 'log_json': False,
                                                     'require_match': False,
-                                                    'error_text': "Sorry I don’t understand. Please try again."}})
-        if not ('text' in state_properties['properties']):
-            state_properties['properties'].update({'text': 'Your question here.'})
+                                                    }})
         if not ('entities' in state_properties['properties']):
             state_properties['properties'].update({'entities': {}})
         if not ('log_json' in state_properties['properties']):
             state_properties['properties'].update({'log_json': False})
         if not ('require_match' in state_properties['properties']):
             state_properties['properties'].update({'require_match': False})
-        if not ('error_text' in state_properties['properties']):
-            state_properties['properties'].update({'error_text': "Sorry I don’t understand. Please try again."})
 
     # adds properties to input_context node
     def set_default_properties_input_context(self, state_properties):
