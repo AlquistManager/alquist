@@ -27,7 +27,14 @@ states:
         color: color
     transitions:
       match: debug_recent
-      notmatch: ask_color
+      notmatch: error_color
+
+  error_color:
+    type: message_text
+    properties:
+      text: I don't think that is a color. Try another one?
+    transitions:
+      next_state: answer_color
 
   color_echo:
     type: message_text
