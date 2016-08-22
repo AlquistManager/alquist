@@ -16,9 +16,9 @@ def get_input():
         text = request.json['text']
         state = request.json['state']
         context = request.json['context']
-        #TODO call state execute
-        #TODO make some response
-        return jsonify(text=None,state_name=None,context=None)
+        # TODO call state execute
+        # TODO make some response
+        return jsonify(text=text, state=state, context=context)
     except KeyError:
         # Missing 'session_id' or 'text'
         return jsonify(ok=False, message="Missing parameters.")
