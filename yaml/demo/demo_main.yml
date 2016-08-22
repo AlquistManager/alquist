@@ -19,7 +19,14 @@ states:
         yes_no: yes_no
     transitions:
       match: yes_no
-      notmatch: input_user
+      notmatch: error_yes
+
+  error_yes:
+    type: message_text
+    properties:
+      text: Sorry, I don't understand, yes or no?
+    transitions:
+      next_state: user_yes
 
   yes_no:
     type: conditional_equal
