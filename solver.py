@@ -10,10 +10,9 @@ def process_request(state_name, context, text):
         has_next = request_data.get('next_state', False)
         if has_next:
             next_type = str(state_dict['states'][has_next].get('type', lambda: "nothing"))
-            if next_type == "InputUser":
+            if next_type == str('<class \'states.user_input.InputUser\'>'):
                 return request_data
             state_name = has_next
-
         else:
             request_data.update({'next_state': 'END'})
             return request_data
