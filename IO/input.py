@@ -4,7 +4,6 @@ import uuid
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-import sessions
 from solver import process_request
 
 flask = Flask(__name__)
