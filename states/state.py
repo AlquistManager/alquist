@@ -13,7 +13,7 @@ class State(ABC):
         self.transitions = transitions
 
     @abstractmethod
-    def execute(self, parent_session) -> str:
+    def execute(self, request_data) -> dict:
         pass
 
     @staticmethod

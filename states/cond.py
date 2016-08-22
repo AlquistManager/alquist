@@ -4,27 +4,25 @@ from .state import State
 
 
 class ConditionalEquals(State):
-    def execute(self, parent_session) -> str:
-        val1 = State.contextualize(parent_session.context, self.properties['value1'])
-        val2 = State.contextualize(parent_session.context, self.properties['value2'])
-        parent_session.logger.debug('Comparing ' + str(val1) + ' and ' + str(val2))
+    def execute(self, request_data) -> dict:
+        val1 = State.contextualize(request_data.context, self.properties['value1'])
+        val2 = State.contextualize(request_data.context, self.properties['value2'])
 
         if val1 == val2:
-            parent_session.logger.debug('Values are equal')
-            return self.transitions.get('equal', False)
+            request_data.update({'next_state': self.transitions.get('equal', False)})
+            return request_data
         else:
-            parent_session.logger.debug('Values are NOT equal')
-            return self.transitions.get('notequal', False)
+            request_data.update({'next_state': self.transitions.get('notequal', False)})
+            return request_data
 
 
 class ConditionalExists(State):
-    def execute(self, parent_session) -> str:
+    def execute(self, request_data) -> dict:
         m = re.search('(?<={{)(.*?)(?=}})', self.properties['key'])
         if m:
             entity = m.group(1)
-            parent_session.logger.debug('Checking, if ' + str(entity) + ' exists')
-            if parent_session.context.get(entity, False):
-                parent_session.logger.debug('Context entity ' + entity + ' found')
-                return self.transitions.get('exists', False)
-        parent_session.logger.debug('Context entity NOT found')
-        return self.transitions.get('notexists', False)
+            if request_data.context.get(entity, False):
+                request_data.update({'next_state': self.transitions.get('exists', False)})
+                return request_data
+        request_data.update({'next_state': self.transitions.get('notexists', False)})
+        return request_data

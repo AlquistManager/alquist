@@ -3,43 +3,28 @@ from .state import State
 
 
 class InputUser(State):
-    def execute(self, parent_session) -> str:
-        text = State.contextualize(parent_session.context, self.properties['text'])
-        parent_session.send(text)
-        parent_session.logger.debug('Robot says: ' + str(self.properties['text']))
-        parent_session.logger.info('Robot is waiting for your response ... ')
-        raw_response = parent_session.recieve()
-        parent_session.logger.debug('Client says: ' + str(raw_response))
-        response = get_entities(raw_response)
-        parent_session.logger.info('NLP response: ' + str(response))
-
-        # Require entity match check
-        if self.properties['require_match']:
-            bad_response = True
-            parent_session.logger.debug('Checking required entities.')
-
-            while bad_response:
-                if self.check_response(response):
-                    parent_session.logger.debug('Match successful.')
-                    bad_response = False
-                else:
-                    parent_session.logger.debug('Match unsuccessful.')
-                    text = State.contextualize(parent_session.context, self.properties['error_text'])
-                    parent_session.send(text)
-                    parent_session.logger.debug('Robot says: ' + str(self.properties['error_text']))
-                    raw_response = parent_session.recieve()
-                    parent_session.logger.debug('Client says: ' + str(raw_response))
-                    response = get_entities(raw_response)
-                    parent_session.logger.info('NLP response: ' + str(response))
+    def execute(self, request_data) -> dict:
+        # TODO: Logging
+        response = get_entities(request_data.text)
 
         # Log latest user response to context
         if self.properties['log_json']:
-            parent_session.context.update({'latest': response})
-            parent_session.logger.debug('Adding latest response to context.')
+            request_data.context.update({'latest': response})
 
-        # Context updates with our entities
-        self.update_context(parent_session.context, response)
-        return self.transitions.get('next_state', False)
+        # Require entity match check
+        if self.properties['require_match']:
+
+            if self.check_response(response):
+                self.update_context(request_data.context, response)
+                request_data.update({'next_state': self.transitions.get('match', False)})
+                return request_data
+
+            else:
+                request_data.update({'next_state': self.transitions.get('notmatch', False)})
+                return request_data
+
+        request_data.update({'next_state': self.transitions.get('next_state', False)})
+        return request_data
 
     def check_response(self, response):  # Checks if all required entities are present
         for entity in self.properties['entities']:
@@ -51,7 +36,9 @@ class InputUser(State):
 
 
 class InputContext(State):
-    def execute(self, parent_session) -> str:
-        response = parent_session.context['latest']
-        self.update_context(parent_session.context, response)
-        return self.transitions.get('next_state', False)
+    def execute(self, request_data) -> dict:
+        response = request_data.context['latest']
+        self.update_context(request_data.context, response)
+        request_data.update({'next_state': self.transitions.get('next_state', False)})
+        return request_data
+
