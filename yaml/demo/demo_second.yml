@@ -14,16 +14,20 @@ states:
       notexists: leave_in_shame
 
   ask_color:
-    type: input_user
+    type: message_text
     properties:
       text: What is your favourite color?
+
+  answer_color:
+    type: input_user
+    properties:
       require_match: true
       log_json: true
-      error_text: I don't think that counts as a color... try another one?
       entities:
         color: color
     transitions:
-      next_state: debug_recent
+      match: debug_recent
+      notmatch: ask_color
 
   color_echo:
     type: message_text

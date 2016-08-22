@@ -6,14 +6,20 @@
 name: demo_main
 states:
   init:
+    type: message_text
+    properties:
+      text: Hi, can I ask you a question?
+
+  user_yes:
     type: input_user
     properties:
-      text: Hi, nice to meet you. \nCan I have a question?
       require_match: true
       log_json: false
-      error_text: Sorry, I don't understand, yes or no?
       entities:
         yes_no: yes_no
+    transitions:
+      match: yes_no
+      notmatch: input_user
 
   yes_no:
     type: conditional_equal

@@ -5,17 +5,17 @@ from .state import State
 class InputUser(State):
     def execute(self, request_data) -> dict:
         # TODO: Logging
-        response = get_entities(request_data.text)
+        response = get_entities(request_data['text'])
 
         # Log latest user response to context
         if self.properties['log_json']:
-            request_data.context.update({'latest': response})
+            request_data['context'].update({'latest': response})
 
         # Require entity match check
         if self.properties['require_match']:
 
             if self.check_response(response):
-                self.update_context(request_data.context, response)
+                self.update_context(request_data['context'], response)
                 request_data.update({'next_state': self.transitions.get('match', False)})
                 return request_data
 
@@ -37,8 +37,8 @@ class InputUser(State):
 
 class InputContext(State):
     def execute(self, request_data) -> dict:
-        response = request_data.context['latest']
-        self.update_context(request_data.context, response)
+        response = request_data['context']['latest']
+        self.update_context(request_data['context'], response)
         request_data.update({'next_state': self.transitions.get('next_state', False)})
         return request_data
 
