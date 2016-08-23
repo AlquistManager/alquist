@@ -1,7 +1,11 @@
 import logging.handlers
+import os
 
 LOG_FILENAME = 'logs/full_log.out'
 REC_FILENAME = 'logs/dm_log.out'
+
+if not os.path.exists('logs/'):
+    os.makedirs('logs/')
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(uid)s - %(levelname)s - %(message)s')
 
