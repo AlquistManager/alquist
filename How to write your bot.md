@@ -18,7 +18,7 @@ For example:
 
 ### Transitions
 Each state must have transitions field, since it is used in constructor. 
-Parameter of transition is name of state, where you want to go after the execution of state. The state can be even from different flow.
+Parameter of transition is key ``next_state`` and name of state, where you want to go after the execution of state. The state can be even from different flow.
  ``conditional_exists`` and ``conditional_equal`` has different transition parameters. See State descriptions section.
 
 For example:
@@ -27,7 +27,8 @@ For example:
         type: message_text
         properties:
             text: Hello World!
-        transitions: state2
+        transitions: 
+            next_state: state2
  
 If the transitions field is empty, conversation ends after executing current state.
 
