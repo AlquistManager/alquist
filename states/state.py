@@ -30,5 +30,5 @@ class State(ABC):
                 context.update({entity: response[self.properties['entities'][entity]]})
 
     def __str__(self):
-        return 'Name: ' + self.name + '\rProperties: ' + str(self.properties) + '\rTransitions: ' + str(
+        return self.name + '\rType: ' + str(type(self)) + '\rProperties: ' + str(self.properties) + '\rTransitions: ' + str(
             self.transitions)

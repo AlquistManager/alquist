@@ -24,7 +24,7 @@ def get_input():
             session = str(uuid.uuid4())
 
         # execute states
-        response = process_request(state, context, text)
+        response = process_request(state, context, text, session)
         return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
     except KeyError:
