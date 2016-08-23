@@ -8,9 +8,15 @@ class MessageText(State):
         state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
 
         text = State.contextualize(request_data['context'], self.properties['text'])  # Add context
-        request_data.update({'response': text, 'next_state': self.transitions.get('next_state', False)})
+        old_resposne = request_data.get('response', False)
+        if old_resposne:
+            old_resposne.append(text)
+        else:
+            old_resposne = [text]
 
-        state_logger.debug('Response: ' + request_data.get('response'), extra={'uid': request_data.get('session', False)})
+        request_data.update({'response': old_resposne, 'next_state': self.transitions.get('next_state', False)})
+
+        state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
         state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
 
@@ -24,9 +30,15 @@ class MessageRandomText(State):
         resp = self.properties['responses']
         i = randint(0, len(resp)-1)
         text = State.contextualize(request_data['context'], resp[i])
-        request_data.update({'response': text, 'next_state': self.transitions.get('next_state', False)})
+        old_resposne = request_data.get('response', False)
+        if old_resposne:
+            old_resposne.append(text)
+        else:
+            old_resposne = [text]
 
-        state_logger.debug('Response: ' + request_data.get('response'), extra={'uid': request_data.get('session', False)})
+        request_data.update({'response': old_resposne, 'next_state': self.transitions.get('next_state', False)})
+
+        state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
         state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
 
