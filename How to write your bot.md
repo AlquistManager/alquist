@@ -152,15 +152,13 @@ Example:
 	[name]:
         type: input_user
         properties:
-            text: [prompt]
             entities:
                 entity1: [nlp_entity_name]
             log_json: true
             require_match: true
-            error_text: [error_prompt]
         transitions:
-            next_state: [next_state_name]
-``text`` string containing prompt for user, **REQUIRED**
+            match: state1
+            notmatch: state2
 
 ``entities`` this field contains entities to save to context, **REQUIRED**
 
@@ -172,17 +170,15 @@ Example:
 ``require_match`` true/false, determines if entities from the entity field need to be present in order to continue
 > *we recommend to use* ``require_match`` *only for matching single entity, for multiple entities sequence of conditional states is preferred*
 
-``error_text`` text to display in case ``require_match`` is ``True`` and entities are missing
+``match`` field contains name of the state used when the entities are matched or require_match is false
 
-``next_state`` field contains name of the next state
+``notmatch`` field contains name of the state used when the entities are not matched
 
 
 Default property values:
 
-* ``text``: *Your question here*
 * ``log_json``: *false*
 * ``require_match``: *false*
-* ``error_text``: *Sorry I don’t understand. Please try again.*
 
 
 ### input_context
