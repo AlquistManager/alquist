@@ -99,6 +99,25 @@ class YamlParser:
         if "transitions" in state_parameters:
             if state_parameters["transitions"] == "return":
                 state_parameters["transitions"] = {'next_state': ''}
+                return
+            if "equal" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["equal"] == "return":
+                    state_parameters["transitions"]["equal"] = ""
+            if "notequal" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["notequal"] == "return":
+                    state_parameters["transitions"]["notequal"] = ""
+            if "match" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["match"] == "return":
+                    state_parameters["transitions"]["match"] = ""
+            if "notmatch" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["notmatch"] == "return":
+                    state_parameters["transitions"]["notmatch"] = ""
+            if "exists" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["exists"] == "return":
+                    state_parameters["transitions"]["exists"] = ""
+            if "notexists" in state_parameters["transitions"]:
+                if state_parameters["transitions"]["notexists"] == "return":
+                    state_parameters["transitions"]["notexists"] = ""
 
     # Change string representation of states into inner representation of objects
     def types_to_intern_representation(self, loaded_yaml):
