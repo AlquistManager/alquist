@@ -22,10 +22,15 @@ We use Flask-Cors. You need to install it by
 To run Alquist use command
 
 	py -3 main.py [port] [webhook URL] [wit server access token] [Folder containing yamls]
+	
 ``Port`` field defines the port on which the Alquist will run.
+
 ``Webhook URL`` field defines the URL of webhoook, where responses will be send. (--- NOT USED CURRENTLY, BUT INSERT SOME VALUE ---)
+
 ``WIT server access token`` defines which wit.ai app will you use. For our demo use ``NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V``
+
 ``Folder containing yamls`` path to folder, where yaml files are located.
+
 For example
 
 	py -3 main.py 5000 http://964bdc06.ngrok.io NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V C:\Users\user\yaml\
