@@ -4,6 +4,11 @@
 # Does NOT test for default propertz values.
 
 name: demo_main
+
+intent_transitions:
+  intent1: error_yes #change to something better
+  intent2: has_color
+
 states:
   init:
     type: message_text

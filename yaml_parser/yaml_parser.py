@@ -3,7 +3,7 @@ import sys
 from collections import OrderedDict
 
 import yaml
-from loaded_states import state_dict
+from loaded_states import state_dict, intent_transitions
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
 from states import *
 from os import listdir
@@ -26,6 +26,9 @@ class YamlParser:
             self.load_file(file_name)
         # check if init state is present
         self.check_init_state(state_dict)
+        print(intent_transitions)
+        # check if all states from intent_transitions exists
+        self.check_intent_transitions_states_exist()
 
     # load yaml file
     def load_file(self, file_name):
@@ -52,6 +55,8 @@ class YamlParser:
                 else:
                     # update only states, to not overwrite everything
                     state_dict['states'].update(loaded_yaml['states'])
+                # load intent_transitions field
+                self.load_intent_transitions(loaded_yaml)
             except yaml.YAMLError as exc:
                 print(exc)
 
@@ -236,3 +241,15 @@ class YamlParser:
         if not ('key' in state_properties['properties']):
             raise ValueError(
                 'The "key" field is missing in the properties of state "' + state_name + '".')
+
+    # loads intent_transitions field from yaml to memory
+    def load_intent_transitions(self, loaded_yaml):
+        if "intent_transitions" in loaded_yaml:
+            intent_transitions.update(loaded_yaml["intent_transitions"])
+
+    # checks if all states mentioned in intent_transitions exists
+    def check_intent_transitions_states_exist(self):
+        for key in intent_transitions:
+            intent_state = intent_transitions[key]
+            if not (intent_state in state_dict["states"]):
+                raise ValueError('State "' + intent_state + '" mentioned in intent_transitions doesn\'t exist.')

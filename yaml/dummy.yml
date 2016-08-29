@@ -6,6 +6,11 @@
 
 
 name: dummy # Name of the flow, unique for the whole application
+
+intent_transitions: #List of intent and their transitions
+  intent1: state2 # Name of intent: state to transition in case of the intent detection in input_user states
+  intent2: state3
+
 states: # List of states. States are executed sequentially
   init: # Name of the state. Unique in each flow
     type: message_text # Type of state.
