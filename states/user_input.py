@@ -1,6 +1,7 @@
 from logger import state_logger
 from nlp import *
 from .state import State
+from loaded_states import intent_transitions
 
 
 class InputUser(State):
@@ -15,6 +16,25 @@ class InputUser(State):
         # Log latest user response to context
         if self.properties['log_json']:
             request_data['context'].update({'latest': response})
+
+        # Switch intent according to user response
+        response_intent = response.get('intent', False)
+        if response_intent:
+            print(response_intent)
+            print(response_intent)
+            if response_intent != request_data['context'].get('intent', False):
+
+                state_logger.debug('Switching intent: current intent: ' + str(request_data['context'].get('intent', False)) + ', user intent: ' + str(response_intent),
+                                   extra={'uid': request_data.get('session', False)})
+                state_logger.debug('State ' + self.name + ' complete.',
+                                   extra={'uid': request_data.get('session', False)})
+
+                request_data.update({'next_state': intent_transitions.get(response_intent, False)})
+
+                state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                                   extra={'uid': request_data.get('session', False)})
+                return request_data
+
 
         # Require entity match check
         if self.properties['require_match']:
@@ -72,6 +92,24 @@ class InputContext(State):
 
         response = request_data['context'].get('latest', {})
         state_logger.debug('Latest user message: ' + str(response), extra={'uid': request_data.get('session', False)})
+
+        # Switch intent according to user response
+        response_intent = response.get('intent', False)
+        if response_intent:
+            print(response_intent)
+            print(response_intent)
+            if response_intent != request_data['context'].get('intent', False):
+
+                state_logger.debug('Switching intent: current intent: ' + str(request_data['context'].get('intent', False)) + ', user intent: ' + str(response_intent),
+                                   extra={'uid': request_data.get('session', False)})
+                state_logger.debug('State ' + self.name + ' complete.',
+                                   extra={'uid': request_data.get('session', False)})
+
+                request_data.update({'next_state': intent_transitions.get(response_intent, False)})
+
+                state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                                   extra={'uid': request_data.get('session', False)})
+                return request_data
 
         state_logger.debug(
             'Updating context...\rContext: ' + str(request_data.get('context', False)) + '\rUpdate: ' + str(response),
