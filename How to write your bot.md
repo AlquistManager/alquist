@@ -102,6 +102,21 @@ Bot replaces ``'{{intent}}'`` with value of the ``intent`` key saved in the sess
 ### Distribution of dialogue between multiple flows
 Dialogue can be distributed between multiple yaml files. Each file contains one flow. Place flows into one folder and use it's path as program argument.
 
+### Intent transitions
+If your bot supports multiple topics and you want to allow user to switch between them any time, you will like Intent transitions.
+Intent transitions allows you to define nodes to which dialogue will jump, if specific intent is detected. Intent transitions are defined
+as follows in the yaml file.
+
+    name: flow1
+        intent_transitions:
+            intent1: state1 #name_of_intent: state_to_transition
+            intent2: state2
+            intent3: state1
+    states: 
+        state1:
+            ...
+
+Intent has to be trained in the Wit.ai as one of entity with the name ``intent``. Intents are checked every time, user inputs something.
 
 ## State descriptions
 ### message_text
