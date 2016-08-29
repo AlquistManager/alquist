@@ -18,15 +18,19 @@ def get_input():
         state = request.json['state']
         context = request.json['context']
         session = request.json['session']
+    except KeyError:
+        # Missing 'session_id' or 'text'
+        return jsonify(ok=False, message="Missing parameters.")
 
         # create UUID for session if it does't exist
-        if session is "":
-            session = str(uuid.uuid4())
+    if session is "":
+        session = str(uuid.uuid4())
 
+    try:
         # execute states
         response = process_request(state, context, text, session)
         return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
-    except KeyError:
+    except:
         # Missing 'session_id' or 'text'
-        return jsonify(ok=False, message="Missing parameters.")
+        return jsonify(ok=False, message="Error during execution.")
