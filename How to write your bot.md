@@ -108,10 +108,10 @@ Intent transitions allows you to define nodes to which dialogue will jump, if sp
 as follows in the yaml file.
 
     name: flow1
-        intent_transitions:
-            intent1: state1 #name_of_intent: state_to_transition
-            intent2: state2
-            intent3: state1
+    intent_transitions:
+        intent1: state1 #name_of_intent: state_to_transition
+        intent2: state2
+        intent3: state1
     states: 
         state1:
             ...
