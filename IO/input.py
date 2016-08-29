@@ -32,5 +32,5 @@ def get_input():
         return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
     except:
-        # Missing 'session_id' or 'text'
+        # Error in execution
         return jsonify(ok=False, message="Error during execution.")

@@ -257,3 +257,5 @@ Example:
 
 ### UserDefinedState
 You can define our own state. Keep in mind, that the name of your state type should be the same as name of your class, defining the state.
+Place your states to ``states.user`` directory https://github.com/AlquistManager/alquist/tree/master/states/user. Each state has to be placed
+in the separate file named the same as the state type name. There is example of HelloWorld state here.

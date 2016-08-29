@@ -1,4 +1,5 @@
 import glob
+import importlib
 import sys
 from collections import OrderedDict
 
@@ -41,7 +42,7 @@ class YamlParser:
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
                 # check unique names of states
                 self.check_unique_names(loaded_yaml, state_dict)
-                # checks if all stetes has type
+                # checks if all states has type
                 self.check_types(loaded_yaml)
                 # add missing transitions
                 self.modify_transitions(loaded_yaml)
@@ -139,11 +140,16 @@ class YamlParser:
                 state_properties['type'] = ConditionalEquals
             elif state_properties['type'].lower() == 'conditional_exists':
                 state_properties['type'] = ConditionalExists
-                # TODO add custom actions
+            # custom action
             else:
+                try:
+                    state_properties['type'] = getattr(
+                        importlib.import_module("." + state_properties['type'], "states.user"),
+                        state_properties['type'])
                 # Unknown type of node founded
-                raise ValueError(
-                    'Unknown type ' + '"' + state_properties['type'] + '"' + ' of node ' + '"' + state_name + '"')
+                except:
+                    raise ValueError(
+                        'Unknown type ' + '"' + state_properties['type'] + '"' + ' of node ' + '"' + state_name + '"')
 
     # check if init state is present
     def check_init_state(self, loaded_yaml):
@@ -185,7 +191,10 @@ class YamlParser:
                 self.set_default_properties_conditional_equal(state_name, state_properties)
             elif state_properties['type'] == ConditionalExists:
                 self.set_default_properties_conditional_exists(state_name, state_properties)
-                # TODO add custom actions
+            else:
+                # custom state
+                if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+                    state_properties.update({'properties': {}})
 
     # adds properties to message_text node
     def set_default_properties_message_text(self, state_properties):

@@ -11,6 +11,9 @@ intent_transitions:
 
 states:
   init:
+    type: HelloWorld
+
+  init2:
     type: message_text
     properties:
       text: Hi, can I ask you a question?
