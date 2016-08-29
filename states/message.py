@@ -18,7 +18,7 @@ class MessageText(State):
 
         state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
 
         return request_data
 
@@ -40,6 +40,6 @@ class MessageRandomText(State):
 
         state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
 
         return request_data

@@ -21,7 +21,7 @@ class State(ABC):
 
         pattern_clean = re.compile('(?<={{)(.*?)(?=}})')
         for entity in re.findall(pattern_clean, str(text)):
-            text = text.replace('{{' + entity + '}}', context[entity])
+            text = text.replace('{{' + entity + '}}', str(context.get(entity, 'Missing_enitiy')))
         return text
 
     def update_context(self, context: dict, response: dict):

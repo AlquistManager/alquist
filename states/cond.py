@@ -18,7 +18,7 @@ class ConditionalEquals(State):
             request_data.update({'next_state': self.transitions.get('equal', False)})
             state_logger.debug('State ' + self.name + ' complete.',
                                extra={'uid': request_data.get('session', False)})
-            state_logger.debug('Next state: ' + request_data.get('next_state'),
+            state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                                extra={'uid': request_data.get('session', False)})
             return request_data
         else:
@@ -27,7 +27,7 @@ class ConditionalEquals(State):
             request_data.update({'next_state': self.transitions.get('notequal', False)})
             state_logger.debug('State ' + self.name + ' complete.',
                                extra={'uid': request_data.get('session', False)})
-            state_logger.debug('Next state: ' + request_data.get('next_state'),
+            state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                                extra={'uid': request_data.get('session', False)})
             return request_data
 
@@ -46,12 +46,12 @@ class ConditionalExists(State):
                 request_data.update({'next_state': self.transitions.get('exists', False)})
                 state_logger.debug('State ' + self.name + ' complete.',
                                    extra={'uid': request_data.get('session', False)})
-                state_logger.debug('Next state: ' + request_data.get('next_state'),
+                state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                                    extra={'uid': request_data.get('session', False)})
                 return request_data
         request_data.update({'next_state': self.transitions.get('notexists', False)})
         state_logger.debug('State ' + self.name + ' complete.',
                            extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + request_data.get('next_state'),
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                            extra={'uid': request_data.get('session', False)})
         return request_data

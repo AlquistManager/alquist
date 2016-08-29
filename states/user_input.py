@@ -29,7 +29,7 @@ class InputUser(State):
                 request_data.update({'next_state': self.transitions.get('match', False)})
                 state_logger.debug('State ' + self.name + ' complete.',
                                    extra={'uid': request_data.get('session', False)})
-                state_logger.debug('Next state: ' + request_data.get('next_state'),
+                state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                                    extra={'uid': request_data.get('session', False)})
 
                 return request_data
@@ -43,7 +43,7 @@ class InputUser(State):
                 self.update_context(request_data['context'], response)
                 state_logger.debug('State ' + self.name + ' complete.',
                                    extra={'uid': request_data.get('session', False)})
-                state_logger.debug('Next state: ' + request_data.get('next_state'),
+                state_logger.debug('Next state: ' + str(request_data.get('next_state')),
                                    extra={'uid': request_data.get('session', False)})
 
                 return request_data
@@ -53,7 +53,7 @@ class InputUser(State):
         self.update_context(request_data['context'], response)
         request_data.update({'next_state': self.transitions.get('next_state', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
 
         return request_data
 
@@ -70,7 +70,7 @@ class InputContext(State):
     def execute(self, request_data) -> dict:
         state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
 
-        response = request_data['context']['latest']
+        response = request_data['context'].get('latest', {})
         state_logger.debug('Latest user message: ' + str(response), extra={'uid': request_data.get('session', False)})
 
         state_logger.debug(
@@ -79,7 +79,7 @@ class InputContext(State):
         self.update_context(request_data['context'], response)
         request_data.update({'next_state': self.transitions.get('next_state', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + request_data.get('next_state'), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
 
         return request_data
 
