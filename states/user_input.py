@@ -20,7 +20,7 @@ class InputUser(State):
         # Switch intent according to user response
         response_intent = response.get('intent', False)
         if response_intent:
-            if request_data['context'].get('intent', False) and intent_transitions.get(response_intent, False)and response_intent != request_data['context'].get('intent', False):
+            if request_data['context'].get('intent', False) and intent_transitions.get(response_intent, False) and response_intent != request_data['context'].get('intent', False):
 
                 state_logger.debug('Switching intent: current intent: ' + str(request_data['context'].get('intent', False)) + ', user intent: ' + str(response_intent),
                                    extra={'uid': request_data.get('session', False)})
@@ -94,7 +94,7 @@ class InputContext(State):
         # Switch intent according to user response
         response_intent = response.get('intent', False)
         if response_intent:
-            if request_data['context'].get('intent', False) and response_intent != request_data['context'].get('intent', False):
+            if request_data['context'].get('intent', False) and intent_transitions.get(response_intent, False) and response_intent != request_data['context'].get('intent', False):
 
                 state_logger.debug('Switching intent: current intent: ' + str(request_data['context'].get('intent', False)) + ', user intent: ' + str(response_intent),
                                    extra={'uid': request_data.get('session', False)})
