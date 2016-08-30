@@ -15,7 +15,6 @@ cors = CORS(flask)
 @flask.before_first_request
 def load_yamls():
     YamlParser()
-    return 'OK'
 
 
 # Used for sending messages to the bot
