@@ -13,8 +13,6 @@ cors = CORS(flask)
 # Used for sending messages to the bot
 @flask.route("/", methods=['POST'])
 def get_input():
-    from yaml_parser.yaml_parser import YamlParser
-    YamlParser()
     try:
         text = request.json['text']
         state = request.json['state']
