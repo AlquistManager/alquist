@@ -15,6 +15,7 @@ cors = CORS(flask)
 @flask.before_first_request
 def load_yamls():
     YamlParser()
+    return 'OK'
 
 
 # Used for sending messages to the bot
@@ -33,11 +34,10 @@ def get_input():
     if session is "":
         session = str(uuid.uuid4())
 
-        # try:
+    try:
         # execute states
         response = process_request(state, context, text, session)
         return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
-        # except:
-        # Error in execution
-        #   return jsonify(ok=False, message="Error during execution.")
+    except:  # Error in execution
+        return jsonify(ok=False, message="Error during execution.")
