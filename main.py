@@ -4,6 +4,6 @@ from yaml_parser.yaml_parser import YamlParser
 
 if __name__ == '__main__':
     # Load and parse yaml files
-    YamlParser()
+    flask.before_first_request(YamlParser)
     # Start flask
     flask.run(port=int(config["port"]), debug=False, threaded=True)
