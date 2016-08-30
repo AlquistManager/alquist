@@ -1,7 +1,7 @@
 from wit import Wit
-import sys
+from config import config
 
-access_token = sys.argv[3]
+access_token = config["wit_token"]
 
 actions = {}
 

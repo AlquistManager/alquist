@@ -1,9 +1,9 @@
 import glob
 import importlib
-import sys
 from collections import OrderedDict
 
 import yaml
+from config import config
 from loaded_states import state_dict, intent_transitions
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
 from states import *
@@ -14,7 +14,7 @@ from os.path import isfile, join
 # Parses yaml files containing description of dialogue
 class YamlParser:
     # folder, where yaml files are stored
-    path = sys.argv[4]
+    path = config["yaml_files_path"]
 
     def __init__(self):
         # clear all content in dictionary with loaded states
@@ -27,7 +27,6 @@ class YamlParser:
             self.load_file(file_name)
         # check if init state is present
         self.check_init_state(state_dict)
-        print(intent_transitions)
         # check if all states from intent_transitions exists
         self.check_intent_transitions_states_exist()
 

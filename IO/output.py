@@ -1,5 +1,4 @@
 import json
-import sys
 
 import requests
 
@@ -7,7 +6,7 @@ import requests
 # Handles sending messages to webhook
 class Output:
     # Webhook's URL taken from program argument
-    webhookUrl = str(sys.argv[2])
+    webhookUrl = ""
 
     # Sends output to webhook
     @classmethod
