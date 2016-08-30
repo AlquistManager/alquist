@@ -2,6 +2,8 @@ Alquist
 =======
 Alquist is dialogue manager created by Jakub Konrád and Petr Marek.
 
+You can test current demo at https://alquistmanager.github.io/alquist-client/?e=https://alquist.herokuapp.com
+
 You can use HTML client https://github.com/konrajak/alquist-client for workig with Alquist.
 
 ## Installation
