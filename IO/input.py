@@ -5,9 +5,16 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from solver import process_request
+from yaml_parser.yaml_parser import YamlParser
 
 flask = Flask(__name__)
 cors = CORS(flask)
+
+
+# Load and parse yaml files
+@flask.before_first_request
+def load_yamls():
+    YamlParser()
 
 
 # Used for sending messages to the bot
@@ -26,11 +33,11 @@ def get_input():
     if session is "":
         session = str(uuid.uuid4())
 
-    #try:
+        # try:
         # execute states
         response = process_request(state, context, text, session)
         return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
-    #except:
+        # except:
         # Error in execution
-     #   return jsonify(ok=False, message="Error during execution.")
+        #   return jsonify(ok=False, message="Error during execution.")
