@@ -17,18 +17,22 @@ class YamlParser:
     path = config["yaml_files_path"]
 
     def __init__(self):
+        print(":::Loading YAML:::")
         # clear all content in dictionary with loaded states
         state_dict.clear()
         # find all .yml and .yaml files
         files = [f for f in listdir(self.path)
                  if isfile(join(self.path, f)) if f.endswith(('.yml', '.yaml'))]
+        print(":::Files: "+str(files)+":::")
         # load all files
         for file_name in files:
             self.load_file(file_name)
+            print(":::Loading file: "+file_name+":::")
         # check if init state is present
         self.check_init_state(state_dict)
         # check if all states from intent_transitions exists
         self.check_intent_transitions_states_exist()
+        print(":::State dictionary: "+str(state_dict)+":::")
 
     # load yaml file
     def load_file(self, file_name):

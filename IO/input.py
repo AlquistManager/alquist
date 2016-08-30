@@ -13,7 +13,6 @@ cors = CORS(flask)
 # Used for sending messages to the bot
 @flask.route("/", methods=['POST'])
 def get_input():
-    print("::::::::::::::test:::::::::::::::")
     try:
         text = request.json['text']
         state = request.json['state']
