@@ -47,11 +47,11 @@ states: # List of states. States are executed sequentially
   state5:
     type: conditional_equal # Compares two values and using transition creates corresponding branches
     properties:
-        value1: '{{ intent }}' # Here we use value of a context key intent
-        value2: greeting # We compare string "greeting"
+      value1: '{{ intent }}' # Here we use value of a context key intent
+      value2: greeting # We compare string "greeting"
     transitions: # defines transition states for both branches
-        equal: positive_case # transition for when values are equal
-        notequal: negative_case # transition for when values are not equal
+      equal: positive_case # transition for when values are equal
+      notequal: negative_case # transition for when values are not equal
 
   state6:
     type: conditional_exists # used to determine if selected key exists in current context
