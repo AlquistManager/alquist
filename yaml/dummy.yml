@@ -33,7 +33,7 @@ states: # List of states. States are executed sequentially
       log_json: true # determines if NLP JSON structure is stored in context
                      # only stores latest user prompt as JSON
       require_match: true # determines if expected entities are required
-    transition:
+    transitions:
       match: state4 # transition when the entities are matched
       notmatch: state4 # transition when the entities are not matched
 
