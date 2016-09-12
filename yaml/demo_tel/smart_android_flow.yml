@@ -1,0 +1,285 @@
+name: smart_android_flow
+states:
+  smart_android_init:
+    type: message_text
+    properties:
+      text: 'Android vyuívá celá øada vırobcù mobilních telefonù. Pokud hledáte telefon od specifického vırobce, mùete si vybrat z nabídky níe. Pokud si volbou vırobce nejste jisti, zvolte monost PØESKOÈIT VOLBU VİROBCE'
+
+  smart_android_select_brand:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        brand: brand # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params # transition when the entities are matched
+      notmatch: error_select_brand # transition when the entities are not matched
+
+  error_select_brand:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Promiòte, ale tu znaèku neznám, prosím zkontrolujte, e jste ji zadali správnì, pøípadnì zvolte pøeskoøit volbu vırobce?
+    transitions:
+      next_state: smart_android_select_brand
+
+  smart_android_params:
+    type: message_text
+    properties:
+      text: 'Nyní se zamìøíme na parametry telefonu.'
+
+  smart_android_params_2:
+    type: message_text
+    properties:
+      text: 'Prosím zvolte, kterı z parametrù chcete specifikovat. Pokod jste vybrali všechny poadované parametry, pøejdìte k návrhu telefonù.'
+
+
+  smart_android_params_3:
+    type: message_text
+    properties:
+      text: 'ÚHLOPØÍÈKA DISPLEJE		PROCESOR 	OPERAÈNÍ PAMÌ		VELIKOST ÚLOIŠTÌ TELEFONU 		ROZLIŠENÍ TELEFONU 		NAVRHNOUT TELEFONY'
+
+  smart_android_select_param:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        parameter: parameter # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_param_check_display # transition when the entities are matched
+      notmatch: error_select_param # transition when the entities are not matched
+
+  error_select_param:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jeden z nabídky parametrù a opøesnìte jeho hodnoty. Pokud u jste nastavili všechny poadované parametry, zvolte NAVRHNOUT TELEFONY
+    transitions:
+      next_state: smart_android_params_3
+
+
+  smart_android_param_check_display:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'display' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_display # transition for when values are equal
+      notequal: smart_android_param_check_processor # transition for when values are not equal
+
+  smart_android_param_check_processor:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'processor' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_processor # transition for when values are equal
+      notequal: smart_android_param_check_ram # transition for when values are not equal
+
+  smart_android_param_check_ram:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'ram' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_ram # transition for when values are equal
+      notequal: smart_android_param_check_memory # transition for when values are not equal
+
+  smart_android_param_check_memory:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'space' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_memory # transition for when values are equal
+      notequal: smart_android_param_check_resolution # transition for when values are not equal
+
+  smart_android_param_check_resolution:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'resolution' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_resolution # transition for when values are equal
+      notequal: smart_android_param_check_recommend # transition for when values are not equal
+
+  smart_android_param_check_recommend:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}' # Here we use value of a context key intent
+      value2: 'recommend' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_recommend # transition for when values are equal
+      notequal: error_select_param # transition for when values are not equal
+
+
+  smart_android_display:
+    type: message_text
+    properties:
+      text: 'Displej je zpravidla dotykovı a velikost jeho úhlopøíèky se uvádí v palcích. Palec se znaèí znaèkou " a odpovídá 2,54 cm. Napøíklad ètyøpalcovı displej je velkı asi jako kreditní karta. Nejvybavenìjší telefony mají displeje pohybující se od ètyø do pìti palcù. Existují i tzv. phablety (tabletofony), které se s šestipalcovımi displeji svou velikostí blíí spíše tabletùm.'
+
+  smart_android_display_2:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte preferovanou velikost displeje:'
+
+  smart_android_display_3:
+    type: message_text
+    properties:
+      text: 'MALİ (DO 3.4 PALCÙ)		VELKİ (3.4 - 5 PALCÙ) 		EXTRA VELKİ (5+ PALCÙ)		NA DISPLEJI MI NEZÁLEÍ'
+
+  smart_android_display_select:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        display_size: display_size # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params_2 # transition when the entities are matched
+      notmatch: error_select_display # transition when the entities are not matched
+
+  error_select_display:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jednu z nabízenıch moností
+    transitions:
+      next_state: smart_android_display_3
+
+
+  smart_android_processor:
+    type: message_text
+    properties:
+      text: 'Pro rychlı chod telefonu je tøeba vıkonnı procesor. Èím více GHz (gigahertz - jednotka, v ní se rychlost procesoru udává) a èím více jader procesor má, tím rychlejší bude.'
+
+
+  smart_android_processor_3:
+    type: message_text
+    properties:
+      text: 'CHCI TELEFON SE SILNİM PROCESOREM		SÍLA PROCESORU NENÍ MOJE PRIORITA'
+
+  smart_android_processor_select:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        processor: processor # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params_2 # transition when the entities are matched
+      notmatch: error_select_processor # transition when the entities are not matched
+
+  error_select_processor:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jednu z nabízenıch moností
+    transitions:
+      next_state: smart_android_processor_3
+
+
+
+
+  smart_android_ram:
+    type: message_text
+    properties:
+      text: 'Telefon s velkou operaèní pamìtí zvládne mít spuštìnıch více aplikací najednou a bude fungovat stále stejnì plynule. Standardem se zaèíná stávat 1GB RAM, vıkonnìjší telefony pak nabídnou 2 a 3 GB operaèní pamìti.'
+
+
+  smart_android_ram_3:
+    type: message_text
+    properties:
+      text: 'CHCI TELEFON S VELKOU OPERAÈNÍ PAMÌTÍ (2+ GB)		VELIKOST OPERAÈNÍ PAMÌTI MÌ NEZAJÍMÁ'
+
+  smart_android_ram_select:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        ram: ram # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params_2 # transition when the entities are matched
+      notmatch: error_select_ram # transition when the entities are not matched
+
+  error_select_ram:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jednu z nabízenıch moností
+    transitions:
+      next_state: smart_android_ram_3
+
+
+  smart_android_memory:
+    type: message_text
+    properties:
+      text: 'Pamì telefonu se udává v GB (gigabytech). Èím vyšší hodnota, tím více hudby, filmù, fotografií, her a aplikací se vám do telefonu vejde.4 GB jde doporuèit jako základ. Pokud více fotografujete, hrajete hry atp., sáhnìte radìji po 8 GB a více.'
+
+  smart_android_memory_2:
+    type: message_text
+    properties:
+      text: 'Øešením je také koupì telefonu s podporou pamìovıch karet. Ty mohou mít kapacitu a nìkolika desítek GB a stojí bìnì pár set korun. Snadno tak rozšíøíte základní pamì telefonu.'
+
+  smart_android_memory_3:
+    type: message_text
+    properties:
+      text: 'STAÈÍ MI TELEFON S PAMÌTÍ DO 8 GB		CHCI TELEFON S PAMÌTÍ NAD 8 GB 		CHCI TELEFON S PODPOROU PAMÌOVİCH KARET 		INTERNÍ PAMÌ TELEFONU NENÍ MOJE PRIORITA'
+
+  smart_android_memory_select:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        memory: memory # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params_2 # transition when the entities are matched
+      notmatch: error_select_memory # transition when the entities are not matched
+
+  error_select_memory:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jednu z nabízenıch moností
+    transitions:
+      next_state: smart_android_memory_3
+
+
+
+  smart_android_resolution:
+    type: message_text
+    properties:
+      text: 'Rozlišení displeje je udáváno maximálním poètem pixelù (bodù), které se zobrazí na obrazovce telefonu. Èím vyšší, tím bude obraz ostøejší. U levnìjších pøístrojù byste mìli poadovat rozlišení alespoò 800 x 480, u draších pak 1280 x 720 bodù.'
+
+
+  smart_android_resolution_3:
+    type: message_text
+    properties:
+      text: 'CHCI TELEFON S ROZLIŠENÍM ALESPOÒ 1280 x 720  	CHCI TELEFON S ROZLIŠENÍM ALESPOÒ 1920 X 1080	ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ'
+
+  smart_android_resolution_select:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        resolution: resolution # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_android_params_2 # transition when the entities are matched
+      notmatch: error_select_resolution # transition when the entities are not matched
+
+  error_select_resolution:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Prosím vyberte jednu z nabízenıch moností
+    transitions:
+      next_state: smart_android_resolution_3
+
+  smart_android_recommend:
+    type: message_text
+    properties:
+      text: 'Vybrali jste SMARTPHONE s operaèním systémem ANDROID a následujícími parametry - cena od {{price_from}} do {{price_to}} Kè, displej {{display_size}} palcù, processor {{processor}}, ram {{ram}}, rozlišení {{resolution}} a pamì {{memory}}.'
+
+
+  smart_android_recommend_2:
+    type: message_text
+    properties:
+      text: 'PROHLEDÁVÁNÍ DATABÁZE TELEFONÙ ZATÍM NENÍ IMPLEMENTOVÁNO, DIALOG TEDY SKONÈÍ'

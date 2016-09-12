@@ -1,0 +1,82 @@
+name: main_flow
+states:
+  intro:
+    type: message_text
+    properties:
+      text: 'Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.'
+
+  intro2:
+    type: message_text
+    properties:
+      text: 'Dnešní nejlevnìjší telefony mají pouze ty nejzákladnìjší funkce. Pohud sháníte levný mobilní telefon s omezenými funkcemi, prosím zvolte možnost LEVNÁ ALTERNATIVA.
+'
+
+  intro3:
+    type: message_text
+    properties:
+      text: 'Pokud chcete svùj mobilní telefon využívat skuteènì naplno, sáhnìte radìji po chytrém telefonu (cenasmartphonu). S ním mùžete získat nespoèet dalších funkcí pouhým doinstalováním aplikací. Chcete-li vybírat z naší nabídky chatrých telefonù, prosím zvolte CHYTRÝ TELEFON.'
+
+  intro4:
+    type: message_text
+    properties:
+      text: 'Pro starší generace jsou k dispozici telefony pro seniory. Tyto telefony mají velký displej i tlaèítka a tím zaruèují dobrou èitelnost textu a snadné ovládání. Hledáte-li TELEFON PRO SENIORY, prosím zvolte pøíslušnou volbu.'
+
+  intro5:
+    type: message_text
+    properties:
+      text: 'Pokud jsi nejste jistí, kterou kategorii zvolit, mùžete vybrat možnost PROCHÁZET VŠE'
+
+  select_type:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        phone_type: phone_type # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: type_check_simple # transition when the entities are matched
+      notmatch: error_phone_type # transition when the entities are not matched
+
+  error_phone_type:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Omlouvám se, ale nerozumìl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
+        - Promiòte, ale nerozumìl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
+    transitions:
+      next_state: select_type
+
+  type_check_simple:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}' # Here we use value of a context key intent
+      value2: 'simple' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: simple_intro # transition for when values are equal
+      notequal: type_check_senior # transition for when values are not equal
+
+  type_check_senior:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}' # Here we use value of a context key intent
+      value2: 'senior' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: senior_intro # transition for when values are equal
+      notequal: type_check_smart # transition for when values are not equal
+
+  type_check_smart:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}' # Here we use value of a context key intent
+      value2: 'smart' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_intro # transition for when values are equal
+      notequal: type_check_all # transition for when values are not equal
+
+  type_check_all:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}' # Here we use value of a context key intent
+      value2: 'all' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: all_intro # transition for when values are equal
+      notequal: error_phone_type # transition for when values are not equal

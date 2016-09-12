@@ -1,0 +1,15 @@
+name: init_flow
+states:
+  init:
+    type: message_text
+    properties:
+      text: 'TOTO JE TESTOVACÍ VERZE ALQUIST BOTA PRO VÝBÌR A NÁKUP TELEFONÙ.'
+
+
+  second:
+    type: message_text
+    properties:
+      text: 'TATO APLIKACE JE STÁLE VE VÝVOJI A NÌKTERÉ JEJÍ FUNKCE NEJSOU PLNÌ IMPLEMENTOVÁNY'
+    transitions:
+      flow: greet_flow
+

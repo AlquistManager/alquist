@@ -1,0 +1,6 @@
+name: smart_win_flow
+states:
+  smart_win_init:
+    type: message_text
+    properties:
+      text: 'TATO VÌTEV DIALOGU JEŠTÌ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONÈÍ'

@@ -1,0 +1,150 @@
+name: smart_flow
+states:
+  smart_intro:
+    type: message_text
+    properties:
+      text: 'Chytré telefony jsou v souèasnosti nejrozšíøenìjším typem telefonù na trhu, cenové rozpìtí ve kterém se nacházejí je tedy pomìrnì velké.'
+
+
+  smart_price_1:
+    type: message_text
+    properties:
+      text: 'Nejevnìjší modely se pohybují do cen okolo 2 500 Kè.'
+
+  smart_price_2:
+    type: message_text
+    properties:
+      text: 'Nižší støední tøída smartphonù se drží v cenovém rozpìtí mezi 2 500 Kè a 5 000 Kè. '
+
+  smart_price_3:
+    type: message_text
+    properties:
+      text: 'Pokud hledáte silný a výkonný model stále za pøijatelnou cenu, doporuèujeme kategorii mezi 5 000 Kè a 10 000 Kè.'
+
+  smart_price_4:
+    type: message_text
+    properties:
+      text: 'Pokud vás zajímají ty nejluchusnìjší modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kè.'
+
+
+  smart_select_price:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        price_from: price_from # context key: entity
+        price_to: price_to # context key: entity
+      require_match: false # determines if expected entities are required
+    transitions:
+      next_state: smart_check_price_from
+
+
+  smart_check_price_from:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{price_from}}' # context key to check
+    transitions:
+      exists: smart_os # transition for when key exists
+      notexists: smart_check_price_to #  transition for when the key doesn't exist
+
+  smart_check_price_to:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{price_to}}' # context key to check
+    transitions:
+      exists: smart_os # transition for when key exists
+      notexists: smart_price_error #  transition for when the key doesn't exist
+
+  smart_price_error:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Omlouvám se, ale nerozumìl jsem vám. Jaké cenové rozpìtí chcete zvolit?
+        - Promiòte, ale nerozumìl jsem. Jaké cenové rozpìtí chcete zvolit?
+    transitions:
+      next_state: smart_select_price
+
+
+  smart_os:
+    type: message_text
+    properties:
+      text: 'Další dùležitou volbou pøi výbìru mobilního telefonu je který operaèní systém bude váš telefon používat.'
+
+  smart_os_2:
+    type: message_text
+    properties:
+      text: 'Mezi nejèastìjší operaèní systémy patøí:'
+
+  smart_os_3:
+    type: message_text
+    properties:
+      text: 'Android (Google) vám poskytne širší možnosti pøizpùsobení telefonu. Doinstalovat mùžete jakoukoliv aplikaci, kterou najdete v obchodì Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právì pro vás. Operaèní systém android využívá celá øada výrobcù mobilních telefonù, vèetnì telefonù znaèek jako Samsung, Lenovo nebo Sony.'
+
+  smart_os_4:
+    type: message_text
+    properties:
+      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete pøes program iTunes. Operaèní systém je dìlaný pouze pro tyto telefony, proto je velmi rychlý. Pokud používáte další zaøízení Apple, bude s nimi telefon skvìle spolupracovat.'
+
+  smart_os_5:
+    type: message_text
+    properties:
+      text: 'Windows Phone (Microsoft) je ménì rozšíøený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobøe spolupracovat s poèítaèem vybaveným operaèním systémem Windows. Windows Phone je využíván pøevážnì telefony Microsoft a Nokia.'
+
+  smart_os_6:
+    type: message_text
+    properties:
+      text: 'Pokud jste si vybrali jeden ze tøí nejrozšiøenìjších operaèních systémù, prosím zvolte pøíslušnou kategorii, pokud si nejste jisti nebo Vám na operaèním systému nezáleží, prosím zvolte VŠECHNY OPERAÈNÍ SYSTÉMY'
+
+  smart_select_os:
+    type: input_user # Prompts cliends and waits for his response
+    properties:
+      entities: # List of entities expected in client's answer
+        phone_os: os # context key: entity
+      require_match: true # determines if expected entities are required
+    transitions:
+      match: smart_check_os_android # transition when the entities are matched
+      notmatch: error_smart_os # transition when the entities are not matched
+
+  error_smart_os:
+    type: message_text_random # Sends one of the messages listed under responses
+    properties:
+      responses: # List of responses
+        - Omlouvám se, ale nerozumìl jsem vám. Telefon s jakým operaèním systémem hledáte?
+        - Promiòte, ale nerozumìl jsem. Telefon s jakým operaèním systémem hledáte?
+    transitions:
+      next_state: smart_select_os
+
+  smart_check_os_android:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}' # Here we use value of a context key intent
+      value2: 'android' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_android_init # transition for when values are equal
+      notequal: smart_check_os_ios # transition for when values are not equal
+
+  smart_check_os_ios:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}' # Here we use value of a context key intent
+      value2: 'iOS' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_ios_init # transition for when values are equal
+      notequal: smart_check_os_win # transition for when values are not equal
+
+  smart_check_os_win:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}' # Here we use value of a context key intent
+      value2: 'win' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_win_init # transition for when values are equal
+      notequal: smart_check_os_all # transition for when values are not equal
+
+  smart_check_os_all:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}' # Here we use value of a context key intent
+      value2: 'all' # We compare string "greeting"
+    transitions: # defines transition states for both branches
+      equal: smart_all_init # transition for when values are equal
+      notequal: error_smart_os # transition for when values are not equal

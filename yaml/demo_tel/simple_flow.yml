@@ -1,0 +1,6 @@
+name: simple_flow
+states:
+  simple_intro:
+    type: message_text
+    properties:
+      text: 'TATO VÌTEV DIALOGU JEŠTÌ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONÈÍ'

@@ -1,0 +1,6 @@
+name: smart_ios_flow
+states:
+  smart_ios_init:
+    type: message_text
+    properties:
+      text: 'TATO VÌTEV DIALOGU JEŠTÌ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONÈÍ'
