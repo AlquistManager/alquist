@@ -51,6 +51,7 @@ class YamlParser:
                 self.types_to_intern_representation(loaded_yaml)
                 # sets default or missing properties
                 self.set_default_properties(loaded_yaml)
+                self.check_delays(loaded_yaml)
                 if not ('states' in state_dict):
                     # update whole dictionary
                     state_dict.update(loaded_yaml)
@@ -251,6 +252,16 @@ class YamlParser:
         if not ('key' in state_properties['properties']):
             raise ValueError(
                 'The "key" field is missing in the properties of state "' + state_name + '".')
+
+    # check and modifies delays
+    def check_delays(self, loaded_yaml):
+        for state_name, state_properties in loaded_yaml['states'].items():
+            if 'delay' not in state_properties:
+                state_properties.update({'delay': 0})
+            elif state_properties['delay'] is None:
+                state_properties.update({'delay': 0})
+            elif not isinstance(state_properties['delay'], int):
+                    raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
 
     # loads intent_transitions field from yaml to memory
     def load_intent_transitions(self, loaded_yaml):
