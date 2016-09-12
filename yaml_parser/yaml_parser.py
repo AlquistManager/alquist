@@ -29,6 +29,8 @@ class YamlParser:
         self.check_init_state(state_dict)
         # check if all states from intent_transitions exists
         self.check_intent_transitions_states_exist()
+        # check if all mentioned states in transitions really exist
+        self.check_transition_states_exist()
 
     # load yaml file
     def load_file(self, file_name):
@@ -261,3 +263,46 @@ class YamlParser:
             intent_state = intent_transitions[key]
             if not (intent_state in state_dict["states"]):
                 raise ValueError('State "' + intent_state + '" mentioned in intent_transitions doesn\'t exist.')
+
+    # check if all stated defined in transitions really exist
+    def check_transition_states_exist(self):
+        # iterate through all loaded states and check states mentioned in all possible transitions fields
+        for state_name, state_content in state_dict['states'].items():
+            if 'match' in state_content['transitions']:
+                reference_state = state_content['transitions']['match']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notmatch' in state_content['transitions']:
+                reference_state = state_content['transitions']['notmatch']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'equal' in state_content['transitions']:
+                reference_state = state_content['transitions']['equal']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notequal' in state_content['transitions']:
+                reference_state = state_content['transitions']['notequal']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'exists' in state_content['transitions']:
+                reference_state = state_content['transitions']['exists']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notexists' in state_content['transitions']:
+                reference_state = state_content['transitions']['notexists']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'next_state' in state_content['transitions']:
+                reference_state = state_content['transitions']['next_state']
+                # next state can be empty
+                if reference_state == "" or reference_state is None:
+                    continue
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
