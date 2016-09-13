@@ -84,6 +84,7 @@ states:
         - Výbornì
         - Skvìlì
         - Super
+      delay: 1000
     transitions:
       flow: main_flow
 

@@ -4,27 +4,45 @@ states:
     type: message_text
     properties:
       text: 'Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.'
+      delay: 1000
 
   intro2:
     type: message_text
     properties:
       text: 'Dnešní nejlevnìjší telefony mají pouze ty nejzákladnìjší funkce. Pohud sháníte levný mobilní telefon s omezenými funkcemi, prosím zvolte možnost LEVNÁ ALTERNATIVA.
 '
+      delay: 1000
 
   intro3:
     type: message_text
     properties:
       text: 'Pokud chcete svùj mobilní telefon využívat skuteènì naplno, sáhnìte radìji po chytrém telefonu (cenasmartphonu). S ním mùžete získat nespoèet dalších funkcí pouhým doinstalováním aplikací. Chcete-li vybírat z naší nabídky chatrých telefonù, prosím zvolte CHYTRÝ TELEFON.'
+      delay: 1000
 
   intro4:
     type: message_text
     properties:
       text: 'Pro starší generace jsou k dispozici telefony pro seniory. Tyto telefony mají velký displej i tlaèítka a tím zaruèují dobrou èitelnost textu a snadné ovládání. Hledáte-li TELEFON PRO SENIORY, prosím zvolte pøíslušnou volbu.'
+      delay: 1000
 
   intro5:
     type: message_text
     properties:
       text: 'Pokud jsi nejste jistí, kterou kategorii zvolit, mùžete vybrat možnost PROCHÁZET VŠE'
+      delay: 1000
+
+  select_type_button:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: LEVNÁ ALTERNATIVA
+          next_state: error_phone_type
+        - label: CHYTRÝ TELEFON
+          next_state: smart_intro
+        - label: TELEFON PRO SENIORY
+          next_state: error_phone_type
+        - label: PROCHÁZET VŠE
+          next_state: error_phone_type
 
   select_type:
     type: input_user # Prompts cliends and waits for his response
@@ -43,7 +61,7 @@ states:
         - Omlouvám se, ale nerozumìl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
         - Promiòte, ale nerozumìl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
     transitions:
-      next_state: select_type
+      next_state: select_type_button
 
   type_check_simple:
     type: conditional_equal
