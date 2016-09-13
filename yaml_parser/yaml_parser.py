@@ -29,7 +29,7 @@ class YamlParser:
         self.check_init_state(state_dict)
         # check if all states from intent_transitions exists
         self.check_intent_transitions_states_exist()
-        # check if all mentioned states in transitions really exist
+        # check if all states mentioned in transitions really exist
         self.check_transition_states_exist()
 
     # load yaml file
@@ -142,6 +142,8 @@ class YamlParser:
                 state_properties['type'] = ConditionalEquals
             elif state_properties['type'].lower() == 'conditional_exists':
                 state_properties['type'] = ConditionalExists
+            elif state_properties['type'].lower() == 'message_buttons':
+                state_properties['type'] = MessageButtons
             # custom action
             else:
                 try:
@@ -193,6 +195,8 @@ class YamlParser:
                 self.set_default_properties_conditional_equal(state_name, state_properties)
             elif state_properties['type'] == ConditionalExists:
                 self.set_default_properties_conditional_exists(state_name, state_properties)
+            elif state_properties['type'] == MessageButtons:
+                self.set_default_properties_message_buttons(state_name, state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -252,6 +256,21 @@ class YamlParser:
         if not ('key' in state_properties['properties']):
             raise ValueError(
                 'The "key" field is missing in the properties of state "' + state_name + '".')
+
+    def set_default_properties_message_buttons(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'buttons': []}})
+        elif not ('buttons' in state_properties['properties']):
+            state_properties['properties'].update({'buttons': []})
+        for button in state_properties['properties']['buttons']:
+            if not (type(button) is OrderedDict):
+                raise ValueError(
+                    'Button defined in the buttons field of state "' + state_name + '" is not dictionary.')
+            if not ('next_state' in button):
+                raise ValueError(
+                    'The "next_state" field is missing in the buttons of state "' + state_name + '".')
+            if not ('label' in button):
+                button.update({'label': "Label"})
 
     # check and modifies delays
     def check_delays(self, loaded_yaml):
@@ -317,3 +336,10 @@ class YamlParser:
                 if reference_state not in state_dict['states']:
                     raise ValueError(
                         'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            # testing of button transitions, special case
+            if 'buttons' in state_content['properties']:
+                for button in state_content['properties']['buttons']:
+                    reference_state = button['next_state']
+                    if reference_state not in state_dict['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')

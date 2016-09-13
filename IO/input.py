@@ -36,7 +36,7 @@ def get_input():
     try:
         # execute states
         response = process_request(state, context, text, session)
-        return jsonify(text=response['response'], state=response['next_state'], context=response['context'],
+        return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
     except:  # Error in execution
         return jsonify(ok=False, message="Error during execution.")
