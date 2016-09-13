@@ -4,6 +4,7 @@ states:
     type: message_text
     properties:
       text: 'Dobrý den'
+      delay: 1000
 
   greet_name:
     type: message_text_random # Sends one of the messages listed under responses
@@ -12,6 +13,7 @@ states:
         - Moje jméno je Primus.
         - Jmenuji se Primus.
         - Já jsem Primus.
+      delay: 1000
 
   greet_explain:
     type: message_text_random # Sends one of the messages listed under responses
@@ -19,6 +21,7 @@ states:
       responses: # List of responses
         - 'Rád Vám pomohu s výbìrem a nákupem takového mobilního telefonu, který splní všechny vaše požadavky.'
         - 'Pomohu Vám vybrat mobilní telefon pøesnì podle vašich požadavkù.'
+      delay: 1000
 
   greet_ask:
     type: message_text_random # Sends one of the messages listed under responses
@@ -26,6 +29,16 @@ states:
       responses: # List of responses
         - Mùžeme zaèít?
         - Jste pøipraveni zaèít?
+      delay: 1000
+
+  can_start_ask_buttons:
+    type: message_buttons # shows buttons
+    properties:
+      buttons: # list of buttons to show
+        - label: Ano # label of the first button
+          next_state: greet_start # next_state after click on the first button
+        - label: Ne # label of the second button
+          next_state: goodbye # next_state after click on the second button
 
   can_start_ask:
     type: input_user # Prompts cliends and waits for his response
@@ -35,7 +48,16 @@ states:
       require_match: true # determines if expected entities are required
     transitions:
       match: can_start # transition when the entities are matched
-      notmatch: error_can_start # transition when the entities are not matched
+      notmatch: error_can_start_buttons # transition when the entities are not matched
+
+  error_can_start_buttons:
+    type: message_buttons # shows buttons
+    properties:
+      buttons: # list of buttons to show
+        - label: Ano # label of the first button
+          next_state: greet_start # next_state after click on the first button
+        - label: Ne # label of the second button
+          next_state: goodbye # next_state after click on the second button
 
   error_can_start:
     type: message_text_random # Sends one of the messages listed under responses

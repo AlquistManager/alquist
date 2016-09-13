@@ -10,6 +10,7 @@ states:
     type: message_text
     properties:
       text: 'TATO APLIKACE JE STÁLE VE VÝVOJI A NÌKTERÉ JEJÍ FUNKCE NEJSOU PLNÌ IMPLEMENTOVÁNY'
+      delay: 1000
     transitions:
       flow: greet_flow
 
