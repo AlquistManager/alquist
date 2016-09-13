@@ -5,6 +5,7 @@ from collections import OrderedDict
 import yaml
 from config import config
 from loaded_states import state_dict, intent_transitions
+from states.message import MessageButtons
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
 from states import *
 from os import listdir
