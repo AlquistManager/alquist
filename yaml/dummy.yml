@@ -70,6 +70,17 @@ states: # List of states. States are executed sequentially
     transitions:
       flow: flow2  # jump to the first state of next flow
 
+  state8:
+    type: message_buttons # shows buttons
+    properties:
+      buttons: # list of buttons to show
+        - label: textA # label of the first button
+          next_state: state1 # next_state after click on the first button
+        - label: textB # label of the second button
+          next_state: state2 # next_state after click on the second button
+    transitions:
+      next_state: state2
+
 
 # Dialogue finishes and context resets automatically after reaching the end of the flow
 # Alternatively, user can force dialogue end by tag return:true
