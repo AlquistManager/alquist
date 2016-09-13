@@ -64,3 +64,4 @@ class MessageButtons(State):
         request_data.update({'response': old_response, 'next_state': self.transitions.get('next_state', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
         state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
+        return request_data
