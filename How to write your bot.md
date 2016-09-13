@@ -118,6 +118,20 @@ as follows in the yaml file.
 
 Intent has to be trained in the Wit.ai as one of entity with the name ``intent``. Intents are checked every time, user inputs something.
 
+### Delays
+You can define delay between two following outputs or between user's input and output by ``delay`` property. The delay is not implemented as 
+time delay directly in Alquist. The length of delay is send to client in the response instead. Client has to implement delay itself. Delay is
+specified in the milliseconds. Delay has effect on states showing some output text only.
+
+    state1:
+        type: message_text
+        properties:
+            text: Text to show after 1000 milliseconds
+        transitions:
+            next_state: state2
+        delay: 1000
+
+
 ## State descriptions
 ### message_text
 message_text sends a message to user.
