@@ -275,11 +275,11 @@ class YamlParser:
     # check and modifies delays
     def check_delays(self, loaded_yaml):
         for state_name, state_properties in loaded_yaml['states'].items():
-            if 'delay' not in state_properties:
-                state_properties.update({'delay': 0})
-            elif state_properties['delay'] is None:
-                state_properties.update({'delay': 0})
-            elif not isinstance(state_properties['delay'], int):
+            if 'delay' not in state_properties['properties']:
+                state_properties['properties'].update({'delay': 0})
+            elif state_properties['properties']['delay'] is None:
+                state_properties['properties'].update({'delay': 0})
+            elif not isinstance(state_properties['properties']['delay'], int):
                     raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
 
     # loads intent_transitions field from yaml to memory

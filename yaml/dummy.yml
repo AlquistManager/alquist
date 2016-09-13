@@ -24,7 +24,7 @@ states: # List of states. States are executed sequentially
       responses: # List of responses
         - Hello!
         - Hi!
-    delay: 1000 # shows message 1000 millisecend after previous output or user input
+      delay: 1000 # shows message 1000 millisecend after previous output or user input
 
   state3:
     type: input_user # Prompts cliends and waits for his response

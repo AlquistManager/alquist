@@ -127,9 +127,9 @@ specified in the milliseconds. Delay has effect on states showing some output te
         type: message_text
         properties:
             text: Text to show after 1000 milliseconds
+            delay: 1000
         transitions:
             next_state: state2
-        delay: 1000
 
 
 ## State descriptions
