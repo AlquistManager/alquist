@@ -1,15 +1,15 @@
-name: init_flow
+Ôªøname: init_flow
 states:
   init:
     type: message_text
     properties:
-      text: 'TOTO JE TESTOVACÕ VERZE ALQUIST BOTA PRO V›BÃR A N¡KUP TELEFONŸ.'
+      text: 'TOTO JE TESTOVAC√ç VERZE ALQUIST BOTA PRO V√ùBƒöR A N√ÅKUP TELEFON≈Æ.'
 
 
   second:
     type: message_text
     properties:
-      text: 'TATO APLIKACE JE ST¡LE VE V›VOJI A NÃKTER… JEJÕ FUNKCE NEJSOU PLNÃ IMPLEMENTOV¡NY'
+      text: 'TATO APLIKACE JE ST√ÅLE VE V√ùVOJI A NƒöKTER√â JEJ√ç FUNKCE NEJSOU PLNƒö IMPLEMENTOV√ÅNY'
       delay: 1000
     transitions:
       flow: greet_flow

@@ -1,6 +1,6 @@
-name: all_flow
+Ôªøname: all_flow
 states:
   all_intro:
     type: message_text
     properties:
-      text: 'TATO VÃTEV DIALOGU JEäTÃ NEBYLA IMPLEMENTOV¡NA. DIALOG NYNÕ SKON»Õ'
+      text: 'TATO VƒöTEV DIALOGU JE≈†Tƒö NEBYLA IMPLEMENTOV√ÅNA. DIALOG NYN√ç SKONƒå√ç'

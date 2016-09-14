@@ -1,4 +1,4 @@
-Dobrý den,
+﻿Dobrý den,
 
  - moje jméno je ###. 
  - jmenuji se ###. 

@@ -1,6 +1,6 @@
-name: senior_flow
+Ôªøname: senior_flow
 states:
   senior_intro:
     type: message_text
     properties:
-      text: 'TATO VÃTEV DIALOGU JEäTÃ NEBYLA IMPLEMENTOV¡NA. DIALOG NYNÕ SKON»Õ'
+      text: 'TATO VƒöTEV DIALOGU JE≈†Tƒö NEBYLA IMPLEMENTOV√ÅNA. DIALOG NYN√ç SKONƒå√ç'
