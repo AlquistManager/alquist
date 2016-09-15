@@ -189,7 +189,9 @@ Example:
         transitions:
             next_state: [next_state_name]
 ``buttons`` field contains definitions of individul buttons (i.e. their labels and state transitions), **REQUIRED**
+
 ``next_state_from_button1`` state to transition to from button 1
+
 ``next_state`` field contains name of the next state
 
 
@@ -210,7 +212,9 @@ Example:
         transitions:
             next_state: [next_state_name]
 ``del_keys`` field with keys to be deleted, **REQUIRED**
+
 ``update_keys`` field with keys to be updated, **REQUIRED**
+
 ``next_state`` field contains name of the next state
 
 
