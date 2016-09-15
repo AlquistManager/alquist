@@ -1,34 +1,34 @@
-name: greet_flow
+ï»¿name: greet_flow
 states:
   greet:
     type: message_text
     properties:
-      text: 'Dobrı den'
+      text: 'DobrÃ½ den'
       delay: 1000
 
   greet_name:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Moje jméno je Primus.
+        - Moje jmÃ©no je Primus.
         - Jmenuji se Primus.
-        - Já jsem Primus.
+        - JÃ¡ jsem Primus.
       delay: 1000
 
   greet_explain:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - 'Rád Vám pomohu s vıbìrem a nákupem takového mobilního telefonu, kterı splní všechny vaše poadavky.'
-        - 'Pomohu Vám vybrat mobilní telefon pøesnì podle vašich poadavkù.'
+        - 'RÃ¡d VÃ¡m pomohu s vÃ½bÄ›rem a nÃ¡kupem takovÃ©ho mobilnÃ­ho telefonu, kterÃ½ splnÃ­ vÅ¡echny vaÅ¡e poÅ¾adavky.'
+        - 'Pomohu VÃ¡m vybrat mobilnÃ­ telefon pÅ™esnÄ› podle vaÅ¡ich poÅ¾adavkÅ¯.'
       delay: 1000
 
   greet_ask:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Mùeme zaèít?
-        - Jste pøipraveni zaèít?
+        - MÅ¯Å¾eme zaÄÃ­t?
+        - Jste pÅ™ipraveni zaÄÃ­t?
       delay: 1000
 
   can_start_ask_buttons:
@@ -63,8 +63,8 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Omlouvám se, ale nerozumìl jsem vám. Jste pøipraveni zaèít s vıbìrem telefonu?
-        - Promiòte, ale nerozumìl jsem, chcete pomoc s vıbìrem telefonu?
+        - OmlouvÃ¡m se, ale nerozumÄ›l jsem vÃ¡m. Jste pÅ™ipraveni zaÄÃ­t s vÃ½bÄ›rem telefonu?
+        - PromiÅˆte, ale nerozumÄ›l jsem, chcete pomoc s vÃ½bÄ›rem telefonu?
     transitions:
       next_state: can_start_ask
 
@@ -81,8 +81,8 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Vıbornì
-        - Skvìlì
+        - VÃ½bornÄ›
+        - SkvÄ›lÄ›
         - Super
     transitions:
       flow: main_flow
@@ -90,4 +90,4 @@ states:
   goodbye:
     type: message_text
     properties:
-      text: 'Pokud zmìníte názor, prosím aktvujte mne klitkutím na panel v pravém dolním rohu obrazovky.'
+      text: 'Pokud zmÄ›nÃ­te nÃ¡zor, prosÃ­m aktvujte mne klitkutÃ­m na panel v pravÃ©m dolnÃ­m rohu obrazovky.'

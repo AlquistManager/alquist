@@ -1,107 +1,107 @@
-Dobr˝ den,
+ÔªøDobr√Ω den,
 
- - moje jmÈno je ###. 
+ - moje jm√©no je ###. 
  - jmenuji se ###. 
- - j· jsem ###. 
+ - j√° jsem ###. 
 
- - R·d V·m pomohu s v˝bÏrem a n·kupem takovÈho mobilnÌho telefonu, kter˝ splnÌ vöechny vaöe poûadavky.
- - Pomohu V·m vybrat mobilnÌ telefon p¯esnÏ podle vaöich poûadavk˘.
+ - R√°d V√°m pomohu s v√Ωbƒõrem a n√°kupem takov√©ho mobiln√≠ho telefonu, kter√Ω spln√≠ v≈°echny va≈°e po≈æadavky.
+ - Pomohu V√°m vybrat mobiln√≠ telefon p≈ôesnƒõ podle va≈°ich po≈æadavk≈Ø.
 
- - M˘ûeme zaËÌt?
- - Jste p¯ipraveni zaËÌt?
+ - M≈Ø≈æeme zaƒç√≠t?
+ - Jste p≈ôipraveni zaƒç√≠t?
 
  Ano	Ne
 
  ---> Ne
- 	V po¯·dku, pokud zmÏnÌte n·zor, prosÌm aktvujte mne klitkutÌm na panel v pravÈm dolnÌm rohu obrazovky.
+ 	V po≈ô√°dku, pokud zmƒõn√≠te n√°zor, pros√≠m aktvujte mne klitkut√≠m na panel v prav√©m doln√≠m rohu obrazovky.
 
  ---> Ano
- 	 - V˝bornÏ
- 	 - SkvÏlÏ
+ 	 - V√Ωbornƒõ
+ 	 - Skvƒõlƒõ
  	 - Super
 
- 	Nejprve je nutnÈ rozhodnout se, jak˝ typ mobilnÌho telefonu V·m bude vyhovovat.
+ 	Nejprve je nutn√© rozhodnout se, jak√Ω typ mobiln√≠ho telefonu V√°m bude vyhovovat.
 
- 	DneönÌ nejlevnÏjöÌ telefony majÌ pouze ty nejz·kladnÏjöÌ funkce. Pohud sh·nÌte levn˝ mobilnÌ telefon s omezen˝mi funkcemi, prosÌm zvolte moûnost LEVN¡ ALTERNATIVA.
+ 	Dne≈°n√≠ nejlevnƒõj≈°√≠ telefony maj√≠ pouze ty nejz√°kladnƒõj≈°√≠ funkce. Pohud sh√°n√≠te levn√Ω mobiln√≠ telefon s omezen√Ωmi funkcemi, pros√≠m zvolte mo≈ænost LEVN√Å ALTERNATIVA.
 
- 	Pokud chcete sv˘j mobilnÌ telefon vyuûÌvat skuteËnÏ naplno, s·hnÏte radÏji po chytrÈm telefonu (cenasmartphonu). S nÌm m˘ûete zÌskat nespoËet dalöÌch funkcÌ pouh˝m doinstalov·nÌm aplikacÌ. Chcete-li vybÌrat z naöÌ nabÌdky chatr˝ch telefon˘, prosÌm zvolte CHYTR› TELEFON. 
+ 	Pokud chcete sv≈Øj mobiln√≠ telefon vyu≈æ√≠vat skuteƒçnƒõ naplno, s√°hnƒõte radƒõji po chytr√©m telefonu (cenasmartphonu). S n√≠m m≈Ø≈æete z√≠skat nespoƒçet dal≈°√≠ch funkc√≠ pouh√Ωm doinstalov√°n√≠m aplikac√≠. Chcete-li vyb√≠rat z na≈°√≠ nab√≠dky chatr√Ωch telefon≈Ø, pros√≠m zvolte CHYTR√ù TELEFON. 
 
- 	Pro staröÌ generace jsou k dispozici telefony pro seniory. Tyto telefony majÌ velk˝ displej i tlaËÌtka a tÌm zaruËujÌ dobrou Ëitelnost textu a snadnÈ ovl·d·nÌ. Hled·te-li TELEFON PRO SENIORY, prosÌm zvolte p¯Ìsluönou volbu.
+ 	Pro star≈°√≠ generace jsou k dispozici telefony pro seniory. Tyto telefony maj√≠ velk√Ω displej i tlaƒç√≠tka a t√≠m zaruƒçuj√≠ dobrou ƒçitelnost textu a snadn√© ovl√°d√°n√≠. Hled√°te-li TELEFON PRO SENIORY, pros√≠m zvolte p≈ô√≠slu≈°nou volbu.
 
- 	Pokud jsi nejste jistÌ, kterou kategorii zvolit, m˘ûete vybrat moûnost PROCH¡ZET VäE
+ 	Pokud jsi nejste jist√≠, kterou kategorii zvolit, m≈Ø≈æete vybrat mo≈ænost PROCH√ÅZET V≈†E
  
- 	LEVN¡ ALTERNATIVA		CHYTR› TELEFON 		TELEFON PRO SENIORY 	PROCH¡ZET VäE
+ 	LEVN√Å ALTERNATIVA		CHYTR√ù TELEFON 		TELEFON PRO SENIORY 	PROCH√ÅZET V≈†E
 
- 	---> CHYTR› TELEFON
- 		ChytrÈ telefony jsou v souËasnosti nejrozöÌ¯enÏjöÌm typem telefon˘ na trhu, cenovÈ rozpÏtÌ ve kterÈm se nach·zejÌ je tedy pomÏrnÏ velkÈ. 
+ 	---> CHYTR√ù TELEFON
+ 		Chytr√© telefony jsou v souƒçasnosti nejroz≈°√≠≈ôenƒõj≈°√≠m typem telefon≈Ø na trhu, cenov√© rozpƒõt√≠ ve kter√©m se nach√°zej√≠ je tedy pomƒõrnƒõ velk√©. 
 
- 		NejevnÏjöÌ modely se pohybujÌ do cen okolo 2 500 KË. 
+ 		Nejevnƒõj≈°√≠ modely se pohybuj√≠ do cen okolo 2 500 Kƒç. 
 
- 		NiûöÌ st¯ednÌ t¯Ìda smartphon˘ se drûÌ v cenovÈm rozpÏtÌ mezi 2 500 KË a 5 000 KË. 
+ 		Ni≈æ≈°√≠ st≈ôedn√≠ t≈ô√≠da smartphon≈Ø se dr≈æ√≠ v cenov√©m rozpƒõt√≠ mezi 2 500 Kƒç a 5 000 Kƒç. 
 
- 		Pokud hled·te pomÏrnÏ siln˝ a v˝konn˝ model st·le za p¯ijatelnou cenu, doporuËujeme kategorii mezi 5 000 KË a 10 000 KË.
+ 		Pokud hled√°te pomƒõrnƒõ siln√Ω a v√Ωkonn√Ω model st√°le za p≈ôijatelnou cenu, doporuƒçujeme kategorii mezi 5 000 Kƒç a 10 000 Kƒç.
 
- 		Pokod hled·te ty nejluchusnÏjöÌ modely z naöÌ nabÌdky, nev·hejte zvolit kategorii 10 000+ KË.
+ 		Pokod hled√°te ty nejluchusnƒõj≈°√≠ modely z na≈°√≠ nab√≠dky, nev√°hejte zvolit kategorii 10 000+ Kƒç.
 
- 		0 - 2 499 KË		2 500 - 4 999 KË 		5 000 KË - 10 000 KË 		10 000+ KË		VlastnÌ cenovÈ rozpÏtÌ
+ 		0 - 2 499 Kƒç		2 500 - 4 999 Kƒç 		5 000 Kƒç - 10 000 Kƒç 		10 000+ Kƒç		Vlastn√≠ cenov√© rozpƒõt√≠
 
 
- 		DalöÌ d˘leûitou volbou p¯i v˝bÏru mobilnÌho telefonu je kter˝ operaËnÌ systÈm bude v·ö telefon pouûÌvat.
+ 		Dal≈°√≠ d≈Øle≈æitou volbou p≈ôi v√Ωbƒõru mobiln√≠ho telefonu je kter√Ω operaƒçn√≠ syst√©m bude v√°≈° telefon pou≈æ√≠vat.
 
- 		Mezi nejËastÏjöÌ operaËnÌ systÈmy pat¯Ì:
+ 		Mezi nejƒçastƒõj≈°√≠ operaƒçn√≠ syst√©my pat≈ô√≠:
 
- 		Android (Google) v·m poskytne öiröÌ moûnosti p¯izp˘sobenÌ telefonu. Doinstalovat m˘ûete jakoukoliv aplikaci, kterou najdete v obchodÏ Google Play nebo na internetu. Pokud navÌc pouûÌv·te dalöÌ sluûby od Googlu (Gmail, Google Disk a dalöÌ), hodÌ se Android pr·vÏ pro v·s. OperaËnÌ systÈm android vyuûÌv· cel· ¯ada v˝robc˘ mobilnÌch telefon˘, vËetnÏ telefon˘ znaËek jako Samsung, Lenovo nebo Sony.
+ 		Android (Google) v√°m poskytne ≈°ir≈°√≠ mo≈ænosti p≈ôizp≈Øsoben√≠ telefonu. Doinstalovat m≈Ø≈æete jakoukoliv aplikaci, kterou najdete v obchodƒõ Google Play nebo na internetu. Pokud nav√≠c pou≈æ√≠v√°te dal≈°√≠ slu≈æby od Googlu (Gmail, Google Disk a dal≈°√≠), hod√≠ se Android pr√°vƒõ pro v√°s. Operaƒçn√≠ syst√©m android vyu≈æ√≠v√° cel√° ≈ôada v√Ωrobc≈Ø mobiln√≠ch telefon≈Ø, vƒçetnƒõ telefon≈Ø znaƒçek jako Samsung, Lenovo nebo Sony.
 
- 		iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a dalöÌ soubory do nich nahrajete p¯es program iTunes. OperaËnÌ systÈm je dÏlan˝ pouze pro tyto telefony, proto je velmi rychl˝. Pokud pouûÌv·te dalöÌ za¯ÌzenÌ Apple, bude s nimi telefon skvÏle spolupracovat.
+ 		iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a dal≈°√≠ soubory do nich nahrajete p≈ôes program iTunes. Operaƒçn√≠ syst√©m je dƒõlan√Ω pouze pro tyto telefony, proto je velmi rychl√Ω. Pokud pou≈æ√≠v√°te dal≈°√≠ za≈ô√≠zen√≠ Apple, bude s nimi telefon skvƒõle spolupracovat.
 
-		Windows Phone (Microsoft) je mÈnÏ rozöÌ¯en˝, proto je takÈ nabÌdka aplikacÌ menöÌ neû u konkurence. Telefon bude ale velmi dob¯e spolupracovat s poËÌtaËem vybaven˝m operaËnÌm systÈmem Windows. Windows Phone je vyuûÌv·n p¯ev·ûnÏ telefony Microsoft a Nokia.
+		Windows Phone (Microsoft) je m√©nƒõ roz≈°√≠≈ôen√Ω, proto je tak√© nab√≠dka aplikac√≠ men≈°√≠ ne≈æ u konkurence. Telefon bude ale velmi dob≈ôe spolupracovat s poƒç√≠taƒçem vybaven√Ωm operaƒçn√≠m syst√©mem Windows. Windows Phone je vyu≈æ√≠v√°n p≈ôev√°≈ænƒõ telefony Microsoft a Nokia.
 
-		Pokud jste si vybrali jeden ze t¯Ì nejrozöi¯enÏjöÌch operaËnÌch systÈm˘, prosÌm zvolte p¯Ìsluönou kategorii, pokud si nejste jisti nebo V·m na operaËnÌm systÈmu nez·leûÌ, prosÌm zvolte VäECHNY OPERA»NÕ SYST…MY
+		Pokud jste si vybrali jeden ze t≈ô√≠ nejroz≈°i≈ôenƒõj≈°√≠ch operaƒçn√≠ch syst√©m≈Ø, pros√≠m zvolte p≈ô√≠slu≈°nou kategorii, pokud si nejste jisti nebo V√°m na operaƒçn√≠m syst√©mu nez√°le≈æ√≠, pros√≠m zvolte V≈†ECHNY OPERAƒåN√ç SYST√âMY
 
-		ANDROID 	iOS 	WINDOWS PHONE 		VäECHNY OPERA»NÕ SYST…MY
+		ANDROID 	iOS 	WINDOWS PHONE 		V≈†ECHNY OPERAƒåN√ç SYST√âMY
 
 		---> ANDROID
 
-			Android vyuûÌv· cel· ¯ada v˝robc˘ mobilnÌch telefon˘. Pokud hled·te telefon od specifickÈho v˝robce, m˘ûete si vybrat z nabÌdky nÌûe. Pokud si volbou v˝robce nejste jisti, zvolte moûnost PÿESKO»IT VOLBU V›ROBCE
+			Android vyu≈æ√≠v√° cel√° ≈ôada v√Ωrobc≈Ø mobiln√≠ch telefon≈Ø. Pokud hled√°te telefon od specifick√©ho v√Ωrobce, m≈Ø≈æete si vybrat z nab√≠dky n√≠≈æe. Pokud si volbou v√Ωrobce nejste jisti, zvolte mo≈ænost P≈òESKOƒåIT VOLBU V√ùROBCE
 
-			SAMSUNG 	SONY 	LG 		...		PÿESKO»IT VOLBU V›ROBCE
+			SAMSUNG 	SONY 	LG 		...		P≈òESKOƒåIT VOLBU V√ùROBCE
 
 
-			NynÌ se zamÏ¯Ìme na parametry telefonu.
+			Nyn√≠ se zamƒõ≈ô√≠me na parametry telefonu.
 
-			ProsÌm zvolte, kter˝ z parametr˘ chcete specifikovat. Pokod jste vybrali vöechny poûadovanÈ parametry, p¯ejdÏte k n·vrhu telefon˘.
+			Pros√≠m zvolte, kter√Ω z parametr≈Ø chcete specifikovat. Pokod jste vybrali v≈°echny po≈æadovan√© parametry, p≈ôejdƒõte k n√°vrhu telefon≈Ø.
 
-			⁄HLOPÿÕ»KA DISPLEJE		PROCESOR 	OPERA»NÕ PAMÃç		VELIKOST ⁄LOéIäTÃ TELEFONU 		ROZLIäENÕ TELEFONU 		NAVRHNOUT TELEFONY
+			√öHLOP≈ò√çƒåKA DISPLEJE		PROCESOR 	OPERAƒåN√ç PAMƒö≈§		VELIKOST √öLO≈ΩI≈†Tƒö TELEFONU 		ROZLI≈†EN√ç TELEFONU 		NAVRHNOUT TELEFONY
 
-			---> ⁄HLOPÿÕ»KA DISPLEJE
-				Je zpravidla dotykov˝ a velikost jeho ˙hlop¯ÌËky se uv·dÌ v palcÌch. Palec se znaËÌ znaËkou " a odpovÌd· 2,54 cm. Nap¯Ìklad Ëty¯palcov˝ displej je velk˝ asi jako kreditnÌ karta. NejvybavenÏjöÌ telefony majÌ displeje pohybujÌcÌ se od Ëty¯ do pÏti palc˘. ExistujÌ i tzv. phablety (tabletofony), kterÈ se s öestipalcov˝mi displeji svou velikostÌ blÌûÌ spÌöe tablet˘m.
+			---> √öHLOP≈ò√çƒåKA DISPLEJE
+				Je zpravidla dotykov√Ω a velikost jeho √∫hlop≈ô√≠ƒçky se uv√°d√≠ v palc√≠ch. Palec se znaƒç√≠ znaƒçkou " a odpov√≠d√° 2,54 cm. Nap≈ô√≠klad ƒçty≈ôpalcov√Ω displej je velk√Ω asi jako kreditn√≠ karta. Nejvybavenƒõj≈°√≠ telefony maj√≠ displeje pohybuj√≠c√≠ se od ƒçty≈ô do pƒõti palc≈Ø. Existuj√≠ i tzv. phablety (tabletofony), kter√© se s ≈°estipalcov√Ωmi displeji svou velikost√≠ bl√≠≈æ√≠ sp√≠≈°e tablet≈Øm.
 
-				ProsÌm vyberte preferovanou velikost displeje:
+				Pros√≠m vyberte preferovanou velikost displeje:
 
-				MAL› (DO 3.4 PALCŸ)		VELK› (3.4 - 5 PALCŸ) 		EXTRA VELK› (5+ PALCŸ)		NA DISPLEJI MI NEZ¡LEéÕ
+				MAL√ù (DO 3.4 PALC≈Æ)		VELK√ù (3.4 - 5 PALC≈Æ) 		EXTRA VELK√ù (5+ PALC≈Æ)		NA DISPLEJI MI NEZ√ÅLE≈Ω√ç
 
 			---> PROCESOR
-				Pro rychl˝ chod telefonu je t¯eba v˝konn˝ procesor. »Ìm vÌce GHz (gigahertz: jednotka, v nÌû se rychlost procesoru ud·v·) a ËÌm vÌce jader procesor m·, tÌm rychlejöÌ ˙˘bude.
+				Pro rychl√Ω chod telefonu je t≈ôeba v√Ωkonn√Ω procesor. ƒå√≠m v√≠ce GHz (gigahertz: jednotka, v n√≠≈æ se rychlost procesoru ud√°v√°) a ƒç√≠m v√≠ce jader procesor m√°, t√≠m rychlej≈°√≠ √∫≈Øbude.
 
-				CHCI TELEFON SE SILN›M PROCESOREM		SÕLA PROCESORU NENÕ MOJE PRIORITA
+				CHCI TELEFON SE SILN√ùM PROCESOREM		S√çLA PROCESORU NEN√ç MOJE PRIORITA
 
-			---> OPERA»NÕ PAMÃç
-				Telefon s velkou operaËnÌ pamÏtÌ zvl·dne mÌt spuötÏn˝ch vÌce aplikacÌ najednou a bude fungovat st·le stejnÏ plynule. Standardem se zaËÌn· st·vat 1GB RAM, v˝konnÏjöÌ telefony pak nabÌdnou 2 aû 3 GB operaËnÌ pamÏti.
+			---> OPERAƒåN√ç PAMƒö≈§
+				Telefon s velkou operaƒçn√≠ pamƒõt√≠ zvl√°dne m√≠t spu≈°tƒõn√Ωch v√≠ce aplikac√≠ najednou a bude fungovat st√°le stejnƒõ plynule. Standardem se zaƒç√≠n√° st√°vat 1GB RAM, v√Ωkonnƒõj≈°√≠ telefony pak nab√≠dnou 2 a≈æ 3 GB operaƒçn√≠ pamƒõti.
 
-				CHCI TELEFON SE VELKOU OPERA»NÕ PAMÃTÕ (2+ GB)		VELIKOST OPERA»NÕ PAMÃTI MÃ NEZAJÕM¡
+				CHCI TELEFON SE VELKOU OPERAƒåN√ç PAMƒöT√ç (2+ GB)		VELIKOST OPERAƒåN√ç PAMƒöTI Mƒö NEZAJ√çM√Å
 
-			---> VELIKOST ⁄LOéIäTÃ TELEFONU
-				PamÏù telefonu se ud·v· v GB (gigabytech). »Ìm vyööÌ hodnota, tÌm vÌce hudby, film˘, fotografiÌ, her a aplikacÌ se v·m do telefonu vejde.4 GB jde doporuËit jako z·klad. Pokud vÌce fotografujete, hrajete hry atp., s·hnÏte radÏji po 8 GB a vÌce.
+			---> VELIKOST √öLO≈ΩI≈†Tƒö TELEFONU
+				Pamƒõ≈• telefonu se ud√°v√° v GB (gigabytech). ƒå√≠m vy≈°≈°√≠ hodnota, t√≠m v√≠ce hudby, film≈Ø, fotografi√≠, her a aplikac√≠ se v√°m do telefonu vejde.4 GB jde doporuƒçit jako z√°klad. Pokud v√≠ce fotografujete, hrajete hry atp., s√°hnƒõte radƒõji po 8 GB a v√≠ce.
 
-				ÿeöenÌm je takÈ koupÏ telefonu s podporou pamÏùov˝ch karet. Ty mohou mÌt kapacitu aû nÏkolika desÌtek GB a stojÌ bÏûnÏ p·r set korun. Snadno tak rozöÌ¯Ìte z·kladnÌ pamÏù telefonu.
+				≈òe≈°en√≠m je tak√© koupƒõ telefonu s podporou pamƒõ≈•ov√Ωch karet. Ty mohou m√≠t kapacitu a≈æ nƒõkolika des√≠tek GB a stoj√≠ bƒõ≈ænƒõ p√°r set korun. Snadno tak roz≈°√≠≈ô√≠te z√°kladn√≠ pamƒõ≈• telefonu.
 
-				STA»NÕ MI TELEFON S PAMÃTÕ DO 8 GB		CHCI TELEFON S PAMÃTÕ NAD 8 GB 		CHCI TELEFON S PODPOROU PAMÃçOV›CH KARET 		INTERNÕ PAMÃç TELEFONU NENÕ MOJE PRIORITA
+				STAƒåN√ç MI TELEFON S PAMƒöT√ç DO 8 GB		CHCI TELEFON S PAMƒöT√ç NAD 8 GB 		CHCI TELEFON S PODPOROU PAMƒö≈§OV√ùCH KARET 		INTERN√ç PAMƒö≈§ TELEFONU NEN√ç MOJE PRIORITA
 
-			---> ROZLIäENÕ TELEFONU
-				RozliöenÌ displeje je ud·v·no maxim·lnÌm poËtem pixel˘ (bod˘), kterÈ se zobrazÌ na obrazovce telefonu.
-				»Ìm vyööÌ, tÌm bude obraz ost¯ejöÌ. U levnÏjöÌch p¯Ìstroj˘ byste mÏli poûadovat rozliöenÌ alespoÚ 800 x 480, u draûöÌch pak 1280 x 720 bod˘.
+			---> ROZLI≈†EN√ç TELEFONU
+				Rozli≈°en√≠ displeje je ud√°v√°no maxim√°ln√≠m poƒçtem pixel≈Ø (bod≈Ø), kter√© se zobraz√≠ na obrazovce telefonu.
+				ƒå√≠m vy≈°≈°√≠, t√≠m bude obraz ost≈ôej≈°√≠. U levnƒõj≈°√≠ch p≈ô√≠stroj≈Ø byste mƒõli po≈æadovat rozli≈°en√≠ alespo≈à 800 x 480, u dra≈æ≈°√≠ch pak 1280 x 720 bod≈Ø.
 
-				STA»NÕ MI TELEFON S PAMÃTÕ NÕZK›M ROZLIäENÕM		CHCI TELEFON S ROZLIäENÕM ALESPO“ 1280 x 720  	CHCI TELEFON S ROZLIäENÕM ALESPO“ 1920 X 1080		INTERNÕ PAMÃç TELEFONU NENÕ MOJE PRIORITA
+				STAƒåN√ç MI TELEFON S PAMƒöT√ç N√çZK√ùM ROZLI≈†EN√çM		CHCI TELEFON S ROZLI≈†EN√çM ALESPO≈á 1280 x 720  	CHCI TELEFON S ROZLI≈†EN√çM ALESPO≈á 1920 X 1080		INTERN√ç PAMƒö≈§ TELEFONU NEN√ç MOJE PRIORITA
 
 
 
