@@ -173,6 +173,47 @@ Default property values:
 * ``responses``: *Your messages here.* 
 
 
+### message_buttons
+message_buttons is used to display predefined respones in the form of buttons to the user.
+
+Example:
+
+	[name]:
+        type: message_buttons
+        properties:
+            buttons:
+                - label: [label1]
+                  next_state: [next_state_from_button1]
+                - label: [label2]
+                  next_state: [next_state_from_button1]
+        transitions:
+            next_state: [next_state_name]
+``buttons`` field contains definitions of individul buttons (i.e. their labels and state transitions), **REQUIRED**
+``next_state_from_button1`` state to transition to from button 1
+``next_state`` field contains name of the next state
+
+
+### ChangeContext
+ChangeContext is used to change session context independently on user input.
+
+Example:
+
+	[name]:
+        type: ChangeContext
+        properties:
+            del_keys:
+                - [del_entity1]
+                - [del_entity2]
+            update_keys:
+               [up_entity1]: [value1]
+               [up_entity1]: [label2]
+        transitions:
+            next_state: [next_state_name]
+``del_keys`` field with keys to be deleted, **REQUIRED**
+``update_keys`` field with keys to be updated, **REQUIRED**
+``next_state`` field contains name of the next state
+
+
 ### input_user
 input_user sends user a prompt, waits for user response and saves entities from the response to the context. 
 
