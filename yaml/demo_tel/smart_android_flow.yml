@@ -1,9 +1,9 @@
-?name: smart_android_flow
+ï»¿name: smart_android_flow
 states:
   smart_android_init:
     type: message_text
     properties:
-      text: 'Android vyuívá celá øada vırobcù mobilních telefonù. Pokud hledáte telefon od specifického vırobce, mùete si vybrat z nabídky níe. Pokud si volbou vırobce nejste jisti, zvolte monost PØESKOÈIT VOLBU VİROBCE'
+      text: 'Android vyuÅ¾Ã­vÃ¡ celÃ¡ Å™ada vÃ½robcÅ¯ mobilnÃ­ch telefonÅ¯. Pokud hledÃ¡te telefon od specifickÃ©ho vÃ½robce, mÅ¯Å¾ete si vybrat z nabÃ­dky nÃ­Å¾e. Pokud si volbou vÃ½robce nejste jisti, zvolte moÅ¾nost PÅ˜ESKOÄŒIT VOLBU VÃROBCE'
 
 
   smart_android_select_brand_buttons:
@@ -35,34 +35,34 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Promiòte, ale tu znaèku neznám, prosím zkontrolujte, e jste ji zadali správnì, pøípadnì zvolte pøeskoøit volbu vırobce?
+        - PromiÅˆte, ale tu znaÄku neznÃ¡m, prosÃ­m zkontrolujte, Å¾e jste ji zadali sprÃ¡vnÄ›, pÅ™Ã­padnÄ› zvolte pÅ™eskoÅ™it volbu vÃ½robce?
     transitions:
       next_state: smart_android_select_brand_buttons
 
   smart_android_params:
     type: message_text
     properties:
-      text: 'Nyní se zamìøíme na parametry telefonu.'
+      text: 'NynÃ­ se zamÄ›Å™Ã­me na parametry telefonu.'
 
   smart_android_params_2:
     type: message_text
     properties:
-      text: 'Prosím zvolte, kterı z parametrù chcete specifikovat. Pokod jste vybrali všechny poadované parametry, pøejdìte k návrhu telefonù.'
+      text: 'ProsÃ­m zvolte, kterÃ½ z parametrÅ¯ chcete specifikovat. Pokod jste vybrali vÅ¡echny poÅ¾adovanÃ© parametry, pÅ™ejdÄ›te k nÃ¡vrhu telefonÅ¯.'
       delay: 1000
 
   smart_android_params_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: ÚHLOPØÍÈKA DISPLEJE
+        - label: ÃšHLOPÅ˜ÃÄŒKA DISPLEJE
           next_state: smart_android_display
         - label: PROCESOR
           next_state: smart_android_processor
-        - label: OPERAÈNÍ PAMÌ
+        - label: OPERAÄŒNÃ PAMÄšÅ¤
           next_state: smart_android_ram
-        - label: VELIKOST ÚLOIŠTÌ TELEFONU
+        - label: VELIKOST ÃšLOÅ½IÅ TÄš TELEFONU
           next_state: smart_android_memory
-        - label: ROZLIŠENÍ TELEFONU
+        - label: ROZLIÅ ENÃ TELEFONU
           next_state: smart_android_resolution
         - label: NAVRHNOUT TELEFONY
           next_state: smart_android_recommend
@@ -81,7 +81,7 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jeden z nabídky parametrù a opøesnìte jeho hodnoty. Pokud u jste nastavili všechny poadované parametry, zvolte NAVRHNOUT TELEFONY
+        - ProsÃ­m vyberte jeden z nabÃ­dky parametrÅ¯ a opÅ™esnÄ›te jeho hodnoty. Pokud uÅ¾ jste nastavili vÅ¡echny poÅ¾adovanÃ© parametry, zvolte NAVRHNOUT TELEFONY
     transitions:
       next_state: smart_android_params_3_buttons
 
@@ -143,25 +143,25 @@ states:
   smart_android_display:
     type: message_text
     properties:
-      text: 'Displej je zpravidla dotykovı a velikost jeho úhlopøíèky se uvádí v palcích. Palec se znaèí znaèkou " a odpovídá 2,54 cm. Napøíklad ètyøpalcovı displej je velkı asi jako kreditní karta. Nejvybavenìjší telefony mají displeje pohybující se od ètyø do pìti palcù. Existují i tzv. phablety (tabletofony), které se s šestipalcovımi displeji svou velikostí blíí spíše tabletùm.'
+      text: 'Displej je zpravidla dotykovÃ½ a velikost jeho ÃºhlopÅ™Ã­Äky se uvÃ¡dÃ­ v palcÃ­ch. Palec se znaÄÃ­ znaÄkou " a odpovÃ­dÃ¡ 2,54 cm. NapÅ™Ã­klad ÄtyÅ™palcovÃ½ displej je velkÃ½ asi jako kreditnÃ­ karta. NejvybavenÄ›jÅ¡Ã­ telefony majÃ­ displeje pohybujÃ­cÃ­ se od ÄtyÅ™ do pÄ›ti palcÅ¯. ExistujÃ­ i tzv. phablety (tabletofony), kterÃ© se s Å¡estipalcovÃ½mi displeji svou velikostÃ­ blÃ­Å¾Ã­ spÃ­Å¡e tabletÅ¯m.'
 
   smart_android_display_2:
     type: message_text
     properties:
-      text: 'Prosím vyberte preferovanou velikost displeje:'
+      text: 'ProsÃ­m vyberte preferovanou velikost displeje:'
       delay: 1000
 
   smart_android_display_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: MALİ (DO 3.4 PALCÙ)
+        - label: MALÃ (DO 3.4 PALCÅ®)
           next_state: smart_android_params_2
-        - label: VELKİ (3.4 - 5 PALCÙ)
+        - label: VELKÃ (3.4 - 5 PALCÅ®)
           next_state: smart_android_params_2
-        - label: EXTRA VELKİ (5+ PALCÙ)
+        - label: EXTRA VELKÃ (5+ PALCÅ®)
           next_state: smart_android_params_2
-        - label: NA DISPLEJI MI NEZÁLEÍ
+        - label: NA DISPLEJI MI NEZÃLEÅ½Ã
           next_state: smart_android_params_2
 
   smart_android_display_select:
@@ -178,14 +178,14 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jednu z nabízenıch moností
+        - ProsÃ­m vyberte jednu z nabÃ­zenÃ½ch moÅ¾nostÃ­
     transitions:
       next_state: smart_android_display_3_buttons
 
   smart_android_processor:
     type: message_text
     properties:
-      text: 'Pro rychlı chod telefonu je tøeba vıkonnı procesor. Èím více GHz (gigahertz - jednotka, v ní se rychlost procesoru udává) a èím více jader procesor má, tím rychlejší bude.'
+      text: 'Pro rychlÃ½ chod telefonu je tÅ™eba vÃ½konnÃ½ procesor. ÄŒÃ­m vÃ­ce GHz (gigahertz - jednotka, v nÃ­Å¾ se rychlost procesoru udÃ¡vÃ¡) a ÄÃ­m vÃ­ce jader procesor mÃ¡, tÃ­m rychlejÅ¡Ã­ bude.'
     transitions:
       next_state: smart_android_processor_3_buttons
 
@@ -193,9 +193,9 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON SE SILNİM PROCESOREM
+        - label: CHCI TELEFON SE SILNÃM PROCESOREM
           next_state: smart_android_params_2
-        - label: SÍLA PROCESORU NENÍ MOJE PRIORITA
+        - label: SÃLA PROCESORU NENÃ MOJE PRIORITA
           next_state: smart_android_params_2
 
   smart_android_processor_select:
@@ -212,7 +212,7 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jednu z nabízenıch moností
+        - ProsÃ­m vyberte jednu z nabÃ­zenÃ½ch moÅ¾nostÃ­
     transitions:
       next_state: smart_android_processor_3_buttons
 
@@ -222,15 +222,15 @@ states:
   smart_android_ram:
     type: message_text
     properties:
-      text: 'Telefon s velkou operaèní pamìtí zvládne mít spuštìnıch více aplikací najednou a bude fungovat stále stejnì plynule. Standardem se zaèíná stávat 1GB RAM, vıkonnìjší telefony pak nabídnou 2 a 3 GB operaèní pamìti.'
+      text: 'Telefon s velkou operaÄnÃ­ pamÄ›tÃ­ zvlÃ¡dne mÃ­t spuÅ¡tÄ›nÃ½ch vÃ­ce aplikacÃ­ najednou a bude fungovat stÃ¡le stejnÄ› plynule. Standardem se zaÄÃ­nÃ¡ stÃ¡vat 1GB RAM, vÃ½konnÄ›jÅ¡Ã­ telefony pak nabÃ­dnou 2 aÅ¾ 3 GB operaÄnÃ­ pamÄ›ti.'
 
   smart_android_ram_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON S VELKOU OPERAÈNÍ PAMÌTÍ (2+ GB)
+        - label: CHCI TELEFON S VELKOU OPERAÄŒNÃ PAMÄšTÃ (2+ GB)
           next_state: smart_android_params_2
-        - label: VELIKOST OPERAÈNÍ PAMÌTI MÌ NEZAJÍMÁ
+        - label: VELIKOST OPERAÄŒNÃ PAMÄšTI MÄš NEZAJÃMÃ
           next_state: smart_android_params_2
 
   smart_android_ram_select:
@@ -247,7 +247,7 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jednu z nabízenıch moností
+        - ProsÃ­m vyberte jednu z nabÃ­zenÃ½ch moÅ¾nostÃ­
     transitions:
       next_state: smart_android_ram_3_buttons
 
@@ -255,25 +255,25 @@ states:
   smart_android_memory:
     type: message_text
     properties:
-      text: 'Pamì telefonu se udává v GB (gigabytech). Èím vyšší hodnota, tím více hudby, filmù, fotografií, her a aplikací se vám do telefonu vejde.4 GB jde doporuèit jako základ. Pokud více fotografujete, hrajete hry atp., sáhnìte radìji po 8 GB a více.'
+      text: 'PamÄ›Å¥ telefonu se udÃ¡vÃ¡ v GB (gigabytech). ÄŒÃ­m vyÅ¡Å¡Ã­ hodnota, tÃ­m vÃ­ce hudby, filmÅ¯, fotografiÃ­, her a aplikacÃ­ se vÃ¡m do telefonu vejde.4 GB jde doporuÄit jako zÃ¡klad. Pokud vÃ­ce fotografujete, hrajete hry atp., sÃ¡hnÄ›te radÄ›ji po 8 GB a vÃ­ce.'
 
   smart_android_memory_2:
     type: message_text
     properties:
-      text: 'Øešením je také koupì telefonu s podporou pamìovıch karet. Ty mohou mít kapacitu a nìkolika desítek GB a stojí bìnì pár set korun. Snadno tak rozšíøíte základní pamì telefonu.'
+      text: 'Å˜eÅ¡enÃ­m je takÃ© koupÄ› telefonu s podporou pamÄ›Å¥ovÃ½ch karet. Ty mohou mÃ­t kapacitu aÅ¾ nÄ›kolika desÃ­tek GB a stojÃ­ bÄ›Å¾nÄ› pÃ¡r set korun. Snadno tak rozÅ¡Ã­Å™Ã­te zÃ¡kladnÃ­ pamÄ›Å¥ telefonu.'
       delay: 1000
 
   smart_android_memory_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: STAÈÍ MI TELEFON S PAMÌTÍ DO 8 GB
+        - label: STAÄŒÃ MI TELEFON S PAMÄšTÃ DO 8 GB
           next_state: smart_android_params_2
-        - label: CHCI TELEFON S PAMÌTÍ NAD 8 GB 
+        - label: CHCI TELEFON S PAMÄšTÃ NAD 8 GB 
           next_state: smart_android_params_2
-        - label: CHCI TELEFON S PODPOROU PAMÌOVİCH KARET 
+        - label: CHCI TELEFON S PODPOROU PAMÄšÅ¤OVÃCH KARET 
           next_state: smart_android_params_2
-        - label: INTERNÍ PAMÌ TELEFONU NENÍ MOJE PRIORITA 
+        - label: INTERNÃ PAMÄšÅ¤ TELEFONU NENÃ MOJE PRIORITA 
           next_state: smart_android_params_2
 
   smart_android_memory_select:
@@ -290,7 +290,7 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jednu z nabízenıch moností
+        - ProsÃ­m vyberte jednu z nabÃ­zenÃ½ch moÅ¾nostÃ­
     transitions:
       next_state: smart_android_memory_3_buttons
 
@@ -299,18 +299,18 @@ states:
   smart_android_resolution:
     type: message_text
     properties:
-      text: 'Rozlišení displeje je udáváno maximálním poètem pixelù (bodù), které se zobrazí na obrazovce telefonu. Èím vyšší, tím bude obraz ostøejší. U levnìjších pøístrojù byste mìli poadovat rozlišení alespoò 800 x 480, u draších pak 1280 x 720 bodù.'
+      text: 'RozliÅ¡enÃ­ displeje je udÃ¡vÃ¡no maximÃ¡lnÃ­m poÄtem pixelÅ¯ (bodÅ¯), kterÃ© se zobrazÃ­ na obrazovce telefonu. ÄŒÃ­m vyÅ¡Å¡Ã­, tÃ­m bude obraz ostÅ™ejÅ¡Ã­. U levnÄ›jÅ¡Ã­ch pÅ™Ã­strojÅ¯ byste mÄ›li poÅ¾adovat rozliÅ¡enÃ­ alespoÅˆ 800 x 480, u draÅ¾Å¡Ã­ch pak 1280 x 720 bodÅ¯.'
 
 
   smart_android_resolution_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON S ROZLIŠENÍM ALESPOÒ 1280 x 720
+        - label: CHCI TELEFON S ROZLIÅ ENÃM ALESPOÅ‡ 1280 x 720
           next_state: smart_android_params_2
-        - label: CHCI TELEFON S ROZLIŠENÍM ALESPOÒ 1920 X 1080
+        - label: CHCI TELEFON S ROZLIÅ ENÃM ALESPOÅ‡ 1920 X 1080
           next_state: smart_android_params_2
-        - label: ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ
+        - label: ROZLIÅ ENÃ TELEFONU MNE NEZAJÃMÃ
           next_state: smart_android_params_2
 
   smart_android_resolution_select:
@@ -327,18 +327,18 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Prosím vyberte jednu z nabízenıch moností
+        - ProsÃ­m vyberte jednu z nabÃ­zenÃ½ch moÅ¾nostÃ­
     transitions:
       next_state: smart_android_resolution_3_buttons
 
   smart_android_recommend:
     type: message_text
     properties:
-      text: 'Vybrali jste SMARTPHONE s operaèním systémem ANDROID a následujícími parametry - cena od {{price_from}} do {{price_to}} Kè, displej {{display_size}} palcù, processor {{processor}}, ram {{ram}}, rozlišení {{resolution}} a pamì {{memory}}.'
+      text: 'Vybrali jste SMARTPHONE s operaÄnÃ­m systÃ©mem ANDROID a nÃ¡sledujÃ­cÃ­mi parametry - cena od {{price_from}} do {{price_to}} KÄ, displej {{display_size}} palcÅ¯, processor {{processor}}, ram {{ram}}, rozliÅ¡enÃ­ {{resolution}} a pamÄ›Å¥ {{memory}}.'
 
 
   smart_android_recommend_2:
     type: message_text
     properties:
-      text: 'PROHLEDÁVÁNÍ DATABÁZE TELEFONÙ ZATÍM NENÍ IMPLEMENTOVÁNO, DIALOG TEDY SKONÈÍ'
+      text: 'PROHLEDÃVÃNÃ DATABÃZE TELEFONÅ® ZATÃM NENÃ IMPLEMENTOVÃNO, DIALOG TEDY SKONÄŒÃ'
       delay: 1000
