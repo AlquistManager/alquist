@@ -1,6 +1,6 @@
-Ôªøname: smart_all_flow
+name: smart_all_flow
 states:
   smart_all_init:
     type: message_text
     properties:
-      text: 'TATO VƒöTEV DIALOGU JE≈†Tƒö NEBYLA IMPLEMENTOV√ÅNA. DIALOG NYN√ç SKONƒå√ç'
+      text: 'TATO VÃTEV DIALOGU JEäTÃ NEBYLA IMPLEMENTOV¡NA. DIALOG NYNÕ SKON»Õ'

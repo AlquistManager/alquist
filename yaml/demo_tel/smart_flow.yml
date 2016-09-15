@@ -1,30 +1,34 @@
-ï»¿name: smart_flow
+name: smart_flow
 states:
   smart_intro:
     type: message_text
     properties:
-      text: 'ChytrÃ© telefony jsou v souÄasnosti nejrozÅ¡Ã­Å™enÄ›jÅ¡Ã­m typem telefonÅ¯ na trhu, cenovÃ© rozpÄ›tÃ­ ve kterÃ©m se nachÃ¡zejÃ­ je tedy pomÄ›rnÄ› velkÃ©.'
+      text: 'Chytré telefony jsou v souèasnosti nejrozšíøenìjším typem telefonù na trhu, cenové rozpìtí ve kterém se nacházejí je tedy pomìrnì velké.'
 
 
   smart_price_1:
     type: message_text
     properties:
-      text: 'NejevnÄ›jÅ¡Ã­ modely se pohybujÃ­ do cen okolo 2 500 KÄ.'
+      text: 'Nejevnìjší modely se pohybují do cen okolo 2 500 Kè.'
+      delay: 1000
 
   smart_price_2:
     type: message_text
     properties:
-      text: 'NiÅ¾Å¡Ã­ stÅ™ednÃ­ tÅ™Ã­da smartphonÅ¯ se drÅ¾Ã­ v cenovÃ©m rozpÄ›tÃ­ mezi 2 500 KÄ a 5 000 KÄ. '
+      text: 'Niší støední tøída smartphonù se drí v cenovém rozpìtí mezi 2 500 Kè a 5 000 Kè. '
+      delay: 1000
 
   smart_price_3:
     type: message_text
     properties:
-      text: 'Pokud hledÃ¡te silnÃ½ a vÃ½konnÃ½ model stÃ¡le za pÅ™ijatelnou cenu, doporuÄujeme kategorii mezi 5 000 KÄ a 10 000 KÄ.'
+      text: 'Pokud hledáte silnı a vıkonnı model stále za pøijatelnou cenu, doporuèujeme kategorii mezi 5 000 Kè a 10 000 Kè.'
+      delay: 1000
 
   smart_price_4:
     type: message_text
     properties:
-      text: 'Pokud vÃ¡s zajÃ­majÃ­ ty nejluchusnÄ›jÅ¡Ã­ modely z naÅ¡Ã­ nabÃ­dky, nevÃ¡hejte zvolit kategorii 10 000+ KÄ.'
+      text: 'Pokud vás zajímají ty nejluchusnìjší modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kè.'
+      delay: 1000
 
 
   smart_select_price:
@@ -58,8 +62,9 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - OmlouvÃ¡m se, ale nerozumÄ›l jsem vÃ¡m. JakÃ© cenovÃ© rozpÄ›tÃ­ chcete zvolit?
-        - PromiÅˆte, ale nerozumÄ›l jsem. JakÃ© cenovÃ© rozpÄ›tÃ­ chcete zvolit?
+        - Omlouvám se, ale nerozumìl jsem vám. Jaké cenové rozpìtí chcete zvolit?
+        - Promiòte, ale nerozumìl jsem. Jaké cenové rozpìtí chcete zvolit?
+      delay: 1000
     transitions:
       next_state: smart_select_price
 
@@ -67,32 +72,50 @@ states:
   smart_os:
     type: message_text
     properties:
-      text: 'DalÅ¡Ã­ dÅ¯leÅ¾itou volbou pÅ™i vÃ½bÄ›ru mobilnÃ­ho telefonu je kterÃ½ operaÄnÃ­ systÃ©m bude vÃ¡Å¡ telefon pouÅ¾Ã­vat.'
+      text: 'Další dùleitou volbou pøi vıbìru mobilního telefonu je kterı operaèní systém bude váš telefon pouívat.'
 
   smart_os_2:
     type: message_text
     properties:
-      text: 'Mezi nejÄastÄ›jÅ¡Ã­ operaÄnÃ­ systÃ©my patÅ™Ã­:'
+      text: 'Mezi nejèastìjší operaèní systémy patøí:'
+      delay: 1000
 
   smart_os_3:
     type: message_text
     properties:
-      text: 'Android (Google) vÃ¡m poskytne Å¡irÅ¡Ã­ moÅ¾nosti pÅ™izpÅ¯sobenÃ­ telefonu. Doinstalovat mÅ¯Å¾ete jakoukoliv aplikaci, kterou najdete v obchodÄ› Google Play nebo na internetu. Pokud navÃ­c pouÅ¾Ã­vÃ¡te dalÅ¡Ã­ sluÅ¾by od Googlu (Gmail, Google Disk a dalÅ¡Ã­), hodÃ­ se Android prÃ¡vÄ› pro vÃ¡s. OperaÄnÃ­ systÃ©m android vyuÅ¾Ã­vÃ¡ celÃ¡ Å™ada vÃ½robcÅ¯ mobilnÃ­ch telefonÅ¯, vÄetnÄ› telefonÅ¯ znaÄek jako Samsung, Lenovo nebo Sony.'
+      text: 'Android (Google) vám poskytne širší monosti pøizpùsobení telefonu. Doinstalovat mùete jakoukoliv aplikaci, kterou najdete v obchodì Google Play nebo na internetu. Pokud navíc pouíváte další sluby od Googlu (Gmail, Google Disk a další), hodí se Android právì pro vás. Operaèní systém android vyuívá celá øada vırobcù mobilních telefonù, vèetnì telefonù znaèek jako Samsung, Lenovo nebo Sony.'
+      delay: 1000
 
   smart_os_4:
     type: message_text
     properties:
-      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a dalÅ¡Ã­ soubory do nich nahrajete pÅ™es program iTunes. OperaÄnÃ­ systÃ©m je dÄ›lanÃ½ pouze pro tyto telefony, proto je velmi rychlÃ½. Pokud pouÅ¾Ã­vÃ¡te dalÅ¡Ã­ zaÅ™Ã­zenÃ­ Apple, bude s nimi telefon skvÄ›le spolupracovat.'
+      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete pøes program iTunes. Operaèní systém je dìlanı pouze pro tyto telefony, proto je velmi rychlı. Pokud pouíváte další zaøízení Apple, bude s nimi telefon skvìle spolupracovat.'
+      delay: 1000
 
   smart_os_5:
     type: message_text
     properties:
-      text: 'Windows Phone (Microsoft) je mÃ©nÄ› rozÅ¡Ã­Å™enÃ½, proto je takÃ© nabÃ­dka aplikacÃ­ menÅ¡Ã­ neÅ¾ u konkurence. Telefon bude ale velmi dobÅ™e spolupracovat s poÄÃ­taÄem vybavenÃ½m operaÄnÃ­m systÃ©mem Windows. Windows Phone je vyuÅ¾Ã­vÃ¡n pÅ™evÃ¡Å¾nÄ› telefony Microsoft a Nokia.'
+      text: 'Windows Phone (Microsoft) je ménì rozšíøenı, proto je také nabídka aplikací menší ne u konkurence. Telefon bude ale velmi dobøe spolupracovat s poèítaèem vybavenım operaèním systémem Windows. Windows Phone je vyuíván pøevánì telefony Microsoft a Nokia.'
+      delay: 1000
 
   smart_os_6:
     type: message_text
     properties:
-      text: 'Pokud jste si vybrali jeden ze tÅ™Ã­ nejrozÅ¡iÅ™enÄ›jÅ¡Ã­ch operaÄnÃ­ch systÃ©mÅ¯, prosÃ­m zvolte pÅ™Ã­sluÅ¡nou kategorii, pokud si nejste jisti nebo VÃ¡m na operaÄnÃ­m systÃ©mu nezÃ¡leÅ¾Ã­, prosÃ­m zvolte VÅ ECHNY OPERAÄŒNÃ SYSTÃ‰MY'
+      text: 'Pokud jste si vybrali jeden ze tøí nejrozšiøenìjších operaèních systémù, prosím zvolte pøíslušnou kategorii, pokud si nejste jisti nebo Vám na operaèním systému nezáleí, prosím zvolte VŠECHNY OPERAÈNÍ SYSTÉMY'
+      delay: 1000
+
+  smart_select_os_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: Android
+          next_state: smart_android_init
+        - label: iOS
+          next_state: smart_ios_init
+        - label: Windows Phone
+          next_state: smart_win_init
+        - label: Všechny operaèní systémy
+          next_state: smart_all_init
 
   smart_select_os:
     type: input_user # Prompts cliends and waits for his response
@@ -108,10 +131,11 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - OmlouvÃ¡m se, ale nerozumÄ›l jsem vÃ¡m. Telefon s jakÃ½m operaÄnÃ­m systÃ©mem hledÃ¡te?
-        - PromiÅˆte, ale nerozumÄ›l jsem. Telefon s jakÃ½m operaÄnÃ­m systÃ©mem hledÃ¡te?
+        - Omlouvám se, ale nerozumìl jsem vám. Telefon s jakım operaèním systémem hledáte?
+        - Promiòte, ale nerozumìl jsem. Telefon s jakım operaèním systémem hledáte?
+      delay: 1000
     transitions:
-      next_state: smart_select_os
+      next_state: smart_select_os_buttons
 
   smart_check_os_android:
     type: conditional_equal

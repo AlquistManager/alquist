@@ -1,47 +1,47 @@
-ï»¿name: main_flow
+name: main_flow
 states:
   intro:
     type: message_text
     properties:
-      text: 'Nejprve je nutnÃ© rozhodnout se, jakÃ½ typ mobilnÃ­ho telefonu VÃ¡m bude vyhovovat.'
+      text: 'Nejprve je nutné rozhodnout se, jakı typ mobilního telefonu Vám bude vyhovovat.'
       delay: 1000
 
   intro2:
     type: message_text
     properties:
-      text: 'DneÅ¡nÃ­ nejlevnÄ›jÅ¡Ã­ telefony majÃ­ pouze ty nejzÃ¡kladnÄ›jÅ¡Ã­ funkce. Pohud shÃ¡nÃ­te levnÃ½ mobilnÃ­ telefon s omezenÃ½mi funkcemi, prosÃ­m zvolte moÅ¾nost LEVNÃ ALTERNATIVA.
+      text: 'Dnešní nejlevnìjší telefony mají pouze ty nejzákladnìjší funkce. Pohud sháníte levnı mobilní telefon s omezenımi funkcemi, prosím zvolte monost LEVNÁ ALTERNATIVA.
 '
       delay: 1000
 
   intro3:
     type: message_text
     properties:
-      text: 'Pokud chcete svÅ¯j mobilnÃ­ telefon vyuÅ¾Ã­vat skuteÄnÄ› naplno, sÃ¡hnÄ›te radÄ›ji po chytrÃ©m telefonu (cenasmartphonu). S nÃ­m mÅ¯Å¾ete zÃ­skat nespoÄet dalÅ¡Ã­ch funkcÃ­ pouhÃ½m doinstalovÃ¡nÃ­m aplikacÃ­. Chcete-li vybÃ­rat z naÅ¡Ã­ nabÃ­dky chatrÃ½ch telefonÅ¯, prosÃ­m zvolte CHYTRÃ TELEFON.'
+      text: 'Pokud chcete svùj mobilní telefon vyuívat skuteènì naplno, sáhnìte radìji po chytrém telefonu (cenasmartphonu). S ním mùete získat nespoèet dalších funkcí pouhım doinstalováním aplikací. Chcete-li vybírat z naší nabídky chatrıch telefonù, prosím zvolte CHYTRİ TELEFON.'
       delay: 1000
 
   intro4:
     type: message_text
     properties:
-      text: 'Pro starÅ¡Ã­ generace jsou k dispozici telefony pro seniory. Tyto telefony majÃ­ velkÃ½ displej i tlaÄÃ­tka a tÃ­m zaruÄujÃ­ dobrou Äitelnost textu a snadnÃ© ovlÃ¡dÃ¡nÃ­. HledÃ¡te-li TELEFON PRO SENIORY, prosÃ­m zvolte pÅ™Ã­sluÅ¡nou volbu.'
+      text: 'Pro starší generace jsou k dispozici telefony pro seniory. Tyto telefony mají velkı displej i tlaèítka a tím zaruèují dobrou èitelnost textu a snadné ovládání. Hledáte-li TELEFON PRO SENIORY, prosím zvolte pøíslušnou volbu.'
       delay: 1000
 
   intro5:
     type: message_text
     properties:
-      text: 'Pokud jsi nejste jistÃ­, kterou kategorii zvolit, mÅ¯Å¾ete vybrat moÅ¾nost PROCHÃZET VÅ E'
+      text: 'Pokud jsi nejste jistí, kterou kategorii zvolit, mùete vybrat monost PROCHÁZET VŠE'
       delay: 1000
 
   select_type_button:
     type: message_buttons
     properties:
       buttons:
-        - label: LEVNÃ ALTERNATIVA
+        - label: LEVNÁ ALTERNATIVA
           next_state: error_phone_type
-        - label: CHYTRÃ TELEFON
+        - label: CHYTRİ TELEFON
           next_state: smart_intro
         - label: TELEFON PRO SENIORY
           next_state: error_phone_type
-        - label: PROCHÃZET VÅ E
+        - label: PROCHÁZET VŠE
           next_state: error_phone_type
 
   select_type:
@@ -58,8 +58,8 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - OmlouvÃ¡m se, ale nerozumÄ›l jsem vÃ¡m. JakÃ½ druh telefonu shÃ¡nÃ­te? LEVNÃ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÃRAT ZE VÅ ECH telefonÅ¯?
-        - PromiÅˆte, ale nerozumÄ›l jsem. JakÃ½ druh telefonu shÃ¡nÃ­te? LEVNÃ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÃRAT ZE VÅ ECH telefonÅ¯?
+        - Omlouvám se, ale nerozumìl jsem vám. Jakı druh telefonu sháníte? LEVNİ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
+        - Promiòte, ale nerozumìl jsem. Jakı druh telefonu sháníte? LEVNİ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonù?
     transitions:
       next_state: select_type_button
 

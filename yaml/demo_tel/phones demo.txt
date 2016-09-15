@@ -1,107 +1,107 @@
-﻿Dobrý den,
+Dobr� den,
 
- - moje jméno je ###. 
+ - moje jm�no je ###. 
  - jmenuji se ###. 
- - já jsem ###. 
+ - j� jsem ###. 
 
- - Rád Vám pomohu s výběrem a nákupem takového mobilního telefonu, který splní všechny vaše požadavky.
- - Pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.
+ - R�d V�m pomohu s v�b�rem a n�kupem takov�ho mobiln�ho telefonu, kter� spln� v�echny va�e po�adavky.
+ - Pomohu V�m vybrat mobiln� telefon p�esn� podle va�ich po�adavk�.
 
- - Můžeme začít?
- - Jste připraveni začít?
+ - M��eme za��t?
+ - Jste p�ipraveni za��t?
 
  Ano	Ne
 
  ---> Ne
- 	V pořádku, pokud změníte názor, prosím aktvujte mne klitkutím na panel v pravém dolním rohu obrazovky.
+ 	V po��dku, pokud zm�n�te n�zor, pros�m aktvujte mne klitkut�m na panel v prav�m doln�m rohu obrazovky.
 
  ---> Ano
- 	 - Výborně
- 	 - Skvělě
+ 	 - V�born�
+ 	 - Skv�l�
  	 - Super
 
- 	Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.
+ 	Nejprve je nutn� rozhodnout se, jak� typ mobiln�ho telefonu V�m bude vyhovovat.
 
- 	Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. Pohud sháníte levný mobilní telefon s omezenými funkcemi, prosím zvolte možnost LEVNÁ ALTERNATIVA.
+ 	Dne�n� nejlevn�j�� telefony maj� pouze ty nejz�kladn�j�� funkce. Pohud sh�n�te levn� mobiln� telefon s omezen�mi funkcemi, pros�m zvolte mo�nost LEVN� ALTERNATIVA.
 
- 	Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu (cenasmartphonu). S ním můžete získat nespočet dalších funkcí pouhým doinstalováním aplikací. Chcete-li vybírat z naší nabídky chatrých telefonů, prosím zvolte CHYTRÝ TELEFON. 
+ 	Pokud chcete sv�j mobiln� telefon vyu��vat skute�n� naplno, s�hn�te rad�ji po chytr�m telefonu (cenasmartphonu). S n�m m��ete z�skat nespo�et dal��ch funkc� pouh�m doinstalov�n�m aplikac�. Chcete-li vyb�rat z na�� nab�dky chatr�ch telefon�, pros�m zvolte CHYTR� TELEFON. 
 
- 	Pro starší generace jsou k dispozici telefony pro seniory. Tyto telefony mají velký displej i tlačítka a tím zaručují dobrou čitelnost textu a snadné ovládání. Hledáte-li TELEFON PRO SENIORY, prosím zvolte příslušnou volbu.
+ 	Pro star�� generace jsou k dispozici telefony pro seniory. Tyto telefony maj� velk� displej i tla��tka a t�m zaru�uj� dobrou �itelnost textu a snadn� ovl�d�n�. Hled�te-li TELEFON PRO SENIORY, pros�m zvolte p��slu�nou volbu.
 
- 	Pokud jsi nejste jistí, kterou kategorii zvolit, můžete vybrat možnost PROCHÁZET VŠE
+ 	Pokud jsi nejste jist�, kterou kategorii zvolit, m��ete vybrat mo�nost PROCH�ZET V�E
  
- 	LEVNÁ ALTERNATIVA		CHYTRÝ TELEFON 		TELEFON PRO SENIORY 	PROCHÁZET VŠE
+ 	LEVN� ALTERNATIVA		CHYTR� TELEFON 		TELEFON PRO SENIORY 	PROCH�ZET V�E
 
- 	---> CHYTRÝ TELEFON
- 		Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu, cenové rozpětí ve kterém se nacházejí je tedy poměrně velké. 
+ 	---> CHYTR� TELEFON
+ 		Chytr� telefony jsou v sou�asnosti nejroz���en�j��m typem telefon� na trhu, cenov� rozp�t� ve kter�m se nach�zej� je tedy pom�rn� velk�. 
 
- 		Nejevnější modely se pohybují do cen okolo 2 500 Kč. 
+ 		Nejevn�j�� modely se pohybuj� do cen okolo 2 500 K�. 
 
- 		Nižší střední třída smartphonů se drží v cenovém rozpětí mezi 2 500 Kč a 5 000 Kč. 
+ 		Ni��� st�edn� t��da smartphon� se dr�� v cenov�m rozp�t� mezi 2 500 K� a 5 000 K�. 
 
- 		Pokud hledáte poměrně silný a výkonný model stále za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 10 000 Kč.
+ 		Pokud hled�te pom�rn� siln� a v�konn� model st�le za p�ijatelnou cenu, doporu�ujeme kategorii mezi 5 000 K� a 10 000 K�.
 
- 		Pokod hledáte ty nejluchusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.
+ 		Pokod hled�te ty nejluchusn�j�� modely z na�� nab�dky, nev�hejte zvolit kategorii 10 000+ K�.
 
- 		0 - 2 499 Kč		2 500 - 4 999 Kč 		5 000 Kč - 10 000 Kč 		10 000+ Kč		Vlastní cenové rozpětí
+ 		0 - 2 499 K�		2 500 - 4 999 K� 		5 000 K� - 10 000 K� 		10 000+ K�		Vlastn� cenov� rozp�t�
 
 
- 		Další důležitou volbou při výběru mobilního telefonu je který operační systém bude váš telefon používat.
+ 		Dal�� d�le�itou volbou p�i v�b�ru mobiln�ho telefonu je kter� opera�n� syst�m bude v� telefon pou��vat.
 
- 		Mezi nejčastější operační systémy patří:
+ 		Mezi nej�ast�j�� opera�n� syst�my pat��:
 
- 		Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Doinstalovat můžete jakoukoliv aplikaci, kterou najdete v obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právě pro vás. Operační systém android využívá celá řada výrobců mobilních telefonů, včetně telefonů značek jako Samsung, Lenovo nebo Sony.
+ 		Android (Google) v�m poskytne �ir�� mo�nosti p�izp�soben� telefonu. Doinstalovat m��ete jakoukoliv aplikaci, kterou najdete v obchod� Google Play nebo na internetu. Pokud nav�c pou��v�te dal�� slu�by od Googlu (Gmail, Google Disk a dal��), hod� se Android pr�v� pro v�s. Opera�n� syst�m android vyu��v� cel� �ada v�robc� mobiln�ch telefon�, v�etn� telefon� zna�ek jako Samsung, Lenovo nebo Sony.
 
- 		iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Operační systém je dělaný pouze pro tyto telefony, proto je velmi rychlý. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.
+ 		iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a dal�� soubory do nich nahrajete p�es program iTunes. Opera�n� syst�m je d�lan� pouze pro tyto telefony, proto je velmi rychl�. Pokud pou��v�te dal�� za��zen� Apple, bude s nimi telefon skv�le spolupracovat.
 
-		Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows. Windows Phone je využíván převážně telefony Microsoft a Nokia.
+		Windows Phone (Microsoft) je m�n� roz���en�, proto je tak� nab�dka aplikac� men�� ne� u konkurence. Telefon bude ale velmi dob�e spolupracovat s po��ta�em vybaven�m opera�n�m syst�mem Windows. Windows Phone je vyu��v�n p�ev�n� telefony Microsoft a Nokia.
 
-		Pokud jste si vybrali jeden ze tří nejrozšiřenějších operačních systémů, prosím zvolte příslušnou kategorii, pokud si nejste jisti nebo Vám na operačním systému nezáleží, prosím zvolte VŠECHNY OPERAČNÍ SYSTÉMY
+		Pokud jste si vybrali jeden ze t�� nejroz�i�en�j��ch opera�n�ch syst�m�, pros�m zvolte p��slu�nou kategorii, pokud si nejste jisti nebo V�m na opera�n�m syst�mu nez�le��, pros�m zvolte V�ECHNY OPERA�N� SYST�MY
 
-		ANDROID 	iOS 	WINDOWS PHONE 		VŠECHNY OPERAČNÍ SYSTÉMY
+		ANDROID 	iOS 	WINDOWS PHONE 		V�ECHNY OPERA�N� SYST�MY
 
 		---> ANDROID
 
-			Android využívá celá řada výrobců mobilních telefonů. Pokud hledáte telefon od specifického výrobce, můžete si vybrat z nabídky níže. Pokud si volbou výrobce nejste jisti, zvolte možnost PŘESKOČIT VOLBU VÝROBCE
+			Android vyu��v� cel� �ada v�robc� mobiln�ch telefon�. Pokud hled�te telefon od specifick�ho v�robce, m��ete si vybrat z nab�dky n�e. Pokud si volbou v�robce nejste jisti, zvolte mo�nost P�ESKO�IT VOLBU V�ROBCE
 
-			SAMSUNG 	SONY 	LG 		...		PŘESKOČIT VOLBU VÝROBCE
+			SAMSUNG 	SONY 	LG 		...		P�ESKO�IT VOLBU V�ROBCE
 
 
-			Nyní se zaměříme na parametry telefonu.
+			Nyn� se zam���me na parametry telefonu.
 
-			Prosím zvolte, který z parametrů chcete specifikovat. Pokod jste vybrali všechny požadované parametry, přejděte k návrhu telefonů.
+			Pros�m zvolte, kter� z parametr� chcete specifikovat. Pokod jste vybrali v�echny po�adovan� parametry, p�ejd�te k n�vrhu telefon�.
 
-			ÚHLOPŘÍČKA DISPLEJE		PROCESOR 	OPERAČNÍ PAMĚŤ		VELIKOST ÚLOŽIŠTĚ TELEFONU 		ROZLIŠENÍ TELEFONU 		NAVRHNOUT TELEFONY
+			�HLOP���KA DISPLEJE		PROCESOR 	OPERA�N� PAM̍		VELIKOST �LO�I�T� TELEFONU 		ROZLI�EN� TELEFONU 		NAVRHNOUT TELEFONY
 
-			---> ÚHLOPŘÍČKA DISPLEJE
-				Je zpravidla dotykový a velikost jeho úhlopříčky se uvádí v palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta. Nejvybavenější telefony mají displeje pohybující se od čtyř do pěti palců. Existují i tzv. phablety (tabletofony), které se s šestipalcovými displeji svou velikostí blíží spíše tabletům.
+			---> �HLOP���KA DISPLEJE
+				Je zpravidla dotykov� a velikost jeho �hlop���ky se uv�d� v palc�ch. Palec se zna�� zna�kou " a odpov�d� 2,54 cm. Nap��klad �ty�palcov� displej je velk� asi jako kreditn� karta. Nejvybaven�j�� telefony maj� displeje pohybuj�c� se od �ty� do p�ti palc�. Existuj� i tzv. phablety (tabletofony), kter� se s �estipalcov�mi displeji svou velikost� bl�� sp�e tablet�m.
 
-				Prosím vyberte preferovanou velikost displeje:
+				Pros�m vyberte preferovanou velikost displeje:
 
-				MALÝ (DO 3.4 PALCŮ)		VELKÝ (3.4 - 5 PALCŮ) 		EXTRA VELKÝ (5+ PALCŮ)		NA DISPLEJI MI NEZÁLEŽÍ
+				MAL� (DO 3.4 PALC�)		VELK� (3.4 - 5 PALC�) 		EXTRA VELK� (5+ PALC�)		NA DISPLEJI MI NEZ�LE��
 
 			---> PROCESOR
-				Pro rychlý chod telefonu je třeba výkonný procesor. Čím více GHz (gigahertz: jednotka, v níž se rychlost procesoru udává) a čím více jader procesor má, tím rychlejší úůbude.
+				Pro rychl� chod telefonu je t�eba v�konn� procesor. ��m v�ce GHz (gigahertz: jednotka, v n� se rychlost procesoru ud�v�) a ��m v�ce jader procesor m�, t�m rychlej�� ��bude.
 
-				CHCI TELEFON SE SILNÝM PROCESOREM		SÍLA PROCESORU NENÍ MOJE PRIORITA
+				CHCI TELEFON SE SILN�M PROCESOREM		S�LA PROCESORU NEN� MOJE PRIORITA
 
-			---> OPERAČNÍ PAMĚŤ
-				Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a bude fungovat stále stejně plynule. Standardem se začíná stávat 1GB RAM, výkonnější telefony pak nabídnou 2 až 3 GB operační paměti.
+			---> OPERA�N� PAM̍
+				Telefon s velkou opera�n� pam�t� zvl�dne m�t spu�t�n�ch v�ce aplikac� najednou a bude fungovat st�le stejn� plynule. Standardem se za��n� st�vat 1GB RAM, v�konn�j�� telefony pak nab�dnou 2 a� 3 GB opera�n� pam�ti.
 
-				CHCI TELEFON SE VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)		VELIKOST OPERAČNÍ PAMĚTI MĚ NEZAJÍMÁ
+				CHCI TELEFON SE VELKOU OPERA�N� PAM�T� (2+ GB)		VELIKOST OPERA�N� PAM�TI M� NEZAJ�M�
 
-			---> VELIKOST ÚLOŽIŠTĚ TELEFONU
-				Paměť telefonu se udává v GB (gigabytech). Čím vyšší hodnota, tím více hudby, filmů, fotografií, her a aplikací se vám do telefonu vejde.4 GB jde doporučit jako základ. Pokud více fotografujete, hrajete hry atp., sáhněte raději po 8 GB a více.
+			---> VELIKOST �LO�I�T� TELEFONU
+				Pam� telefonu se ud�v� v GB (gigabytech). ��m vy��� hodnota, t�m v�ce hudby, film�, fotografi�, her a aplikac� se v�m do telefonu vejde.4 GB jde doporu�it jako z�klad. Pokud v�ce fotografujete, hrajete hry atp., s�hn�te rad�ji po 8 GB a v�ce.
 
-				Řešením je také koupě telefonu s podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.
+				�e�en�m je tak� koup� telefonu s podporou pam�ov�ch karet. Ty mohou m�t kapacitu a� n�kolika des�tek GB a stoj� b�n� p�r set korun. Snadno tak roz����te z�kladn� pam� telefonu.
 
-				STAČNÍ MI TELEFON S PAMĚTÍ DO 8 GB		CHCI TELEFON S PAMĚTÍ NAD 8 GB 		CHCI TELEFON S PODPOROU PAMĚŤOVÝCH KARET 		INTERNÍ PAMĚŤ TELEFONU NENÍ MOJE PRIORITA
+				STA�N� MI TELEFON S PAM�T� DO 8 GB		CHCI TELEFON S PAM�T� NAD 8 GB 		CHCI TELEFON S PODPOROU PAM̍OV�CH KARET 		INTERN� PAM̍ TELEFONU NEN� MOJE PRIORITA
 
-			---> ROZLIŠENÍ TELEFONU
-				Rozlišení displeje je udáváno maximálním počtem pixelů (bodů), které se zobrazí na obrazovce telefonu.
-				Čím vyšší, tím bude obraz ostřejší. U levnějších přístrojů byste měli požadovat rozlišení alespoň 800 x 480, u dražších pak 1280 x 720 bodů.
+			---> ROZLI�EN� TELEFONU
+				Rozli�en� displeje je ud�v�no maxim�ln�m po�tem pixel� (bod�), kter� se zobraz� na obrazovce telefonu.
+				��m vy���, t�m bude obraz ost�ej��. U levn�j��ch p��stroj� byste m�li po�adovat rozli�en� alespo� 800 x 480, u dra���ch pak 1280 x 720 bod�.
 
-				STAČNÍ MI TELEFON S PAMĚTÍ NÍZKÝM ROZLIŠENÍM		CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1280 x 720  	CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1920 X 1080		INTERNÍ PAMĚŤ TELEFONU NENÍ MOJE PRIORITA
+				STA�N� MI TELEFON S PAM�T� N�ZK�M ROZLI�EN�M		CHCI TELEFON S ROZLI�EN�M ALESPO� 1280 x 720  	CHCI TELEFON S ROZLI�EN�M ALESPO� 1920 X 1080		INTERN� PAM̍ TELEFONU NEN� MOJE PRIORITA
 
 
 

@@ -1,44 +1,44 @@
-ï»¿name: greet_flow
+name: greet_flow
 states:
   greet:
     type: message_text
     properties:
-      text: 'DobrÃ½ den'
+      text: 'Dobrı den'
       delay: 1000
 
   greet_name:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - Moje jmÃ©no je Primus.
+        - Moje jméno je Primus.
         - Jmenuji se Primus.
-        - JÃ¡ jsem Primus.
+        - Já jsem Primus.
       delay: 1000
 
   greet_explain:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - 'RÃ¡d VÃ¡m pomohu s vÃ½bÄ›rem a nÃ¡kupem takovÃ©ho mobilnÃ­ho telefonu, kterÃ½ splnÃ­ vÅ¡echny vaÅ¡e poÅ¾adavky.'
-        - 'Pomohu VÃ¡m vybrat mobilnÃ­ telefon pÅ™esnÄ› podle vaÅ¡ich poÅ¾adavkÅ¯.'
+        - 'Rád Vám pomohu s vıbìrem a nákupem takového mobilního telefonu, kterı splní všechny vaše poadavky.'
+        - 'Pomohu Vám vybrat mobilní telefon pøesnì podle vašich poadavkù.'
       delay: 1000
 
   greet_ask:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - MÅ¯Å¾eme zaÄÃ­t?
-        - Jste pÅ™ipraveni zaÄÃ­t?
+        - Mùeme zaèít?
+        - Jste pøipraveni zaèít?
       delay: 1000
 
   can_start_ask_buttons:
-    type: message_buttons # shows buttons
+    type: message_buttons
     properties:
-      buttons: # list of buttons to show
-        - label: Ano # label of the first button
-          next_state: greet_start # next_state after click on the first button
-        - label: Ne # label of the second button
-          next_state: goodbye # next_state after click on the second button
+      buttons:
+        - label: Ano
+          next_state: greet_start
+        - label: Ne
+          next_state: goodbye
 
   can_start_ask:
     type: input_user # Prompts cliends and waits for his response
@@ -63,8 +63,8 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - OmlouvÃ¡m se, ale nerozumÄ›l jsem vÃ¡m. Jste pÅ™ipraveni zaÄÃ­t s vÃ½bÄ›rem telefonu?
-        - PromiÅˆte, ale nerozumÄ›l jsem, chcete pomoc s vÃ½bÄ›rem telefonu?
+        - Omlouvám se, ale nerozumìl jsem vám. Jste pøipraveni zaèít s vıbìrem telefonu?
+        - Promiòte, ale nerozumìl jsem, chcete pomoc s vıbìrem telefonu?
     transitions:
       next_state: can_start_ask
 
@@ -81,14 +81,13 @@ states:
     type: message_text_random # Sends one of the messages listed under responses
     properties:
       responses: # List of responses
-        - VÃ½bornÄ›
-        - SkvÄ›lÄ›
+        - Vıbornì
+        - Skvìlì
         - Super
-      delay: 1000
     transitions:
       flow: main_flow
 
   goodbye:
     type: message_text
     properties:
-      text: 'Pokud zmÄ›nÃ­te nÃ¡zor, prosÃ­m aktvujte mne klitkutÃ­m na panel v pravÃ©m dolnÃ­m rohu obrazovky.'
+      text: 'Pokud zmìníte názor, prosím aktvujte mne klitkutím na panel v pravém dolním rohu obrazovky.'
