@@ -5,12 +5,12 @@ from states.state import State
 #
 # example YAML implementation
 #
-# example
+# example:
 #   type: ChangeContext
 #   properties:
 #     del_keys:
-#       one
-#       two
+#       - one
+#       - two
 #     update_keys:
 #       three: thirteen
 #       four: fourteen
