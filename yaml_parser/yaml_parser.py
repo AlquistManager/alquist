@@ -5,6 +5,7 @@ from collections import OrderedDict
 import yaml
 from config import config
 from loaded_states import state_dict, intent_transitions
+from states.change_context import ChangeContext
 from states.message import MessageButtons
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
 from states import *
@@ -145,6 +146,8 @@ class YamlParser:
                 state_properties['type'] = ConditionalExists
             elif state_properties['type'].lower() == 'message_buttons':
                 state_properties['type'] = MessageButtons
+            elif state_properties['type'].lower() == 'change_context':
+                state_properties['type'] = ChangeContext
             # custom action
             else:
                 try:
