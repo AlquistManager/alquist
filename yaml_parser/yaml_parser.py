@@ -38,7 +38,7 @@ class YamlParser:
         # add missing slash to directory path
         if not (self.path.endswith('/')):
             self.path += '/'
-        with open(self.path + file_name, 'r') as stream:
+        with open(self.path + file_name, 'r', encoding="utf8") as stream:
             try:
                 # load yaml to OrderedDict
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
@@ -91,7 +91,7 @@ class YamlParser:
             if "flow" in state_parameters["transitions"]:
                 flow_name = state_parameters["transitions"]["flow"]
                 # find file with some extension and the right name
-                with open(glob.glob(self.path + flow_name + '.*')[0], 'r') as stream:
+                with open(glob.glob(self.path + flow_name + '.*')[0], 'r', encoding="utf8") as stream:
                     try:
                         # load yaml to OrderedDict
                         loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
