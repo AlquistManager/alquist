@@ -27,43 +27,43 @@ states:
   smart_price_4:
     type: message_text
     properties:
-      text: 'Pokud vás zajímají ty nejluchusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.'
+      text: 'Pokud vás zajímají ty nejluxusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.'
       delay: 1000
 
 
   smart_select_price:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        price_from: price_from # context key: entity
-        price_to: price_to # context key: entity
-      require_match: false # determines if expected entities are required
+      entities:
+        price_from: price_from
+        price_to: price_to
+      require_match: false
     transitions:
       next_state: smart_check_price_from
 
 
   smart_check_price_from:
-    type: conditional_exists # used to determine if selected key exists in current context
+    type: conditional_exists
     properties:
-      key: '{{price_from}}' # context key to check
+      key: '{{price_from}}'
     transitions:
-      exists: smart_os # transition for when key exists
-      notexists: smart_check_price_to #  transition for when the key doesn't exist
+      exists: smart_os
+      notexists: smart_check_price_to
 
   smart_check_price_to:
-    type: conditional_exists # used to determine if selected key exists in current context
+    type: conditional_exists
     properties:
-      key: '{{price_to}}' # context key to check
+      key: '{{price_to}}'
     transitions:
-      exists: smart_os # transition for when key exists
-      notexists: smart_price_error #  transition for when the key doesn't exist
+      exists: smart_os
+      notexists: smart_price_error
 
   smart_price_error:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?
-        - Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?'
+        - 'Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?'
       delay: 1000
     transitions:
       next_state: smart_select_price
@@ -108,31 +108,63 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: Android
-          next_state: smart_android_init
-        - label: iOS
-          next_state: smart_ios_init
-        - label: Windows Phone
-          next_state: smart_win_init
-        - label: Všechny operační systémy
-          next_state: smart_all_init
+        - label: 'Android'
+          next_state: smart_android_init_context
+        - label: 'iOS'
+          next_state: smart_ios_init_context
+        - label: 'Windows Phone'
+          next_state: smart_win_init_context
+        - label: 'Všechny operační systémy'
+          next_state: smart_all_init_context
 
   smart_select_os:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        phone_os: os # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        phone_os: os
+      require_match: true
     transitions:
-      match: smart_check_os_android # transition when the entities are matched
-      notmatch: error_smart_os # transition when the entities are not matched
+      match: smart_check_os_android
+      notmatch: error_smart_os
+
+  smart_android_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'android'
+    transitions:
+        next_state: smart_android_init
+
+  smart_ios_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'iOS'
+    transitions:
+        next_state: smart_ios_init
+
+  smart_win_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'win'
+    transitions:
+        next_state: smart_win_init
+
+  smart_all_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'all'
+    transitions:
+        next_state: smart_all_init
 
   error_smart_os:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Omlouvám se, ale nerozuměl jsem vám. Telefon s jakým operačním systémem hledáte?
-        - Promiňte, ale nerozuměl jsem. Telefon s jakým operačním systémem hledáte?
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Telefon s jakým operačním systémem hledáte?'
+        - 'Promiňte, ale nerozuměl jsem. Telefon s jakým operačním systémem hledáte?'
       delay: 1000
     transitions:
       next_state: smart_select_os_buttons
@@ -140,35 +172,35 @@ states:
   smart_check_os_android:
     type: conditional_equal
     properties:
-      value1: '{{phone_os}}' # Here we use value of a context key intent
-      value2: 'android' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_init # transition for when values are equal
-      notequal: smart_check_os_ios # transition for when values are not equal
+      value1: '{{phone_os}}'
+      value2: 'android'
+    transitions:
+      equal: smart_android_init
+      notequal: smart_check_os_ios
 
   smart_check_os_ios:
     type: conditional_equal
     properties:
-      value1: '{{phone_os}}' # Here we use value of a context key intent
-      value2: 'iOS' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_ios_init # transition for when values are equal
-      notequal: smart_check_os_win # transition for when values are not equal
+      value1: '{{phone_os}}'
+      value2: 'iOS'
+    transitions:
+      equal: smart_ios_init
+      notequal: smart_check_os_win
 
   smart_check_os_win:
     type: conditional_equal
     properties:
-      value1: '{{phone_os}}' # Here we use value of a context key intent
-      value2: 'win' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_win_init # transition for when values are equal
-      notequal: smart_check_os_all # transition for when values are not equal
+      value1: '{{phone_os}}'
+      value2: 'win'
+    transitions:
+      equal: smart_win_init
+      notequal: smart_check_os_all
 
   smart_check_os_all:
     type: conditional_equal
     properties:
-      value1: '{{phone_os}}' # Here we use value of a context key intent
-      value2: 'all' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_all_init # transition for when values are equal
-      notequal: error_smart_os # transition for when values are not equal
+      value1: '{{phone_os}}'
+      value2: 'all'
+    transitions:
+      equal: smart_all_init
+      notequal: error_smart_os

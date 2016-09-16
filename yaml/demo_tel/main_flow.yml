@@ -35,66 +35,98 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: LEVNÁ ALTERNATIVA
-          next_state: error_phone_type
-        - label: CHYTRÝ TELEFON
-          next_state: smart_intro
-        - label: TELEFON PRO SENIORY
-          next_state: error_phone_type
-        - label: PROCHÁZET VŠE
-          next_state: error_phone_type
+        - label: 'LEVNÁ ALTERNATIVA'
+          next_state: simple_intro_context
+        - label: 'CHYTRÝ TELEFON'
+          next_state: smart_intro_context
+        - label: 'TELEFON PRO SENIORY'
+          next_state: senior_intro_context
+        - label: 'PROCHÁZET VŠE'
+          next_state: all_intro_context
 
   select_type:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        phone_type: phone_type # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        phone_type: phone_type
+      require_match: true
     transitions:
-      match: type_check_simple # transition when the entities are matched
-      notmatch: error_phone_type # transition when the entities are not matched
+      match: type_check_simple
+      notmatch: error_phone_type
+
+  simple_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'simple'
+    transitions:
+        next_state: simple_intro
+
+  smart_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'smart'
+    transitions:
+        next_state: smart_intro
+
+  senior_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'senior'
+    transitions:
+        next_state: senior_intro
+
+  all_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'all'
+    transitions:
+        next_state: all_intro
 
   error_phone_type:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?
-        - Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?'
+        - 'Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?'
     transitions:
       next_state: select_type_button
 
   type_check_simple:
     type: conditional_equal
     properties:
-      value1: '{{phone_type}}' # Here we use value of a context key intent
-      value2: 'simple' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: simple_intro # transition for when values are equal
-      notequal: type_check_senior # transition for when values are not equal
+      value1: '{{phone_type}}'
+      value2: 'simple'
+    transitions:
+      equal: simple_intro
+      notequal: type_check_senior
 
   type_check_senior:
     type: conditional_equal
     properties:
-      value1: '{{phone_type}}' # Here we use value of a context key intent
-      value2: 'senior' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: senior_intro # transition for when values are equal
-      notequal: type_check_smart # transition for when values are not equal
+      value1: '{{phone_type}}'
+      value2: 'senior'
+    transitions:
+      equal: senior_intro
+      notequal: type_check_smart
 
   type_check_smart:
     type: conditional_equal
     properties:
-      value1: '{{phone_type}}' # Here we use value of a context key intent
-      value2: 'smart' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_intro # transition for when values are equal
-      notequal: type_check_all # transition for when values are not equal
+      value1: '{{phone_type}}'
+      value2: 'smart'
+    transitions:
+      equal: smart_intro
+      notequal: type_check_all
 
   type_check_all:
     type: conditional_equal
     properties:
-      value1: '{{phone_type}}' # Here we use value of a context key intent
-      value2: 'all' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: all_intro # transition for when values are equal
-      notequal: error_phone_type # transition for when values are not equal
+      value1: '{{phone_type}}'
+      value2: 'all'
+    transitions:
+      equal: all_intro
+      notequal: error_phone_type

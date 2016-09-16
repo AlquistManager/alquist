@@ -10,32 +10,72 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: Samsung
-          next_state: smart_android_params
-        - label: HTC
-          next_state: smart_android_params
-        - label: HUAWEI
-          next_state: smart_android_params
-        - label: LG
-          next_state: smart_android_params
-        - label: SONY
-          next_state: smart_android_params
+        - label: 'Samsung'
+          next_state: smart_android_select_brand_samsung
+        - label: 'HTC'
+          next_state: smart_android_select_brand_htc
+        - label: 'HUAWEI'
+          next_state: smart_android_select_brand_huawei
+        - label: 'LG'
+          next_state: smart_android_select_brand_lg
+        - label: 'SONY'
+          next_state: smart_android_select_brand_sony
 
   smart_android_select_brand:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        brand: brand # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        brand: brand
+      require_match: true
     transitions:
-      match: smart_android_params # transition when the entities are matched
-      notmatch: error_select_brand # transition when the entities are not matched
+      match: smart_android_params
+      notmatch: error_select_brand
+
+  smart_android_select_brand_samsung:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'samsung'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_htc:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'HTC'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_huawei:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'huawei'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_lg:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'LG'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_sony:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'Sony'
+    transitions:
+        next_state: smart_android_params
 
   error_select_brand:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Promiňte, ale tu značku neznám, prosím zkontrolujte, že jste ji zadali správně, případně zvolte přeskořit volbu výrobce?
+      responses:
+        - 'Promiňte, ale tu značku neznám, prosím zkontrolujte, že jste ji zadali správně, případně zvolte přeskořit volbu výrobce?'
     transitions:
       next_state: smart_android_select_brand_buttons
 
@@ -54,34 +94,34 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: ÚHLOPŘÍČKA DISPLEJE
+        - label: 'ÚHLOPŘÍČKA DISPLEJE'
           next_state: smart_android_display
-        - label: PROCESOR
+        - label: 'PROCESOR'
           next_state: smart_android_processor
-        - label: OPERAČNÍ PAMĚŤ
+        - label: 'OPERAČNÍ PAMĚŤ'
           next_state: smart_android_ram
-        - label: VELIKOST ÚLOŽIŠTĚ TELEFONU
+        - label: 'VELIKOST ÚLOŽIŠTĚ TELEFONU'
           next_state: smart_android_memory
-        - label: ROZLIŠENÍ TELEFONU
+        - label: 'ROZLIŠENÍ TELEFONU'
           next_state: smart_android_resolution
-        - label: NAVRHNOUT TELEFONY
+        - label: 'NAVRHNOUT TELEFONY'
           next_state: smart_android_recommend
 
   smart_android_select_param:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        parameter: parameter # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        parameter: parameter
+      require_match: true
     transitions:
-      match: smart_android_param_check_display # transition when the entities are matched
-      notmatch: error_select_param # transition when the entities are not matched
+      match: smart_android_param_check_display
+      notmatch: error_select_param
 
   error_select_param:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jeden z nabídky parametrů a opřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT TELEFONY
+      responses:
+        - 'Prosím vyberte jeden z nabídky parametrů a opřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT TELEFONY'
     transitions:
       next_state: smart_android_params_3_buttons
 
@@ -89,56 +129,56 @@ states:
   smart_android_param_check_display:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'display' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_display # transition for when values are equal
-      notequal: smart_android_param_check_processor # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'display'
+    transitions:
+      equal: smart_android_display
+      notequal: smart_android_param_check_processor
 
   smart_android_param_check_processor:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'processor' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_processor # transition for when values are equal
-      notequal: smart_android_param_check_ram # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'processor'
+    transitions:
+      equal: smart_android_processor
+      notequal: smart_android_param_check_ram
 
   smart_android_param_check_ram:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'ram' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_ram # transition for when values are equal
-      notequal: smart_android_param_check_memory # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'ram'
+    transitions:
+      equal: smart_android_ram
+      notequal: smart_android_param_check_memory
 
   smart_android_param_check_memory:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'space' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_memory # transition for when values are equal
-      notequal: smart_android_param_check_resolution # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'space'
+    transitions:
+      equal: smart_android_memory
+      notequal: smart_android_param_check_resolution
 
   smart_android_param_check_resolution:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'resolution' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_resolution # transition for when values are equal
-      notequal: smart_android_param_check_recommend # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'resolution'
+    transitions:
+      equal: smart_android_resolution
+      notequal: smart_android_param_check_recommend
 
   smart_android_param_check_recommend:
     type: conditional_equal
     properties:
-      value1: '{{parameter}}' # Here we use value of a context key intent
-      value2: 'recommend' # We compare string "greeting"
-    transitions: # defines transition states for both branches
-      equal: smart_android_recommend # transition for when values are equal
-      notequal: error_select_param # transition for when values are not equal
+      value1: '{{parameter}}'
+      value2: 'recommend'
+    transitions:
+      equal: smart_android_recommend
+      notequal: error_select_param
 
   smart_android_display:
     type: message_text
@@ -155,30 +195,63 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: MALÝ (DO 3.4 PALCŮ)
-          next_state: smart_android_params_2
-        - label: VELKÝ (3.4 - 5 PALCŮ)
-          next_state: smart_android_params_2
-        - label: EXTRA VELKÝ (5+ PALCŮ)
-          next_state: smart_android_params_2
-        - label: NA DISPLEJI MI NEZÁLEŽÍ
-          next_state: smart_android_params_2
+        - label: 'MALÝ (DO 3.4 PALCŮ)'
+          next_state: smart_android_display_small
+        - label: 'VELKÝ (3.4 - 5 PALCŮ)'
+          next_state: smart_android_display_big
+        - label: 'EXTRA VELKÝ (5+ PALCŮ)'
+          next_state: smart_android_display_extra_big
+        - label: 'NA DISPLEJI MI NEZÁLEŽÍ'
+          next_state: smart_android_display_dont_care
 
   smart_android_display_select:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        display_size: display_size # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        display_size: display_size
+      require_match: true
     transitions:
-      match: smart_android_params_2 # transition when the entities are matched
-      notmatch: error_select_display # transition when the entities are not matched
+      match: smart_android_params_2
+      notmatch: error_select_display
+
+  smart_android_display_small:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4 - 5'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_extra_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '5+'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_dont_care:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
 
   error_select_display:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jednu z nabízených možností
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
     transitions:
       next_state: smart_android_display_3_buttons
 
@@ -193,26 +266,43 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON SE SILNÝM PROCESOREM
-          next_state: smart_android_params_2
-        - label: SÍLA PROCESORU NENÍ MOJE PRIORITA
-          next_state: smart_android_params_2
+        - label: 'CHCI TELEFON SE SILNÝM PROCESOREM'
+          next_state: smart_android_processor_select_strong
+        - label: 'SÍLA PROCESORU NENÍ MOJE PRIORITA'
+          next_state: smart_android_processor_select_any
 
   smart_android_processor_select:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        processor: processor # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        processor: processor
+      require_match: true
     transitions:
-      match: smart_android_params_2 # transition when the entities are matched
-      notmatch: error_select_processor # transition when the entities are not matched
+      match: smart_android_params_2
+      notmatch: error_select_processor
+
+  smart_android_processor_select_strong:
+    type: change_context
+    properties:
+        update_keys:
+           processor: 'strong'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_processor_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           processor: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
 
   error_select_processor:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jednu z nabízených možností
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
     transitions:
       next_state: smart_android_processor_3_buttons
 
@@ -228,26 +318,42 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON S VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)
-          next_state: smart_android_params_2
-        - label: VELIKOST OPERAČNÍ PAMĚTI MĚ NEZAJÍMÁ
-          next_state: smart_android_params_2
+        - label: 'CHCI TELEFON S VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)'
+          next_state: smart_android_ram_select_2gb
+        - label: 'VELIKOST OPERAČNÍ PAMĚTI MĚ NEZAJÍMÁ'
+          next_state: smart_android_ram_select_any
 
   smart_android_ram_select:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        ram: ram # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        ram: ram
+      require_match: true
     transitions:
-      match: smart_android_params_2 # transition when the entities are matched
-      notmatch: error_select_ram # transition when the entities are not matched
+      match: smart_android_params_2
+      notmatch: error_select_ram
+
+  smart_android_ram_select_2gb:
+    type: change_context
+    properties:
+        update_keys:
+           ram: '2 gb'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_ram_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           ram: 'any'
+    transitions:
+        next_state: smart_android_params_2
 
   error_select_ram:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jednu z nabízených možností
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
     transitions:
       next_state: smart_android_ram_3_buttons
 
@@ -267,30 +373,62 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: STAČÍ MI TELEFON S PAMĚTÍ DO 8 GB
-          next_state: smart_android_params_2
-        - label: CHCI TELEFON S PAMĚTÍ NAD 8 GB 
-          next_state: smart_android_params_2
-        - label: CHCI TELEFON S PODPOROU PAMĚŤOVÝCH KARET 
-          next_state: smart_android_params_2
-        - label: INTERNÍ PAMĚŤ TELEFONU NENÍ MOJE PRIORITA 
-          next_state: smart_android_params_2
+        - label: 'STAČÍ MI TELEFON S PAMĚTÍ DO 8 GB'
+          next_state: smart_android_memory_select_small
+        - label: 'CHCI TELEFON S PAMĚTÍ NAD 8 GB'
+          next_state: smart_android_memory_select_big
+        - label: 'CHCI TELEFON S PODPOROU PAMĚŤOVÝCH KARET'
+          next_state: smart_android_memory_select_card
+        - label: 'INTERNÍ PAMĚŤ TELEFONU NENÍ MOJE PRIORITA'
+          next_state: smart_android_memory_select_any
 
   smart_android_memory_select:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        memory: memory # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        memory: memory
+      require_match: true
     transitions:
-      match: smart_android_params_2 # transition when the entities are matched
-      notmatch: error_select_memory # transition when the entities are not matched
+      match: smart_android_params_2
+      notmatch: error_select_memory
+
+  smart_android_memory_select_small:
+    type: change_context
+    properties:
+        update_keys:
+           memory: '0 - 8 GB'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_big:
+    type: change_context
+    properties:
+        update_keys:
+           memory: '8+ GB'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_card:
+    type: change_context
+    properties:
+        update_keys:
+           memory: 'memory card'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           memory: 'any'
+    transitions:
+        next_state: smart_android_params_2
 
   error_select_memory:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jednu z nabízených možností
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
     transitions:
       next_state: smart_android_memory_3_buttons
 
@@ -306,28 +444,52 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1280 x 720
-          next_state: smart_android_params_2
-        - label: CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1920 X 1080
-          next_state: smart_android_params_2
-        - label: ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ
-          next_state: smart_android_params_2
+        - label: 'CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1280 x 720'
+          next_state: smart_android_resolution_select_small
+        - label: 'CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1920 X 1080'
+          next_state: smart_android_resolution_select_big
+        - label: 'ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ'
+          next_state: smart_android_resolution_select_any
 
   smart_android_resolution_select:
-    type: input_user # Prompts cliends and waits for his response
+    type: input_user
     properties:
-      entities: # List of entities expected in client's answer
-        resolution: resolution # context key: entity
-      require_match: true # determines if expected entities are required
+      entities:
+        resolution: resolution
+      require_match: true
     transitions:
-      match: smart_android_params_2 # transition when the entities are matched
-      notmatch: error_select_resolution # transition when the entities are not matched
+      match: smart_android_params_2
+      notmatch: error_select_resolution
+
+  smart_android_resolution_select_small:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: '1280 x 720'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_resolution_select_big:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: '1920 X 1080'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_resolution_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: 'any'
+    transitions:
+        next_state: smart_android_params_2
 
   error_select_resolution:
-    type: message_text_random # Sends one of the messages listed under responses
+    type: message_text_random
     properties:
-      responses: # List of responses
-        - Prosím vyberte jednu z nabízených možností
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
     transitions:
       next_state: smart_android_resolution_3_buttons
 
