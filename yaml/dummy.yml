@@ -82,6 +82,18 @@ states: # List of states. States are executed sequentially
       next_state: state2
 
 
+  state9:
+    type: ChangeContext # Used to change session context independently on user input
+    properties:
+      del_keys: # context keys to be updated
+        - one
+        - two
+      update_keys: # context keys to be updated and their values
+        three: thirteen
+        four: fourteen
+    transitions:
+      next_state: next
+
 # Dialogue finishes and context resets automatically after reaching the end of the flow
 # Alternatively, user can force dialogue end by tag return:true
 

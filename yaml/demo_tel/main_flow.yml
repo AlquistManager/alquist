@@ -1,5 +1,13 @@
 ﻿name: main_flow
 states:
+  phone_count_1:
+    type: CountPhones
+    properties:
+  phone_count_out_1:
+    type: message_text
+    properties:
+      text: 'Telefonů v databázi - {{phone_count}}'
+      delay: 1000
   intro:
     type: message_text
     properties:
