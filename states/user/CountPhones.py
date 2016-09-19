@@ -43,7 +43,7 @@ class CountPhones(State):
                 query = query + "?phone :platform ?platform .\nfilter( ?platform = :Apple_IOS ) .\n"
 
         brand = context.get('brand', False)
-        if brand and brand.upper() != 'SKIP':
+        if brand:
             query = query + "?phone :brand ?brand .\n"
             query = query + "filter( ?brand = :" + brand.upper() + " ) .\n"
 
@@ -88,6 +88,9 @@ class CountPhones(State):
             query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
         elif price_to:
             query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
+        elif price:
+            query = query + "filter( ?price >= " + str(int(price.replace(" ", "")) - 500) + " ) .\n"
+            query = query + "filter( ?price <= " + str(int(price.replace(" ", "")) + 500) + " ) .\n"
 
         display_size = context.get('display_size', False)
         if display_size:
@@ -147,7 +150,7 @@ class CountPhones(State):
             if resolution == 'any':
                 pass
             else:
-                query = query + "filter( ?res >= " + resolution.group(0).replace(" ", "") + " ) .\n"
+                query = query + "filter( ?res >= " + resolution.group(0) + " ) .\n"
 
         url = "http://54.186.96.246:3030/AlzaPhones/sparql"
         query = query + "}"

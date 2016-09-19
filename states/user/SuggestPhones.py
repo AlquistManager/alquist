@@ -86,6 +86,9 @@ class SuggestPhones(State):
             query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
         elif price_to:
             query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
+        elif price:
+            query = query + "filter( ?price >= " + str(int(price.replace(" ", "")) - 500) + " ) .\n"
+            query = query + "filter( ?price <= " + str(int(price.replace(" ", "")) + 500) + " ) .\n"
 
         display_size = context.get('display_size', False)
         if display_size:
