@@ -51,11 +51,11 @@ class CountPhones(State):
         query = query + "?phone :price ?price .\n"
         price_from = context.get('price_from', False)
         if price_from:
-            query = query + "filter( ?price >= " + price_from + " ) .\n"
+            query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
 
         price_to = context.get('price_to', False)
         if price_to:
-            query = query + "filter( ?price <= " + price_to + " ) .\n"
+            query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
 
         display_size = context.get('display_size', False)
         if display_size:
@@ -115,7 +115,7 @@ class CountPhones(State):
             if resolution == 'any':
                 pass
             else:
-                query = query + "filter( ?res >= " + resolution.group(0) + " ) .\n"
+                query = query + "filter( ?res >= " + resolution.group(0).replace(" ", "") + " ) .\n"
 
         url = "http://54.186.96.246:3030/AlzaPhones/sparql"
         query = query + "}"
