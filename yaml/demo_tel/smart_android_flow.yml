@@ -531,8 +531,7 @@ states:
     properties:
       text: '=== KONEC UKÁZKOVÉHO DIALOGU ==='
       delay: 1000
-    transitions:
-      next_state: end_demo
+    transitions: return
 
   smart_android_recommend_out_1:
     type: message_text
