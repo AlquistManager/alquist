@@ -41,7 +41,7 @@ class SuggestPhones(State):
                 query = query + "?phone :platform ?platform .\nfilter( ?platform = :Apple_IOS ) .\n"
 
         brand = context.get('brand', False)
-        if brand:
+        if brand and brand.upper() != 'SKIP':
             query = query + "?phone :brand ?brand .\n"
             query = query + "filter( ?brand = :" + brand.upper() + " ) .\n"
 
@@ -159,7 +159,7 @@ class SuggestPhones(State):
         #     if tmp:
         #         phones.append(tmp)
         # request_data['context'].update({'suggested_phones': phones})
-
+        print(query)
         # TMP
         i = 1
         for result in results:
