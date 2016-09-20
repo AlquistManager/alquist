@@ -146,6 +146,8 @@ class YamlParser:
                 state_properties['type'] = MessageButtons
             elif state_properties['type'].lower() == 'change_context':
                 state_properties['type'] = ChangeContext
+            elif state_properties['type'].lower() == 'message_iframe':
+                state_properties['type'] = MessageIframe
             # custom action
             else:
                 try:
@@ -201,6 +203,8 @@ class YamlParser:
                 self.set_default_properties_message_buttons(state_name, state_properties)
             elif state_properties['type'] == ChangeContext:
                 self.set_default_properties_change_context(state_properties)
+            elif state_properties['type'] == MessageIframe:
+                self.set_default_properties_message_iframe(state_name, state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -261,6 +265,7 @@ class YamlParser:
             raise ValueError(
                 'The "key" field is missing in the properties of state "' + state_name + '".')
 
+    # adds properties to message_buttons node
     def set_default_properties_message_buttons(self, state_name, state_properties):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             state_properties.update({'properties': {'buttons': []}})
@@ -277,6 +282,7 @@ class YamlParser:
             if not ('label' in button):
                 button.update({'label': "Label"})
 
+    # adds properties to change_context node
     def set_default_properties_change_context(self, state_properties):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             state_properties.update({'properties': {'del_keys': [], 'update_keys': {}}})
@@ -284,9 +290,35 @@ class YamlParser:
             if not ('del_keys' in state_properties['properties']) or not (
                     isinstance(state_properties['properties']['del_keys'], list)):
                 state_properties['properties'].update({'del_keys': []})
-            if not ('update_keys' in state_properties['properties'] or not (
-                    isinstance(state_properties['properties']['update_keys'], OrderedDict))):
+            if not ('update_keys' in state_properties['properties']) or not (
+                    isinstance(state_properties['properties']['update_keys'], OrderedDict)):
                 state_properties['properties'].update({'update_keys': {}})
+
+    # adds properties to message_iframe node
+    def set_default_properties_message_iframe(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            raise ValueError(
+                'The "properties" field with "url" field is missing in the state "' + state_name + '".')
+        elif not ('url' in state_properties['properties']):
+            raise ValueError(
+                'The "url" field is missing in the state "' + state_name + '".')
+        else:
+            if not ('height' in state_properties['properties']):
+                state_properties['properties'].update({'height': 150})
+            elif not (type(state_properties['properties']['height']) is int):
+                raise ValueError(
+                    'The "height" field is not integer in the state "' + state_name + '".')
+            if not ('scrolling' in state_properties['properties']):
+                state_properties['properties'].update({'scrolling': 'yes'})
+            if state_properties['properties']['scrolling'] is True:
+                state_properties['properties']['scrolling'] = 'yes'
+            if state_properties['properties']['scrolling'] is False:
+                state_properties['properties']['scrolling'] = 'no'
+            if not (state_properties['properties'][
+                        'scrolling'].lower() == 'yes' or state_properties['properties'][
+                'scrolling'].lower() == 'no'):
+                raise ValueError(
+                    'The "scrolling" field can be only "yes" or "no" in the state "' + state_name + '".')
 
     # check and modifies delays
     def check_delays(self, loaded_yaml):

@@ -195,6 +195,23 @@ Example:
 ``next_state`` field contains name of the next state
 
 
+### message_iframe
+message_iframe is used to display iframes containing arbitrary HTML content like formatted text or images
+
+Example:
+    
+    [name]:
+        type: message_iframe
+        properties:
+            url: [url]
+            height: [iframe's height]
+            scrolling: [yes/no]
+``url`` contains iframe's address, **REQUIRED**
+
+``height`` height of iframe (integer only)
+
+``scrolling`` determines scrolling of iframe, only two possible values are 'yes' and 'no'
+
 ### change_context
 change_context is used to change session context independently on user input.
 

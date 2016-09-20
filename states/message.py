@@ -19,7 +19,8 @@ class MessageText(State):
 
         state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                           extra={'uid': request_data.get('session', False)})
 
         return request_data
 
@@ -29,7 +30,7 @@ class MessageRandomText(State):
         state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
 
         resp = self.properties['responses']
-        i = randint(0, len(resp)-1)
+        i = randint(0, len(resp) - 1)
         text = State.contextualize(request_data['context'], resp[i])
         old_response = request_data.get('response', False)
         message = {'type': 'text', 'payload': {'text': text}, 'delay': self.properties['delay']}
@@ -42,7 +43,8 @@ class MessageRandomText(State):
 
         state_logger.debug('Response: ' + text, extra={'uid': request_data.get('session', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                           extra={'uid': request_data.get('session', False)})
 
         return request_data
 
@@ -63,5 +65,26 @@ class MessageButtons(State):
                 old_response = [message]
         request_data.update({'response': old_response, 'next_state': self.transitions.get('next_state', False)})
         state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
-        state_logger.debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                           extra={'uid': request_data.get('session', False)})
+        return request_data
+
+
+class MessageIframe(State):
+    def execute(self, request_data) -> dict:
+        state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
+        old_response = request_data.get('response', False)
+        url = State.contextualize(request_data['context'], self.properties['url'])
+        height = State.contextualize(request_data['context'], self.properties['height'])
+        scrolling = State.contextualize(request_data['context'], self.properties['scrolling'])
+        message = {'type': 'iframe', 'payload': {'url': url, 'height': height, 'scrolling': scrolling}, 'delay': self.properties['delay']}
+        state_logger.debug('Iframe: ' + str(url), extra={'uid': request_data.get('session', False)})
+        if old_response:
+            old_response.append(message)
+        else:
+            old_response = [message]
+        request_data.update({'response': old_response, 'next_state': self.transitions.get('next_state', False)})
+        state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                           extra={'uid': request_data.get('session', False)})
         return request_data
