@@ -536,9 +536,13 @@ states:
     transitions: return
 
   smart_android_recommend_out_1:
-    type: message_text
+    type: message_iframe
     properties:
-      text: '{{suggested_phones_1}}'
+      url: '{{suggested_phones_1}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
       delay: 1000
 
   smart_android_recommend_cond_2:
@@ -550,9 +554,13 @@ states:
       notexists: end_demo #  transition for when the key doesn't exist
 
   smart_android_recommend_out_2:
-    type: message_text
+    type: message_iframe
     properties:
-      text: '{{suggested_phones_2}}'
+      url: '{{suggested_phones_2}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
       delay: 1000
 
   smart_android_recommend_cond_3:
@@ -564,9 +572,13 @@ states:
       notexists: end_demo #  transition for when the key doesn't exist
 
   smart_android_recommend_out_3:
-    type: message_text
+    type: message_iframe
     properties:
-      text: '{{suggested_phones_3}}'
+      url: '{{suggested_phones_3}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
       delay: 1000
 
   smart_android_recommend_cond_4:
@@ -578,9 +590,13 @@ states:
       notexists: end_demo #  transition for when the key doesn't exist
 
   smart_android_recommend_out_4:
-    type: message_text
+    type: message_iframe
     properties:
-      text: '{{suggested_phones_4}}'
+      url: '{{suggested_phones_4}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
       delay: 1000
 
   smart_android_recommend_cond_5:
@@ -592,9 +608,13 @@ states:
       notexists: end_demo #  transition for when the key doesn't exist
 
   smart_android_recommend_out_5:
-    type: message_text
+    type: message_iframe
     properties:
-      text: '{{suggested_phones_5}}'
+      url: '{{suggested_phones_5}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
       delay: 1000
 
 
