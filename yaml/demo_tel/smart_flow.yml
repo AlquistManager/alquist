@@ -100,19 +100,19 @@ states:
   smart_os_3:
     type: message_text
     properties:
-      text: 'Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Doinstalovat můžete jakoukoliv aplikaci, kterou najdete v obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právě pro vás. Operační systém android využívá celá řada výrobců mobilních telefonů, včetně telefonů značek jako Samsung, Lenovo nebo Sony.'
+      text: 'Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Aplikace můžete získat v obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právě pro vás.'
       delay: 1000
 
   smart_os_4:
     type: message_text
     properties:
-      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Operační systém je dělaný pouze pro tyto telefony, proto je velmi rychlý. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.'
+      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.'
       delay: 1000
 
   smart_os_5:
     type: message_text
     properties:
-      text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows. Windows Phone je využíván převážně telefony Microsoft a Nokia.'
+      text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows.'
       delay: 1000
 
   smart_os_6:

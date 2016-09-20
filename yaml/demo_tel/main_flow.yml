@@ -24,13 +24,13 @@ states:
   intro3:
     type: message_text
     properties:
-      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu (cenasmartphonu). S ním můžete získat nespočet dalších funkcí pouhým doinstalováním aplikací. Chcete-li vybírat z naší nabídky chatrých telefonů, prosím zvolte CHYTRÝ TELEFON.'
+      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu. Chcete-li vybírat z naší nabídky chatrých telefonů, prosím zvolte CHYTRÝ TELEFON.'
       delay: 1000
 
   intro4:
     type: message_text
     properties:
-      text: 'Pro starší generace jsou k dispozici telefony pro seniory. Tyto telefony mají velký displej i tlačítka a tím zaručují dobrou čitelnost textu a snadné ovládání. Hledáte-li TELEFON PRO SENIORY, prosím zvolte příslušnou volbu.'
+      text: 'Pro starší generace jsou k dispozici telefony pro seniory. Hledáte-li TELEFON PRO SENIORY, prosím zvolte příslušnou volbu.'
       delay: 1000
 
   intro5:
