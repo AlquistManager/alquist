@@ -30,17 +30,34 @@ states:
       text: 'Pokud vás zajímají ty nejluxusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.'
       delay: 1000
 
+  smart_price_5:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'PŘESKOČIT'
+          next_state: smart_os
+
 
   smart_select_price:
     type: input_user
     properties:
       entities:
+        trait_price: trait_price
+        price: price
         price_from: price_from
         price_to: price_to
       require_match: false
     transitions:
-      next_state: smart_check_price_from
+      next_state: smart_check_price
 
+
+  smart_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: smart_os
+      notexists: smart_check_price_from
 
   smart_check_price_from:
     type: conditional_exists

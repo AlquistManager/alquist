@@ -50,12 +50,47 @@ class CountPhones(State):
 
         query = query + "?phone :price ?price .\n"
         price_from = context.get('price_from', False)
-        if price_from:
-            query = query + "filter( ?price >= " + price_from + " ) .\n"
-
         price_to = context.get('price_to', False)
-        if price_to:
-            query = query + "filter( ?price <= " + price_to + " ) .\n"
+        price = context.get('price', False)
+        trait_price = context.get('trait_price', False)
+        if price_from and price_to:
+            query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
+            query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
+
+        elif trait_price:
+            if trait_price == 'price_from':
+                if price:
+                    query = query + "filter( ?price >= " + price.replace(" ", "") + " ) .\n"
+                elif price_from:
+                    query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
+                elif price_to:
+                    query = query + "filter( ?price >= " + price_to.replace(" ", "") + " ) .\n"
+            elif trait_price == 'price_to':
+                if price:
+                    query = query + "filter( ?price <= " + price.replace(" ", "") + " ) .\n"
+                elif price_to:
+                    query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
+                elif price_from:
+                    query = query + "filter( ?price <= " + price_from.replace(" ", "") + " ) .\n"
+            elif trait_price == 'price_around':
+                if price:
+                    query = query + "filter( ?price >= " + str(int(price.replace(" ", ""))-500) + " ) .\n"
+                    query = query + "filter( ?price <= " + str(int(price.replace(" ", ""))+500) + " ) .\n"
+
+                elif price_to:
+                    query = query + "filter( ?price >= " + str(int(price_to.replace(" ", ""))-500) + " ) .\n"
+                    query = query + "filter( ?price <= " + str(int(price_to.replace(" ", ""))+500) + " ) .\n"
+
+                elif price_from:
+                    query = query + "filter( ?price >= " +str(int(price_from.replace(" ", ""))-500) + " ) .\n"
+                    query = query + "filter( ?price <= " + str(int(price_from.replace(" ", ""))+500) + " ) .\n"
+        elif price_from:
+            query = query + "filter( ?price >= " + price_from.replace(" ", "") + " ) .\n"
+        elif price_to:
+            query = query + "filter( ?price <= " + price_to.replace(" ", "") + " ) .\n"
+        elif price:
+            query = query + "filter( ?price >= " + str(int(price.replace(" ", "")) - 500) + " ) .\n"
+            query = query + "filter( ?price <= " + str(int(price.replace(" ", "")) + 500) + " ) .\n"
 
         display_size = context.get('display_size', False)
         if display_size:

@@ -20,6 +20,8 @@ states:
           next_state: smart_android_select_brand_lg
         - label: 'SONY'
           next_state: smart_android_select_brand_sony
+        - label: 'PŘESKOČIT'
+          next_state: smart_android_params
 
   smart_android_select_brand:
     type: input_user
@@ -531,8 +533,7 @@ states:
     properties:
       text: '=== KONEC UKÁZKOVÉHO DIALOGU ==='
       delay: 1000
-    transitions:
-      next_state: end_demo
+    transitions: return
 
   smart_android_recommend_out_1:
     type: message_text

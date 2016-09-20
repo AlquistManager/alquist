@@ -10,9 +10,9 @@ states:
     type: message_text_random
     properties:
       responses:
-        - 'Moje jméno je Primus.'
-        - 'Jmenuji se Primus.'
-        - 'Já jsem Primus.'
+        - 'Moje jméno je Alquist.'
+        - 'Jmenuji se Alquist.'
+        - 'Já jsem Alquist.'
       delay: 1000
 
   greet_explain:
