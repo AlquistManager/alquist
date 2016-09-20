@@ -5,7 +5,6 @@ states:
     properties:
       text: 'Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu, cenové rozpětí ve kterém se nacházejí je tedy poměrně velké.'
 
-
   smart_price_1:
     type: message_text
     properties:
@@ -56,7 +55,7 @@ states:
     properties:
       key: '{{price}}'
     transitions:
-      exists: smart_os
+      exists: smart_price_cond1
       notexists: smart_check_price_from
 
   smart_check_price_from:
@@ -64,7 +63,7 @@ states:
     properties:
       key: '{{price_from}}'
     transitions:
-      exists: smart_os
+      exists: smart_price_cond1
       notexists: smart_check_price_to
 
   smart_check_price_to:
@@ -72,8 +71,85 @@ states:
     properties:
       key: '{{price_to}}'
     transitions:
-      exists: smart_os
+      exists: smart_price_cond1
       notexists: smart_price_error
+
+  smart_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: smart_price_out1
+      notequal: smart_price_cond2
+
+  smart_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: smart_price_out2
+      notequal: smart_price_cond3
+
+  smart_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: smart_price_out3
+      notequal: smart_price_cond4
+
+  smart_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: smart_price_out4
+      notequal: smart_price_out5
+
+  smart_price_out1:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out2:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out3:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out4:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out5:
+    type: message_text
+    properties:
+      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
+      delay: 1000
+    transitions:
+      next_state: smart_os
+
 
   smart_price_error:
     type: message_text_random

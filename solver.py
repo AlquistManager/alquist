@@ -7,13 +7,13 @@ from logger import main_logger
 def process_request(state_name, context, text, session):
     if text == '!undo':
         prev_context = context.get('previous_context', {})
-        request_data = {'context': prev_context.get('previous_context', {}), 'text': text, 'session': session, 'next_state': context.get('previous_request', 'init')}
+        request_data = {'context': prev_context, 'text': prev_context.get('previous_text', ''), 'session': session, 'next_state': context.get('previous_request', 'init')}
         state_name = prev_context.get('previous_request', 'init')
         main_logger.info("UNDO", extra={'uid': session})
         main_logger.info("GOTO: " + str(request_data['next_state']), extra={'uid': session})
     else:
-        context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name})
         request_data = {'context': context, 'text': text, 'session': session}
+    context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text})
     if text != '':
             main_logger.info("USER SAYS: "+request_data['text'], extra={'uid': session})
     while True:
