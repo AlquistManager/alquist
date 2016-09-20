@@ -33,10 +33,10 @@ def get_input():
     if session is "":
         session = str(uuid.uuid4())
 
-    try:
+    #try:
         # execute states
-        response = process_request(state, context, text, session)
-        return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
+    response = process_request(state, context, text, session)
+    return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
                        session=session)
-    except:  # Error in execution
-        return jsonify(ok=False, message="Error during execution.")
+    #except:  # Error in execution
+    #    return jsonify(ok=False, message="Error during execution.")

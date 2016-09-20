@@ -319,6 +319,19 @@ class YamlParser:
                 'scrolling'].lower() == 'no'):
                 raise ValueError(
                     'The "scrolling" field can be only "yes" or "no" in the state "' + state_name + '".')
+            if not ('width' in state_properties['properties']):
+                state_properties['properties'].update({'width': 100})
+            elif not (type(state_properties['properties']['width']) is int):
+                raise ValueError(
+                    'The "width" field is not integer in the state "' + state_name + '".')
+            if not ('align' in state_properties['properties']):
+                state_properties['properties'].update({'align': 'left'})
+            elif not (state_properties['properties'][
+                          'align'].lower() == 'right' or state_properties['properties'][
+                'align'].lower() == 'left' or state_properties['properties'][
+                'align'].lower() == 'center'):
+                raise ValueError(
+                    'The "align" field can be only "left", "right" or "center" in the state "' + state_name + '".')
 
     # check and modifies delays
     def check_delays(self, loaded_yaml):

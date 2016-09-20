@@ -100,6 +100,8 @@ states: # List of states. States are executed sequentially
       url: [iframe's URL] # URL of iframe
       height: [height in the pixels] # iframe's height (only number)
       scrolling: [yes/no] # determines if the iframe will have scrollbar
+      width: [width in percents] # iframe's width in percents (only number)
+      align: [align of iframe] # possible values are left, right and center
 
 # Dialogue finishes and context resets automatically after reaching the end of the flow
 # Alternatively, user can force dialogue end by tag return:true

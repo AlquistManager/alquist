@@ -75,9 +75,13 @@ class MessageIframe(State):
         state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
         old_response = request_data.get('response', False)
         url = State.contextualize(request_data['context'], self.properties['url'])
+        width = State.contextualize(request_data['context'], self.properties['width'])
         height = State.contextualize(request_data['context'], self.properties['height'])
         scrolling = State.contextualize(request_data['context'], self.properties['scrolling'])
-        message = {'type': 'iframe', 'payload': {'url': url, 'height': height, 'scrolling': scrolling}, 'delay': self.properties['delay']}
+        align = State.contextualize(request_data['context'], self.properties['align'])
+        message = {'type': 'iframe',
+                   'payload': {'url': url, 'width': width, 'height': height, 'scrolling': scrolling, 'align': align},
+                   'delay': self.properties['delay']}
         state_logger.debug('Iframe: ' + str(url), extra={'uid': request_data.get('session', False)})
         if old_response:
             old_response.append(message)

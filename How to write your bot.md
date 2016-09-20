@@ -204,11 +204,17 @@ Example:
         type: message_iframe
         properties:
             url: [url]
-            height: [iframe's height]
+            width: [iframes width (percents)]
+            height: [iframe's height (pixels)]
+            align: [iframe's align]
             scrolling: [yes/no]
 ``url`` contains iframe's address, **REQUIRED**
 
-``height`` height of iframe (integer only)
+``width`` width of iframe in percents (integer only)
+
+``height`` height of iframe in pixels (integer only)
+
+``align`` iframe's align, possible values are 'left', 'right' and 'center'
 
 ``scrolling`` determines scrolling of iframe, only two possible values are 'yes' and 'no'
 
