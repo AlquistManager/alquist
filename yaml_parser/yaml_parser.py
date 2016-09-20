@@ -199,6 +199,8 @@ class YamlParser:
                 self.set_default_properties_conditional_exists(state_name, state_properties)
             elif state_properties['type'] == MessageButtons:
                 self.set_default_properties_message_buttons(state_name, state_properties)
+            elif state_properties['type'] == ChangeContext:
+                self.set_default_properties_change_context(state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -262,7 +264,8 @@ class YamlParser:
     def set_default_properties_message_buttons(self, state_name, state_properties):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             state_properties.update({'properties': {'buttons': []}})
-        elif not ('buttons' in state_properties['properties']):
+        elif not ('buttons' in state_properties['properties']) or not (
+                    type(state_properties['properties']['buttons']) is list):
             state_properties['properties'].update({'buttons': []})
         for button in state_properties['properties']['buttons']:
             if not (type(button) is OrderedDict):
@@ -274,6 +277,17 @@ class YamlParser:
             if not ('label' in button):
                 button.update({'label': "Label"})
 
+    def set_default_properties_change_context(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'del_keys': [], 'update_keys': {}}})
+        else:
+            if not ('del_keys' in state_properties['properties']) or not (
+                    isinstance(state_properties['properties']['del_keys'], list)):
+                state_properties['properties'].update({'del_keys': []})
+            if not ('update_keys' in state_properties['properties'] or not (
+                    isinstance(state_properties['properties']['update_keys'], OrderedDict))):
+                state_properties['properties'].update({'update_keys': {}})
+
     # check and modifies delays
     def check_delays(self, loaded_yaml):
         for state_name, state_properties in loaded_yaml['states'].items():
@@ -282,7 +296,7 @@ class YamlParser:
             elif state_properties['properties']['delay'] is None:
                 state_properties['properties'].update({'delay': 0})
             elif not isinstance(state_properties['properties']['delay'], int):
-                    raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
+                raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
 
     # loads intent_transitions field from yaml to memory
     def load_intent_transitions(self, loaded_yaml):

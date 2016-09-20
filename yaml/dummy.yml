@@ -83,7 +83,7 @@ states: # List of states. States are executed sequentially
 
 
   state9:
-    type: ChangeContext # Used to change session context independently on user input
+    type: change_context # Used to change session context independently on user input
     properties:
       del_keys: # context keys to be updated
         - one

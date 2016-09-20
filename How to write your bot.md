@@ -195,13 +195,13 @@ Example:
 ``next_state`` field contains name of the next state
 
 
-### ChangeContext
-ChangeContext is used to change session context independently on user input.
+### change_context
+change_context is used to change session context independently on user input.
 
 Example:
 
 	[name]:
-        type: ChangeContext
+        type: change_context
         properties:
             del_keys:
                 - [del_entity1]
