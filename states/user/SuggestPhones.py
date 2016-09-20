@@ -13,7 +13,7 @@ class SuggestPhones(State):
             PREFIX : <http://54.186.96.246/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-            Select ?name
+            Select ?phone
             WHERE {
               ?phone :name ?name .
               ?phone :ratingValue ?p .
@@ -166,9 +166,9 @@ class SuggestPhones(State):
         # TMP
         i = 1
         for result in results:
-            tmp = result['name']['value']
+            tmp = result['phone']['value']
             if tmp:
-                request_data['context'].update({'suggested_phones_'+str(i): tmp})
+                request_data['context'].update({'suggested_phones_'+str(i): tmp.replace("www", "m")})
                 i += 1
 
 
