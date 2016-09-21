@@ -1,19 +1,9 @@
 ﻿name: greet_flow
 states:
-  greet:
+  init:
     type: message_text
     properties:
-      text: 'Dobrý den'
-      delay: 1000
-
-  greet_name:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Moje jméno je Alquist.'
-        - 'Jmenuji se Alquist.'
-        - 'Já jsem Alquist.'
-      delay: 1000
+      text: 'Dobrý den.'
 
   greet_explain:
     type: message_text_random
@@ -22,72 +12,5 @@ states:
         - 'Rád Vám pomohu s výběrem a nákupem takového mobilního telefonu, který splní všechny vaše požadavky.'
         - 'Pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
       delay: 1000
-
-  greet_ask:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Můžeme začít?'
-        - 'Jste připraveni začít?'
-      delay: 1000
-
-  can_start_ask_buttons:
-    type: message_buttons
-    properties:
-      buttons:
-        - label: 'Ano'
-          next_state: greet_start
-        - label: 'Ne'
-          next_state: goodbye
-
-  can_start_ask:
-    type: input_user
-    properties:
-      entities:
-        yes_no: yes_no
-      require_match: true
-    transitions:
-      match: can_start
-      notmatch: error_can_start_buttons
-
-  error_can_start_buttons:
-    type: message_buttons
-    properties:
-      buttons:
-        - label: 'Ano'
-          next_state: greet_start
-        - label: 'Ne'
-          next_state: goodbye
-
-  error_can_start:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Omlouvám se, ale nerozuměl jsem vám. Jste připraveni začít s výběrem telefonu?'
-        - 'Promiňte, ale nerozuměl jsem, chcete pomoc s výběrem telefonu?'
-    transitions:
-      next_state: can_start_ask
-
-  can_start:
-    type: conditional_equal
-    properties:
-      value1: '{{yes_no}}'
-      value2: 'yes'
-    transitions:
-      equal: greet_start
-      notequal: goodbye
-
-  greet_start:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Výborně'
-        - 'Skvělě'
-        - 'Super'
     transitions:
       flow: main_flow
-
-  goodbye:
-    type: message_text
-    properties:
-      text: 'Pokud změníte názor, prosím aktvujte mne klitkutím na panel v pravém dolním rohu obrazovky.'
