@@ -281,6 +281,8 @@ class YamlParser:
                     'The "next_state" field is missing in the buttons of state "' + state_name + '".')
             if not ('label' in button):
                 button.update({'label': "Label"})
+            if not ('type' in button):
+                button.update({'type': ""})
 
     # adds properties to change_context node
     def set_default_properties_change_context(self, state_properties):

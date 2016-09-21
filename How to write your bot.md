@@ -184,11 +184,19 @@ Example:
             buttons:
                 - label: [label1]
                   next_state: [next_state_from_button1]
+                  type: [type_of_button1]
                 - label: [label2]
                   next_state: [next_state_from_button1]
+                  type: [type_of_button2]
         transitions:
             next_state: [next_state_name]
 ``buttons`` field contains definitions of individul buttons (i.e. their labels and state transitions), **REQUIRED**
+    
+- ``label`` text shown on button
+
+- ``next_state`` state to jump after click on button
+
+- ``type`` type of button, can be any string, must be implemented on the client side
 
 ``next_state_from_button1`` state to transition to from button 1
 
