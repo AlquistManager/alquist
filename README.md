@@ -57,8 +57,36 @@ To communicate with Alquist use POST requests to url, on which the Alquist is ru
 ###Response
 Response contains JSON with fields:
 
-- text
-    List of Alquist's answers. This is the field, which you want to show to user somehow probably.
+- messages
+    List of Alquist's answers. Each answer is object.
+    - type
+        Type of message. It can be ``text``, ``button`` or ``iframe``.
+    - payload
+        Information about message. It differs according to type of message:
+        - ``text`` type
+            - text
+                Text to show
+        - ``button`` type
+            - label
+                Button's label
+            - next_state
+                State to transform to after button click
+            - type
+                Type of button. This field doesn't have any specific values. You can send some string and implement button according to it in client.
+        - ``iframe`` type
+            - url
+                Iframe's url
+            - width
+                Iframe's width (in the percents)
+            - height
+                Iframe's width (in the pixels)
+            - scrolling
+                Will be scrollbar visible?
+            - align
+                Iframe's align
+            
+    - delay
+        Delay of massage in the milliseconds.        
 - state
     Name of new state, where we get to. Use this name in the next request (state field).
 - context
