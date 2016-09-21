@@ -45,13 +45,22 @@ states:
       buttons:
         - label: 'LEVNÁ ALTERNATIVA'
           next_state: simple_intro_context
+          type: Main
         - label: 'CHYTRÝ TELEFON'
           next_state: smart_intro_context
           type: Main
         - label: 'TELEFON PRO SENIORY'
           next_state: senior_intro_context
+          type: Main
         - label: 'PROCHÁZET VŠE'
           next_state: all_intro_context
+          type: Main
+        - label: 'CO JE LEVNÁ VARIANTA?'
+          next_state: simple_info
+        - label: 'CO JE CHYTRÝ TELEFON?'
+          next_state: smart_info
+        - label: 'CO JE TELEFON PRO SENIORY?'
+          next_state: senior_info
 
   select_type:
     type: input_user
@@ -71,6 +80,13 @@ states:
     transitions:
         next_state: simple_intro
 
+  simple_info:
+    type: message_text
+    properties:
+      text: 'V levné variantě jsou telefony bez operačního systému, možnosti doinstalování aplikací nebo GPS. Často jsou tlačítkové.'
+    transitions:
+      next_state: select_type_button
+
   smart_intro_context:
     type: change_context
     properties:
@@ -79,6 +95,13 @@ states:
     transitions:
         next_state: smart_intro
 
+  smart_info:
+    type: message_text
+    properties:
+      text: 'Chytré telefony jsou nejběžnějším typem telefonu. Nejčatěji jsou vybaveny operačním systémem Android, iOS nebo Windows Phone. Umožňují doinstalování aplikací a pohodlné brouzdání internetem.'
+    transitions:
+      next_state: select_type_button
+
   senior_intro_context:
     type: change_context
     properties:
@@ -86,6 +109,13 @@ states:
            phone_type: 'senior'
     transitions:
         next_state: senior_intro
+
+  senior_info:
+    type: message_text
+    properties:
+      text: 'Telefony pro seniory vynikají hlavně velkými ovládacími prvky, čitelným textem a vysokou hlasitostí.'
+    transitions:
+      next_state: select_type_button
 
   all_intro_context:
     type: change_context
