@@ -152,7 +152,7 @@ class SuggestPhonesZbozi(State):
                 break
             request_data['context'].update({'suggested_phones_price_' + str(i): int(product['minPrice']/100)})
             request_data['context'].update({'suggested_phones_name_' + str(i): product['displayName']})
-            request_data['context'].update({'suggested_phones_image_' + str(i): product['images'][0]['imageUrl']})
+            request_data['context'].update({'suggested_phones_image_' + str(i): "https:"+product['images'][0]['imageUrl']})
             request_data['context'].update(
                 {'suggested_phones_url_' + str(i): "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"})
             i += 1
