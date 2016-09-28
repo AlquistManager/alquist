@@ -37,9 +37,8 @@ class SuggestPhonesZbozi(State):
 
         brand = context.get('brand', False)
         if brand and brand.upper() != 'SKIP':
-            query += "&vyrobce=" + brand
+            query += "&vyrobce=" + brand.lower()
 
-        query = query + "?phone :price ?price .\n"
         price_from = context.get('price_from', False)
         price_to = context.get('price_to', False)
         price = context.get('price', False)
@@ -136,30 +135,27 @@ class SuggestPhonesZbozi(State):
             width = resolution[0]
             if resolution == 'any':
                 pass
-            elif width>=1920:
-                query+="&rozliseni=2048-x-1152-qwxga,1920-x-1080-fhd,2-592-x-1944,2048-x-1536-qxga,2560-x-1080," \
-                       "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k"
-            elif width>=1280:
+            elif width >= 1920:
+                query += "&rozliseni=2048-x-1152-qwxga,1920-x-1080-fhd,2-592-x-1944,2048-x-1536-qxga,2560-x-1080," \
+                         "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k"
+            elif width >= 1280:
                 query += "&rozliseni=2048-x-1152-qwxga,1920-x-1080-fhd,2-592-x-1944,2048-x-1536-qxga,2560-x-1080," \
                          "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k,1280-x-720-hd-wxga,1280-x-768-wxga," \
                          "1280-x-800-wxga,1334-x-750,1366-x-768-wxga,1600-x-1200-uxga"
 
         r = requests.get(query)
-        phones = []
-        results = ast.literal_eval(r.text)['results']['bindings']
-        # for result in results:
-        #     tmp = result['name']['value']
-        #     if tmp:
-        #         phones.append(tmp)
-        # request_data['context'].update({'suggested_phones': phones})
-        print(query)
-        # TMP
-        i = 1
-        for result in results:
-            tmp = result['phone']['value']
-            if tmp:
-                request_data['context'].update({'suggested_phones_' + str(i): tmp.replace("www", "m")})
-                i += 1
+        results = r.json()
+        products = results['categories'][0]['products']
+        i = 0
+        for product in products:
+            if i > 5:
+                break
+            request_data['context'].update({'suggested_phones_price_' + str(i): int(product['minPrice']/100)})
+            request_data['context'].update({'suggested_phones_name_' + str(i): product['displayName']})
+            request_data['context'].update({'suggested_phones_image_' + str(i): product['images'][0]['imageUrl']})
+            request_data['context'].update(
+                {'suggested_phones_url_' + str(i): "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"})
+            i += 1
 
         # load next state
         request_data.update({'next_state': self.transitions.get('next_state', False)})
