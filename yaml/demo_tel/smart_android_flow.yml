@@ -502,7 +502,7 @@ states:
 
 
   smart_android_recommend_2:
-    type: SuggestPhones
+    type: SuggestPhonesZbozi
     properties:
 
   smart_android_recommend_3:
@@ -539,8 +539,8 @@ states:
     type: message_iframe
     properties:
       url: '{{suggested_phones_1}}'
-      height: 510
-      width: 50
+      height: 240
+      width: 100
       scrolling: 'yes'
       align: center
       delay: 1000
@@ -557,8 +557,8 @@ states:
     type: message_iframe
     properties:
       url: '{{suggested_phones_2}}'
-      height: 510
-      width: 50
+      height: 240
+      width: 100
       scrolling: 'yes'
       align: center
       delay: 1000
@@ -575,8 +575,8 @@ states:
     type: message_iframe
     properties:
       url: '{{suggested_phones_3}}'
-      height: 510
-      width: 50
+      height: 240
+      width: 100
       scrolling: 'yes'
       align: center
       delay: 1000
@@ -593,8 +593,8 @@ states:
     type: message_iframe
     properties:
       url: '{{suggested_phones_4}}'
-      height: 510
-      width: 50
+      height: 240
+      width: 100
       scrolling: 'yes'
       align: center
       delay: 1000
@@ -611,8 +611,8 @@ states:
     type: message_iframe
     properties:
       url: '{{suggested_phones_5}}'
-      height: 510
-      width: 50
+      height: 240
+      width: 100
       scrolling: 'yes'
       align: center
       delay: 1000

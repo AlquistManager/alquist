@@ -1,5 +1,6 @@
+import urllib.parse
+
 import requests
-import ast
 from states.state import State
 import re
 
@@ -150,11 +151,19 @@ class SuggestPhonesZbozi(State):
         for product in products:
             if i > 5:
                 break
-            request_data['context'].update({'suggested_phones_price_' + str(i): int(product['minPrice']/100)})
-            request_data['context'].update({'suggested_phones_name_' + str(i): product['displayName']})
-            request_data['context'].update({'suggested_phones_image_' + str(i): "https:"+product['images'][0]['imageUrl']})
+            url = "https://alquistmanager.github.io/alquist-tel-result/?"
+            url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
+            url += "&name=" + urllib.parse.quote(product['displayName'])
+            url += "&image=" + "https:" + product['images'][0]['imageUrl']
+            url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
+            url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
+                'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
+            url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
+                'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
+            url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
+                'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
             request_data['context'].update(
-                {'suggested_phones_url_' + str(i): "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"})
+                {'suggested_phones_' + str(i): url})
             i += 1
 
         # load next state
