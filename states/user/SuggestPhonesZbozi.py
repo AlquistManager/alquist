@@ -4,7 +4,7 @@ from states.state import State
 import re
 
 
-class SuggestPhones(State):
+class SuggestPhonesZbozi(State):
     # execute state
     def execute(self, request_data) -> dict:
         # load context
@@ -94,58 +94,57 @@ class SuggestPhones(State):
             elif display_size == '5+':
                 query += "&uhlopricka-displeje-od=5.0"
             else:
-                query += "&uhlopricka-displeje-od="+display_size
+                query += "&uhlopricka-displeje-od=" + display_size
 
         processor = context.get('processor', False)
         if processor:
-            query = query + "?phone :processor ?processor .\n?processor :processorFrequency ?value .\n"
             if processor == 'strong':
-                query = query + "filter( ?value >= 1.5 ) .\n"
+                query += "&frekvence-procesoru-od=1.5"
             elif processor == 'any':
                 pass
             else:
-                query = query + "filter( ?value >= " + processor + " ) .\n"
+                query += "&frekvence-procesoru-od=" + processor
 
         ram = context.get('ram', False)
         if ram:
-            query = query + "?phone :ramSize ?ram .\n"
             if ram == '2 gb':
-                query = query + "filter( ?ram >= 2 ) .\n"
+                query += "&operacni-pamet-od=2048"
             elif ram == 'any':
                 pass
             else:
-                query = query + "filter( ?ram >= " + ram + " ) .\n"
+                query += "&operacni-pamet-od=" + ram
 
         memory = context.get('memory', False)
         if memory:
-            query = query + "?phone :storageSize ?storage .\n"
             if memory == '0 - 8 GB':
-                query = query + "filter( ?storage <= 8 ) .\n"
+                query += "&interni-pamet-do=8"
             elif memory == '8+ GB':
-                query = query + "filter( ?storage >= 8 ) .\n"
+                query += "&interni-pamet-od=8"
             elif memory == 'memory card':
-                query = query + "?phone :memoryCardSlot ?mc .\n"
+                query += "?phone :memoryCardSlot ?mc .\n"
             elif memory == 'any':
                 pass
             else:
-                query = query + "filter( ?storage >= " + memory + " ) .\n"
+                query += "&slot-na-pametovou-kartu=ano"
 
         resolution = context.get('resolution', False)
 
         if resolution:
             p = re.compile('\S*')
             resolution = re.search(p, resolution)
-            query = query + "?phone :pixelResolutionWidth ?res .\n"
+            resolution = re.split('x', resolution.group(0))
+            width = resolution[0]
             if resolution == 'any':
                 pass
-            else:
-                query = query + "filter( ?res >= " + resolution.group(0).replace(" ", "") + " ) .\n"
+            elif width>=1920:
+                query+="&rozliseni=2048-x-1152-qwxga,1920-x-1080-fhd,2-592-x-1944,2048-x-1536-qxga,2560-x-1080," \
+                       "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k"
+            elif width>=1280:
+                query += "&rozliseni=2048-x-1152-qwxga,1920-x-1080-fhd,2-592-x-1944,2048-x-1536-qxga,2560-x-1080," \
+                         "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k,1280-x-720-hd-wxga,1280-x-768-wxga," \
+                         "1280-x-800-wxga,1334-x-750,1366-x-768-wxga,1600-x-1200-uxga"
 
-        url = "http://54.186.96.246:3030/AlzaPhones/sparql"
-        query = query + """}
-                    order by desc(?p)
-                    limit 5"""
-        r = requests.post(url, data={"query": query})
+        r = requests.get(query)
         phones = []
         results = ast.literal_eval(r.text)['results']['bindings']
         # for result in results:
