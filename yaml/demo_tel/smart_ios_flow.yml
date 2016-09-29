@@ -63,7 +63,7 @@ states:
     type: change_context
     properties:
         update_keys:
-           generation: '6S'
+           generation: '6s'
     transitions:
         next_state: iphone_type_6S
 
