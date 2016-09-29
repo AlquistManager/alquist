@@ -3,8 +3,225 @@ states:
   smart_android_init:
     type: message_text
     properties:
-      text: 'Android využívá celá řada výrobců mobilních telefonů. Pokud hledáte telefon od specifického výrobce, můžete si vybrat z nabídky níže. Pokud si volbou výrobce nejste jisti, zvolte možnost PŘESKOČIT VOLBU VÝROBCE'
+      text: 'Další důležitou volbou je cena vašeho telefonu. Systém Android je rozšířený na telefonech všech cenových kategorií, můžete si tedy zvolit cenové rozpětí, které vám bude vyhovovat.'
 
+  smart_price_1:
+    type: message_text
+    properties:
+      text: 'Nejevnější modely se pohybují do cen okolo 2 500 Kč.'
+      delay: 3000
+
+  smart_price_2:
+    type: message_text
+    properties:
+      text: 'Nižší střední třída smartphonů se drží v cenovém rozpětí mezi 2 500 Kč a 5 000 Kč. '
+      delay: 2500
+
+  smart_price_3:
+    type: message_text
+    properties:
+      text: 'Pokud hledáte silný a výkonný model stále za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 10 000 Kč.'
+      delay: 3500
+
+  smart_price_4:
+    type: message_text
+    properties:
+      text: 'Pokud vás zajímají ty nejluxusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.'
+      delay: 3500
+
+  smart_price_5:
+    type: message_text
+    properties:
+      text: 'Prosím, zvolte jednu z nabídnutých kategorií, nebo si vytvořte vlastní'
+      delay: 3500
+
+  smart_price_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'do 2500 Kč'
+          next_state: smart_price_1_context
+          type: Main
+        - label: '2500 - 5000 Kč'
+          next_state: smart_price_2_context
+          type: Main
+        - label: '5000 - 10 000 Kč'
+          next_state: smart_price_3_context
+          type: Main
+        - label: 'Nad 10 000 Kč'
+          next_state: smart_price_4_context
+          type: Main
+        - label: 'PŘESKOČIT'
+          next_state: smart_android_brand
+    transitions:
+        next_state: smart_select_price
+
+  smart_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2500'
+           trait_price: 'price_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '2500'
+           price_to: '5000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '5000'
+           price_to: '10000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_4_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '10000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: smart_check_price
+
+  smart_select_price:
+    type: input_user
+    properties:
+      entities:
+        trait_price: trait_price
+        price: price
+        price_from: price_from
+        price_to: price_to
+      require_match: false
+    transitions:
+      next_state: smart_check_price
+
+
+  smart_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_check_price_from
+
+  smart_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_check_price_to
+
+  smart_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_price_error
+
+  smart_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: smart_price_out1
+      notequal: smart_price_cond2
+
+  smart_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: smart_price_out2
+      notequal: smart_price_cond3
+
+  smart_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: smart_price_out3
+      notequal: smart_price_cond4
+
+  smart_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: smart_price_out4
+      notequal: smart_price_out5
+
+  smart_price_out1:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out2:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out3:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out4:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_price_out5
+
+  smart_price_out5:
+    type: message_text
+    properties:
+      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
+      delay: 2000
+    transitions:
+      next_state: smart_android_brand
+
+
+  smart_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?'
+        - 'Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?'
+      delay: 1000
+    transitions:
+      next_state: smart_select_price
+
+  smart_android_brand:
+    type: message_text
+    properties:
+      text: 'Android využívá celá řada výrobců mobilních telefonů. Pokud hledáte telefon od specifického výrobce, můžete si vybrat z nabídky níže. Pokud si volbou výrobce nejste jisti, zvolte možnost PŘESKOČIT VOLBU VÝROBCE'
 
   smart_android_select_brand_buttons:
     type: message_buttons
@@ -89,7 +306,7 @@ states:
   smart_android_params_2:
     type: message_text
     properties:
-      text: 'Prosím zvolte, který z parametrů chcete specifikovat. Pokod jste vybrali všechny požadované parametry, přejděte k návrhu telefonů.'
+      text: 'Prosím zvolte, který z parametrů chcete specifikovat. Pokud jste vybrali všechny požadované parametry, přejděte k návrhu telefonů.'
       delay: 1000
 
   smart_android_params_3_buttons:
