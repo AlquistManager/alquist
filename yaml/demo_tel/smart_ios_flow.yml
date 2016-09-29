@@ -178,7 +178,7 @@ states:
         next_state: smart_iphone_recommend
 
   smart_iphone_recommend:
-    type: SuggestPhones
+    type: SuggestPhonesZbozi
     properties:
 
 
