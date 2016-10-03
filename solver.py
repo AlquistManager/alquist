@@ -13,18 +13,19 @@ def process_request(state_name, context, text, session):
         state_name = prev_context.get('previous_request', 'init')
         main_logger.info("UNDO", extra={'uid': session})
         dialogue_logger.log("UNDO", session)
-        main_logger.info("GOTO: " + str(request_data['next_state']), extra={'uid': session})
-        dialogue_logger.log("GOTO: " + str(request_data['next_state']), session)
+        main_logger.info("GOTO: " + str(state_name), extra={'uid': session})
+        dialogue_logger.log("GOTO: " + str(state_name), session)
     else:
         request_data = {'context': context, 'text': text, 'session': session}
     context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text})
-    if text != '':
+    if text != '' and text != '!undo':
         main_logger.info("USER SAYS: " + request_data['text'], extra={'uid': session})
         dialogue_logger.log("USER SAYS: " + request_data['text'], session)
     while True:
         main_logger.debug("Entering State: " + state_name, extra={'uid': session})
-        dialogue_logger.log("Entering State: " + state_name, session)
         current_state = build_state(state_name)
+        dialogue_logger.log("Entering State: " + str(current_state), session)
+        dialogue_logger.log("Actual context: " + str(context), session)
         request_data = current_state.execute(request_data)
         has_next = request_data.get('next_state', False)
         if has_next:
