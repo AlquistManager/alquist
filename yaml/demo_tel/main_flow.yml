@@ -6,38 +6,38 @@ states:
   phone_count_out_1:
     type: message_text
     properties:
-      text: 'Aktuálně pro vás máme {{phone_count}} telefonů k výběru.'
-      delay: 1000
+      text: 'Aktuálně pro vás k výběru máme {{phone_count}} telefonů.'
+      delay: 2500
   intro:
     type: message_text
     properties:
       text: 'Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.'
-      delay: 1000
+      delay: 1500
 
   intro2:
     type: message_text
     properties:
       text: 'Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. Pohud sháníte levný mobilní telefon s omezenými funkcemi, prosím zvolte možnost LEVNÁ ALTERNATIVA.
 '
-      delay: 1000
+      delay: 2500
 
   intro3:
     type: message_text
     properties:
-      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu. Chcete-li vybírat z naší nabídky chatrých telefonů, prosím zvolte CHYTRÝ TELEFON.'
-      delay: 1000
+      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu. Chcete-li vybírat z naší nabídky chytrých telefonů, prosím zvolte CHYTRÝ TELEFON.'
+      delay: 5000
 
   intro4:
     type: message_text
     properties:
       text: 'Pro starší generace jsou k dispozici telefony pro seniory. Hledáte-li TELEFON PRO SENIORY, prosím zvolte příslušnou volbu.'
-      delay: 1000
+      delay: 5000
 
   intro5:
     type: message_text
     properties:
-      text: 'Pokud jsi nejste jistí, kterou kategorii zvolit, můžete vybrat možnost PROCHÁZET VŠE'
-      delay: 1000
+      text: 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost PROCHÁZET VŠE'
+      delay: 5000
 
   select_type_button:
     type: message_buttons
@@ -129,8 +129,8 @@ states:
     type: message_text_random
     properties:
       responses:
-        - 'Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?'
-        - 'Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů?'
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů? Prosím vyberte jednu z možností níže.'
+        - 'Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů? Prosím vyberte jednu z možností níže.'
     transitions:
       next_state: select_type_button
 

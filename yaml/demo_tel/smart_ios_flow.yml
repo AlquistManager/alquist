@@ -3,4 +3,584 @@ states:
   smart_ios_init:
     type: message_text
     properties:
-      text: 'TATO VĚTEV DIALOGU JEŠTĚ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONČÍ'
+      text: 'Telefony s operačním systémem iOS vyrábí společnost Apple. Jedná se o telefony s označením iPhone.'
+
+  smart_ios_init_2:
+    type: message_text
+    properties:
+      text: 'Telefony iPhone si zakládají na designu, jednoduchosti, funkčnosti a optimalizaci softwaru. Operační systém iOS je precizně odladěný a dostane z hardwaru telefonu maximum. Díky tomu se modely telefonů od Applu drží na předních příčkách i několik let po vydání.'
+      delay: 3000
+
+  smart_ios_init_3:
+    type: message_text
+    properties:
+      text: 'Jednotlivé generace se od sebe odlišují harwarem, výkonem i designem a samozřejmě cenou. Apple s každou generací iPhone vydá několik modelů s odlišnými specifikacemi. Nejnovější generací je v současnosti generace 7. Ceny pro jednotlivé generace se různí, pokud máte však zájem o nejnovější generaci, počítejte s cenou okolo 20 000 Kč'
+      delay: 5000
+
+  smart_ios_init_4:
+    type: message_text
+    properties:
+      text: 'Prosím zvolte generaci z nabídky níže. Po volbě generace budete mít možnost projít si její krátký popis a případně volbu změnit.'
+      delay: 5000
+
+  simple_select_gen:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 7'
+          next_state: iphone_gen_7_context
+        - label: 'iPhone SE'
+          next_state: iphone_gen_SE_context
+        - label: 'iPhone 6S'
+          next_state: iphone_gen_6S_context
+        - label: 'iPhone 6'
+          next_state: iphone_gen_6_context
+        - label: 'iPhone 5S/5C'
+          next_state: iphone_gen_5S_context
+        - label: 'iPhone 5'
+          next_state: iphone_gen_5_context
+      transitions:
+        next_state: iphone_type_user
+
+  iphone_type_user:
+    type: input_user
+    properties:
+      entities:
+        generation: generation
+      require_match: false
+    transitions:
+      next_state: iphone_type_7
+
+  iphone_gen_7_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '7'
+    transitions:
+        next_state: iphone_type_7
+
+  iphone_gen_6S_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '6s'
+    transitions:
+        next_state: iphone_type_6S
+
+  iphone_gen_6_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '6'
+    transitions:
+        next_state: iphone_type_6
+
+  iphone_gen_5S_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '5S'
+    transitions:
+        next_state: iphone_type_5S
+
+  iphone_gen_5_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '5'
+    transitions:
+        next_state: iphone_type_5
+
+  iphone_gen_SE_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: 'SE'
+    transitions:
+        next_state: iphone_type_SE
+
+
+  iphone_type_7:
+    type: message_text
+    properties:
+      text: 'Nový iPhone 7 je oproti svému předchůdci lepší takřka ve všech směrech.'
+
+  iphone_type_7_2:
+    type: message_text
+    properties:
+      text: 'Mezi nejvýznamější upgrady patří silnější čtyřjádrový procesor, fotoaparát se clonou a stabilizací obrazu nebo silnější baterie s větší výdrží.'
+      delay: 2000
+
+  iphone_type_7_3:
+    type: message_text
+    properties:
+      text: 'Nejnovější generace iPhone se vyrábí ve dvou modelech, klasický iPhone 7 s 4,7 palcovým displejem, nebo větší iPhone 7 Plus s displejem o velikosti 5,5 palců. Oba modely jsou dostupné v několika barevných provedeních a s různou kapacitou interní paměti.'
+      delay: 3000
+
+  iphone_type_7_4:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte jednu z variant.'
+      delay: 5000
+
+  simple_select_model_7:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 7 '
+          next_state: iphone_gen_7_cassic
+        - label: 'iPhone 7 Plus'
+          next_state: iphone_gen_7_plus
+        - label: 'ZPĚT NA VÝBĚR GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_user
+
+  iphone_type_7_user:
+    type: input_user
+    properties:
+      entities:
+        model: model
+      require_match: false
+    transitions:
+      next_state: iphone_type_7_classic_1
+
+  iphone_gen_7_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: iphone_type_7_classic_1
+
+
+  iphone_type_7_classic_1:
+    type: message_text
+    properties:
+      text: 'iPhone 7 se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_gen_7_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: iphone_type_7_plus_1
+
+
+  iphone_type_7_plus_1:
+    type: message_text
+    properties:
+      text: 'iPhone 7 Plus se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  smart_iphone_recommend:
+    type: SuggestPhonesZbozi
+    properties:
+
+
+  smart_iphone_recommend_cond_1:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_1}}' # context key to check
+    transitions:
+      exists: smart_iphone_recommend_out_1 # transition for when key exists
+      notexists: no_matches #  transition for when the key doesn't exist
+
+
+  smart_iphone_recommend_out_1:
+    type: message_iframe
+    properties:
+      url: '{{suggested_phones_1}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
+      delay: 1000
+
+  smart_iphone_recommend_cond_2:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_2}}' # context key to check
+    transitions:
+      exists: smart_iphone_recommend_out_2 # transition for when key exists
+      notexists: end_demo #  transition for when the key doesn't exist
+
+  smart_iphone_recommend_out_2:
+    type: message_iframe
+    properties:
+      url: '{{suggested_phones_2}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
+      delay: 1000
+
+  smart_iphone_recommend_cond_3:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_3}}' # context key to check
+    transitions:
+      exists: smart_iphone_recommend_out_3 # transition for when key exists
+      notexists: end_demo #  transition for when the key doesn't exist
+
+  smart_iphone_recommend_out_3:
+    type: message_iframe
+    properties:
+      url: '{{suggested_phones_3}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
+      delay: 1000
+
+  smart_iphone_recommend_cond_4:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_4}}' # context key to check
+    transitions:
+      exists: smart_iphone_recommend_out_4 # transition for when key exists
+      notexists: end_demo #  transition for when the key doesn't exist
+
+  smart_iphone_recommend_out_4:
+    type: message_iframe
+    properties:
+      url: '{{suggested_phones_4}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
+      delay: 1000
+
+  smart_iphone_recommend_cond_5:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_5}}' # context key to check
+    transitions:
+      exists: smart_iphone_recommend_out_5 # transition for when key exists
+      notexists: end_demo #  transition for when the key doesn't exist
+
+  smart_iphone_recommend_out_5:
+    type: message_iframe
+    properties:
+      url: '{{suggested_phones_5}}'
+      height: 510
+      width: 50
+      scrolling: 'yes'
+      align: center
+      delay: 1000
+    transitions: return
+
+  iphone_type_SE:
+    type: message_text
+    properties:
+      text: 'iPhone SE, představený na jaře roku 2016, kombinuje líbivý design a praktickou velikost modelu 5s s nekompromisním výkonem a funkcemi nejnovějších iPhonů 6s a 6s Plus.'
+
+  iphone_type_SE_2:
+    type: message_text
+    properties:
+      text: 'Těšit se můžete na špičkový procesor A9, 2 GB operační paměti, 12 MPx fotoaparát, NFC nebo třeba podporu ještě rychlejších sítí LTE. To vše v malém těle s 4" displejem, který lze snadno ovládat jednou rukou.'
+      delay: 4000
+
+  iphone_type_SE_3:
+    type: message_text
+    properties:
+      text: 'Model SE je dostupný v několika barevných provedeních a s různou kapacitou interní paměti.'
+      delay: 5000
+
+  iphone_type_SE_4:
+    type: message_text
+    properties:
+      text: 'Pokud myslíte, že je iPhone SE je telefon právě pro vás, zvolte pokračovat a vyberte si jednu z variant. Pokud byste raději zvolili jinou generaci, zvolte moznost zpět na výběr generace.'
+      delay: 2000
+
+  simple_select_model_SE:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'POKRAČOVAT'
+          next_state: smart_iphone_recommend
+        - label: 'ZPĚT NA VÝBĚR GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_7_user
+
+  iphone_type_6S:
+    type: message_text
+    properties:
+      text: 'iPhone 6S by představen v roce 2015 jako nástupce modelu iPhone 6'
+
+  iphone_type_6S_2:
+    type: message_text
+    properties:
+      text: 'Nejzásadnější novinkou je technologie dotykového ovládání "3D Touch". Dříve jste mohli na displej kliknout nebo ho podržet. Nově přibyla také možnost jeho silnějšího stisku. Ta poslouží podobně jako pravé tlačítko myši u PC.'
+      delay: 2000
+
+  iphone_type_6S_3:
+    type: message_text
+    properties:
+      text: 'Další novinky přináší fotoaparát. Jeho rozlišení se změnilo z 8 na 12 MPx. Již tradičně prošel změnou také procesor a grafický čip, díky čemuž se zvýšil výpočetní výkon o 70 % a grafický výkon dokonce o 90 %.'
+      delay: 5000
+
+  iphone_type_6S_4:
+    type: message_text
+    properties:
+      text: 'iPhone 6S se vyrábí ve dvou modelech, klasický iPhone 6S s 4,7 palcovým displejem, nebo větší iPhone 6S Plus s displejem o velikosti 5,5 palců. Oba modely jsou dostupné v několika barevných provedeních a s různou kapacitou interní paměti.'
+      delay: 4000
+
+  iphone_type_6S_5:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte jednu z variant. Pokud byste rádi zvolili jinou generaci, prosím zvolte příslušnou možnost.'
+      delay: 5000
+
+  simple_select_model_6S:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 6S'
+          next_state: iphone_gen_6S_cassic
+        - label: 'iPhone 6S Plus'
+          next_state: iphone_gen_6S_plus
+        - label: 'ZMĚNA GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_user
+
+  iphone_type_6S_user:
+    type: input_user
+    properties:
+      entities:
+        model: model
+      require_match: false
+    transitions:
+      next_state: iphone_type_6S_classic_1
+
+  iphone_gen_6S_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: iphone_type_6S_classic_1
+
+
+  iphone_type_6S_classic_1:
+    type: message_text
+    properties:
+      text: 'iPhone 6S se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_gen_6S_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: iphone_type_6S_plus_1
+
+
+  iphone_type_6S_plus_1:
+    type: message_text
+    properties:
+      text: 'iPhone 6S Plus se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_type_6:
+    type: message_text
+    properties:
+      text: 'iPhone 6 by představen v roce 2014 jako nástupce modelů iPhone 5 a iPhone 5S'
+
+  iphone_type_6_2:
+    type: message_text
+    properties:
+      text: 'Oproti svému předchůdci je vybaven silnějším procesorem, fotoaparátem schopným nahrávat Full HD video s frekvencí 60 snímků za sekundu nebo čtečkou otísků prstů.'
+      delay: 2000
+
+  iphone_type_6_4:
+    type: message_text
+    properties:
+      text: 'iPhone 6S se vyrábí ve dvou modelech, klasický iPhone 6S s 4,7 palcovým displejem, nebo větší iPhone 6S Plus s displejem o velikosti 5,5 palců. Oba modely jsou dostupné v několika barevných provedeních a s různou kapacitou interní paměti.'
+      delay: 3000
+
+  iphone_type_6_5:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte jednu z variant. Pokud byste rádi zvolili jinou generaci, prosím zvolte příslušnou možnost.'
+      delay: 5000
+
+  simple_select_model_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 6'
+          next_state: iphone_gen_6_cassic
+        - label: 'iPhone 6 Plus'
+          next_state: iphone_gen_6_plus
+        - label: 'ZMĚNA GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_user
+
+  iphone_type_6_user:
+    type: input_user
+    properties:
+      entities:
+        model: model
+      require_match: false
+    transitions:
+      next_state: iphone_type_6_classic_1
+
+  iphone_gen_6_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: iphone_type_6_classic_1
+
+
+  iphone_type_6_classic_1:
+    type: message_text
+    properties:
+      text: 'iPhone 6 se vyrábí s interní pamětí s kapacitou 16 GB, 12648 GB nebo 128 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_gen_6_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: iphone_type_6S_plus_1
+
+
+  iphone_type_6_plus_1:
+    type: message_text
+    properties:
+      text: 'iPhone 6 Plus se vyrábí s interní pamětí s kapacitou 16 GB, 64 GB nebo 128 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_type_5S:
+    type: message_text
+    properties:
+      text: 'Tato generace iPhnonů byla uvedena na trh v roce 2013 jako nástupce iPhonu 5. Byly představeny 2 nové modely, a to iPhone 5S a iPhone 5C.'
+
+  iphone_type_5S_2:
+    type: message_text
+    properties:
+      text: 'iPhone 5S se pyšní silnějším procesorem, kvalitnějším fotoaparátem, nebo čtečkou otisků prstů, zatímco u iPhone 5C si můžete zvolti jednu z pěti exkluzivních barevných variant.'
+      delay: 3000
+
+  iphone_type_5S_5:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte jednu z variant. Pokud byste rádi zvolili jinou generaci, prosím zvolte příslušnou možnost.'
+      delay: 4000
+
+  simple_select_model_5S:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 5S'
+          next_state: iphone_gen_5S_cassic
+        - label: 'iPhone 5C'
+          next_state: iphone_gen_5C
+        - label: 'ZMĚNA GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_user
+
+  iphone_type_5S_user:
+    type: input_user
+    properties:
+      entities:
+        model: model
+      require_match: false
+    transitions:
+      next_state: iphone_type_5S_classic_1
+
+  iphone_gen_5S_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: iphone_type_5S_classic_1
+
+
+  iphone_type_5S_classic_1:
+    type: message_text
+    properties:
+      text: 'iPhone 5S je k dispozici v šedé a stríbrné barvě a s různou kapacitou interní paměti. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_gen_5C:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'C'
+    transitions:
+        next_state: iphone_type_5C_1
+
+
+  iphone_type_5C_1:
+    type: message_text
+    properties:
+      text: 'iPhone 5C je k dispozici v pěti exkluzivních barevných provedeních, a v modré, růžové, bílé, žluté a zelené. Dále je k dispozici různá kapacita interní paměti. Prosím zvolte, o který model máte zájem:'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_type_5:
+    type: message_text
+    properties:
+      text: 'iPhone 5 by představen v roce 2012 jako nástupce modelů iPhone 4 a iPhone 4S'
+
+  iphone_type_5_2:
+    type: message_text
+    properties:
+      text: 'Oproti svému předchůdci je vybaven 4" displejem s poměrem stran 16:9, dále například výkonějším procesorem nebo silnějším grafickým čipem.'
+      delay: 2000
+
+  iphone_type_5_4:
+    type: message_text
+    properties:
+      text: 'Vylepšený je také fotoaparát telefonu, který zvládne pořizovat panoramatické snímky.'
+      delay: 3000
+
+  iphone_type_5_5:
+    type: message_text
+    properties:
+      text: 'Model iphone 5 je dostupný v černém a bílém provedení, a s různou kapacitou interní paměti.'
+      delay: 2000
+
+  iphone_type_5_6:
+    type: message_text
+    properties:
+      text: 'Pokud myslíte, že je iPhone 5 je telefon právě pro vás, zvolte pokračovat a vyberte si jednu z variant. Pokud byste raději zvolili jinou generaci, zvolte moznost ZMĚNA GENERACE.'
+      delay: 2000
+
+  simple_select_model_5:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'POKRAČOVAT'
+          next_state: smart_iphone_recommend
+        - label: 'ZMĚNA GENERACE'
+          next_state: smart_ios_init_4
+    transitions:
+        next_state: iphone_type_user
+
+
+

@@ -1,16 +1,11 @@
 ﻿name: greet_flow
 states:
   init:
-    type: message_text
-    properties:
-      text: 'Dobrý den.'
-
-  greet_explain:
     type: message_text_random
     properties:
       responses:
-        - 'Rád Vám pomohu s výběrem a nákupem takového mobilního telefonu, který splní všechny vaše požadavky.'
-        - 'Pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
-      delay: 1000
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem takového mobilního telefonu, který splní všechny vaše požadavky.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+      delay: 0
     transitions:
       flow: main_flow

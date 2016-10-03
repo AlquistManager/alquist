@@ -3,175 +3,14 @@ states:
   smart_intro:
     type: message_text
     properties:
-      text: 'Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu, cenové rozpětí ve kterém se nacházejí je tedy poměrně velké.'
+      text: 'Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu. Jedním z nejdůležitějších rozhodnutí, které při výběru vašeho telefonu uděláte, je výběr operačního systému, tedy prostředí na kterém váš telefon pracuje.'
 
-  smart_price_1:
-    type: message_text
-    properties:
-      text: 'Nejevnější modely se pohybují do cen okolo 2 500 Kč.'
-      delay: 1000
-
-  smart_price_2:
-    type: message_text
-    properties:
-      text: 'Nižší střední třída smartphonů se drží v cenovém rozpětí mezi 2 500 Kč a 5 000 Kč. '
-      delay: 1000
-
-  smart_price_3:
-    type: message_text
-    properties:
-      text: 'Pokud hledáte silný a výkonný model stále za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 10 000 Kč.'
-      delay: 1000
-
-  smart_price_4:
-    type: message_text
-    properties:
-      text: 'Pokud vás zajímají ty nejluxusnější modely z naší nabídky, neváhejte zvolit kategorii 10 000+ Kč.'
-      delay: 1000
-
-  smart_price_5:
-    type: message_buttons
-    properties:
-      buttons:
-        - label: 'PŘESKOČIT'
-          next_state: smart_os
-
-
-  smart_select_price:
-    type: input_user
-    properties:
-      entities:
-        trait_price: trait_price
-        price: price
-        price_from: price_from
-        price_to: price_to
-      require_match: false
-    transitions:
-      next_state: smart_check_price
-
-
-  smart_check_price:
-    type: conditional_exists
-    properties:
-      key: '{{price}}'
-    transitions:
-      exists: smart_price_cond1
-      notexists: smart_check_price_from
-
-  smart_check_price_from:
-    type: conditional_exists
-    properties:
-      key: '{{price_from}}'
-    transitions:
-      exists: smart_price_cond1
-      notexists: smart_check_price_to
-
-  smart_check_price_to:
-    type: conditional_exists
-    properties:
-      key: '{{price_to}}'
-    transitions:
-      exists: smart_price_cond1
-      notexists: smart_price_error
-
-  smart_price_cond1:
-    type: conditional_equal
-    properties:
-      value1: '{{trait_price}}'
-      value2: 'price_from'
-    transitions:
-      equal: smart_price_out1
-      notequal: smart_price_cond2
-
-  smart_price_cond2:
-    type: conditional_equal
-    properties:
-      value1: '{{trait_price}}'
-      value2: 'price_to'
-    transitions:
-      equal: smart_price_out2
-      notequal: smart_price_cond3
-
-  smart_price_cond3:
-    type: conditional_equal
-    properties:
-      value1: '{{trait_price}}'
-      value2: 'price_from_to'
-    transitions:
-      equal: smart_price_out3
-      notequal: smart_price_cond4
-
-  smart_price_cond4:
-    type: conditional_equal
-    properties:
-      value1: '{{trait_price}}'
-      value2: 'price_around'
-    transitions:
-      equal: smart_price_out4
-      notequal: smart_price_out5
-
-  smart_price_out1:
-    type: message_text
-    properties:
-      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
-      delay: 1000
-    transitions:
-      next_state: smart_price_out5
-
-  smart_price_out2:
-    type: message_text
-    properties:
-      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
-      delay: 1000
-    transitions:
-      next_state: smart_price_out5
-
-  smart_price_out3:
-    type: message_text
-    properties:
-      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
-      delay: 1000
-    transitions:
-      next_state: smart_price_out5
-
-  smart_price_out4:
-    type: message_text
-    properties:
-      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
-      delay: 1000
-    transitions:
-      next_state: smart_price_out5
-
-  smart_price_out5:
-    type: message_text
-    properties:
-      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
-      delay: 1000
-    transitions:
-      next_state: smart_os
-
-
-  smart_price_error:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?'
-        - 'Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?'
-      delay: 1000
-    transitions:
-      next_state: smart_select_price
-
-
-  smart_os:
-    type: message_text
-    properties:
-      text: 'Další důležitou volbou při výběru mobilního telefonu je který operační systém bude váš telefon používat.'
 
   smart_os_2:
     type: message_text
     properties:
       text: 'Mezi nejčastější operační systémy patří:'
-      delay: 1000
+      delay: 5000
 
   smart_os_3:
     type: message_text
@@ -183,19 +22,19 @@ states:
     type: message_text
     properties:
       text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.'
-      delay: 1000
+      delay: 5000
 
   smart_os_5:
     type: message_text
     properties:
       text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows.'
-      delay: 1000
+      delay: 5000
 
   smart_os_6:
     type: message_text
     properties:
       text: 'Pokud jste si vybrali jeden ze tří nejrozšiřenějších operačních systémů, prosím zvolte příslušnou kategorii, pokud si nejste jisti nebo Vám na operačním systému nezáleží, prosím zvolte VŠECHNY OPERAČNÍ SYSTÉMY'
-      delay: 1000
+      delay: 5000
 
   smart_select_os_buttons:
     type: message_buttons
