@@ -144,7 +144,7 @@ Example:
             text: [message_text]
         transitions:
             next_state: [next_state_name]
-``text`` field contains a string, **REQUIRED**
+``text`` field contains a string, string can contain HTML tags **REQUIRED**
 
 ``next_state`` field contains name of the next state
 
@@ -165,7 +165,7 @@ Example:
                 - [response2]
         transitions:
             next_state: [next_state_name]
-``responses`` field contains strings with responses to be selected at random, **REQUIRED**
+``responses`` field contains strings with responses to be selected at random, strings can contain HTML tags **REQUIRED**
 
 ``next_state`` field contains name of the next state
 
