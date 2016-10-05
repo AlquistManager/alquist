@@ -1,0 +1,9 @@
+?name: greet_flow
+states:
+  init:
+    type: message_text
+    properties:
+      text: 'Hello. I am here to help you to choose your new smart phone.'
+      delay: 0
+    transitions:
+      flow: main_flow

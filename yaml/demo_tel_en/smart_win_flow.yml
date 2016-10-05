@@ -1,0 +1,324 @@
+﻿name: smart_win_flow
+states:
+  smart_win_init:
+    type: message_text
+    properties:
+      text: 'Nabídka telefonů s Windows Phone je u nás poměrně úzká, mětšina modelů pochází od výdobců Microsoft a Nokia.'
+
+  smart_win_2:
+    type: message_text
+    properties:
+      text: 'Nejprve určeme cenovou kategorii, ve které se má Váš mobilní telefon pohybovat.'
+      delay: 3000
+
+  smart_win_price_1:
+    type: message_text
+    properties:
+      text: 'Nejevnější modely se pohybují do cen okolo 2 000 Kč.'
+      delay: 3000
+
+  smart_win_price_2:
+    type: message_text
+    properties:
+      text: 'Nižší střední třída telefonů s Windows Phone se drží v cenovém rozpětí mezi 2 000 Kč a 5 000 Kč. '
+      delay: 2500
+
+  smart_win_price_3:
+    type: message_text
+    properties:
+      text: 'Pokud hledáte silný a výkonný model stále za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 8 000 Kč.'
+      delay: 3500
+
+  smart_win_price_4:
+    type: message_text
+    properties:
+      text: 'Pokud vás zajímají ty nejluxusnější modely z naší nabídky, neváhejte zvolit kategorii 8 000+ Kč.'
+      delay: 3500
+
+  smart_win_price_5:
+    type: message_text
+    properties:
+      text: 'Prosím, zvolte jednu z nabídnutých kategorií, nebo si vytvořte vlastní'
+      delay: 3500
+
+  smart_win_price_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'do 2000 Kč'
+          next_state: smart_win_price_1_context
+          type: Main
+        - label: '2000 - 5000 Kč'
+          next_state: smart_win_price_2_context
+          type: Main
+        - label: '5000 - 8 000 Kč'
+          next_state: smart_win_price_3_context
+          type: Main
+        - label: 'Nad 8 000 Kč'
+          next_state: smart_win_price_4_context
+          type: Main
+        - label: 'PŘESKOČIT'
+          next_state: smart_win_size
+    transitions:
+        next_state: smart_win_select_price
+
+  smart_win_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2000'
+           trait_price: 'price_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '2000'
+           price_to: '5000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '5000'
+           price_to: '8000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_4_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '8000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_select_price:
+    type: input_user
+    properties:
+      entities:
+        trait_price: trait_price
+        price: price
+        price_from: price_from
+        price_to: price_to
+      require_match: false
+    transitions:
+      next_state: smart_win_check_price
+
+
+  smart_win_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_check_price_from
+
+  smart_win_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_check_price_to
+
+  smart_win_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_price_error
+
+  smart_win_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: smart_win_price_out1
+      notequal: smart_win_price_cond2
+
+  smart_win_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: smart_win_price_out2
+      notequal: smart_win_price_cond3
+
+  smart_win_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: smart_win_price_out3
+      notequal: smart_win_price_cond4
+
+  smart_win_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: smart_win_price_out4
+      notequal: smart_win_price_out5
+
+  smart_win_price_out1:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out2:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out3:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out4:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out5:
+    type: message_text
+    properties:
+      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
+      delay: 2000
+    transitions:
+      next_state: smart_win_size
+
+
+  smart_win_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?'
+        - 'Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?'
+      delay: 1000
+    transitions:
+      next_state: smart_win_select_price
+
+  smart_win_size:
+    type: message_text
+    properties:
+      text: 'Druhým parametrem, na který se zaměříme pro zúžení výběru je velikost displeje.'
+
+  smart_win_display:
+    type: message_text
+    properties:
+      text: 'Displej je zpravidla dotykový a velikost jeho úhlopříčky se uvádí v palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
+      delay: 1500
+
+  smart_win_display_2:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte preferovanou velikost displeje:'
+      delay: 3500
+
+  smart_win_display_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'MALÝ (DO 3.4 PALCŮ)'
+          next_state: smart_win_display_small
+        - label: 'VELKÝ (3.4 - 5 PALCŮ)'
+          next_state: smart_win_display_big
+        - label: 'EXTRA VELKÝ (5+ PALCŮ)'
+          next_state: smart_win_display_extra_big
+        - label: 'NA DISPLEJI MI NEZÁLEŽÍ'
+          next_state: smart_win_display_dont_care
+
+  smart_win_display_select:
+    type: input_user
+    properties:
+      entities:
+        display_size: display_size
+      require_match: true
+    transitions:
+      match: smart_win_params_2
+      notmatch: error_select_display_win
+
+  smart_win_display_small:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4 - 5'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_extra_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '5+'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_dont_care:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: 'any'
+    transitions:
+        next_state: smart_win_params_2
+
+
+  error_select_display_win:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Prosím vyberte jednu z nabízených možností'
+    transitions:
+      next_state: smart_win_display_3_buttons
+
+  smart_win_params_2:
+    type: message_text
+    properties:
+      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Prosím vyberte vlastnosti, které považujete za nejdůležitější. Výběr potvrdíte volbou NAVRHNOUT TELEFONY. Pokud si nejste jistí, co který parametr znamená, klepněte na tlačítko s nápovědou.'
+
+  smart_win_params_3:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'NFC čip'
+          next_state: simple_out_2
+        - label: 'Čtečka otisků prstů'
+          next_state: simple_out_2
+        - label: 'LTE připojení'
+          next_state: simple_out_2
+        - label: 'Dual Sim'
+          next_state: simple_out_2
