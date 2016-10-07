@@ -105,6 +105,6 @@ Specific example:
 ## Docker
 Alquist is prepared to be run in a Docker container. The setup process is quite straightforward.
 ###Building an image
-Dockerfile is already present in the main directory. Run ``docker build -t alquist .`` to build the Docker image for Alquist.
+Dockerfile is already present in the main directory. Run ``docker build -t alquist .`` to build the Docker image for Alquist. Alternatively, you can obtain pre-built image from Docker Hub with the ``docker pull alquistmanager/alquist`` command.
 ###Launching a container
 Once the image is built, run the ``run-docker-container.sh`` bash script. There are two parameters required: First is a port you want Alquist to run on and the second is absolute path to your ``.yml`` files.
