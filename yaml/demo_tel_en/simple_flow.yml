@@ -1,0 +1,218 @@
+﻿name: simple_flow
+states:
+  simple_intro:
+    type: message_text
+    properties:
+      text: 'Vybrali jste kategorii obyčejných levnějších telefonů. Jedná se o telefony nejčastěji bez operačního systému, s nízkou cenou a omezenými funkcemi'
+
+  simple_price:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte si z cenových kategorií níže, nebo zvolte možnost PŘESKOČIT, pokud pro vás cena není prioritou'
+      delay: 4000
+
+  simple_select_price:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Do 1000 Kč'
+          next_state: simple_price_1_context
+        - label: '1000 až 2000 Kč'
+          next_state: simple_price_2_context
+        - label: 'Nad 2000 Kč'
+          next_state: simple_price_3_context
+        - label: 'PŘESKOČIT'
+          next_state: simple_params
+
+
+  simple_price_3:
+    type: input_user
+    properties:
+      entities:
+        trait_price: trait_price
+        price: price
+        price_from: price_from
+        price_to: price_to
+      require_match: false
+    transitions:
+      next_state: simple_check_price
+
+  simple_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '1000'
+           trait_price: 'price_to'
+    transitions:
+        next_state: simple_check_price
+
+  simple_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '1000'
+           price_to: '2000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: simple_check_price
+
+  simple_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: simple_check_price
+
+
+  simple_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_check_price_from
+
+  simple_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_check_price_to
+
+  simple_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_price_error
+
+  simple_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: simple_price_out1
+      notequal: simple_price_cond2
+
+  simple_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: simple_price_out2
+      notequal: simple_price_cond3
+
+  simple_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: simple_price_out3
+      notequal: simple_price_cond4
+
+  simple_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: simple_price_out4
+      notequal: simple_price_out5
+
+  simple_price_out1:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: simple_price_out5
+
+  simple_price_out2:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: simple_price_out5
+
+  simple_price_out3:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      delay: 1000
+    transitions:
+      next_state: simple_price_out5
+
+  simple_price_out4:
+    type: message_text
+    properties:
+      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      delay: 1000
+    transitions:
+      next_state: simple_price_out5
+
+  simple_price_out5:
+    type: message_text
+    properties:
+      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
+      delay: 2000
+    transitions:
+      next_state: simple_params
+
+
+  simple_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaké cenové rozpětí chcete zvolit?'
+        - 'Promiňte, ale nerozuměl jsem. Jaké cenové rozpětí chcete zvolit?'
+      delay: 1000
+    transitions:
+      next_state: simple_select_price
+
+
+  simple_params:
+    type: message_text
+    properties:
+      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Kliknutím na tlačítka níže můžete zvolit požadované vlastnosti. Můžete zvolit více než jednu možnost. Výběr potvrdíte volbou NAVRHNOUT TELEFONY. Pokud si nejste jistí, co který parametr znamená, klepněte na tlačítko s nápovědou.'
+      delay: 2000
+
+  simple_params_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Dotykový displej'
+          next_state: simple_out_2
+        - label: 'Fotoaparát'
+          next_state: simple_out_2
+        - label: 'Hardwarová klávesnice'
+          next_state: simple_out_2
+        - label: 'Přisvětlovací dioda'
+          next_state: simple_out_2
+        - label: 'Bluetooth'
+          next_state: simple_out_2
+        - label: 'WiFi'
+          next_state: simple_out_2
+        - label: 'GPS'
+          next_state: simple_out_2
+        - label: 'Dual Sim'
+          next_state: simple_out_2
+
+  simple_out:
+    type: input_user
+    properties:
+      entities:
+      require_match: false
+
+  simple_out_2:
+    type: message_text
+    properties:
+      text: 'Zatím nenaimplementováno'
+      delay: 1000

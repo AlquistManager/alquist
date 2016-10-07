@@ -29,13 +29,15 @@ class YamlParser:
         self.check_init_state(state_dict)
         # check if all states from intent_transitions exists
         self.check_intent_transitions_states_exist()
+        # check if all states mentioned in transitions really exist
+        self.check_transition_states_exist()
 
     # load yaml file
     def load_file(self, file_name):
         # add missing slash to directory path
         if not (self.path.endswith('/')):
             self.path += '/'
-        with open(self.path + file_name, 'r') as stream:
+        with open(self.path + file_name, 'r', encoding="utf8") as stream:
             try:
                 # load yaml to OrderedDict
                 loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
@@ -49,6 +51,7 @@ class YamlParser:
                 self.types_to_intern_representation(loaded_yaml)
                 # sets default or missing properties
                 self.set_default_properties(loaded_yaml)
+                self.check_delays(loaded_yaml)
                 if not ('states' in state_dict):
                     # update whole dictionary
                     state_dict.update(loaded_yaml)
@@ -87,7 +90,7 @@ class YamlParser:
             if "flow" in state_parameters["transitions"]:
                 flow_name = state_parameters["transitions"]["flow"]
                 # find file with some extension and the right name
-                with open(glob.glob(self.path + flow_name + '.*')[0], 'r') as stream:
+                with open(glob.glob(self.path + flow_name + '.*')[0], 'r', encoding="utf8") as stream:
                     try:
                         # load yaml to OrderedDict
                         loaded_yaml = yaml.load(stream, OrderedDictYAMLLoader)
@@ -139,6 +142,12 @@ class YamlParser:
                 state_properties['type'] = ConditionalEquals
             elif state_properties['type'].lower() == 'conditional_exists':
                 state_properties['type'] = ConditionalExists
+            elif state_properties['type'].lower() == 'message_buttons':
+                state_properties['type'] = MessageButtons
+            elif state_properties['type'].lower() == 'change_context':
+                state_properties['type'] = ChangeContext
+            elif state_properties['type'].lower() == 'message_iframe':
+                state_properties['type'] = MessageIframe
             # custom action
             else:
                 try:
@@ -190,6 +199,12 @@ class YamlParser:
                 self.set_default_properties_conditional_equal(state_name, state_properties)
             elif state_properties['type'] == ConditionalExists:
                 self.set_default_properties_conditional_exists(state_name, state_properties)
+            elif state_properties['type'] == MessageButtons:
+                self.set_default_properties_message_buttons(state_name, state_properties)
+            elif state_properties['type'] == ChangeContext:
+                self.set_default_properties_change_context(state_properties)
+            elif state_properties['type'] == MessageIframe:
+                self.set_default_properties_message_iframe(state_name, state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -250,6 +265,86 @@ class YamlParser:
             raise ValueError(
                 'The "key" field is missing in the properties of state "' + state_name + '".')
 
+    # adds properties to message_buttons node
+    def set_default_properties_message_buttons(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'buttons': []}})
+        elif not ('buttons' in state_properties['properties']) or not (
+                    type(state_properties['properties']['buttons']) is list):
+            state_properties['properties'].update({'buttons': []})
+        for button in state_properties['properties']['buttons']:
+            if not (type(button) is OrderedDict):
+                raise ValueError(
+                    'Button defined in the buttons field of state "' + state_name + '" is not dictionary.')
+            if not ('next_state' in button):
+                raise ValueError(
+                    'The "next_state" field is missing in the buttons of state "' + state_name + '".')
+            if not ('label' in button):
+                button.update({'label': "Label"})
+            if not ('type' in button):
+                button.update({'type': ""})
+
+    # adds properties to change_context node
+    def set_default_properties_change_context(self, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'del_keys': [], 'update_keys': {}}})
+        else:
+            if not ('del_keys' in state_properties['properties']) or not (
+                    isinstance(state_properties['properties']['del_keys'], list)):
+                state_properties['properties'].update({'del_keys': []})
+            if not ('update_keys' in state_properties['properties']) or not (
+                    isinstance(state_properties['properties']['update_keys'], OrderedDict)):
+                state_properties['properties'].update({'update_keys': {}})
+
+    # adds properties to message_iframe node
+    def set_default_properties_message_iframe(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
+            raise ValueError(
+                'The "properties" field with "url" field is missing in the state "' + state_name + '".')
+        elif not ('url' in state_properties['properties']):
+            raise ValueError(
+                'The "url" field is missing in the state "' + state_name + '".')
+        else:
+            if not ('height' in state_properties['properties']):
+                state_properties['properties'].update({'height': 150})
+            elif not (type(state_properties['properties']['height']) is int):
+                raise ValueError(
+                    'The "height" field is not integer in the state "' + state_name + '".')
+            if not ('scrolling' in state_properties['properties']):
+                state_properties['properties'].update({'scrolling': 'yes'})
+            if state_properties['properties']['scrolling'] is True:
+                state_properties['properties']['scrolling'] = 'yes'
+            if state_properties['properties']['scrolling'] is False:
+                state_properties['properties']['scrolling'] = 'no'
+            if not (state_properties['properties'][
+                        'scrolling'].lower() == 'yes' or state_properties['properties'][
+                'scrolling'].lower() == 'no'):
+                raise ValueError(
+                    'The "scrolling" field can be only "yes" or "no" in the state "' + state_name + '".')
+            if not ('width' in state_properties['properties']):
+                state_properties['properties'].update({'width': 100})
+            elif not (type(state_properties['properties']['width']) is int):
+                raise ValueError(
+                    'The "width" field is not integer in the state "' + state_name + '".')
+            if not ('align' in state_properties['properties']):
+                state_properties['properties'].update({'align': 'left'})
+            elif not (state_properties['properties'][
+                          'align'].lower() == 'right' or state_properties['properties'][
+                'align'].lower() == 'left' or state_properties['properties'][
+                'align'].lower() == 'center'):
+                raise ValueError(
+                    'The "align" field can be only "left", "right" or "center" in the state "' + state_name + '".')
+
+    # check and modifies delays
+    def check_delays(self, loaded_yaml):
+        for state_name, state_properties in loaded_yaml['states'].items():
+            if 'delay' not in state_properties['properties']:
+                state_properties['properties'].update({'delay': 0})
+            elif state_properties['properties']['delay'] is None:
+                state_properties['properties'].update({'delay': 0})
+            elif not isinstance(state_properties['properties']['delay'], int):
+                raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
+
     # loads intent_transitions field from yaml to memory
     def load_intent_transitions(self, loaded_yaml):
         if "intent_transitions" in loaded_yaml:
@@ -261,3 +356,53 @@ class YamlParser:
             intent_state = intent_transitions[key]
             if not (intent_state in state_dict["states"]):
                 raise ValueError('State "' + intent_state + '" mentioned in intent_transitions doesn\'t exist.')
+
+    # check if all stated defined in transitions really exist
+    def check_transition_states_exist(self):
+        # iterate through all loaded states and check states mentioned in all possible transitions fields
+        for state_name, state_content in state_dict['states'].items():
+            if 'match' in state_content['transitions']:
+                reference_state = state_content['transitions']['match']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notmatch' in state_content['transitions']:
+                reference_state = state_content['transitions']['notmatch']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'equal' in state_content['transitions']:
+                reference_state = state_content['transitions']['equal']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notequal' in state_content['transitions']:
+                reference_state = state_content['transitions']['notequal']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'exists' in state_content['transitions']:
+                reference_state = state_content['transitions']['exists']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'notexists' in state_content['transitions']:
+                reference_state = state_content['transitions']['notexists']
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            if 'next_state' in state_content['transitions']:
+                reference_state = state_content['transitions']['next_state']
+                # next state can be empty
+                if reference_state == "" or reference_state is None:
+                    continue
+                if reference_state not in state_dict['states']:
+                    raise ValueError(
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+            # testing of button transitions, special case
+            if 'buttons' in state_content['properties']:
+                for button in state_content['properties']['buttons']:
+                    reference_state = button['next_state']
+                    if reference_state not in state_dict['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')

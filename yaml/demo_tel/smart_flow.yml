@@ -1,0 +1,138 @@
+﻿name: smart_flow
+states:
+  smart_intro:
+    type: message_text
+    properties:
+      text: 'Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu. Jedním z nejdůležitějších rozhodnutí, které při výběru vašeho telefonu uděláte, je výběr operačního systému, tedy prostředí na kterém váš telefon pracuje.'
+
+
+  smart_os_2:
+    type: message_text
+    properties:
+      text: 'Mezi nejčastější operační systémy patří:'
+      delay: 5000
+
+  smart_os_3:
+    type: message_text
+    properties:
+      text: 'Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Aplikace můžete získat v obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právě pro vás.'
+      delay: 1000
+
+  smart_os_4:
+    type: message_text
+    properties:
+      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.'
+      delay: 5000
+
+  smart_os_5:
+    type: message_text
+    properties:
+      text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows.'
+      delay: 5000
+
+  smart_os_6:
+    type: message_text
+    properties:
+      text: 'Pokud jste si vybrali jeden ze tří nejrozšiřenějších operačních systémů, prosím zvolte příslušnou kategorii, pokud si nejste jisti nebo Vám na operačním systému nezáleží, prosím zvolte VŠECHNY OPERAČNÍ SYSTÉMY'
+      delay: 5000
+
+  smart_select_os_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Android'
+          next_state: smart_android_init_context
+        - label: 'iOS'
+          next_state: smart_ios_init_context
+        - label: 'Windows Phone'
+          next_state: smart_win_init_context
+        - label: 'Všechny operační systémy'
+          next_state: smart_all_init_context
+
+  smart_select_os:
+    type: input_user
+    properties:
+      entities:
+        phone_os: os
+      require_match: true
+    transitions:
+      match: smart_check_os_android
+      notmatch: error_smart_os
+
+  smart_android_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'android'
+    transitions:
+        next_state: smart_android_init
+
+  smart_ios_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'iOS'
+    transitions:
+        next_state: smart_ios_init
+
+  smart_win_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'win'
+    transitions:
+        next_state: smart_win_init
+
+  smart_all_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'all'
+    transitions:
+        next_state: smart_all_init
+
+  error_smart_os:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Omlouvám se, ale nerozuměl jsem vám. Telefon s jakým operačním systémem hledáte?'
+        - 'Promiňte, ale nerozuměl jsem. Telefon s jakým operačním systémem hledáte?'
+      delay: 1000
+    transitions:
+      next_state: smart_select_os_buttons
+
+  smart_check_os_android:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'android'
+    transitions:
+      equal: smart_android_init
+      notequal: smart_check_os_ios
+
+  smart_check_os_ios:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'iOS'
+    transitions:
+      equal: smart_ios_init
+      notequal: smart_check_os_win
+
+  smart_check_os_win:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'win'
+    transitions:
+      equal: smart_win_init
+      notequal: smart_check_os_all
+
+  smart_check_os_all:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'all'
+    transitions:
+      equal: smart_all_init
+      notequal: error_smart_os

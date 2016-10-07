@@ -118,6 +118,20 @@ as follows in the yaml file.
 
 Intent has to be trained in the Wit.ai as one of entity with the name ``intent``. Intents are checked every time, user inputs something.
 
+### Delays
+You can define delay between two following outputs or between user's input and output by ``delay`` property. The delay is not implemented as 
+time delay directly in Alquist. The length of delay is send to client in the response instead. Client has to implement delay itself. Delay is
+specified in the milliseconds. Delay has effect on states showing some output text only.
+
+    state1:
+        type: message_text
+        properties:
+            text: Text to show after 1000 milliseconds
+            delay: 1000
+        transitions:
+            next_state: state2
+
+
 ## State descriptions
 ### message_text
 message_text sends a message to user.
@@ -130,7 +144,7 @@ Example:
             text: [message_text]
         transitions:
             next_state: [next_state_name]
-``text`` field contains a string, **REQUIRED**
+``text`` field contains a string, string can contain HTML tags **REQUIRED**
 
 ``next_state`` field contains name of the next state
 
@@ -151,12 +165,88 @@ Example:
                 - [response2]
         transitions:
             next_state: [next_state_name]
-``responses`` field contains strings with responses to be selected at random, **REQUIRED**
+``responses`` field contains strings with responses to be selected at random, strings can contain HTML tags **REQUIRED**
 
 ``next_state`` field contains name of the next state
 
 Default property values:
 * ``responses``: *Your messages here.* 
+
+
+### message_buttons
+message_buttons is used to display predefined respones in the form of buttons to the user.
+
+Example:
+
+	[name]:
+        type: message_buttons
+        properties:
+            buttons:
+                - label: [label1]
+                  next_state: [next_state_from_button1]
+                  type: [type_of_button1]
+                - label: [label2]
+                  next_state: [next_state_from_button1]
+                  type: [type_of_button2]
+        transitions:
+            next_state: [next_state_name]
+``buttons`` field contains definitions of individul buttons (i.e. their labels and state transitions), **REQUIRED**
+    
+- ``label`` text shown on button
+
+- ``next_state`` state to jump after click on button
+
+- ``type`` type of button, can be any string, must be implemented on the client side
+
+``next_state_from_button1`` state to transition to from button 1
+
+``next_state`` field contains name of the next state
+
+
+### message_iframe
+message_iframe is used to display iframes containing arbitrary HTML content like formatted text or images
+
+Example:
+    
+    [name]:
+        type: message_iframe
+        properties:
+            url: [url]
+            width: [iframes width (percents)]
+            height: [iframe's height (pixels)]
+            align: [iframe's align]
+            scrolling: [yes/no]
+``url`` contains iframe's address, **REQUIRED**
+
+``width`` width of iframe in percents (integer only)
+
+``height`` height of iframe in pixels (integer only)
+
+``align`` iframe's align, possible values are 'left', 'right' and 'center'
+
+``scrolling`` determines scrolling of iframe, only two possible values are 'yes' and 'no'
+
+### change_context
+change_context is used to change session context independently on user input.
+
+Example:
+
+	[name]:
+        type: change_context
+        properties:
+            del_keys:
+                - [del_entity1]
+                - [del_entity2]
+            update_keys:
+               [up_entity1]: [value1]
+               [up_entity1]: [label2]
+        transitions:
+            next_state: [next_state_name]
+``del_keys`` field with keys to be deleted, **REQUIRED**
+
+``update_keys`` field with keys to be updated, **REQUIRED**
+
+``next_state`` field contains name of the next state
 
 
 ### input_user
