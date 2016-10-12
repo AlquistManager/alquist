@@ -1,0 +1,361 @@
+# This is a description of YAML syntax used for X DIALOG MANAGER X
+# this project was created as part of the eClob Summer Camp 2016
+# Authors: Jakub Konrád (jkonrad.dev@gmail.com), Petr Marek (ermrk.marek@gmail.com)
+
+
+
+name: login
+
+states:
+  init:
+    type: message_text
+    properties:
+      text: " "
+      delay: 1000
+
+  jp1:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a1
+
+  a1:
+    type: message_text
+    properties:
+      text: Ahoj, díky za pozvání.
+      delay: 1000
+
+  jp2:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a2
+
+  a2:
+    type: message_text
+    properties:
+      text: Jsem správce dialogových botů.
+      delay: 1000
+
+  jp2_1:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a2_1
+
+  a2_1:
+    type: message_text
+    properties:
+      text: Vlastně jsem něco jako režisér, který si přečte dialog a potom se stará o jeho průběh.
+      delay: 1000
+
+  jp3:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a3
+
+  a3:
+    type: message_text
+    properties:
+      text:  Ano, řídím co bot řekne a kdy čeká na uživatelovu odpověď.
+      delay: 1000
+
+  jp4:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a4
+
+  a4:
+    type: message_text
+    properties:
+      text:  Určitě, mám tady třeba tuhle ukázku.
+      delay: 1000
+
+  a4_2:
+    type: message_text
+    properties:
+      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/yaml.jpg" alt="YAML" height="600" width="500"></span>'
+      delay: 1000
+
+  jp5:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a5
+
+  a5:
+    type: message_text
+    properties:
+      text:  Přesně tak.
+      delay: 1000
+
+  a5_2:
+    type: message_text
+    properties:
+      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/obama_right.jpg" alt="obama" height="450" width="600"></span>'
+      delay: 1000
+
+  jp6:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a6
+
+  a6:
+    type: message_text
+    properties:
+      text:  V podstatě téměř všechno, já tu jen ukážu několik příkladů.
+      delay: 1000
+
+  a6_2:
+    type: message_text
+    properties:
+      text:  Třeba text formátovaný HTML.
+      delay: 1000
+
+  a6_3:
+    type: message_text
+    properties:
+      text:  '<span><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Monsieur+La+Doulaise" /><span style="font-size: 40px">This <b>TEXT</b> is <b style="font-family:Monsieur La Doulaise; font-size:72px"><span style="color:#ff0000;">F</span><span style="color:#ff7f00;">a</span><span style="color:#ffff00;">b</span><span style="color:#00ff00;">u</span><span style="color:#00ffff;">l</span><span style="color:#0000ff;">o</span><span style="color:#8b00ff;">u</span><span style="color:#f055bf;">s</span></b></span></span>'
+      delay: 1000
+
+  a6_4:
+    type: message_text
+    properties:
+      text: Zobrazovat tlačítka pro uživatele.
+      delay: 1000
+
+  a6_5:
+    type: message_buttons # shows buttons
+    properties:
+      buttons: # list of buttons to show
+        - label: Cool tlačítko # label of the first button
+          next_state: a6_6 # next_state after click on the first button
+          type: demo1 # type of button (it is send to client, client has to implement it)
+        - label: Víc cool tlačítko # label of the second button
+          next_state: a6_6 # next_state after click on the second button
+          type: demo2 # type of button (it is send to client, client has to implement it)
+    transitions:
+      next_state: a6_5_2
+
+  a6_5_2:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a6_6
+
+  a6_6:
+    type: message_text
+    properties:
+      text:  Nebo přehrát video.
+      delay: 1000
+
+  a6_7:
+    type: message_iframe # Used to show iframe
+    properties:
+      url: \yaml\login\yaml.bmp # URL of iframe
+      height: 600 # iframe's height (only number)
+      scrolling: false # determines if the iframe will have scrollbar
+      width: 400 # iframe's width in percents (only number)
+      align: center # possible values are left, right and center
+
+  jp7:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a7
+
+  a7:
+    type: message_text
+    properties:
+      text:  Začali jsme letos v červenci, a od té doby na tom usilovně pracujeme.
+      delay: 1000
+
+
+  jp8:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a8
+
+  a8:
+    type: message_text
+    properties:
+      text:  Ano, to je, ale myslím, že se nám daří.
+      delay: 1000
+
+
+  jp9:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a9
+
+  a9:
+    type: message_text
+    properties:
+      text:  Ne, to určitě ne, chceme například naučit boty lépe česky nebo tvořit dialog dynamicky.
+      delay: 1000
+
+  jp10:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a10:
+    type: message_text
+    properties:
+      text:  Určite, máme online demo, na které se dostanete z našich webovek.
+      delay: 1000
+
+  a10_2:
+    type: message_text
+    properties:
+      text:  '<span><span style="font-size: 40px">www.alquistai.com</span></span>'
+      delay: 1000
+
+  a10_3:
+    type: message_text
+    properties:
+      text:  A všechny moje kódy jsou dostupné na GitHubu.
+      delay: 1000
+
+  a10_4:
+    type: message_text
+    properties:
+      text:  '<span><span style="font-size: 40px">github.com/AlquistManager/alquist</span></span>'
+      delay: 1000
+
+
+  jp11:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a11:
+    type: message_text
+    properties:
+      text:  Samozřejmě. Proto jsem byl vytvořen. Chcete vědět jak si pomocí mě vytvořit bota?
+      delay: 1000
+
+  jp12:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a12:
+    type: message_text
+    properties:
+      text:  Na vytvoření bota jsou potřeba jen čtyři kroky.
+      delay: 1000
+
+  a12_2:
+    type: message_text
+    properties:
+      text:  Stáhněte si mě z GitHubu.
+      delay: 1000
+
+  a12_2_2:
+    type: message_text
+    properties:
+      text:  '<span>https://github.com/AlquistManager/alquist</span>'
+      delay: 1000
+
+  a12_3:
+    type: message_text
+    properties:
+      text:  Vytvořte si účet na Wit.ai kvůli NLU.
+      delay: 1000
+
+  a12_3_2:
+    type: message_text
+    properties:
+      text:  '<span>NLU - porozumění přirozenému jazyku</span>'
+      delay: 1000
+
+  a12_4:
+    type: message_text
+    properties:
+      text:  Potom použijte ukázkové dialogy z Githubu a spusťte si bota.
+      delay: 1000
+
+  a12_5:
+    type: message_text
+    properties:
+      text:  A nakonec jen otevřete klienta.
+      delay: 1000
+
+  jp13:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a13:
+    type: message_text
+    properties:
+      text:  Určite,stačí napsat email do eClubu nebo se u nás stavit, a určitě se na něčem dohodneme.
+      delay: 1000
+
+  jp14:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a14:
+    type: message_text
+    properties:
+      text:  Určitě je výhoda znát něco třeba o neuronkách nebo NLU. Stačí ale jen chuť se učit a zkoušet nové věci.
+      delay: 1000
+
+  jp15:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a10
+
+  a15:
+    type: message_text
+    properties:
+      text:  Ahoj, mějte se.
+      delay: 1000
