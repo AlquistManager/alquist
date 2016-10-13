@@ -52,7 +52,7 @@ states:
   a2_1:
     type: message_text
     properties:
-      text: Vlastně jsem něco jako režisér, který si přečte dialog a potom se stará o jeho průběh.
+      text: Jsem něco jako režisér, který si přečte dialog a potom se stará o jeho průběh.
       delay: 1000
 
   jp3:
@@ -135,6 +135,14 @@ states:
       text:  '<span><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Monsieur+La+Doulaise" /><span style="font-size: 40px">This <b>TEXT</b> is <b style="font-family:Monsieur La Doulaise; font-size:72px"><span style="color:#ff0000;">F</span><span style="color:#ff7f00;">a</span><span style="color:#ffff00;">b</span><span style="color:#00ff00;">u</span><span style="color:#00ffff;">l</span><span style="color:#0000ff;">o</span><span style="color:#8b00ff;">u</span><span style="color:#f055bf;">s</span></b></span></span>'
       delay: 1000
 
+  a6_32:
+    type: input_user
+    properties:
+      require_match: false
+      log_json: false
+    transitions:
+      next_state: a6_4
+
   a6_4:
     type: message_text
     properties:
@@ -188,7 +196,7 @@ states:
   a7:
     type: message_text
     properties:
-      text:  Začali jsme letos v červenci, a od té doby na tom usilovně pracujeme.
+      text:  Začali jsme letos v červenci, a od té doby stále usilovně vylepšujeme náš systém a jeho možnosti.
       delay: 1000
 
 
@@ -232,7 +240,7 @@ states:
   a10:
     type: message_text
     properties:
-      text:  Určite, máme online demo, na které se dostanete z našich webovek.
+      text:  Určitě, máme online demo, na které se dostanete z našich webovek.
       delay: 1000
 
   a10_2:
@@ -250,13 +258,13 @@ states:
   a10_4:
     type: message_text
     properties:
-      text:  '<span><span style="font-size: 20px">github.com/AlquistManager/alquist</span></span>'
+      text:  '<span><span style="font-size: 35px; color: #F7FF03">github.com/AlquistManager/alquist</span></span>'
       delay: 1000
 
   a10_5:
     type: message_text
     properties:
-      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/github.jpg" alt="github" height="234" width="400"></span>'
+      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/GitHub.jpg" alt="github" height="234" width="400"></span>'
       delay: 500
 
 
@@ -266,12 +274,12 @@ states:
       require_match: false
       log_json: false
     transitions:
-      next_state: a10
+      next_state: a11
 
   a11:
     type: message_text
     properties:
-      text:  Samozřejmě. Proto jsem byl vytvořen. Chcete vědět jak si pomocí mě vytvořit bota?
+      text:  Samozřejmě. To je naším cílem. Chcete vědět, jak si s mou pomocí vytvořit bota?
       delay: 1000
 
   jp12:
@@ -280,7 +288,7 @@ states:
       require_match: false
       log_json: false
     transitions:
-      next_state: a10
+      next_state: a12
 
   a12:
     type: message_text
@@ -291,50 +299,50 @@ states:
   a12_2:
     type: message_text
     properties:
-      text:  Stáhněte si mě z GitHubu.
-      delay: 1000
+      text:  Stáhněte si kódy z GitHubu.
+      delay: 2500
 
   a12_2_2:
     type: message_text
     properties:
-      text:  '<span>https://github.com/AlquistManager/alquist</span>'
-      delay: 1000
+      text:  '<span><span style="font-size: 35px; color: #F7FF03">https://github.com/AlquistManager/alquist</span></span>'
+      delay: 0
 
   a12_2_3:
     type: message_text
     properties:
-      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/github.jpg" alt="github" height="234" width="400"></span>'
-      delay: 500
+      text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/GitHub.jpg" alt="github" height="234" width="400"></span>'
+      delay: 0
 
   a12_3:
     type: message_text
     properties:
       text:  Vytvořte si účet na Wit.ai kvůli NLU.
-      delay: 1000
+      delay: 2500
 
   a12_3_2:
     type: message_text
     properties:
-      text:  '<span>NLU - porozumění přirozenému jazyku</span>'
-      delay: 1000
+      text:  '<span><span style="font-size: 35px; color: #F7FF03">NLU - porozumění přirozenému jazyku</span></span>'
+      delay: 0
 
   a12_3_3:
     type: message_text
     properties:
       text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/wit.jpg" alt="Wit" height="200" width="304"></span>'
-      delay: 500
+      delay: 0
 
   a12_4:
     type: message_text
     properties:
       text:  Potom použijte ukázkové dialogy z Githubu a spusťte si bota.
-      delay: 1000
+      delay: 5000
 
   a12_5:
     type: message_text
     properties:
-      text:  A nakonec jen otevřete klienta.
-      delay: 1000
+      text:  A nakonec jen otevřete klienta a můžete psát a testovat.
+      delay: 5500
 
   jp13:
     type: input_user
@@ -342,12 +350,12 @@ states:
       require_match: false
       log_json: false
     transitions:
-      next_state: a10
+      next_state: a13
 
   a13:
     type: message_text
     properties:
-      text:  Určite,stačí napsat email do eClubu nebo se u nás stavit, a určitě se na něčem dohodneme.
+      text:  Určitě, stačí napsat email do eClubu nebo se u nás stavit, a na něčem se dohodneme.
       delay: 1000
 
   jp14:
@@ -356,12 +364,12 @@ states:
       require_match: false
       log_json: false
     transitions:
-      next_state: a10
+      next_state: a14
 
   a14:
     type: message_text
     properties:
-      text:  Určitě je výhoda znát něco třeba o neuronkách nebo NLU. Stačí ale jen chuť se učit a zkoušet nové věci.
+      text:  Je výhoda znát něco třeba o neuronkách nebo NLU. Stačí ale jen chuť se učit a zkoušet nové věci.
       delay: 1000
 
   jp15:
@@ -370,7 +378,7 @@ states:
       require_match: false
       log_json: false
     transitions:
-      next_state: a10
+      next_state: a15
 
   a15:
     type: message_text
