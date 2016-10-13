@@ -11,7 +11,7 @@ states:
     type: message_text
     properties:
       text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/face.jpg" alt="ai-face" height="524" width="800"></span>'
-      delay: 1000
+      delay: 0
 
   jp1:
     type: input_user
@@ -25,7 +25,7 @@ states:
     type: message_text
     properties:
       text: Ahoj, díky za pozvání.
-      delay: 1000
+      delay: 0
 
   jp2:
     type: input_user
@@ -39,7 +39,7 @@ states:
     type: message_text
     properties:
       text: Jsem správce dialogových botů.
-      delay: 1000
+      delay: 0
 
   jp2_1:
     type: input_user
@@ -53,7 +53,7 @@ states:
     type: message_text
     properties:
       text: Jsem něco jako režisér, který si přečte dialog a potom se stará o jeho průběh.
-      delay: 1000
+      delay: 0
 
   jp3:
     type: input_user
@@ -67,7 +67,7 @@ states:
     type: message_text
     properties:
       text:  Ano, řídím co bot řekne a kdy čeká na uživatelovu odpověď.
-      delay: 1000
+      delay: 0
 
   jp4:
     type: input_user
@@ -81,7 +81,7 @@ states:
     type: message_text
     properties:
       text:  Určitě, mám tady třeba tuhle ukázku.
-      delay: 1000
+      delay: 0
 
   a4_2:
     type: message_text
@@ -101,7 +101,7 @@ states:
     type: message_text
     properties:
       text:  Přesně tak.
-      delay: 1000
+      delay: 0
 
   a5_2:
     type: message_text
@@ -127,27 +127,20 @@ states:
     type: message_text
     properties:
       text:  Třeba text formátovaný HTML.
-      delay: 1000
+      delay: 4000
 
   a6_3:
     type: message_text
     properties:
-      text:  '<span><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Monsieur+La+Doulaise" /><span style="font-size: 40px">This <b>TEXT</b> is <b style="font-family:Monsieur La Doulaise; font-size:72px"><span style="color:#ff0000;">F</span><span style="color:#ff7f00;">a</span><span style="color:#ffff00;">b</span><span style="color:#00ff00;">u</span><span style="color:#00ffff;">l</span><span style="color:#0000ff;">o</span><span style="color:#8b00ff;">u</span><span style="color:#f055bf;">s</span></b></span></span>'
-      delay: 1000
+      text:  '<span><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Monsieur+La+Doulaise" /><span style="font-size: 40px; color: #F0FFD1">This <b>TEXT</b> is <b style="font-family:Monsieur La Doulaise; font-size:72px"><span style="color:#ff0000;">F</span><span style="color:#ff7f00;">a</span><span style="color:#ffff00;">b</span><span style="color:#00ff00;">u</span><span style="color:#00ffff;">l</span><span style="color:#0000ff;">o</span><span style="color:#8b00ff;">u</span><span style="color:#f055bf;">s</span></b></span></span>'
+      delay: 3000
 
-  a6_32:
-    type: input_user
-    properties:
-      require_match: false
-      log_json: false
-    transitions:
-      next_state: a6_4
 
   a6_4:
     type: message_text
     properties:
       text: Zobrazovat tlačítka pro uživatele.
-      delay: 1000
+      delay: 2000
 
   a6_5:
     type: message_buttons # shows buttons
@@ -174,15 +167,15 @@ states:
     type: message_text
     properties:
       text:  Nebo přehrát video.
-      delay: 1000
+      delay: 0
 
   a6_7:
     type: message_iframe # Used to show iframe
     properties:
-      url: \yaml\login\yaml.bmp # URL of iframe
-      height: 600 # iframe's height (only number)
+      url: 'https://www.youtube.com/embed/sp_WV91jx8E' # URL of iframe
+      height: 400 # iframe's height (only number)
       scrolling: false # determines if the iframe will have scrollbar
-      width: 400 # iframe's width in percents (only number)
+      width: 100 # iframe's width in percents (only number)
       align: center # possible values are left, right and center
 
   jp7:
@@ -197,7 +190,7 @@ states:
     type: message_text
     properties:
       text:  Začali jsme letos v červenci, a od té doby stále usilovně vylepšujeme náš systém a jeho možnosti.
-      delay: 1000
+      delay: 0
 
 
   jp8:
@@ -212,7 +205,7 @@ states:
     type: message_text
     properties:
       text:  Ano, to je, ale myslím, že se nám daří.
-      delay: 1000
+      delay: 0
 
 
   jp9:
@@ -226,8 +219,8 @@ states:
   a9:
     type: message_text
     properties:
-      text:  Ne, to určitě ne, chceme například naučit boty lépe česky nebo tvořit dialog dynamicky.
-      delay: 1000
+      text:  Ne, to určitě ne. Chceme například naučit boty lépe česky, nebo tvořit dialog dynamicky.
+      delay: 0
 
   jp10:
     type: input_user
@@ -240,32 +233,32 @@ states:
   a10:
     type: message_text
     properties:
-      text:  Určitě, máme online demo, na které se dostanete z našich webovek.
-      delay: 1000
+      text:  Máme online demo, na které se dostanete z našich webovek.
+      delay: 0
 
   a10_2:
     type: message_text
     properties:
       text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/alquistai.jpg" alt="alquistai" height="195" width="575"></span>'
-      delay: 1000
+      delay: 0
 
   a10_3:
     type: message_text
     properties:
       text:  A všechny moje kódy jsou dostupné na GitHubu.
-      delay: 1000
+      delay: 4000
 
   a10_4:
     type: message_text
     properties:
       text:  '<span><span style="font-size: 35px; color: #F7FF03">github.com/AlquistManager/alquist</span></span>'
-      delay: 1000
+      delay: 0
 
   a10_5:
     type: message_text
     properties:
       text: '<span><img src="https://raw.githubusercontent.com/AlquistManager/alquist/master/yaml/login/GitHub.jpg" alt="github" height="234" width="400"></span>'
-      delay: 500
+      delay: 0
 
 
   jp11:
@@ -280,7 +273,7 @@ states:
     type: message_text
     properties:
       text:  Samozřejmě. To je naším cílem. Chcete vědět, jak si s mou pomocí vytvořit bota?
-      delay: 1000
+      delay: 0
 
   jp12:
     type: input_user
@@ -294,13 +287,13 @@ states:
     type: message_text
     properties:
       text:  Na vytvoření bota jsou potřeba jen čtyři kroky.
-      delay: 1000
+      delay: 0
 
   a12_2:
     type: message_text
     properties:
       text:  Stáhněte si kódy z GitHubu.
-      delay: 2500
+      delay: 3500
 
   a12_2_2:
     type: message_text
@@ -318,7 +311,7 @@ states:
     type: message_text
     properties:
       text:  Vytvořte si účet na Wit.ai kvůli NLU.
-      delay: 2500
+      delay: 3000
 
   a12_3_2:
     type: message_text
@@ -336,13 +329,13 @@ states:
     type: message_text
     properties:
       text:  Potom použijte ukázkové dialogy z Githubu a spusťte si bota.
-      delay: 5000
+      delay: 5500
 
   a12_5:
     type: message_text
     properties:
       text:  A nakonec jen otevřete klienta a můžete psát a testovat.
-      delay: 5500
+      delay: 6000
 
   jp13:
     type: input_user
@@ -356,7 +349,7 @@ states:
     type: message_text
     properties:
       text:  Určitě, stačí napsat email do eClubu nebo se u nás stavit, a na něčem se dohodneme.
-      delay: 1000
+      delay: 0
 
   jp14:
     type: input_user
@@ -370,7 +363,7 @@ states:
     type: message_text
     properties:
       text:  Je výhoda znát něco třeba o neuronkách nebo NLU. Stačí ale jen chuť se učit a zkoušet nové věci.
-      delay: 1000
+      delay: 0
 
   jp15:
     type: input_user
@@ -384,4 +377,4 @@ states:
     type: message_text
     properties:
       text:  Ahoj, mějte se.
-      delay: 1000
+      delay: 0
