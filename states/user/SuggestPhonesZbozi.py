@@ -116,10 +116,11 @@ class SuggestPhonesZbozi(State):
 
         memory = context.get('memory', False)
         if memory:
-            if memory == '0 - 8 GB':
-                query += "&interni-pamet-do=8"
-            elif memory == '8+ GB':
+            if memory == '8 - 16 GB':
                 query += "&interni-pamet-od=8"
+                query += "&interni-pamet-do=16"
+            elif memory == '16+ GB':
+                query += "&interni-pamet-od=16"
             elif memory == 'memory card':
                 query += "?phone :memoryCardSlot ?mc .\n"
             elif memory == 'any':

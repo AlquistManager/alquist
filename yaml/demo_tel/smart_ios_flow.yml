@@ -272,7 +272,8 @@ states:
       scrolling: 'yes'
       align: center
       delay: 1000
-    transitions: return
+    transitions:
+      next_state: end_demo
 
   iphone_type_SE:
     type: message_text

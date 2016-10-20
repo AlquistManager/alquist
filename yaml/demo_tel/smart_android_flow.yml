@@ -3,7 +3,7 @@ states:
   smart_android_init:
     type: message_text
     properties:
-      text: 'Další důležitou volbou je cena vašeho telefonu. Systém Android je rozšířený na telefonech všech cenových kategorií, můžete si tedy zvolit cenové rozpětí, které vám bude vyhovovat.'
+      text: 'Další důležitou volbou je cena vašeho telefonu. Systém Android je rozšířený na&nbsp;telefonech všech cenových kategorií, můžete si tedy zvolit cenové rozpětí, které vám bude vyhovovat.'
 
   smart_price_1:
     type: message_text
@@ -14,13 +14,13 @@ states:
   smart_price_2:
     type: message_text
     properties:
-      text: 'Nižší střední třída smartphonů se drží v cenovém rozpětí mezi 2 500 Kč a 5 000 Kč. '
+      text: 'Nižší střední třída mobilních telefonů se drží v cenovém rozpětí mezi 2 500 Kč a 5 000 Kč. '
       delay: 2500
 
   smart_price_3:
     type: message_text
     properties:
-      text: 'Pokud hledáte silný a výkonný model stále za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 10 000 Kč.'
+      text: 'Pokud hledáte výkonný model za přijatelnou cenu, doporučujeme kategorii mezi 5 000 Kč a 10 000 Kč.'
       delay: 3500
 
   smart_price_4:
@@ -165,45 +165,37 @@ states:
       value2: 'price_around'
     transitions:
       equal: smart_price_out4
-      notequal: smart_price_out5
+      notequal: smart_android_brand
 
   smart_price_out1:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      text: 'Hledám telefony v cenové kategorii od&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: smart_price_out5
+      next_state: smart_android_brand
 
   smart_price_out2:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      text: 'Hledám telefony v cenové kategorii do&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: smart_price_out5
+      next_state: smart_android_brand
 
   smart_price_out3:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      text: 'Hledám telefony v cenové kategorii od&nbsp;{{price_from}}&nbsp;do&nbsp;{{price_to}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: smart_price_out5
+      next_state: smart_android_brand
 
   smart_price_out4:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      text: 'Hledám telefony v cenové kategorii kolem&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
-    transitions:
-      next_state: smart_price_out5
-
-  smart_price_out5:
-    type: message_text
-    properties:
-      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
-      delay: 2000
     transitions:
       next_state: smart_android_brand
 
@@ -221,7 +213,7 @@ states:
   smart_android_brand:
     type: message_text
     properties:
-      text: 'Android využívá celá řada výrobců mobilních telefonů. Pokud hledáte telefon od specifického výrobce, můžete si vybrat z nabídky níže. Pokud si volbou výrobce nejste jisti, zvolte možnost PŘESKOČIT VOLBU VÝROBCE'
+      text: 'Pokud hledáte telefon od&nbsp;specifického výrobce, vyberte&nbsp;si z&nbsp;nabídky níže, nebo napište vlastního. Pokud si výrobcem nejste jisti, můžete tuto volbu <b>PŘESKOČIT</b>'
 
   smart_android_select_brand_buttons:
     type: message_buttons
@@ -294,7 +286,7 @@ states:
     type: message_text_random
     properties:
       responses:
-        - 'Promiňte, ale tu značku neznám, prosím zkontrolujte, že jste ji zadali správně, případně zvolte přeskořit volbu výrobce?'
+        - 'Promiňte, ale tu značku neznám. Prosím zkuste to znovu, případně zvolte přeskořit volbu výrobce.'
     transitions:
       next_state: smart_android_select_brand_buttons
 
@@ -306,7 +298,7 @@ states:
   smart_android_params_2:
     type: message_text
     properties:
-      text: 'Prosím zvolte, který z parametrů chcete specifikovat. Pokud jste vybrali všechny požadované parametry, přejděte k návrhu telefonů.'
+      text: 'Prosím zvolte, který z parametrů chcete specifikovat. Volbou <b>NÁVRH&nbsp;TELEFONŮ</b> ukončíte výběr parametrů a přejdete k výsledkům.'
       delay: 1000
 
   smart_android_params_3_buttons:
@@ -340,7 +332,7 @@ states:
     type: message_text_random
     properties:
       responses:
-        - 'Prosím vyberte jeden z nabídky parametrů a opřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT TELEFONY'
+        - 'Prosím vyberte jeden z&nbsp;nabídky parametrů a&nbsp;opřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT&nbsp;TELEFONY'
     transitions:
       next_state: smart_android_params_3_buttons
 
@@ -402,13 +394,12 @@ states:
   smart_android_display:
     type: message_text
     properties:
-      text: 'Displej je zpravidla dotykový a velikost jeho úhlopříčky se uvádí v palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
+      text: 'Displej je zpravidla dotykový a&nbsp;velikost jeho úhlopříčky se&nbsp;uvádí v&nbsp;palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
 
-  smart_android_display_2:
+  smart_android_display:
     type: message_text
     properties:
       text: 'Prosím vyberte preferovanou velikost displeje:'
-      delay: 1000
 
   smart_android_display_3_buttons:
     type: message_buttons
@@ -422,6 +413,15 @@ states:
           next_state: smart_android_display_extra_big
         - label: 'NA DISPLEJI MI NEZÁLEŽÍ'
           next_state: smart_android_display_dont_care
+        - label: 'Řekni mi víc'
+          next_state: smart_android_display_2
+
+  smart_android_display_2:
+    type: message_text
+    properties:
+      text: 'Displej je zpravidla dotykový a&nbsp;velikost jeho úhlopříčky se&nbsp;uvádí v&nbsp;palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
+    transitions:
+      next_state: smart_android_display
 
   smart_android_display_select:
     type: input_user
@@ -477,7 +477,7 @@ states:
   smart_android_processor:
     type: message_text
     properties:
-      text: 'Pro rychlý chod telefonu je třeba výkonný procesor. Čím více GHz (gigahertz - jednotka, v níž se rychlost procesoru udává) a čím více jader procesor má, tím rychlejší bude.'
+      text: 'Pro rychlý chod telefonu je třeba výkonný procesor. Čím více GHz (gigahertz&nbsp;-&nbsp;jednotka, v&nbsp;níž se rychlost procesoru udává) a&nbsp;čím více jader procesor má, tím rychlejší bude.'
     transitions:
       next_state: smart_android_processor_3_buttons
 
@@ -485,10 +485,11 @@ states:
     type: message_buttons
     properties:
       buttons:
-        - label: 'CHCI TELEFON SE SILNÝM PROCESOREM'
+        - label: 'SILNÝ PROCESOR ( > 1.5 GHz)'
           next_state: smart_android_processor_select_strong
-        - label: 'SÍLA PROCESORU NENÍ MOJE PRIORITA'
+        - label: 'PROCESOR MĚ NEZAJÍMÁ'
           next_state: smart_android_processor_select_any
+
 
   smart_android_processor_select:
     type: input_user
@@ -531,16 +532,24 @@ states:
   smart_android_ram:
     type: message_text
     properties:
-      text: 'Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a bude fungovat stále stejně plynule. Standardem se začíná stávat 1GB RAM, výkonnější telefony pak nabídnou 2 až 3 GB operační paměti.'
+      text: 'Operační paměť je paměť, ve které jsou uložena data a&nbsp;programy, se kterými se právě pracuje.'
 
   smart_android_ram_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: 'CHCI TELEFON S VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)'
+        - label: 'CHCI VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)'
           next_state: smart_android_ram_select_2gb
-        - label: 'VELIKOST OPERAČNÍ PAMĚTI MĚ NEZAJÍMÁ'
+        - label: 'OPERAČNÍ PAMĚŤ MĚ NEZAJÍMÁ'
           next_state: smart_android_ram_select_any
+        - label: 'Řekni mi víc'
+          next_state: smart_android_ram_2
+
+  smart_android_ram_2:
+    type: message_text
+    properties:
+      text: 'Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a&nbsp;bude fungovat stále stejně plynule. Standardem se&nbsp;začíná stávat 1GB&nbsp;RAM, výkonnější telefony pak nabídnou 2&nbsp;až&nbsp;3&nbsp;GB operační paměti.'
+
 
   smart_android_ram_select:
     type: input_user
@@ -580,26 +589,34 @@ states:
   smart_android_memory:
     type: message_text
     properties:
-      text: 'Paměť telefonu se udává v GB (gigabytech). Čím vyšší hodnota, tím více hudby, filmů, fotografií, her a aplikací se vám do telefonu vejde.4 GB jde doporučit jako základ. Pokud více fotografujete, hrajete hry atp., sáhněte raději po 8 GB a více.'
+      text: 'Prosím vyberte preferovanou možnost možnost:'
 
-  smart_android_memory_2:
-    type: message_text
-    properties:
-      text: 'Řešením je také koupě telefonu s podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.'
-      delay: 1000
 
   smart_android_memory_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: 'STAČÍ MI TELEFON S PAMĚTÍ DO 8 GB'
+        - label: 'NAD 8 GB'
           next_state: smart_android_memory_select_small
-        - label: 'CHCI TELEFON S PAMĚTÍ NAD 8 GB'
+        - label: 'NAD 16 GB'
           next_state: smart_android_memory_select_big
-        - label: 'CHCI TELEFON S PODPOROU PAMĚŤOVÝCH KARET'
+        - label: 'TELEFON S PODPOROU PAMĚŤOVÝCH KARET'
           next_state: smart_android_memory_select_card
-        - label: 'INTERNÍ PAMĚŤ TELEFONU NENÍ MOJE PRIORITA'
+        - label: 'PAMĚŤ TELEFONU MĚ NEZAJÍMÁ'
           next_state: smart_android_memory_select_any
+        - label: 'Řekni mi víc'
+          next_state: smart_android_memory_1
+
+  smart_android_memory_1:
+    type: message_text
+    properties:
+      text: 'Paměť telefonu se udává v&nbsp;GB (gigabytech). Čím vyšší hodnota, tím více hudby, filmů, fotografií, her a&nbsp;aplikací se vám do&nbsp;telefonu vejde. 8 GB jde doporučit jako základ pro chytré telefony. Pokud více fotografujete, hrajete hry atp., sáhněte raději po větší kapacitě.'
+
+  smart_android_memory_2:
+    type: message_text
+    properties:
+      text: 'Řešením je také koupě telefonu s&nbsp;podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a&nbsp;stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.'
+      delay: 1000
 
   smart_android_memory_select:
     type: input_user
@@ -615,7 +632,7 @@ states:
     type: change_context
     properties:
         update_keys:
-           memory: '0 - 8 GB'
+           memory: '8 - 16 GB'
     transitions:
         next_state: smart_android_params_2
 
@@ -623,7 +640,7 @@ states:
     type: change_context
     properties:
         update_keys:
-           memory: '8+ GB'
+           memory: '16+ GB'
     transitions:
         next_state: smart_android_params_2
 
@@ -656,19 +673,27 @@ states:
   smart_android_resolution:
     type: message_text
     properties:
-      text: 'Rozlišení displeje je udáváno maximálním počtem pixelů (bodů), které se zobrazí na obrazovce telefonu. Čím vyšší, tím bude obraz ostřejší. U levnějších přístrojů byste měli požadovat rozlišení alespoň 800 x 480, u dražších pak 1280 x 720 bodů.'
+      text: 'Prosím vyberte preferované rozlišení displeje:'
 
 
   smart_android_resolution_3_buttons:
     type: message_buttons
     properties:
       buttons:
-        - label: 'CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1280 x 720'
+        - label: '1280 x 720 bodů'
           next_state: smart_android_resolution_select_small
-        - label: 'CHCI TELEFON S ROZLIŠENÍM ALESPOŇ 1920 X 1080'
+        - label: '1920 X 1080 bodů'
           next_state: smart_android_resolution_select_big
         - label: 'ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ'
           next_state: smart_android_resolution_select_any
+        - label: 'Řekni mi víc'
+          next_state: smart_android_resolution_select_any
+
+  smart_android_resolution_2:
+    type: message_text
+    properties:
+      text: 'Rozlišení displeje je udáváno maximálním počtem pixelů (bodů), které se&nbsp;zobrazí na&nbsp;obrazovce telefonu. Čím vyšší, tím bude obraz ostřejší. U&nbsp;telefonů se standardním displejem byste měli poždovat rozlišení alespoň 1280 x 720 bodů.'
+
 
   smart_android_resolution_select:
     type: input_user
@@ -715,7 +740,7 @@ states:
   smart_android_recommend:
     type: message_text
     properties:
-      text: 'Vybrali jste SMARTPHONE s operačním systémem ANDROID a následujícími parametry - cena od {{price_from}} do {{price_to}} Kč, displej {{display_size}} palců, processor {{processor}}, ram {{ram}}, rozlišení {{resolution}} a paměť {{memory}}.'
+      text: 'Děkujeme za využití našeho assistenta. Níže se nyní zobrazí navržené telefony.'
 
 
   smart_android_recommend_2:
@@ -725,7 +750,7 @@ states:
   smart_android_recommend_3:
     type: message_text
     properties:
-      text: 'Navržené telefony sežazené dle popularity'
+      text: 'Navržené telefony seřazené dle popularity'
       delay: 1000
 
   smart_android_recommend_cond_1:
@@ -748,9 +773,10 @@ states:
   end_demo:
     type: message_text
     properties:
-      text: '=== KONEC UKÁZKOVÉHO DIALOGU ==='
+      text: 'Pro koupi jednoho z&nbsp;vybraných telefonů prosím klikněte na&nbsp;jeho profil, nebo na&nbsp;tlačitko koupit. Pokud chcete spustit průvodce znovu, prosím zvolte začit od&nbsp;začátku. Pokud jste s&nbsp;naší službou spokojeni, neváhejte a&nbsp;zvolte možnost sdílet s&nbsp;přáteli.'
       delay: 1000
-    transitions: return
+    transitions:
+      next_state: end_buttons
 
   smart_android_recommend_out_1:
     type: message_iframe
@@ -833,6 +859,18 @@ states:
       scrolling: 'yes'
       align: center
       delay: 1000
+    transitions:
+      next_state: end_demo #  transition for when the key doesn't exist
 
 
 
+  end_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Koupit'
+          next_state: end_buttons
+        - label: 'Začít od začátku'
+          next_state: init
+        - label: 'Sdílet s přáteli'
+          next_state: end_buttons

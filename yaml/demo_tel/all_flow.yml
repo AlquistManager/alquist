@@ -3,4 +3,6 @@ states:
   all_intro:
     type: message_text
     properties:
-      text: 'TATO VĚTEV DIALOGU JEŠTĚ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONČÍ'
+      text: 'Další důležitou volbou je cena vašeho telefonu.'
+    transitions:
+      next_state: 'smart_price_1'
