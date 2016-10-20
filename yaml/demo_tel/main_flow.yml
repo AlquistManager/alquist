@@ -1,13 +1,5 @@
 ﻿name: main_flow
 states:
-  phone_count_1:
-    type: CountPhones
-    properties:
-  phone_count_out_1:
-    type: message_text
-    properties:
-      text: 'Aktuálně pro vás k výběru máme {{phone_count}} telefonů.'
-      delay: 2500
   intro:
     type: message_text
     properties:
@@ -17,50 +9,46 @@ states:
   intro2:
     type: message_text
     properties:
-      text: 'Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. Pohud sháníte levný mobilní telefon s omezenými funkcemi, prosím zvolte možnost LEVNÁ ALTERNATIVA.
-'
+      text: 'Telefony s omezenými funkcemi, ale nízkou cenou najdete v kategorii <b>LEVNÁ VARIANTA</b>.'
       delay: 2500
 
   intro3:
     type: message_text
     properties:
-      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte raději po chytrém telefonu. Chcete-li vybírat z naší nabídky chytrých telefonů, prosím zvolte CHYTRÝ TELEFON.'
+      text: 'Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.'
       delay: 5000
 
   intro4:
     type: message_text
     properties:
-      text: 'Pro starší generace jsou k dispozici telefony pro seniory. Hledáte-li TELEFON PRO SENIORY, prosím zvolte příslušnou volbu.'
+      text: 'Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.'
       delay: 5000
 
   intro5:
     type: message_text
     properties:
-      text: 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost PROCHÁZET VŠE'
+      text: 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.'
       delay: 5000
 
   select_type_button:
     type: message_buttons
     properties:
       buttons:
-        - label: 'LEVNÁ ALTERNATIVA'
+        - label: 'LEVNÁ VARIANTA'
           next_state: simple_intro_context
           type: Main
         - label: 'CHYTRÝ TELEFON'
           next_state: smart_intro_context
           type: Main
-        - label: 'TELEFON PRO SENIORY'
+        - label: 'PRO SENIORY'
           next_state: senior_intro_context
           type: Main
-        - label: 'PROCHÁZET VŠE'
+        - label: 'VŠECHNY TELEFONY'
           next_state: all_intro_context
           type: Main
-        - label: 'CO JE LEVNÁ VARIANTA?'
+        - label: 'Více o kategoriích'
           next_state: simple_info
-        - label: 'CO JE CHYTRÝ TELEFON?'
-          next_state: smart_info
-        - label: 'CO JE TELEFON PRO SENIORY?'
-          next_state: senior_info
+
 
   select_type:
     type: input_user
@@ -83,9 +71,9 @@ states:
   simple_info:
     type: message_text
     properties:
-      text: 'V levné variantě jsou telefony bez operačního systému, možnosti doinstalování aplikací nebo GPS. Často jsou tlačítkové.'
+      text: 'Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. V&nbsp;levné variantě jsou telefony bez operačního systému, možnosti doinstalování aplikací nebo GPS. Často jsou tlačítkové.'
     transitions:
-      next_state: select_type_button
+      next_state: smart_info
 
   smart_intro_context:
     type: change_context
@@ -98,9 +86,9 @@ states:
   smart_info:
     type: message_text
     properties:
-      text: 'Chytré telefony jsou nejběžnějším typem telefonu. Nejčatěji jsou vybaveny operačním systémem Android, iOS nebo Windows Phone. Umožňují doinstalování aplikací a pohodlné brouzdání internetem.'
+      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte po&nbsp;chytrém telefonu. Chytré telefony jsou nejběžnějším typem telefonu. Nejčatěji jsou vybaveny operačním systémem Android, iOS nebo Windows&nbsp;Phone. Umožňují doinstalování aplikací a&nbsp;pohodlné brouzdání internetem.'
     transitions:
-      next_state: select_type_button
+      next_state: senior_info
 
   senior_intro_context:
     type: change_context
@@ -113,9 +101,10 @@ states:
   senior_info:
     type: message_text
     properties:
-      text: 'Telefony pro seniory vynikají hlavně velkými ovládacími prvky, čitelným textem a vysokou hlasitostí.'
+      text: 'Pro starší generace jsou k&nbsp;dispozici telefony pro seniory. Telefony pro seniory vynikají hlavně velkými ovládacími prvky, čitelným textem a&nbsp;vysokou hlasitostí.'
     transitions:
-      next_state: select_type_button
+      next_state: all_info
+
 
   all_intro_context:
     type: change_context
@@ -125,12 +114,19 @@ states:
     transitions:
         next_state: all_intro
 
+  all_info:
+    type: message_text
+    properties:
+      text: 'Zvolíte-li možnost <b>PROCHÁZET VŠE</b>, pomohu vám vybrat telefon napříč všemi kategoriemi'
+    transitions:
+      next_state: select_type_button
+
   error_phone_type:
     type: message_text_random
     properties:
       responses:
-        - 'Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů? Prosím vyberte jednu z možností níže.'
-        - 'Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte? LEVNÝ TELEFON, SMARTPHONE, TELEFON PRO SENIORY nebo chcete VYBÍRAT ZE VŠECH telefonů? Prosím vyberte jednu z možností níže.'
+        - 'Omlouvám se, ale nerozuměl jsem vám. Jaký druh telefonu sháníte?'
+        - 'Promiňte, ale nerozuměl jsem. Jaký druh telefonu sháníte?'
     transitions:
       next_state: select_type_button
 

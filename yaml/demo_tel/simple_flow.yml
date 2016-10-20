@@ -3,12 +3,12 @@ states:
   simple_intro:
     type: message_text
     properties:
-      text: 'Vybrali jste kategorii obyčejných levnějších telefonů. Jedná se o telefony nejčastěji bez operačního systému, s nízkou cenou a omezenými funkcemi'
+      text: 'Vybrali jste kategorii obyčejných levnějších telefonů. Jedná&nbsp;se&nbsp;o&nbsp;telefony nejčastěji bez&nbsp;operačního systému, s&nbsp;nízkou&nbsp;cenou a&nbsp;omezenými&nbsp;funkcemi'
 
   simple_price:
     type: message_text
     properties:
-      text: 'Prosím vyberte si z cenových kategorií níže, nebo zvolte možnost PŘESKOČIT, pokud pro vás cena není prioritou'
+      text: 'Prosím vyberte si z&nbsp;cenových kategorií níže, nebo&nbsp;zvolte možnost PŘESKOČIT, pokud&nbsp;pro&nbsp;vás&nbsp;cena není prioritou'
       delay: 4000
 
   simple_select_price:
@@ -124,47 +124,40 @@ states:
       value2: 'price_around'
     transitions:
       equal: simple_price_out4
-      notequal: simple_price_out5
+      notequal: simple_params
 
   simple_price_out1:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii od {{price}} Kč'
+      text: 'Hledám telefony v&nbsp;cenové kategorii&nbsp;od&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_price_out5
+      next_state: simple_params
 
   simple_price_out2:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii do {{price}} Kč'
+      text: 'Hledám telefony v&nbsp;cenové kategorii do&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_price_out5
+      next_state: simple_params
 
   simple_price_out3:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii od {{price_from}} do {{price_to}} Kč'
+      text: 'Hledám telefony v&nbsp;cenové kategorii od&nbsp;{{price_from}}&nbsp;do&nbsp;{{price_to}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_price_out5
+      next_state: simple_params
 
   simple_price_out4:
     type: message_text
     properties:
-      text: 'Hledám telefony v cenové kategorii kolem {{price}} Kč'
+      text: 'Hledám telefony v&nbsp;cenové kategorii kolem&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_price_out5
-
-  simple_price_out5:
-    type: message_text
-    properties:
-      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
-      delay: 2000
-    transitions:
       next_state: simple_params
+
 
 
   simple_price_error:
@@ -181,7 +174,7 @@ states:
   simple_params:
     type: message_text
     properties:
-      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Kliknutím na tlačítka níže můžete zvolit požadované vlastnosti. Můžete zvolit více než jednu možnost. Výběr potvrdíte volbou NAVRHNOUT TELEFONY. Pokud si nejste jistí, co který parametr znamená, klepněte na tlačítko s nápovědou.'
+      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Kliknutím na&nbsp;tlačítka níže můžete zvolit požadované vlastnosti. Můžete zvolit více než&nbsp;jednu možnost. Výběr potvrdíte volbou NAVRHNOUT&nbsp;TELEFONY. Pokud si nejste jistí, co&nbsp;který parametr znamená, klepněte na&nbsp;tlačítko s&nbsp;nápovědou.'
       delay: 2000
 
   simple_params_buttons:

@@ -3,38 +3,22 @@ states:
   smart_intro:
     type: message_text
     properties:
-      text: 'Chytré telefony jsou v současnosti nejrozšířenějším typem telefonů na trhu. Jedním z nejdůležitějších rozhodnutí, které při výběru vašeho telefonu uděláte, je výběr operačního systému, tedy prostředí na kterém váš telefon pracuje.'
+      text: 'Důležitou volbou při výběru chytrého telefonu je jeho operační systém.'
 
-
-  smart_os_2:
+  smart_intro_2:
     type: message_text
     properties:
-      text: 'Mezi nejčastější operační systémy patří:'
-      delay: 5000
+      text: 'Nejpoužívanější systémy jsou Android, iOS a Windows Phone. Prosím vyberte si preferovaný systém nebo zvolte VŠECHNY&nbsp;SYSTÉMY'
+      delay: 2500
+    transitions:
+      next_state: smart_select_os_buttons
 
-  smart_os_3:
+  smart_intro_3:
     type: message_text
     properties:
-      text: 'Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Aplikace můžete získat v obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od Googlu (Gmail, Google Disk a další), hodí se Android právě pro vás.'
-      delay: 1000
-
-  smart_os_4:
-    type: message_text
-    properties:
-      text: 'iOS (Apple) naleznete pouze v telefonech iPhone. Hudbu, videa a další soubory do nich nahrajete přes program iTunes. Pokud používáte další zařízení Apple, bude s nimi telefon skvěle spolupracovat.'
-      delay: 5000
-
-  smart_os_5:
-    type: message_text
-    properties:
-      text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s počítačem vybaveným operačním systémem Windows.'
-      delay: 5000
-
-  smart_os_6:
-    type: message_text
-    properties:
-      text: 'Pokud jste si vybrali jeden ze tří nejrozšiřenějších operačních systémů, prosím zvolte příslušnou kategorii, pokud si nejste jisti nebo Vám na operačním systému nezáleží, prosím zvolte VŠECHNY OPERAČNÍ SYSTÉMY'
-      delay: 5000
+      text: 'Prosím vyberte si preferovaný systém nebo zvolte VŠECHNY SYSTÉMY'
+    transitions:
+      next_state: smart_select_os_buttons
 
   smart_select_os_buttons:
     type: message_buttons
@@ -46,8 +30,49 @@ states:
           next_state: smart_ios_init_context
         - label: 'Windows Phone'
           next_state: smart_win_init_context
-        - label: 'Všechny operační systémy'
+        - label: 'VŠECHNY SYSTÉMY'
           next_state: smart_all_init_context
+        - label: 'Řekni mi víc'
+          next_state: smart_os_1
+
+
+  smart_os_1:
+    type: message_text
+    properties:
+      text: 'Chytré telefony jsou v&nbsp;současnosti nejrozšířenějším typem telefonů na&nbsp;trhu. Jedním z nejdůležitějších rozhodnutí, které při&nbsp;výběru vašeho telefonu uděláte, je výběr operačního systému, tedy prostředí, ve&nbsp;kterém váš telefon pracuje.'
+
+
+  smart_os_2:
+    type: message_text
+    properties:
+      text: 'Mezi nejčastější operační systémy patří:'
+      delay: 5000
+
+  smart_os_3:
+    type: message_text
+    properties:
+      text: 'Android (Google) vám poskytne širší možnosti přizpůsobení telefonu. Aplikace můžete získat v&nbsp;obchodě Google Play nebo na internetu. Pokud navíc používáte další služby od&nbsp;Google (Gmail, Google Disk a další), hodí se Android právě pro vás.'
+      delay: 1000
+
+  smart_os_4:
+    type: message_text
+    properties:
+      text: 'iOS (Apple) naleznete pouze v&nbsp;telefonech iPhone. Hudbu, videa a&nbsp;další soubory do nich nahrajete přes&nbsp;program iTunes. Pokud používáte další zařízení Apple, bude s&nbsp;nimi telefon skvěle spolupracovat.'
+      delay: 5000
+
+  smart_os_5:
+    type: message_text
+    properties:
+      text: 'Windows Phone (Microsoft) je méně rozšířený, proto je také nabídka aplikací menší než u konkurence. Telefon bude ale velmi dobře spolupracovat s&nbsp;počítačem vybaveným operačním systémem Windows.'
+      delay: 5000
+
+  smart_os_6:
+    type: message_text
+    properties:
+      text: 'Pokud jste si vybrali jeden ze tří nejrozšiřenějších operačních systémů, prosím zvolte příslušnou kategorii, pokud si nejste jisti nebo Vám na operačním systému nezáleží, prosím zvolte VŠECHNY&nbsp;SYSTÉMY'
+      delay: 5000
+    transitions:
+      next_state: smart_intro_3
 
   smart_select_os:
     type: input_user
@@ -89,7 +114,7 @@ states:
         update_keys:
            phone_os: 'all'
     transitions:
-        next_state: smart_all_init
+        next_state: all_intro
 
   error_smart_os:
     type: message_text_random
@@ -134,5 +159,5 @@ states:
       value1: '{{phone_os}}'
       value2: 'all'
     transitions:
-      equal: smart_all_init
+      equal: all_intro
       notequal: error_smart_os

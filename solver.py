@@ -15,6 +15,15 @@ def process_request(state_name, context, text, session):
         dialogue_logger.log("UNDO", session)
         main_logger.info("GOTO: " + str(state_name), extra={'uid': session})
         dialogue_logger.log("GOTO: " + str(state_name), session)
+    elif text == '!reset':
+        prev_context = context.get('previous_context', {})
+        request_data = {'context': {'prev_context': context.get('previous_context', {})}, 'text': context.get('previous_text', ''), 'session': session,
+                        'next_state': 'init'}
+        state_name = 'init'
+        main_logger.info("RESET", extra={'uid': session})
+        dialogue_logger.log("RESET", session)
+        main_logger.info("GOTO: " + str(state_name), extra={'uid': session})
+        dialogue_logger.log("GOTO: " + str(state_name), session)
     else:
         request_data = {'context': context, 'text': text, 'session': session}
     context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text})

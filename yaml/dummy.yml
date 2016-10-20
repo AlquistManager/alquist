@@ -17,6 +17,7 @@ states: # List of states. States are executed sequentially
                        # message_text sends text message back to the client
     properties: # list of properties of each state
       text: Hello World!
+      delay: 1000 # shows message 1000 millisecend after previous output or user input
 
   state2:
     type: message_text_random # Sends one of the messages listed under responses
