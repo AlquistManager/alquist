@@ -28,7 +28,7 @@ class ChangeContext(State):
             context.pop(key, False)
         # update keys marked for update
         for key in self.properties.get('update_keys', []):
-            context.update({key: self.properties.get('update_keys', [])[key]})
+            context.update({key: State.contextualize(context, self.properties.get('update_keys', [])[key])})
         request_data.update({'context': context})
         # load next state
         request_data.update({'next_state': self.transitions.get('next_state', False)})
