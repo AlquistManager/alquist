@@ -55,9 +55,10 @@ class MessageButtons(State):
         old_response = request_data.get('response', False)
         butts = self.properties['buttons']
         for butt in butts:
-            butt['label'] = State.contextualize(request_data['context'], butt['label'])
-            message = {'type': 'button', 'payload': butt, 'delay': self.properties['delay']}
-            state_logger.debug('Button: ' + str(butt), extra={'uid': request_data.get('session', False)})
+            new_butt = butt.copy()
+            new_butt['label'] = State.contextualize(request_data['context'], new_butt['label'])
+            message = {'type': 'button', 'payload': new_butt, 'delay': self.properties['delay']}
+            state_logger.debug('Button: ' + str(new_butt), extra={'uid': request_data.get('session', False)})
 
             if old_response:
                 old_response.append(message)
