@@ -70,6 +70,27 @@ class MessageButtons(State):
                            extra={'uid': request_data.get('session', False)})
         return request_data
 
+class MessageCheckboxes(State):
+    def execute(self, request_data) -> dict:
+        state_logger.debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
+        old_response = request_data.get('response', False)
+        checkboxes = self.properties['checkboxes']
+        for checkbox in checkboxes:
+            new_checkbox = checkbox.copy()
+            new_checkbox['label'] = State.contextualize(request_data['context'], new_checkbox['label'])
+            message = {'type': 'checkbox', 'payload': new_checkbox, 'delay': self.properties['delay']}
+            state_logger.debug('Checkbox: ' + str(new_checkbox), extra={'uid': request_data.get('session', False)})
+
+            if old_response:
+                old_response.append(message)
+            else:
+                old_response = [message]
+        request_data.update({'response': old_response, 'next_state': self.transitions.get('next_state', False)})
+        state_logger.debug('State ' + self.name + ' complete.', extra={'uid': request_data.get('session', False)})
+        state_logger.debug('Next state: ' + str(request_data.get('next_state')),
+                           extra={'uid': request_data.get('session', False)})
+        return request_data
+
 
 class MessageIframe(State):
     def execute(self, request_data) -> dict:

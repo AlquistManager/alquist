@@ -83,7 +83,6 @@ states: # List of states. States are executed sequentially
     transitions:
       next_state: state2
 
-
   state9:
     type: change_context # Used to change session context independently on user input
     properties:
@@ -105,6 +104,22 @@ states: # List of states. States are executed sequentially
       width: [width in percents] # iframe's width in percents (only number)
       align: [align of iframe] # possible values are left, right and center
 
+  state11:
+    type: message_checkboxes # shows buttons
+    properties:
+      checkboxes: # list of checkboxes to show
+        - label: textA # label of the first checkbox
+          update_keys: # keys to add to context when the checkbox is selected
+            key: value
+            key2: value2
+          type: Main # type of checkbox (it is send to client, client has to implement it)
+        - label: textB # label of the second checkbox
+          update_keys:
+            key3: value3
+          type: Supplementary # type of checkbox (it is send to client, client has to implement it)
+    transitions:
+      next_state: state2
+
 # Dialogue finishes and context resets automatically after reaching the end of the flow
 # Alternatively, user can force dialogue end by tag return:true
 
@@ -113,3 +128,5 @@ states: # List of states. States are executed sequentially
     properties: # list of properties of each state
       text: Hello World!
     transitions: return # return tag
+
+

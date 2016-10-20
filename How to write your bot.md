@@ -203,6 +203,37 @@ Example:
 ``next_state`` field contains name of the next state
 
 
+### message_checkboxes
+message_checkboxes is used to display checkboxes to the user. Checkboxes can modify context.
+
+Example:
+
+	[name]:
+    type: message_checkboxes
+    properties:
+      checkboxes:
+        - label: textA
+          update_keys:
+            key: value
+            key2: value2
+          type: Main 
+        - label: textB 
+          update_keys:
+            key3: value3
+          type: Supplementary
+    transitions:
+      next_state: state2
+``checkboxes`` field contains definitions of individual checkboxes (i.e. their labels and context keys to modify), **REQUIRED**
+    
+- ``label`` text shown on checkbox
+
+- ``update_keys`` context keys to modify
+
+- ``type`` type of checkbox, can be any string, must be implemented on the client side
+
+``next_state`` field contains name of the next state
+
+
 ### message_iframe
 message_iframe is used to display iframes containing arbitrary HTML content like formatted text or images
 

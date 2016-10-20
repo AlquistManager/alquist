@@ -148,6 +148,8 @@ class YamlParser:
                 state_properties['type'] = ChangeContext
             elif state_properties['type'].lower() == 'message_iframe':
                 state_properties['type'] = MessageIframe
+            elif state_properties['type'].lower() == 'message_checkboxes':
+                state_properties['type'] = MessageCheckboxes
             # custom action
             else:
                 try:
@@ -205,6 +207,8 @@ class YamlParser:
                 self.set_default_properties_change_context(state_properties)
             elif state_properties['type'] == MessageIframe:
                 self.set_default_properties_message_iframe(state_name, state_properties)
+            elif state_properties['type'] == MessageCheckboxes:
+                self.set_default_properties_message_checkboxes(state_name, state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -334,6 +338,25 @@ class YamlParser:
                 'align'].lower() == 'center'):
                 raise ValueError(
                     'The "align" field can be only "left", "right" or "center" in the state "' + state_name + '".')
+
+    # adds properties to message_buttons node
+    def set_default_properties_message_checkboxes(self, state_name, state_properties):
+        if not ('properties' in state_properties) or not (
+                    type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'checkboxes': []}})
+        elif not ('checkboxes' in state_properties['properties']) or not (
+                    type(state_properties['properties']['checkboxes']) is list):
+            state_properties['properties'].update({'checkboxes': []})
+        for button in state_properties['properties']['checkboxes']:
+            if not (type(button) is OrderedDict):
+                raise ValueError(
+                    'Checkbox defined in the checkboxes field of state "' + state_name + '" is not dictionary.')
+            if not ('update_keys' in button):
+                button.update({'update_keys': ""})
+            if not ('label' in button):
+                button.update({'label': "Label"})
+            if not ('type' in button):
+                button.update({'type': ""})
 
     # check and modifies delays
     def check_delays(self, loaded_yaml):
