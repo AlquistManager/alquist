@@ -394,11 +394,6 @@ states:
   smart_android_display:
     type: message_text
     properties:
-      text: 'Displej je zpravidla dotykový a&nbsp;velikost jeho úhlopříčky se&nbsp;uvádí v&nbsp;palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
-
-  smart_android_display:
-    type: message_text
-    properties:
       text: 'Prosím vyberte preferovanou velikost displeje:'
 
   smart_android_display_3_buttons:
