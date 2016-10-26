@@ -1,11 +1,13 @@
 import logging.handlers
 import os
 
-LOG_FILENAME = 'logs/full_log.out'
-REC_FILENAME = 'logs/dm_log.out'
+from config import config
 
-if not os.path.exists('logs/'):
-    os.makedirs('logs/')
+LOG_FILENAME = config["yaml_files_path"]+'/logs/full_log.out'
+REC_FILENAME = config["yaml_files_path"]+'/logs/dm_log.out'
+
+if not os.path.exists(config["yaml_files_path"]+'/logs/'):
+    os.makedirs(config["yaml_files_path"]+'/logs/')
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(uid)s - %(levelname)s - %(message)s')
 

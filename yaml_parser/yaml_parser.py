@@ -1,5 +1,6 @@
 import glob
-import importlib
+import importlib.util
+import os
 from collections import OrderedDict
 
 import yaml
@@ -14,9 +15,11 @@ from os.path import isfile, join
 # Parses yaml files containing description of dialogue
 class YamlParser:
     # folder, where yaml files are stored
-    path = config["yaml_files_path"]
+    path = config["yaml_files_path"] + "/flows"
+    modules = []
 
     def __init__(self):
+        self.import_custom_states()
         # clear all content in dictionary with loaded states
         state_dict.clear()
         # find all .yml and .yaml files
@@ -152,14 +155,19 @@ class YamlParser:
                 state_properties['type'] = MessageCheckboxes
             # custom action
             else:
-                try:
-                    state_properties['type'] = getattr(
-                        importlib.import_module("." + state_properties['type'], "states.user"),
-                        state_properties['type'])
+                founded = False
+                for module in self.modules:
+                    try:
+                        state_properties['type'] = getattr(module, state_properties['type'])
+                        founded = True
+                        break
+                    except:
+                        pass
                 # Unknown type of node founded
-                except:
+                if not founded:
                     raise ValueError(
-                        'Unknown type ' + '"' + state_properties['type'] + '"' + ' of node ' + '"' + state_name + '"')
+                        'Unknown type ' + '"' + str(state_properties['type']) + '"' + ' of node ' + '"' + str(
+                            state_name) + '"')
 
     # check if init state is present
     def check_init_state(self, loaded_yaml):
@@ -429,3 +437,13 @@ class YamlParser:
                     if reference_state not in state_dict['states']:
                         raise ValueError(
                             'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')
+
+    def import_custom_states(self):
+        for path, subdirs, files in os.walk(config["yaml_files_path"]+"/states"):
+            for name in files:
+                if name.endswith(".py"):
+                    file = os.path.join(path, name)
+                    spec = importlib.util.spec_from_file_location("custom_states", file)
+                    module = importlib.util.module_from_spec(spec)
+                    self.modules.append(module)
+                    spec.loader.exec_module(module)
