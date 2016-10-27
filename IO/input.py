@@ -25,6 +25,7 @@ def get_input():
         state = request.json['state']
         context = request.json['context']
         session = request.json['session']
+        bot = request.json['bot']
     except KeyError:
         # Missing 'session_id' or 'text'
         return jsonify(ok=False, message="Missing parameters.")
