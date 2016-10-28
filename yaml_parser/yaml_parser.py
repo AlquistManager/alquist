@@ -14,7 +14,7 @@ from os.path import isfile, join
 
 # Parses yaml files containing description of dialogue
 class YamlParser:
-    modules = []
+    modules = {}
 
     def __init__(self):
         # clear all content in dictionary with loaded states
@@ -24,7 +24,7 @@ class YamlParser:
             bot_yaml_folder = "bots/" + bot_name + "/flows/"
             bot_states_folder = "bots/" + bot_name + "/states/"
             try:
-                self.import_custom_states(bot_states_folder)
+                self.import_custom_states(bot_states_folder, bot_name)
                 state_dict.update({bot_name: {}})
                 intent_transitions.update({bot_name: {}})
                 # find all .yml and .yaml files
@@ -58,7 +58,7 @@ class YamlParser:
                 # add missing transitions
                 self.modify_transitions(loaded_yaml, bot_yaml_folder)
                 # changes representation of node types to intern objects
-                self.types_to_intern_representation(loaded_yaml)
+                self.types_to_intern_representation(loaded_yaml, bot_name)
                 # sets default or missing properties
                 self.set_default_properties(loaded_yaml)
                 self.check_delays(loaded_yaml)
@@ -138,7 +138,7 @@ class YamlParser:
                     state_parameters["transitions"]["notexists"] = ""
 
     # Change string representation of states into inner representation of objects
-    def types_to_intern_representation(self, loaded_yaml):
+    def types_to_intern_representation(self, loaded_yaml, bot_name):
         for state_name, state_properties in loaded_yaml['states'].items():
             if state_properties['type'].lower() == 'message_text':
                 state_properties['type'] = MessageText
@@ -163,7 +163,7 @@ class YamlParser:
             # custom action
             else:
                 founded = False
-                for module in self.modules:
+                for module in self.modules.get(bot_name):
                     try:
                         state_properties['type'] = getattr(module, state_properties['type'])
                         founded = True
@@ -445,14 +445,15 @@ class YamlParser:
                         raise ValueError(
                             'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')
 
-    def import_custom_states(self,bot_states_folder):
+    def import_custom_states(self, bot_states_folder, bot_name):
+        self.modules.update({bot_name: []})
         for path, subdirs, files in os.walk(bot_states_folder):
             for name in files:
                 if name.endswith(".py"):
                     file = os.path.join(path, name)
                     spec = importlib.util.spec_from_file_location(name, file)
                     module = importlib.util.module_from_spec(spec)
-                    self.modules.append(module)
+                    self.modules.get(bot_name).append(module)
                     spec.loader.exec_module(module)
 
     def get_immediate_subdirectories(self, a_dir):
