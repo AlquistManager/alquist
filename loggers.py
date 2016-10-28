@@ -1,8 +1,10 @@
 import logging.handlers
 import os
+
 loggers = {}
 
 
+# create loggers for each bot
 def create_loggers():
     folders = get_immediate_subdirectories("bots")
     for folder in folders:
@@ -35,6 +37,7 @@ def create_loggers():
         loggers.update({folder: {"main_logger": main_logger, "state_logger": state_logger}})
 
 
+# return all subdirectories directly in directory
 def get_immediate_subdirectories(a_dir):
     return [name for name in os.listdir(a_dir)
             if os.path.isdir(os.path.join(a_dir, name))]

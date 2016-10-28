@@ -4,7 +4,6 @@ import os
 from collections import OrderedDict
 
 import yaml
-from config import config
 from loaded_states import state_dict, intent_transitions
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
 from states import *
@@ -19,12 +18,14 @@ class YamlParser:
     def __init__(self):
         # clear all content in dictionary with loaded states
         state_dict.clear()
+        # load all bots
         for bot_name in self.get_immediate_subdirectories("bots"):
             # folder, where yaml files are stored
             bot_yaml_folder = "bots/" + bot_name + "/flows/"
             bot_states_folder = "bots/" + bot_name + "/states/"
             try:
                 self.import_custom_states(bot_states_folder, bot_name)
+                # create fields in state_dict and intent_transitions for bot
                 state_dict.update({bot_name: {}})
                 intent_transitions.update({bot_name: {}})
                 # find all .yml and .yaml files
@@ -445,6 +446,7 @@ class YamlParser:
                         raise ValueError(
                             'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')
 
+    # import custom states from states folder of bot
     def import_custom_states(self, bot_states_folder, bot_name):
         self.modules.update({bot_name: []})
         for path, subdirs, files in os.walk(bot_states_folder):
@@ -456,6 +458,7 @@ class YamlParser:
                     self.modules.get(bot_name).append(module)
                     spec.loader.exec_module(module)
 
+    # return all subdirectories directly in directory
     def get_immediate_subdirectories(self, a_dir):
         return [name for name in os.listdir(a_dir)
                 if os.path.isdir(os.path.join(a_dir, name))]
