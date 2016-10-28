@@ -145,22 +145,74 @@ class SuggestPhonesZbozi(State):
                          "2560-x-1440-wqhd,3200-x-1800-wqxgaplus,3840-x-2160-uhd-4k,1280-x-720-hd-wxga,1280-x-768-wxga," \
                          "1280-x-800-wxga,1334-x-750,1366-x-768-wxga,1600-x-1200-uxga"
 
+        touchscreen = context.get('touchscreen', False)
+        if touchscreen == "yes":
+            query += "&dotykovy-displej=ano"
+
+        camera = context.get('camera', False)
+        if camera == "yes":
+            query += "&fotoaparat=ano"
+
+        hw_keyboard = context.get('hw_keyboard', False)
+        if hw_keyboard == "yes":
+            query += "&hardwarova-klavesnice=ano"
+
+        light = context.get('light', False)
+        if light == "yes":
+            query += "&prisvetlovaci-dioda=ano"
+
+        bluetooth = context.get('bluetooth', False)
+        if bluetooth == "yes":
+            query += "&bluetooth=ano"
+
+        wifi = context.get('wifi', False)
+        if wifi == "yes":
+            query += "&wifi=ano"
+
+        gps = context.get('gps', False)
+        if gps == "yes":
+            query += "&gps=ano"
+
+        dual_sim = context.get('dual_sim', False)
+        if dual_sim == "yes":
+            query += "&dual-sim=ano"
+
+
         r = requests.get(query)
         results = r.json()
-        products = results['categories'][0]['products']
+        products = results['categories'][0].get('products', False)
         i = 1
-        if phone_os == 'iOS':
-            m_name = "Apple iPhone " + context.get('generation', False)
-            if context.get('model', False)=='plus':
-                m_name += " Plus"
-            if context.get('model', False)=='C':
-                m_name = "Apple iPhone 5C"
-            print(m_name)
+        if products:
+            if phone_os == 'iOS':
+                m_name = "Apple iPhone " + context.get('generation', False)
+                if context.get('model', False)=='plus':
+                    m_name += " Plus"
+                if context.get('model', False)=='C':
+                    m_name = "Apple iPhone 5C"
+                print(m_name)
 
 
-            for product in products:
-                print(product['displayName'])
-                if product['displayName'] == m_name:
+                for product in products:
+                    print(product['displayName'])
+                    if product['displayName'] == m_name:
+                        url = "https://alquistmanager.github.io/alquist-tel-result/?"
+                        url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
+                        url += "&name=" + urllib.parse.quote(product['displayName'])
+                        url += "&image=" + "https:" + product['images'][0]['imageUrl']
+                        url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
+                        url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
+                            'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
+                        url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
+                            'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
+                        url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
+                            'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
+                        request_data['context'].update(
+                            {'suggested_phones_' + str(i): url})
+                        i += 1
+            else:
+                for product in products:
+                    if i > 5:
+                        break
                     url = "https://alquistmanager.github.io/alquist-tel-result/?"
                     url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
                     url += "&name=" + urllib.parse.quote(product['displayName'])
@@ -175,24 +227,6 @@ class SuggestPhonesZbozi(State):
                     request_data['context'].update(
                         {'suggested_phones_' + str(i): url})
                     i += 1
-        else:
-            for product in products:
-                if i > 5:
-                    break
-                url = "https://alquistmanager.github.io/alquist-tel-result/?"
-                url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
-                url += "&name=" + urllib.parse.quote(product['displayName'])
-                url += "&image=" + "https:" + product['images'][0]['imageUrl']
-                url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
-                url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
-                    'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
-                url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
-                    'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
-                url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
-                    'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
-                request_data['context'].update(
-                    {'suggested_phones_' + str(i): url})
-                i += 1
 
         # load next state
         request_data.update({'next_state': self.transitions.get('next_state', False)})

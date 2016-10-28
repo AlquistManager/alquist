@@ -8,7 +8,7 @@ states:
   simple_price:
     type: message_text
     properties:
-      text: 'Prosím vyberte si z&nbsp;cenových kategorií níže, nebo&nbsp;zvolte možnost PŘESKOČIT, pokud&nbsp;pro&nbsp;vás&nbsp;cena není prioritou'
+      text: 'Prosím vyberte si z&nbsp;cenových kategorií níže, nebo&nbsp;zvolte možnost <b>PŘESKOČIT</b>, pokud&nbsp;pro&nbsp;vás&nbsp;cena není prioritou'
       delay: 4000
 
   simple_select_price:
@@ -17,10 +17,13 @@ states:
       buttons:
         - label: 'Do 1000 Kč'
           next_state: simple_price_1_context
+          type: Main
         - label: '1000 až 2000 Kč'
           next_state: simple_price_2_context
+          type: Main
         - label: 'Nad 2000 Kč'
           next_state: simple_price_3_context
+          type: Main
         - label: 'PŘESKOČIT'
           next_state: simple_params
 
@@ -174,38 +177,56 @@ states:
   simple_params:
     type: message_text
     properties:
-      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Kliknutím na&nbsp;tlačítka níže můžete zvolit požadované vlastnosti. Můžete zvolit více než&nbsp;jednu možnost. Výběr potvrdíte volbou NAVRHNOUT&nbsp;TELEFONY. Pokud si nejste jistí, co&nbsp;který parametr znamená, klepněte na&nbsp;tlačítko s&nbsp;nápovědou.'
+      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu.'
+      delay: 2000
+
+  simple_params2:
+    type: message_text
+    properties:
+      text: 'Kliknutím na&nbsp;tlačítka níže můžete zvolit požadované vlastnosti. Výběr potvrdíte volbou NAVRHNOUT&nbsp;TELEFONY.'
       delay: 2000
 
   simple_params_buttons:
-    type: message_buttons
+    type: message_checkboxes
     properties:
-      buttons:
+      checkboxes:
         - label: 'Dotykový displej'
-          next_state: simple_out_2
+          update_keys:
+            touchscreen: 'yes'
+          type: Main
         - label: 'Fotoaparát'
-          next_state: simple_out_2
+          update_keys:
+            camera: 'yes'
+          type: Main
         - label: 'Hardwarová klávesnice'
-          next_state: simple_out_2
+          update_keys:
+            hw_keyboard: 'yes'
+          type: Main
         - label: 'Přisvětlovací dioda'
-          next_state: simple_out_2
+          update_keys:
+            light: 'yes'
+          type: Main
         - label: 'Bluetooth'
-          next_state: simple_out_2
+          update_keys:
+            bluetooth: 'yes'
+          type: Main
         - label: 'WiFi'
-          next_state: simple_out_2
+          update_keys:
+            wifi: 'yes'
+          type: Main
         - label: 'GPS'
-          next_state: simple_out_2
+          update_keys:
+            gps: 'yes'
+          type: Main
         - label: 'Dual Sim'
-          next_state: simple_out_2
+          update_keys:
+            dual_sim: 'yes'
+          type: Main
+    transitions:
+      next_state: simple_out
 
   simple_out:
-    type: input_user
+    type: InputSpecial
     properties:
-      entities:
-      require_match: false
-
-  simple_out_2:
-    type: message_text
-    properties:
-      text: 'Zatím nenaimplementováno'
-      delay: 1000
+    transitions:
+      next_state: smart_android_recommend

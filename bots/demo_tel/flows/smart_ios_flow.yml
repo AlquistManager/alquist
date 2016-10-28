@@ -8,20 +8,8 @@ states:
   smart_ios_init_2:
     type: message_text
     properties:
-      text: 'Telefony iPhone si zakládají na designu, jednoduchosti, funkčnosti a optimalizaci softwaru. Operační systém iOS je precizně odladěný a dostane z hardwaru telefonu maximum. Díky tomu se modely telefonů od Applu drží na předních příčkách i několik let po vydání.'
-      delay: 3000
-
-  smart_ios_init_3:
-    type: message_text
-    properties:
-      text: 'Jednotlivé generace se od sebe odlišují harwarem, výkonem i designem a samozřejmě cenou. Apple s každou generací iPhone vydá několik modelů s odlišnými specifikacemi. Nejnovější generací je v současnosti generace 7. Ceny pro jednotlivé generace se různí, pokud máte však zájem o nejnovější generaci, počítejte s cenou okolo 20 000 Kč'
-      delay: 5000
-
-  smart_ios_init_4:
-    type: message_text
-    properties:
       text: 'Prosím zvolte generaci z nabídky níže. Po volbě generace budete mít možnost projít si její krátký popis a případně volbu změnit.'
-      delay: 5000
+      delay: 2500
 
   simple_select_gen:
     type: message_buttons
@@ -39,8 +27,25 @@ states:
           next_state: iphone_gen_5S_context
         - label: 'iPhone 5'
           next_state: iphone_gen_5_context
+        - label: 'Řekni mi víc'
+          next_state: iphone_gen_help
       transitions:
         next_state: iphone_type_user
+
+  iphone_gen_help:
+    type: message_text
+    properties:
+      text: 'Telefony iPhone si zakládají na designu, jednoduchosti, funkčnosti a optimalizaci softwaru. Operační systém iOS je precizně odladěný a dostane z hardwaru telefonu maximum. Díky tomu se modely telefonů od Applu drží na předních příčkách i několik let po vydání.'
+      delay: 0
+
+  iphone_gen_help_2:
+    type: message_text
+    properties:
+      text: 'Jednotlivé generace se od sebe odlišují harwarem, výkonem i designem a samozřejmě cenou. Apple s každou generací iPhone vydá několik modelů s odlišnými specifikacemi. Nejnovější generací je v současnosti generace 7. Ceny pro jednotlivé generace se různí, pokud máte však zájem o nejnovější generaci, počítejte s cenou okolo 20 000 Kč'
+      delay: 5000
+    transitions:
+      next_state: smart_ios_init_2
+
 
   iphone_type_user:
     type: input_user
@@ -132,7 +137,7 @@ states:
         - label: 'iPhone 7 Plus'
           next_state: iphone_gen_7_plus
         - label: 'ZPĚT NA VÝBĚR GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_user
 
@@ -305,7 +310,7 @@ states:
         - label: 'POKRAČOVAT'
           next_state: smart_iphone_recommend
         - label: 'ZPĚT NA VÝBĚR GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_7_user
 
@@ -347,7 +352,7 @@ states:
         - label: 'iPhone 6S Plus'
           next_state: iphone_gen_6S_plus
         - label: 'ZMĚNA GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_user
 
@@ -425,7 +430,7 @@ states:
         - label: 'iPhone 6 Plus'
           next_state: iphone_gen_6_plus
         - label: 'ZMĚNA GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_user
 
@@ -497,7 +502,7 @@ states:
         - label: 'iPhone 5C'
           next_state: iphone_gen_5C
         - label: 'ZMĚNA GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_user
 
@@ -579,7 +584,7 @@ states:
         - label: 'POKRAČOVAT'
           next_state: smart_iphone_recommend
         - label: 'ZMĚNA GENERACE'
-          next_state: smart_ios_init_4
+          next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_user
 

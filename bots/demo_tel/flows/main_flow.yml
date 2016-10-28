@@ -10,25 +10,25 @@ states:
     type: message_text
     properties:
       text: 'Telefony s omezenými funkcemi, ale nízkou cenou najdete v kategorii <b>LEVNÁ VARIANTA</b>.'
-      delay: 2500
+      delay: 1500
 
   intro3:
     type: message_text
     properties:
       text: 'Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.'
-      delay: 5000
+      delay: 1500
 
   intro4:
     type: message_text
     properties:
       text: 'Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.'
-      delay: 5000
+      delay: 1500
 
   intro5:
     type: message_text
     properties:
       text: 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.'
-      delay: 5000
+      delay: 1500
 
   select_type_button:
     type: message_buttons
@@ -71,7 +71,7 @@ states:
   simple_info:
     type: message_text
     properties:
-      text: 'Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. V&nbsp;levné variantě jsou telefony bez operačního systému, možnosti doinstalování aplikací nebo GPS. Často jsou tlačítkové.'
+      text: 'Dnešní nejlevnější telefony mají pouze ty nejzákladnější funkce. V&nbsp;<b>LEVNÉ VARIANTĚ</b> jsou telefony bez operačního systému, možnosti doinstalování aplikací nebo GPS. Často jsou tlačítkové.'
     transitions:
       next_state: smart_info
 
@@ -86,7 +86,8 @@ states:
   smart_info:
     type: message_text
     properties:
-      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte po&nbsp;chytrém telefonu. Chytré telefony jsou nejběžnějším typem telefonu. Nejčatěji jsou vybaveny operačním systémem Android, iOS nebo Windows&nbsp;Phone. Umožňují doinstalování aplikací a&nbsp;pohodlné brouzdání internetem.'
+      text: 'Pokud chcete svůj mobilní telefon využívat skutečně naplno, sáhněte po&nbsp;<b>CHYTRÉM TELEFONU</b>. Chytré telefony jsou nejběžnějším typem telefonu. Nejčatěji jsou vybaveny operačním systémem Android, iOS nebo Windows&nbsp;Phone. Umožňují doinstalování aplikací a&nbsp;pohodlné brouzdání internetem.'
+      delay: 5000
     transitions:
       next_state: senior_info
 
@@ -101,7 +102,8 @@ states:
   senior_info:
     type: message_text
     properties:
-      text: 'Pro starší generace jsou k&nbsp;dispozici telefony pro seniory. Telefony pro seniory vynikají hlavně velkými ovládacími prvky, čitelným textem a&nbsp;vysokou hlasitostí.'
+      text: 'Pro starší generace jsou k&nbsp;dispozici <b>TELEFONY PRO SENIORY</b>. Telefony pro seniory vynikají hlavně velkými ovládacími prvky, čitelným textem a&nbsp;vysokou hlasitostí.'
+      delay: 7000
     transitions:
       next_state: all_info
 
@@ -118,6 +120,7 @@ states:
     type: message_text
     properties:
       text: 'Zvolíte-li možnost <b>PROCHÁZET VŠE</b>, pomohu vám vybrat telefon napříč všemi kategoriemi'
+      delay: 5000
     transitions:
       next_state: select_type_button
 

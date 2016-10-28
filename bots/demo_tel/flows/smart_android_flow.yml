@@ -214,6 +214,7 @@ states:
     type: message_text
     properties:
       text: 'Pokud hledáte telefon od&nbsp;specifického výrobce, vyberte&nbsp;si z&nbsp;nabídky níže, nebo napište vlastního. Pokud si výrobcem nejste jisti, můžete tuto volbu <b>PŘESKOČIT</b>'
+      delay: 2000
 
   smart_android_select_brand_buttons:
     type: message_buttons
@@ -332,7 +333,7 @@ states:
     type: message_text_random
     properties:
       responses:
-        - 'Prosím vyberte jeden z&nbsp;nabídky parametrů a&nbsp;opřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT&nbsp;TELEFONY'
+        - 'Prosím vyberte jeden z&nbsp;nabídky parametrů a&nbsp;upřesněte jeho hodnoty. Pokud už jste nastavili všechny požadované parametry, zvolte NAVRHNOUT&nbsp;TELEFONY'
     transitions:
       next_state: smart_android_params_3_buttons
 
@@ -411,12 +412,6 @@ states:
         - label: 'Řekni mi víc'
           next_state: smart_android_display_2
 
-  smart_android_display_2:
-    type: message_text
-    properties:
-      text: 'Displej je zpravidla dotykový a&nbsp;velikost jeho úhlopříčky se&nbsp;uvádí v&nbsp;palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
-    transitions:
-      next_state: smart_android_display
 
   smart_android_display_select:
     type: input_user
@@ -427,6 +422,14 @@ states:
     transitions:
       match: smart_android_params_2
       notmatch: error_select_display
+
+  smart_android_display_2:
+    type: message_text
+    properties:
+      text: 'Displej je zpravidla dotykový a&nbsp;velikost jeho úhlopříčky se&nbsp;uvádí v&nbsp;palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
+    transitions:
+      next_state: smart_android_display
+
 
   smart_android_display_small:
     type: change_context
@@ -540,12 +543,6 @@ states:
         - label: 'Řekni mi víc'
           next_state: smart_android_ram_2
 
-  smart_android_ram_2:
-    type: message_text
-    properties:
-      text: 'Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a&nbsp;bude fungovat stále stejně plynule. Standardem se&nbsp;začíná stávat 1GB&nbsp;RAM, výkonnější telefony pak nabídnou 2&nbsp;až&nbsp;3&nbsp;GB operační paměti.'
-
-
   smart_android_ram_select:
     type: input_user
     properties:
@@ -555,6 +552,11 @@ states:
     transitions:
       match: smart_android_params_2
       notmatch: error_select_ram
+
+  smart_android_ram_2:
+    type: message_text
+    properties:
+      text: 'Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a&nbsp;bude fungovat stále stejně plynule. Standardem se&nbsp;začíná stávat 1GB&nbsp;RAM, výkonnější telefony pak nabídnou 2&nbsp;až&nbsp;3&nbsp;GB operační paměti.'
 
   smart_android_ram_select_2gb:
     type: change_context
@@ -602,16 +604,6 @@ states:
         - label: 'Řekni mi víc'
           next_state: smart_android_memory_1
 
-  smart_android_memory_1:
-    type: message_text
-    properties:
-      text: 'Paměť telefonu se udává v&nbsp;GB (gigabytech). Čím vyšší hodnota, tím více hudby, filmů, fotografií, her a&nbsp;aplikací se vám do&nbsp;telefonu vejde. 8 GB jde doporučit jako základ pro chytré telefony. Pokud více fotografujete, hrajete hry atp., sáhněte raději po větší kapacitě.'
-
-  smart_android_memory_2:
-    type: message_text
-    properties:
-      text: 'Řešením je také koupě telefonu s&nbsp;podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a&nbsp;stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.'
-      delay: 1000
 
   smart_android_memory_select:
     type: input_user
@@ -622,6 +614,17 @@ states:
     transitions:
       match: smart_android_params_2
       notmatch: error_select_memory
+
+  smart_android_memory_1:
+    type: message_text
+    properties:
+      text: 'Paměť telefonu se udává v&nbsp;GB (gigabytech). Čím vyšší hodnota, tím více hudby, filmů, fotografií, her a&nbsp;aplikací se vám do&nbsp;telefonu vejde. 8 GB jde doporučit jako základ pro chytré telefony. Pokud více fotografujete, hrajete hry atp., sáhněte raději po větší kapacitě.'
+
+  smart_android_memory_2:
+    type: message_text
+    properties:
+      text: 'Řešením je také koupě telefonu s&nbsp;podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a&nbsp;stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.'
+      delay: 1000
 
   smart_android_memory_select_small:
     type: change_context
@@ -682,13 +685,7 @@ states:
         - label: 'ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ'
           next_state: smart_android_resolution_select_any
         - label: 'Řekni mi víc'
-          next_state: smart_android_resolution_select_any
-
-  smart_android_resolution_2:
-    type: message_text
-    properties:
-      text: 'Rozlišení displeje je udáváno maximálním počtem pixelů (bodů), které se&nbsp;zobrazí na&nbsp;obrazovce telefonu. Čím vyšší, tím bude obraz ostřejší. U&nbsp;telefonů se standardním displejem byste měli poždovat rozlišení alespoň 1280 x 720 bodů.'
-
+          next_state: smart_android_resolution_2
 
   smart_android_resolution_select:
     type: input_user
@@ -699,6 +696,13 @@ states:
     transitions:
       match: smart_android_params_2
       notmatch: error_select_resolution
+
+  smart_android_resolution_2:
+    type: message_text
+    properties:
+      text: 'Rozlišení displeje je udáváno maximálním počtem pixelů (bodů), které se&nbsp;zobrazí na&nbsp;obrazovce telefonu. Čím vyšší, tím bude obraz ostřejší. U&nbsp;telefonů se standardním displejem byste měli poždovat rozlišení alespoň 1280 x 720 bodů.'
+    transitions:
+      next_state: smart_android_resolution
 
   smart_android_resolution_select_small:
     type: change_context

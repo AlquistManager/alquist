@@ -16,13 +16,16 @@ states:
     properties:
       buttons:
         - label: 'Do 1000 Kč'
-          next_state: senior_price_1_context
+          next_state: simple_price_1_context
+          type: Main
         - label: '1000 až 2000 Kč'
-          next_state: senior_price_2_context
+          next_state: simple_price_2_context
+          type: Main
         - label: 'Nad 2000 Kč'
-          next_state: senior_price_3_context
+          next_state: simple_price_3_context
+          type: Main
         - label: 'PŘESKOČIT'
-          next_state: senior_params
+          next_state: simple_params
 
 
   senior_price_3:
@@ -124,7 +127,7 @@ states:
       value2: 'price_around'
     transitions:
       equal: senior_price_out4
-      notequal: senior_params
+      notequal: simple_params
 
   senior_price_out1:
     type: message_text
@@ -132,7 +135,7 @@ states:
       text: 'Hledám telefony v cenové kategorii od&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: senior_params
+      next_state: simple_params
 
   senior_price_out2:
     type: message_text
@@ -140,7 +143,7 @@ states:
       text: 'Hledám telefony v cenové kategorii do&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: senior_params
+      next_state: simple_params
 
   senior_price_out3:
     type: message_text
@@ -148,7 +151,7 @@ states:
       text: 'Hledám telefony v cenové kategorii od&nbsp;{{price_from}}&nbsp;do&nbsp;{{price_to}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: senior_params
+      next_state: simple_params
 
   senior_price_out4:
     type: message_text
@@ -156,7 +159,7 @@ states:
       text: 'Hledám telefony v cenové kategorii kolem&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: senior_params
+      next_state: simple_params
 
 
   senior_price_error:
@@ -169,42 +172,3 @@ states:
     transitions:
       next_state: senior_select_price
 
-
-  senior_params:
-    type: message_text
-    properties:
-      text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Kliknutím na&nbsp;tlačítka níže můžete zvolit požadované vlastnosti. Můžete zvolit více než&nbsp;jednu možnost. Výběr potvrdíte volbou NAVRHNOUT&nbsp;TELEFONY. Pokud si nejste jistí, co&nbsp;který parametr znamená, klepněte na&nbsp;tlačítko s&nbsp;nápovědou.'
-      delay: 2500
-
-  senior_params_buttons:
-    type: message_buttons
-    properties:
-      buttons:
-        - label: 'Dotykový displej'
-          next_state: senior_out_2
-        - label: 'Fotoaparát'
-          next_state: senior_out_2
-        - label: 'Hardwarová klávesnice'
-          next_state: senior_out_2
-        - label: 'Přisvětlovací dioda'
-          next_state: senior_out_2
-        - label: 'Bluetooth'
-          next_state: senior_out_2
-        - label: 'WiFi'
-          next_state: senior_out_2
-        - label: 'GPS'
-          next_state: senior_out_2
-        - label: 'Dual Sim'
-          next_state: senior_out_2
-
-  senior_out:
-    type: input_user
-    properties:
-      entities:
-      require_match: false
-
-  senior_out_2:
-    type: message_text
-    properties:
-      text: 'Zatím nenaimplementováno'
-      delay: 1000
