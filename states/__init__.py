@@ -6,6 +6,5 @@ from states.message import MessageText
 from states.message import MessageButtons
 from states.message import MessageCheckboxes
 from states.message import MessageIframe
-from states.user import *
 from states.user_input import InputContext
 from states.user_input import InputUser

@@ -1,6 +1,0 @@
-﻿name: all_flow
-states:
-  all_intro:
-    type: message_text
-    properties:
-      text: 'TATO VĚTEV DIALOGU JEŠTĚ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONČÍ'

@@ -3,4 +3,4 @@ from config import config
 
 if __name__ == '__main__':
     # Start flask
-    flask.run(port=int(config["port"]), debug=False, threaded=True)
+    flask.run(port=int(config["port"]), debug=False, threaded=True, host="0.0.0.0")
