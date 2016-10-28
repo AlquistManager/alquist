@@ -35,7 +35,7 @@ class YamlParser:
                 for file_name in files:
                     self.load_file(bot_yaml_folder, file_name, bot_name)
                 # check if init state is present
-                self.check_init_state(state_dict.get(bot_name))
+                self.check_init_state(state_dict.get(bot_name), bot_name)
                 # check if all states from intent_transitions exists
                 self.check_intent_transitions_states_exist(bot_name)
                 # check if all states mentioned in transitions really exist
@@ -55,14 +55,14 @@ class YamlParser:
                 # check unique names of states
                 self.check_unique_names(bot_name, loaded_yaml, state_dict)
                 # checks if all states has type
-                self.check_types(loaded_yaml)
+                self.check_types(loaded_yaml, bot_name)
                 # add missing transitions
                 self.modify_transitions(loaded_yaml, bot_yaml_folder)
                 # changes representation of node types to intern objects
                 self.types_to_intern_representation(loaded_yaml, bot_name)
                 # sets default or missing properties
-                self.set_default_properties(loaded_yaml)
-                self.check_delays(loaded_yaml)
+                self.set_default_properties(loaded_yaml, bot_name)
+                self.check_delays(loaded_yaml, bot_name)
                 if not ('states' in state_dict.get(bot_name)):
                     # update whole dictionary
                     state_dict.get(bot_name).update(loaded_yaml)
@@ -175,10 +175,10 @@ class YamlParser:
                 if not founded:
                     raise ValueError(
                         'Unknown type ' + '"' + str(state_properties['type']) + '"' + ' of node ' + '"' + str(
-                            state_name) + '"')
+                            state_name) + '" in bot "' + bot_name + '".')
 
     # check if init state is present
-    def check_init_state(self, loaded_yaml):
+    def check_init_state(self, loaded_yaml, bot_name):
         init_state_existis = False
         for state_name, state_parameters in loaded_yaml['states'].items():
             # look for state with name init
@@ -187,23 +187,24 @@ class YamlParser:
                 break
         # rise exception, if no state with name init is not present
         if not init_state_existis:
-            raise ValueError('There is no "init" state in the yaml files.')
+            raise ValueError('There is no "init" state in the yaml files of bot "' + bot_name + '".')
 
     # checks if all stetes has type
-    def check_types(self, loaded_yaml):
+    def check_types(self, loaded_yaml, bot_name):
         for state_name, state_parameters in loaded_yaml['states'].items():
             if state_parameters is None or not ("type" in state_parameters):
-                raise ValueError('The node "' + state_name + '" has no type.')
+                raise ValueError('The node "' + state_name + '" has no type in the bot "' + bot_name + '".')
 
     # check unique names of states
     def check_unique_names(self, bot_name, loaded_yaml, state_dict):
         for state_name, state_parameters in loaded_yaml['states'].items():
             if 'states' in state_dict.get(bot_name):
                 if state_name in state_dict.get(bot_name)['states'].keys():
-                    raise ValueError('There are nodes of the same name "' + state_name + '".')
+                    raise ValueError(
+                        'There are nodes of the same name "' + state_name + '" in the bot "' + bot_name + '".')
 
     # sets missing or default properties
-    def set_default_properties(self, loaded_yaml):
+    def set_default_properties(self, loaded_yaml, bot_name):
         for state_name, state_properties in loaded_yaml['states'].items():
             if state_properties['type'] == MessageText:
                 self.set_default_properties_message_text(state_properties)
@@ -214,17 +215,17 @@ class YamlParser:
             elif state_properties['type'] == InputContext:
                 self.set_default_properties_input_context(state_properties)
             elif state_properties['type'] == ConditionalEquals:
-                self.set_default_properties_conditional_equal(state_name, state_properties)
+                self.set_default_properties_conditional_equal(state_name, state_properties, bot_name)
             elif state_properties['type'] == ConditionalExists:
-                self.set_default_properties_conditional_exists(state_name, state_properties)
+                self.set_default_properties_conditional_exists(state_name, state_properties, bot_name)
             elif state_properties['type'] == MessageButtons:
-                self.set_default_properties_message_buttons(state_name, state_properties)
+                self.set_default_properties_message_buttons(state_name, state_properties, bot_name)
             elif state_properties['type'] == ChangeContext:
                 self.set_default_properties_change_context(state_properties)
             elif state_properties['type'] == MessageIframe:
-                self.set_default_properties_message_iframe(state_name, state_properties)
+                self.set_default_properties_message_iframe(state_name, state_properties, bot_name)
             elif state_properties['type'] == MessageCheckboxes:
-                self.set_default_properties_message_checkboxes(state_name, state_properties)
+                self.set_default_properties_message_checkboxes(state_name, state_properties, bot_name)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -265,28 +266,28 @@ class YamlParser:
             state_properties['properties'].update({'entities': {}})
 
     # adds properties to conditional_equal node
-    def set_default_properties_conditional_equal(self, state_name, state_properties):
+    def set_default_properties_conditional_equal(self, state_name, state_properties, bot_name):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             raise ValueError(
-                'The "properties" field with "value1" and "value2" fields is missing in the state "' + state_name + '".')
+                'The "properties" field with "value1" and "value2" fields is missing in the state "' + state_name + '" of bot "' + bot_name + '".')
         if not ('value1' in state_properties['properties']):
             raise ValueError(
-                'The "value1" field is missing in the properties of state "' + state_name + '".')
+                'The "value1" field is missing in the properties of state "' + state_name + '" of bot "' + bot_name + '".')
         if not ('value2' in state_properties['properties']):
             raise ValueError(
-                'The "value2" field is missing in the properties of state "' + state_name + '".')
+                'The "value2" field is missing in the properties of state "' + state_name + '" of bot "' + bot_name + '".')
 
     # adds properties to conditional_exists node
-    def set_default_properties_conditional_exists(self, state_name, state_properties):
+    def set_default_properties_conditional_exists(self, state_name, state_properties, bot_name):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             raise ValueError(
-                'The "properties" field with "key" field is missing in the state "' + state_name + '".')
+                'The "properties" field with "key" field is missing in the state "' + state_name + '" of bot "' + bot_name + '".')
         if not ('key' in state_properties['properties']):
             raise ValueError(
-                'The "key" field is missing in the properties of state "' + state_name + '".')
+                'The "key" field is missing in the properties of state "' + state_name + '" in the bot "' + bot_name + '".')
 
     # adds properties to message_buttons node
-    def set_default_properties_message_buttons(self, state_name, state_properties):
+    def set_default_properties_message_buttons(self, state_name, state_properties, bot_name):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             state_properties.update({'properties': {'buttons': []}})
         elif not ('buttons' in state_properties['properties']) or not (
@@ -295,10 +296,10 @@ class YamlParser:
         for button in state_properties['properties']['buttons']:
             if not (type(button) is OrderedDict):
                 raise ValueError(
-                    'Button defined in the buttons field of state "' + state_name + '" is not dictionary.')
+                    'Button defined in the buttons field of state "' + state_name + '" is not dictionary int bot "' + bot_name + '".')
             if not ('next_state' in button):
                 raise ValueError(
-                    'The "next_state" field is missing in the buttons of state "' + state_name + '".')
+                    'The "next_state" field is missing in the buttons of state "' + state_name + '" in the bot "' + bot_name + '".')
             if not ('label' in button):
                 button.update({'label': "Label"})
             if not ('type' in button):
@@ -317,19 +318,19 @@ class YamlParser:
                 state_properties['properties'].update({'update_keys': {}})
 
     # adds properties to message_iframe node
-    def set_default_properties_message_iframe(self, state_name, state_properties):
+    def set_default_properties_message_iframe(self, state_name, state_properties, bot_name):
         if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
             raise ValueError(
-                'The "properties" field with "url" field is missing in the state "' + state_name + '".')
+                'The "properties" field with "url" field is missing in the state "' + state_name + '" of bot "' + bot_name + '".')
         elif not ('url' in state_properties['properties']):
             raise ValueError(
-                'The "url" field is missing in the state "' + state_name + '".')
+                'The "url" field is missing in the state "' + state_name + '" of bot "' + bot_name + '".')
         else:
             if not ('height' in state_properties['properties']):
                 state_properties['properties'].update({'height': 150})
             elif not (type(state_properties['properties']['height']) is int):
                 raise ValueError(
-                    'The "height" field is not integer in the state "' + state_name + '".')
+                    'The "height" field is not integer in the state "' + state_name + '" of bot "' + bot_name + '".')
             if not ('scrolling' in state_properties['properties']):
                 state_properties['properties'].update({'scrolling': 'yes'})
             if state_properties['properties']['scrolling'] is True:
@@ -340,12 +341,12 @@ class YamlParser:
                         'scrolling'].lower() == 'yes' or state_properties['properties'][
                 'scrolling'].lower() == 'no'):
                 raise ValueError(
-                    'The "scrolling" field can be only "yes" or "no" in the state "' + state_name + '".')
+                    'The "scrolling" field can be only "yes" or "no" in the state "' + state_name + '" of bot "' + bot_name + '".')
             if not ('width' in state_properties['properties']):
                 state_properties['properties'].update({'width': 100})
             elif not (type(state_properties['properties']['width']) is int):
                 raise ValueError(
-                    'The "width" field is not integer in the state "' + state_name + '".')
+                    'The "width" field is not integer in the state "' + state_name + '" of bot "' + bot_name + '".')
             if not ('align' in state_properties['properties']):
                 state_properties['properties'].update({'align': 'left'})
             elif not (state_properties['properties'][
@@ -353,10 +354,10 @@ class YamlParser:
                 'align'].lower() == 'left' or state_properties['properties'][
                 'align'].lower() == 'center'):
                 raise ValueError(
-                    'The "align" field can be only "left", "right" or "center" in the state "' + state_name + '".')
+                    'The "align" field can be only "left", "right" or "center" in the state "' + state_name + '" of bot "' + bot_name + '".')
 
     # adds properties to message_buttons node
-    def set_default_properties_message_checkboxes(self, state_name, state_properties):
+    def set_default_properties_message_checkboxes(self, state_name, state_properties, bot_name):
         if not ('properties' in state_properties) or not (
                     type(state_properties['properties']) is OrderedDict):
             state_properties.update({'properties': {'checkboxes': []}})
@@ -366,7 +367,7 @@ class YamlParser:
         for button in state_properties['properties']['checkboxes']:
             if not (type(button) is OrderedDict):
                 raise ValueError(
-                    'Checkbox defined in the checkboxes field of state "' + state_name + '" is not dictionary.')
+                    'Checkbox defined in the checkboxes field of state "' + state_name + '" is not dictionary in bot "' + bot_name + '".')
             if not ('update_keys' in button):
                 button.update({'update_keys': ""})
             if not ('label' in button):
@@ -375,14 +376,15 @@ class YamlParser:
                 button.update({'type': ""})
 
     # check and modifies delays
-    def check_delays(self, loaded_yaml):
+    def check_delays(self, loaded_yaml, bot_name):
         for state_name, state_properties in loaded_yaml['states'].items():
             if 'delay' not in state_properties['properties']:
                 state_properties['properties'].update({'delay': 0})
             elif state_properties['properties']['delay'] is None:
                 state_properties['properties'].update({'delay': 0})
             elif not isinstance(state_properties['properties']['delay'], int):
-                raise ValueError('Delay in the node "' + state_name + '" is not not an integer.')
+                raise ValueError(
+                    'Delay in the node "' + state_name + '" is not not an integer in bot "' + bot_name + '".')
 
     # loads intent_transitions field from yaml to memory
     def load_intent_transitions(self, loaded_yaml, bot_name):
@@ -394,7 +396,8 @@ class YamlParser:
         for key in intent_transitions.get(bot_name):
             intent_state = intent_transitions.get(bot_name)[key]
             if not (intent_state in state_dict.get(bot_name)["states"]):
-                raise ValueError('State "' + intent_state + '" mentioned in intent_transitions doesn\'t exist.')
+                raise ValueError(
+                    'State "' + intent_state + '" mentioned in intent_transitions doesn\'t exist in bot "' + bot_name + '".')
 
     # check if all stated defined in transitions really exist
     def check_transition_states_exist(self, bot_name):
@@ -404,32 +407,32 @@ class YamlParser:
                 reference_state = state_content['transitions']['match']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'notmatch' in state_content['transitions']:
                 reference_state = state_content['transitions']['notmatch']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'equal' in state_content['transitions']:
                 reference_state = state_content['transitions']['equal']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'notequal' in state_content['transitions']:
                 reference_state = state_content['transitions']['notequal']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'exists' in state_content['transitions']:
                 reference_state = state_content['transitions']['exists']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'notexists' in state_content['transitions']:
                 reference_state = state_content['transitions']['notexists']
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             if 'next_state' in state_content['transitions']:
                 reference_state = state_content['transitions']['next_state']
                 # next state can be empty
@@ -437,14 +440,14 @@ class YamlParser:
                     continue
                 if reference_state not in state_dict.get(bot_name)['states']:
                     raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist.')
+                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             # testing of button transitions, special case
             if 'buttons' in state_content['properties']:
                 for button in state_content['properties']['buttons']:
                     reference_state = button['next_state']
                     if reference_state not in state_dict.get(bot_name)['states']:
                         raise ValueError(
-                            'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist.')
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" buttons field doesn\'t exist in bot "' + bot_name + '".')
 
     # import custom states from states folder of bot
     def import_custom_states(self, bot_states_folder, bot_name):

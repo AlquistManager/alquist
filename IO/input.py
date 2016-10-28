@@ -39,6 +39,8 @@ def get_input():
 
         # try:
         # execute states
+    if loaded_states.state_dict.get(bot) is None:
+        return jsonify(ok=False, message="Bot with this name '" + bot + "' doesn't exist.")
     response = process_request(bot, state, context, text, session)
     return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
                    session=session)

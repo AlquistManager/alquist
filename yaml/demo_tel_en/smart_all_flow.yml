@@ -1,6 +1,0 @@
-﻿name: smart_all_flow
-states:
-  smart_all_init:
-    type: message_text
-    properties:
-      text: 'TATO VĚTEV DIALOGU JEŠTĚ NEBYLA IMPLEMENTOVÁNA. DIALOG NYNÍ SKONČÍ'
