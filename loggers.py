@@ -19,10 +19,10 @@ def create_loggers():
 
         # Add the log message handler to the logger
         db_handler = logging.handlers.RotatingFileHandler(
-            LOG_FILENAME, maxBytes=10240 * 5, backupCount=5)
+            LOG_FILENAME, maxBytes=10240 * 5, backupCount=5, encoding="UTF-8")
 
         nfo_handler = logging.handlers.RotatingFileHandler(
-            REC_FILENAME, maxBytes=10240 * 5, backupCount=5)
+            REC_FILENAME, maxBytes=10240 * 5, backupCount=5, encoding="UTF-8")
 
         db_handler.setLevel(logging.DEBUG)
         nfo_handler.setLevel(logging.INFO)
