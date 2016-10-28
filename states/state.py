@@ -7,10 +7,11 @@ from abc import ABC, abstractmethod
 
 
 class State(ABC):
-    def __init__(self, name, properties, transitions):
+    def __init__(self, name, properties, transitions, bot):
         self.name = name
         self.properties = properties
         self.transitions = transitions
+        self.bot = bot
 
     @abstractmethod
     def execute(self, request_data) -> dict:
@@ -30,5 +31,6 @@ class State(ABC):
                 context.update({entity: response[self.properties['entities'][entity]]})
 
     def __str__(self):
-        return self.name + ' \rType: ' + str(type(self)) + ' \rProperties: ' + str(self.properties) + ' \rTransitions: ' + str(
+        return self.name + ' \rType: ' + str(type(self)) + ' \rProperties: ' + str(
+            self.properties) + ' \rTransitions: ' + str(
             self.transitions)
