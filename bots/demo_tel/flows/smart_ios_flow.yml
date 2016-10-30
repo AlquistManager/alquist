@@ -32,6 +32,15 @@ states:
       transitions:
         next_state: iphone_type_user
 
+  iphone_type_user:
+    type: input_user
+    properties:
+      entities:
+        generation: generation
+      require_match: false
+    transitions:
+      next_state: iphone_type_7
+
   iphone_gen_help:
     type: message_text
     properties:
@@ -46,15 +55,6 @@ states:
     transitions:
       next_state: smart_ios_init_2
 
-
-  iphone_type_user:
-    type: input_user
-    properties:
-      entities:
-        generation: generation
-      require_match: false
-    transitions:
-      next_state: iphone_type_7
 
   iphone_gen_7_context:
     type: change_context
