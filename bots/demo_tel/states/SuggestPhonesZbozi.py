@@ -189,11 +189,9 @@ class SuggestPhonesZbozi(State):
                     m_name += " Plus"
                 if context.get('model', False)=='C':
                     m_name = "Apple iPhone 5C"
-                print(m_name)
 
 
                 for product in products:
-                    print(product['displayName'])
                     if product['displayName'] == m_name:
                         url = "https://alquistmanager.github.io/alquist-tel-result/?"
                         url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))

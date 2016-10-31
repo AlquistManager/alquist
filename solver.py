@@ -41,7 +41,7 @@ def process_request(bot, state_name, context, text, session):
         if has_next:
             next_type = str(state_dict.get(bot)['states'][has_next].get('type', lambda: "nothing"))
             if next_type == str('<class \'states.user_input.InputUser\'>') or next_type == str(
-                    '<class \'states.user.InputSpecial.InputSpecial\'>'):
+                    '<class \'InputSpecial.py.InputSpecial\'>'):
                 if request_data.get('response', '') != '':
                     loggers.get(bot).get("main_logger").info("BOT SAYS: " + str(request_data['response']),
                                                              extra={'uid': session})
