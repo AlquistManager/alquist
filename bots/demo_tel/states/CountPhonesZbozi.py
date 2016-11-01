@@ -1,11 +1,10 @@
-import urllib.parse
 
 import requests
 from states.state import State
 import re
 
 
-class SuggestPhonesZbozi(State):
+class CountPhonesZbozi(State):
     # execute state
     def execute(self, request_data) -> dict:
         # load context
@@ -195,48 +194,10 @@ class SuggestPhonesZbozi(State):
         products = results['categories'][0].get('products', False)
         i = 1
         if products:
-            if phone_os == 'iOS':
-                m_name = "Apple iPhone " + context.get('generation', False)
-                if context.get('model', False)=='plus':
-                    m_name += " Plus"
-                if context.get('model', False)=='C':
-                    m_name = "Apple iPhone 5C"
+            request_data['context'].update({'phone_count': len(products)})
+        else:
+            request_data['context'].update({'phone_count': '0'})
 
-
-                for product in products:
-                    if product['displayName'] == m_name:
-                        url = "https://alquistmanager.github.io/alquist-tel-result/?"
-                        url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
-                        url += "&name=" + urllib.parse.quote(product['displayName'])
-                        url += "&image=" + "https:" + product['images'][0]['imageUrl']
-                        url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
-                        url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
-                            'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
-                        url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
-                            'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
-                        url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
-                            'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
-                        request_data['context'].update(
-                            {'suggested_phones_' + str(i): url})
-                        i += 1
-            else:
-                for product in products:
-                    if i > 5:
-                        break
-                    url = "https://alquistmanager.github.io/alquist-tel-result/?"
-                    url += "price=" + urllib.parse.quote(str(int(product['minPrice'] / 100)))
-                    url += "&name=" + urllib.parse.quote(product['displayName'])
-                    url += "&image=" + "https:" + product['images'][0]['imageUrl']
-                    url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
-                    url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
-                        'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
-                    url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
-                        'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
-                    url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
-                        'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
-                    request_data['context'].update(
-                        {'suggested_phones_' + str(i): url})
-                    i += 1
 
         # load next state
         request_data.update({'next_state': self.transitions.get('next_state', False)})

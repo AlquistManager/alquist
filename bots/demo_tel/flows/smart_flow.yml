@@ -26,12 +26,16 @@ states:
       buttons:
         - label: 'Android'
           next_state: smart_android_init_context
+          type: Main
         - label: 'iOS'
           next_state: smart_ios_init_context
+          type: Main
         - label: 'Windows Phone'
           next_state: smart_win_init_context
+          type: Main
         - label: 'VŠECHNY SYSTÉMY'
           next_state: smart_all_init_context
+          type: Main
         - label: 'Řekni mi víc'
           next_state: smart_os_1
 

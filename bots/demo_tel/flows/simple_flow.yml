@@ -9,7 +9,7 @@ states:
     type: message_text
     properties:
       text: 'Prosím vyberte si z&nbsp;cenových kategorií níže, nebo&nbsp;zvolte možnost <b>PŘESKOČIT</b>, pokud&nbsp;pro&nbsp;vás&nbsp;cena není prioritou'
-      delay: 4000
+      delay: 3000
 
   simple_select_price:
     type: message_buttons
@@ -25,7 +25,7 @@ states:
           next_state: simple_price_3_context
           type: Main
         - label: 'PŘESKOČIT'
-          next_state: simple_params
+          next_state: s_price_out_test
 
 
   simple_price_3:
@@ -127,7 +127,7 @@ states:
       value2: 'price_around'
     transitions:
       equal: simple_price_out4
-      notequal: simple_params
+      notequal: s_price_out_test
 
   simple_price_out1:
     type: message_text
@@ -135,7 +135,7 @@ states:
       text: 'Hledám telefony v&nbsp;cenové kategorii&nbsp;od&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_params
+      next_state: s_price_out_test
 
   simple_price_out2:
     type: message_text
@@ -143,7 +143,7 @@ states:
       text: 'Hledám telefony v&nbsp;cenové kategorii do&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_params
+      next_state: s_price_out_test
 
   simple_price_out3:
     type: message_text
@@ -151,7 +151,7 @@ states:
       text: 'Hledám telefony v&nbsp;cenové kategorii od&nbsp;{{price_from}}&nbsp;do&nbsp;{{price_to}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_params
+      next_state: s_price_out_test
 
   simple_price_out4:
     type: message_text
@@ -159,7 +159,7 @@ states:
       text: 'Hledám telefony v&nbsp;cenové kategorii kolem&nbsp;{{price}}&nbsp;Kč'
       delay: 1000
     transitions:
-      next_state: simple_params
+      next_state: s_price_out_test
 
 
 
@@ -173,6 +173,21 @@ states:
     transitions:
       next_state: simple_select_price
 
+
+  s_price_out_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: s_price_out_test_2
+
+  s_price_out_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: simple_params
 
   simple_params:
     type: message_text
@@ -224,6 +239,7 @@ states:
           type: Main
     transitions:
       next_state: simple_out
+
 
   simple_out:
     type: InputSpecial

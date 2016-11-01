@@ -1,6 +1,21 @@
 ﻿name: smart_win_flow
 states:
   smart_win_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_win_init_2
+
+  smart_win_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_init_3
+
+  smart_win_init_3:
     type: message_text
     properties:
       text: 'Nabídka telefonů s Windows Phone je u nás poměrně úzká, mětšina modelů pochází od výdobců Microsoft a Nokia.'
@@ -206,13 +221,19 @@ states:
       next_state: smart_win_price_out5
 
   smart_win_price_out5:
-    type: message_text
+    type: CountPhonesZbozi
     properties:
-      text: 'DEBUG ... CENA - {{price}}; cena OD - {{price_from}}; cena DO - {{price_to}}'
-      delay: 2000
     transitions:
-      next_state: smart_win_size
+      next_state: smart_win_price_out5t
 
+  smart_win_price_out5t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_size
 
   smart_win_price_error:
     type: message_text_random
@@ -228,18 +249,13 @@ states:
     type: message_text
     properties:
       text: 'Druhým parametrem, na který se zaměříme pro zúžení výběru je velikost displeje.'
-
-  smart_win_display:
-    type: message_text
-    properties:
-      text: 'Displej je zpravidla dotykový a velikost jeho úhlopříčky se uvádí v palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
       delay: 1500
 
   smart_win_display_2:
     type: message_text
     properties:
       text: 'Prosím vyberte preferovanou velikost displeje:'
-      delay: 3500
+      delay: 1500
 
   smart_win_display_3_buttons:
     type: message_buttons
@@ -247,12 +263,17 @@ states:
       buttons:
         - label: 'MALÝ (DO 3.4 PALCŮ)'
           next_state: smart_win_display_small
+          type: Main
         - label: 'VELKÝ (3.4 - 5 PALCŮ)'
           next_state: smart_win_display_big
+          type: Main
         - label: 'EXTRA VELKÝ (5+ PALCŮ)'
           next_state: smart_win_display_extra_big
+          type: Main
         - label: 'NA DISPLEJI MI NEZÁLEŽÍ'
           next_state: smart_win_display_dont_care
+        - label: 'Řekni mi víc'
+          next_state: smart_win_display
 
   smart_win_display_select:
     type: input_user
@@ -263,6 +284,14 @@ states:
     transitions:
       match: smart_win_params_2
       notmatch: error_select_display_win
+
+  smart_win_display:
+    type: message_text
+    properties:
+      text: 'Displej je zpravidla dotykový a velikost jeho úhlopříčky se uvádí v palcích. Palec se značí značkou " a odpovídá 2,54 cm. Například čtyřpalcový displej je velký asi jako kreditní karta.'
+      delay: 1500
+    transitions:
+      next_state: smart_win_display_2
 
   smart_win_display_small:
     type: change_context
@@ -306,19 +335,51 @@ states:
       next_state: smart_win_display_3_buttons
 
   smart_win_params_2:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_win_params_2t
+
+  smart_win_params_2t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_params_2t2
+
+  smart_win_params_2t2:
     type: message_text
     properties:
       text: 'Nyní se podíváme na další vlasnosti vašeho telefonu. Prosím vyberte vlastnosti, které považujete za nejdůležitější. Výběr potvrdíte volbou NAVRHNOUT TELEFONY. Pokud si nejste jistí, co který parametr znamená, klepněte na tlačítko s nápovědou.'
 
+
   smart_win_params_3:
-    type: message_buttons
+    type: message_checkboxes
     properties:
-      buttons:
+      checkboxes:
         - label: 'NFC čip'
-          next_state: simple_out_2
+          update_keys:
+            nfc: 'yes'
+          type: Main
         - label: 'Čtečka otisků prstů'
-          next_state: simple_out_2
+          update_keys:
+            fingerprint: 'yes'
+          type: Main
         - label: 'LTE připojení'
-          next_state: simple_out_2
+          update_keys:
+            lte: 'yes'
+          type: Main
         - label: 'Dual Sim'
-          next_state: simple_out_2
+          update_keys:
+            dual_sim: 'yes'
+          type: Main
+    transitions:
+      next_state: smart_win_out
+
+  smart_win_out:
+    type: InputSpecial
+    properties:
+    transitions:
+      next_state: smart_android_recommend

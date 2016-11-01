@@ -1,0 +1,23 @@
+name: no_phones
+states:
+  no_matches:
+    type: message_text
+    properties:
+      text: 'Pro vámi zadané parametry se nám bohužel nepodařilo najít žádné telefony'
+      delay: 1000
+    transitions:
+      next_state: no_matches_2
+
+  no_matches_2:
+    type: message_text
+    properties:
+      text: 'Prosím vyberte možnost krok zpět a upravte parametry telefonu.'
+      delay: 1000
+    transitions:
+      next_state: no_matches_3
+
+  no_matches_3:
+    type: InputSpecial
+    properties:
+
+

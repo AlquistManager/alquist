@@ -17,7 +17,7 @@ def process_request(bot, state_name, context, text, session):
         dialogue_logger.log("GOTO: " + str(state_name), session)
     elif text == '!reset':
         prev_context = context.get('previous_context', {})
-        request_data = {'context': {'prev_context': context.get('previous_context', {})},
+        request_data = {'context': {'previous_context': context.get('previous_context', {})},
                         'text': context.get('previous_text', ''), 'session': session,
                         'next_state': 'init'}
         state_name = 'init'

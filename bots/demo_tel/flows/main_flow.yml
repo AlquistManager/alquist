@@ -49,7 +49,6 @@ states:
         - label: 'Více o kategoriích'
           next_state: simple_info
 
-
   select_type:
     type: input_user
     properties:
@@ -57,8 +56,23 @@ states:
         phone_type: phone_type
       require_match: true
     transitions:
-      match: type_check_simple
+      match: select_type_test
       notmatch: error_phone_type
+
+  select_type_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: select_type_test_2
+
+  select_type_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: type_check_simple
 
   simple_intro_context:
     type: change_context
@@ -66,7 +80,22 @@ states:
         update_keys:
            phone_type: 'simple'
     transitions:
-        next_state: simple_intro
+        next_state: simple_intro_context_test
+
+  simple_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: simple_intro_context_test_2
+
+  simple_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: simple_intro
 
   simple_info:
     type: message_text
@@ -81,7 +110,22 @@ states:
         update_keys:
            phone_type: 'smart'
     transitions:
-        next_state: smart_intro
+        next_state: smart_intro_context_test
+
+  smart_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_intro_context_test_2
+
+  smart_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_intro
 
   smart_info:
     type: message_text
@@ -97,7 +141,22 @@ states:
         update_keys:
            phone_type: 'senior'
     transitions:
-        next_state: senior_intro
+        next_state: senior_intro_context_test
+
+  senior_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: senior_intro_context_test_2
+
+  senior_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: senior_intro
 
   senior_info:
     type: message_text
@@ -114,7 +173,22 @@ states:
         update_keys:
            phone_type: 'all'
     transitions:
-        next_state: all_intro
+        next_state: all_intro_context_test
+
+  all_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: all_intro_context_test_2
+
+  all_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: all_intro
 
   all_info:
     type: message_text

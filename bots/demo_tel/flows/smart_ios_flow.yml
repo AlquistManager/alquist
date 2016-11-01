@@ -1,11 +1,26 @@
 ﻿name: smart_ios_flow
 states:
   smart_ios_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_ios_init_2
+
+  smart_ios_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_ios_init_3
+
+  smart_ios_init_3:
     type: message_text
     properties:
       text: 'Telefony s operačním systémem iOS vyrábí společnost Apple. Jedná se o telefony s označením iPhone.'
 
-  smart_ios_init_2:
+  smart_ios_init_4:
     type: message_text
     properties:
       text: 'Prosím zvolte generaci z nabídky níže. Po volbě generace budete mít možnost projít si její krátký popis a případně volbu změnit.'
@@ -17,16 +32,22 @@ states:
       buttons:
         - label: 'iPhone 7'
           next_state: iphone_gen_7_context
+          type: Main
         - label: 'iPhone SE'
           next_state: iphone_gen_SE_context
+          type: Main
         - label: 'iPhone 6S'
           next_state: iphone_gen_6S_context
+          type: Main
         - label: 'iPhone 6'
           next_state: iphone_gen_6_context
+          type: Main
         - label: 'iPhone 5S/5C'
           next_state: iphone_gen_5S_context
+          type: Main
         - label: 'iPhone 5'
           next_state: iphone_gen_5_context
+          type: Main
         - label: 'Řekni mi víc'
           next_state: iphone_gen_help
       transitions:
@@ -53,7 +74,7 @@ states:
       text: 'Jednotlivé generace se od sebe odlišují harwarem, výkonem i designem a samozřejmě cenou. Apple s každou generací iPhone vydá několik modelů s odlišnými specifikacemi. Nejnovější generací je v současnosti generace 7. Ceny pro jednotlivé generace se různí, pokud máte však zájem o nejnovější generaci, počítejte s cenou okolo 20 000 Kč'
       delay: 5000
     transitions:
-      next_state: smart_ios_init_2
+      next_state: smart_ios_init_4
 
 
   iphone_gen_7_context:
@@ -104,8 +125,22 @@ states:
     transitions:
         next_state: iphone_type_SE
 
-
   iphone_type_7:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_7t2
+
+  iphone_type_7t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_7t3
+
+  iphone_type_7t3:
     type: message_text
     properties:
       text: 'Nový iPhone 7 je oproti svému předchůdci lepší takřka ve všech směrech.'
@@ -134,8 +169,10 @@ states:
       buttons:
         - label: 'iPhone 7 '
           next_state: iphone_gen_7_cassic
+          type: Main
         - label: 'iPhone 7 Plus'
           next_state: iphone_gen_7_plus
+          type: Main
         - label: 'ZPĚT NA VÝBĚR GENERACE'
           next_state: smart_ios_init_2
     transitions:
@@ -149,6 +186,8 @@ states:
       require_match: false
     transitions:
       next_state: iphone_type_7_classic_1
+
+
 
   iphone_gen_7_cassic:
     type: change_context
@@ -183,6 +222,21 @@ states:
         next_state: smart_iphone_recommend
 
   smart_iphone_recommend:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_iphone_recommend_2
+
+  smart_iphone_recommend_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_iphone_recommend_3
+
+  smart_iphone_recommend_3:
     type: SuggestPhonesZbozi
     properties:
 
@@ -281,6 +335,21 @@ states:
       next_state: end_demo
 
   iphone_type_SE:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_SEt1
+
+  iphone_type_SEt1:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_SEt2
+
+  iphone_type_SEt2:
     type: message_text
     properties:
       text: 'iPhone SE, představený na jaře roku 2016, kombinuje líbivý design a praktickou velikost modelu 5s s nekompromisním výkonem a funkcemi nejnovějších iPhonů 6s a 6s Plus.'
@@ -300,7 +369,7 @@ states:
   iphone_type_SE_4:
     type: message_text
     properties:
-      text: 'Pokud myslíte, že je iPhone SE je telefon právě pro vás, zvolte pokračovat a vyberte si jednu z variant. Pokud byste raději zvolili jinou generaci, zvolte moznost zpět na výběr generace.'
+      text: 'Pokud myslíte, že je iPhone SE je telefon právě pro vás, zvolte pokračovat. Pokud byste raději zvolili jinou generaci, zvolte možnost zpět na výběr generace.'
       delay: 2000
 
   simple_select_model_SE:
@@ -309,12 +378,29 @@ states:
       buttons:
         - label: 'POKRAČOVAT'
           next_state: smart_iphone_recommend
+          type: Main
         - label: 'ZPĚT NA VÝBĚR GENERACE'
           next_state: smart_ios_init_2
     transitions:
         next_state: iphone_type_7_user
 
+
   iphone_type_6S:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_6St2
+
+  iphone_type_6St2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_6St3
+
+  iphone_type_6St3:
     type: message_text
     properties:
       text: 'iPhone 6S by představen v roce 2015 jako nástupce modelu iPhone 6'
@@ -349,12 +435,14 @@ states:
       buttons:
         - label: 'iPhone 6S'
           next_state: iphone_gen_6S_cassic
+          type: Main
         - label: 'iPhone 6S Plus'
           next_state: iphone_gen_6S_plus
+          type: Main
         - label: 'ZMĚNA GENERACE'
           next_state: smart_ios_init_2
     transitions:
-        next_state: iphone_type_user
+        next_state: iphone_type_6S_user
 
   iphone_type_6S_user:
     type: input_user
@@ -363,21 +451,13 @@ states:
         model: model
       require_match: false
     transitions:
-      next_state: iphone_type_6S_classic_1
+      next_state: iphone_gen_6S_cassic
 
   iphone_gen_6S_cassic:
     type: change_context
     properties:
         update_keys:
            model : 'classic'
-    transitions:
-        next_state: iphone_type_6S_classic_1
-
-
-  iphone_type_6S_classic_1:
-    type: message_text
-    properties:
-      text: 'iPhone 6S se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
     transitions:
         next_state: smart_iphone_recommend
 
@@ -387,18 +467,24 @@ states:
         update_keys:
            model : 'plus'
     transitions:
-        next_state: iphone_type_6S_plus_1
-
-
-  iphone_type_6S_plus_1:
-    type: message_text
-    properties:
-      text: 'iPhone 6S Plus se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
 
-
   iphone_type_6:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_6t2
+
+  iphone_type_6t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_6t3
+
+  iphone_type_6t3:
     type: message_text
     properties:
       text: 'iPhone 6 by představen v roce 2014 jako nástupce modelů iPhone 5 a iPhone 5S'
@@ -427,12 +513,14 @@ states:
       buttons:
         - label: 'iPhone 6'
           next_state: iphone_gen_6_cassic
+          type: Main
         - label: 'iPhone 6 Plus'
           next_state: iphone_gen_6_plus
+          type: Main
         - label: 'ZMĚNA GENERACE'
           next_state: smart_ios_init_2
     transitions:
-        next_state: iphone_type_user
+        next_state: iphone_type_6_user
 
   iphone_type_6_user:
     type: input_user
@@ -441,7 +529,7 @@ states:
         model: model
       require_match: false
     transitions:
-      next_state: iphone_type_6_classic_1
+      next_state: smart_iphone_recommend
 
   iphone_gen_6_cassic:
     type: change_context
@@ -449,15 +537,8 @@ states:
         update_keys:
            model : 'classic'
     transitions:
-        next_state: iphone_type_6_classic_1
-
-
-  iphone_type_6_classic_1:
-    type: message_text
-    properties:
-      text: 'iPhone 6 se vyrábí s interní pamětí s kapacitou 16 GB, 12648 GB nebo 128 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
+
 
   iphone_gen_6_plus:
     type: change_context
@@ -465,18 +546,24 @@ states:
         update_keys:
            model : 'plus'
     transitions:
-        next_state: iphone_type_6S_plus_1
-
-
-  iphone_type_6_plus_1:
-    type: message_text
-    properties:
-      text: 'iPhone 6 Plus se vyrábí s interní pamětí s kapacitou 16 GB, 64 GB nebo 128 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
 
-
   iphone_type_5S:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_5St2
+
+  iphone_type_5St2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_5St3
+
+  iphone_type_5St3:
     type: message_text
     properties:
       text: 'Tato generace iPhnonů byla uvedena na trh v roce 2013 jako nástupce iPhonu 5. Byly představeny 2 nové modely, a to iPhone 5S a iPhone 5C.'
@@ -499,12 +586,14 @@ states:
       buttons:
         - label: 'iPhone 5S'
           next_state: iphone_gen_5S_cassic
+          type: Main
         - label: 'iPhone 5C'
           next_state: iphone_gen_5C
+          type: Main
         - label: 'ZMĚNA GENERACE'
           next_state: smart_ios_init_2
     transitions:
-        next_state: iphone_type_user
+        next_state: iphone_type_5S_user
 
   iphone_type_5S_user:
     type: input_user
@@ -513,7 +602,7 @@ states:
         model: model
       require_match: false
     transitions:
-      next_state: iphone_type_5S_classic_1
+      next_state: iphone_gen_5S_cassic
 
   iphone_gen_5S_cassic:
     type: change_context
@@ -521,15 +610,8 @@ states:
         update_keys:
            model : 'classic'
     transitions:
-        next_state: iphone_type_5S_classic_1
-
-
-  iphone_type_5S_classic_1:
-    type: message_text
-    properties:
-      text: 'iPhone 5S je k dispozici v šedé a stríbrné barvě a s různou kapacitou interní paměti. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
+
 
   iphone_gen_5C:
     type: change_context
@@ -537,18 +619,24 @@ states:
         update_keys:
            model : 'C'
     transitions:
-        next_state: iphone_type_5C_1
-
-
-  iphone_type_5C_1:
-    type: message_text
-    properties:
-      text: 'iPhone 5C je k dispozici v pěti exkluzivních barevných provedeních, a v modré, růžové, bílé, žluté a zelené. Dále je k dispozici různá kapacita interní paměti. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
 
-
   iphone_type_5:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_5t
+
+  iphone_type_5t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_5t3
+
+  iphone_type_5t3:
     type: message_text
     properties:
       text: 'iPhone 5 by představen v roce 2012 jako nástupce modelů iPhone 4 a iPhone 4S'
@@ -583,6 +671,7 @@ states:
       buttons:
         - label: 'POKRAČOVAT'
           next_state: smart_iphone_recommend
+          type: Main
         - label: 'ZMĚNA GENERACE'
           next_state: smart_ios_init_2
     transitions:

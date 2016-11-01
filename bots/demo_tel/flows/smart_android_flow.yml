@@ -1,6 +1,21 @@
 ﻿﻿name: smart_android_flow
 states:
   smart_android_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_init_2
+
+  smart_android_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_init_3
+
+  smart_android_init_3:
     type: message_text
     properties:
       text: 'Další důležitou volbou je cena vašeho telefonu. Systém Android je rozšířený na&nbsp;telefonech všech cenových kategorií, můžete si tedy zvolit cenové rozpětí, které vám bude vyhovovat.'
@@ -211,6 +226,21 @@ states:
       next_state: smart_select_price
 
   smart_android_brand:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_brandt2
+
+  smart_android_brandt2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_brandt3
+
+  smart_android_brandt3:
     type: message_text
     properties:
       text: 'Pokud hledáte telefon od&nbsp;specifického výrobce, vyberte&nbsp;si z&nbsp;nabídky níže, nebo napište vlastního. Pokud si výrobcem nejste jisti, můžete tuto volbu <b>PŘESKOČIT</b>'
@@ -222,14 +252,19 @@ states:
       buttons:
         - label: 'Samsung'
           next_state: smart_android_select_brand_samsung
+          type: Main
         - label: 'HTC'
           next_state: smart_android_select_brand_htc
+          type: Main
         - label: 'HUAWEI'
           next_state: smart_android_select_brand_huawei
+          type: Main
         - label: 'LG'
           next_state: smart_android_select_brand_lg
+          type: Main
         - label: 'SONY'
           next_state: smart_android_select_brand_sony
+          type: Main
         - label: 'PŘESKOČIT'
           next_state: smart_android_params
 
@@ -292,11 +327,41 @@ states:
       next_state: smart_android_select_brand_buttons
 
   smart_android_params:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_paramst2
+
+  smart_android_paramst2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_paramst3
+
+  smart_android_paramst3:
     type: message_text
     properties:
       text: 'Nyní se zaměříme na parametry telefonu.'
 
   smart_android_params_2:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_params_2t2
+
+  smart_android_params_2t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_params_2t3
+
+  smart_android_params_2t3:
     type: message_text
     properties:
       text: 'Prosím zvolte, který z parametrů chcete specifikovat. Volbou <b>NÁVRH&nbsp;TELEFONŮ</b> ukončíte výběr parametrů a přejdete k výsledkům.'
@@ -318,6 +383,7 @@ states:
           next_state: smart_android_resolution
         - label: 'NAVRHNOUT TELEFONY'
           next_state: smart_android_recommend
+          type: Main
 
   smart_android_select_param:
     type: input_user
@@ -403,10 +469,13 @@ states:
       buttons:
         - label: 'MALÝ (DO 3.4 PALCŮ)'
           next_state: smart_android_display_small
+          type: Main
         - label: 'VELKÝ (3.4 - 5 PALCŮ)'
           next_state: smart_android_display_big
+          type: Main
         - label: 'EXTRA VELKÝ (5+ PALCŮ)'
           next_state: smart_android_display_extra_big
+          type: Main
         - label: 'NA DISPLEJI MI NEZÁLEŽÍ'
           next_state: smart_android_display_dont_care
         - label: 'Řekni mi víc'
@@ -485,6 +554,7 @@ states:
       buttons:
         - label: 'SILNÝ PROCESOR ( > 1.5 GHz)'
           next_state: smart_android_processor_select_strong
+          type: Main
         - label: 'PROCESOR MĚ NEZAJÍMÁ'
           next_state: smart_android_processor_select_any
 
@@ -538,6 +608,7 @@ states:
       buttons:
         - label: 'CHCI VELKOU OPERAČNÍ PAMĚTÍ (2+ GB)'
           next_state: smart_android_ram_select_2gb
+          type: Main
         - label: 'OPERAČNÍ PAMĚŤ MĚ NEZAJÍMÁ'
           next_state: smart_android_ram_select_any
         - label: 'Řekni mi víc'
@@ -557,6 +628,8 @@ states:
     type: message_text
     properties:
       text: 'Telefon s velkou operační pamětí zvládne mít spuštěných více aplikací najednou a&nbsp;bude fungovat stále stejně plynule. Standardem se&nbsp;začíná stávat 1GB&nbsp;RAM, výkonnější telefony pak nabídnou 2&nbsp;až&nbsp;3&nbsp;GB operační paměti.'
+    transitions:
+      next_state: smart_android_ram
 
   smart_android_ram_select_2gb:
     type: change_context
@@ -595,10 +668,13 @@ states:
       buttons:
         - label: 'NAD 8 GB'
           next_state: smart_android_memory_select_small
+          type: Main
         - label: 'NAD 16 GB'
           next_state: smart_android_memory_select_big
+          type: Main
         - label: 'TELEFON S PODPOROU PAMĚŤOVÝCH KARET'
           next_state: smart_android_memory_select_card
+          type: Main
         - label: 'PAMĚŤ TELEFONU MĚ NEZAJÍMÁ'
           next_state: smart_android_memory_select_any
         - label: 'Řekni mi víc'
@@ -624,7 +700,9 @@ states:
     type: message_text
     properties:
       text: 'Řešením je také koupě telefonu s&nbsp;podporou paměťových karet. Ty mohou mít kapacitu až několika desítek GB a&nbsp;stojí běžně pár set korun. Snadno tak rozšíříte základní paměť telefonu.'
-      delay: 1000
+      delay: 2500
+    transitions:
+      next_state: smart_android_memory
 
   smart_android_memory_select_small:
     type: change_context
@@ -680,8 +758,10 @@ states:
       buttons:
         - label: '1280 x 720 bodů'
           next_state: smart_android_resolution_select_small
+          type: Main
         - label: '1920 X 1080 bodů'
           next_state: smart_android_resolution_select_big
+          type: Main
         - label: 'ROZLIŠENÍ TELEFONU MNE NEZAJÍMÁ'
           next_state: smart_android_resolution_select_any
         - label: 'Řekni mi víc'
@@ -737,6 +817,21 @@ states:
       next_state: smart_android_resolution_3_buttons
 
   smart_android_recommend:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_recommendt2
+
+  smart_android_recommendt2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_recommendt3
+
+  smart_android_recommendt3:
     type: message_text
     properties:
       text: 'Děkujeme za využití našeho assistenta. Níže se nyní zobrazí navržené telefony.'
@@ -759,14 +854,6 @@ states:
     transitions:
       exists: smart_android_recommend_out_1 # transition for when key exists
       notexists: no_matches #  transition for when the key doesn't exist
-
-  no_matches:
-    type: message_text
-    properties:
-      text: 'Pro vámi zadané parametry se nám bohužel nepodařilo najít žádné telefony'
-      delay: 1000
-    transitions:
-      next_state: end_demo
 
 
   end_demo:
