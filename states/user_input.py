@@ -125,6 +125,12 @@ pip install ufal.morphodita
 
 possible alternatives to a lemmatizer would be edit distance
 """
+    def __init__(self):
+        # check init
+        self.load_entity_dict()
+        self.init_lemmatizer()
+        super(EntityRecognizer, self).__init__()
+
     def load_entity_dict(self, filename="phone_brands.txt"):
         self.entity_dict = set()
         with open(filename) as f:
