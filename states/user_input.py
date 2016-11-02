@@ -83,6 +83,7 @@ class InputUser(State):
         return True
 
 
+
 class InputContext(State):
     def execute(self, request_data) -> dict:
         loggers.get(self.bot).get("state_logger").debug('Executing state: ' + str(self), extra={'uid': request_data.get('session', False)})
@@ -115,3 +116,53 @@ class InputContext(State):
 
         return request_data
 
+class EntityRecognizer(State):
+"""
+requires:
+link to czech-morfflex-160310.dict: https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-1674
+phone_brands.txt are in slack chat
+pip install ufal.morphodita
+
+possible alternatives to a lemmatizer would be edit distance
+"""
+    def load_entity_dict(self, filename="phone_brands.txt"):
+        self.entity_dict = set()
+        with open(filename) as f:
+            for line in f:
+                self.entity_dict.add(line.strip().lower())
+
+    def init_lemmatizer(self, morph_filename="czech-morfflex-160310.dict"):
+        from ufal.morphodita import *
+        self.morpho = Morpho.load(morph_filename)
+
+    def lemmatize(self, token):
+        lemmas = TaggedLemmas() # container for the result
+        result = self.morpho.analyze(token, morpho.GUESSER, lemmas) # result is int
+        if result != 0: 
+            # sometimes uppercasing the first character helps
+            result = self.morpho.analyze(token.title(), morpho.GUESSER, lemmas)
+        return morpho.rawLemma(lemmas[0].lemma)
+
+    def find_entity(self, token):
+        lemma = self.lemmatize(token)
+        if lemma in self.entity_dict:
+            return lemma
+        elif token in self.entity_dict:
+            return token
+        else:
+            return ""
+
+    def tokenize(self, sentence):
+        return (tok.lower() for tok in sentence.split(" ")) # generator
+
+    def execute(self, request_data) -> dict:
+        sentence = request_data['text']
+        sentence_tokenized = self.tokenize(sentence)
+        found_entities = []
+        for token in sentence_tokenized:
+            entity = self.find_entity(token)
+            if entity != "":
+                # should log this
+                found_entities.append(entity)
+        request_data.update({'response' : found_entities, 'next_state': self.transitions.get('next_state', False)})
+        return request_data
