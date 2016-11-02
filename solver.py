@@ -47,9 +47,10 @@ def process_request(bot, state_name, context, text, session):
                                                              extra={'uid': session})
                     dialogue_logger.log("BOT SAYS: " + str(request_data['response']), session)
                 if next_type == str('<class \'states.user_input.InputSpecial\'>'):
-                    request_data.update({"input":False})
+                    show = str(state_dict.get(bot)['states'][has_next].get('properties').get("show_input", "both"))
+                    request_data.update({"input": show})
                 else:
-                    request_data.update({"input": True})
+                    request_data.update({"input": "both"})
                 return request_data
             state_name = has_next
         else:
@@ -61,7 +62,7 @@ def process_request(bot, state_name, context, text, session):
                 loggers.get(bot).get("main_logger").info("===== SESSION END =====", extra={'uid': session})
             dialogue_logger.log("===== SESSION END =====", session)
 
-            request_data.update({"input": True})
+            request_data.update({"input": "both"})
             return request_data
 
 

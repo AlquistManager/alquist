@@ -228,6 +228,8 @@ class YamlParser:
                 self.set_default_properties_message_iframe(state_name, state_properties, bot_name)
             elif state_properties['type'] == MessageCheckboxes:
                 self.set_default_properties_message_checkboxes(state_name, state_properties, bot_name)
+            elif state_properties['type'] == InputSpecial:
+                self.set_default_properties_input_special(state_properties)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -376,6 +378,16 @@ class YamlParser:
                 button.update({'label': "Label"})
             if not ('type' in button):
                 button.update({'type': ""})
+
+                # adds properties to change_context node
+
+    def set_default_properties_input_special(self, state_properties):
+        if not ('properties' in state_properties) or not (
+                    type(state_properties['properties']) is OrderedDict):
+            state_properties.update({'properties': {'show_input': "both"}})
+        else:
+            if not ('show_input' in state_properties['properties']):
+                state_properties['properties'].update({'show_input': "both"})
 
     # check and modifies delays
     def check_delays(self, loaded_yaml, bot_name):
