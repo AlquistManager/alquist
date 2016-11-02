@@ -1,0 +1,38 @@
+# This is a description of YAML syntax used for X DIALOG MANAGER X
+# this project was created as part of the eClob Summer Camp 2016
+# Authors: Jakub Konrád (jkonrad.dev@gmail.com), Petr Marek (ermrk.marek@gmail.com)
+#
+#
+
+
+name: webcomic_bot 
+
+states: # List of states. States are executed sequentially
+  init: # Name of the state. Unique in each flow
+    type: message_buttons # shows buttons
+                       # message_text sends text message back to the client
+    properties: # list of properties of each state
+      buttons: # list of buttons to show
+        - label: "xkcd" 
+          next_state: xkcd # next_state after click on the first button
+          type: Main # type of button (it is send to client, client has to implement it)
+        - label: "explosm" # label of the second button
+          next_state: explosm # next_state after click on the second button
+          type: Main # type of button (it is send to client, client has to implement it)
+
+  input:
+    type: input_user
+    properties:
+      entities:
+
+  explosm:
+    type: get_explosm
+    properties:
+    transitions:
+      next_state: init
+
+  xkcd:
+    type: get_xkcd
+    properties:
+    transitions:
+      next_state: init
