@@ -1,0 +1,33 @@
+name: greet_flow
+states:
+  init:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+
+  pause2:
+    type: input_special
+    properties:
+      show_input: input
+
+  init3:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+
+  pause3:
+    type: input_special
+    properties:
+      show_input: none
+
+  init4:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+
