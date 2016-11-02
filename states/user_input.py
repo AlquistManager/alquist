@@ -172,3 +172,31 @@ possible alternatives to a lemmatizer would be edit distance
                 found_entities.append(entity)
         request_data.update({'response' : found_entities, 'next_state': self.transitions.get('next_state', False)})
         return request_data
+
+class PriceRecognizer(State):
+    def tokenize(self, sentence):
+        return [tok.lower() for tok in sentence.split(" ")]
+
+    def find_numbers(self, tokens):
+        tokens.append("last")
+        windows = zip(tokens, token[1:])
+        numbers = []
+        skip_next = False
+        for a, b in windows:
+            if skip_next:
+                skip_next = False
+                continue
+            if a.isdigit():
+                if b.isdigit():
+                    numbers.append(int(a+b))
+                    skip_next = True
+                else:
+                    numbers.append(int(a))
+        return numbers
+
+    def execute(self, request_data) -> dict:
+        sentence = request_data['text']
+        sentence_tokenized = self.tokenize(sentence)
+        prices = self.find_numbers(sentence_tokenized)
+        request_data.update({'response' : prices, 'next_state': self.transitions.get('next_state', False)})
+        return request_data
