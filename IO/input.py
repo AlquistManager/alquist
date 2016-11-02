@@ -43,6 +43,6 @@ def get_input():
         return jsonify(ok=False, message="Bot with this name '" + bot + "' doesn't exist.")
     response = process_request(bot, state, context, text, session)
     return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
-                   session=session)
+                   session=session, input=response['input'])
     # except:  # Error in execution
     #    return jsonify(ok=False, message="Error during execution.")
