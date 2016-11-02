@@ -1,23 +1,0 @@
-2016-11-02 14:06:55,448 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Button: OrderedDict([('label', 'explosm'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:06:55,449 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - State init complete.
-2016-11-02 14:06:55,449 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Next state: input
-2016-11-02 14:07:03,943 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Executing state: init Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')]), OrderedDict([('label', 'explosm'), ('next_state', 'xkcd'), ('type', 'Main')])]), ('delay', 0)]) Transitions: {'next_state': 'input'}
-2016-11-02 14:07:03,944 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Button: OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:07:03,944 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Button: OrderedDict([('label', 'explosm'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:07:03,945 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - State init complete.
-2016-11-02 14:07:03,945 - State info - b41f851e-6011-4495-b85f-6a26197ceece - DEBUG - Next state: input
-2016-11-02 14:08:21,068 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Executing state: init Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')]), OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])]), ('delay', 0)]) Transitions: {'next_state': 'input'}
-2016-11-02 14:08:21,075 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:08:21,075 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])
-2016-11-02 14:08:21,075 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - State init complete.
-2016-11-02 14:08:21,075 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Next state: input
-2016-11-02 14:08:23,011 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Executing state: init Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')]), OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])]), ('delay', 0)]) Transitions: {'next_state': 'input'}
-2016-11-02 14:08:23,012 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:08:23,012 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])
-2016-11-02 14:08:23,013 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - State init complete.
-2016-11-02 14:08:23,013 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Next state: input
-2016-11-02 14:08:26,208 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Executing state: init Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')]), OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])]), ('delay', 0)]) Transitions: {'next_state': 'input'}
-2016-11-02 14:08:26,208 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'xkcd'), ('next_state', 'xkcd'), ('type', 'Main')])
-2016-11-02 14:08:26,208 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Button: OrderedDict([('label', 'explosm'), ('next_state', 'explosm'), ('type', 'Main')])
-2016-11-02 14:08:26,209 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - State init complete.
-2016-11-02 14:08:26,209 - State info - 57c29475-b498-49ec-b505-75e7daf957b8 - DEBUG - Next state: input
