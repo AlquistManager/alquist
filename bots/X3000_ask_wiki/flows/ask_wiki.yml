@@ -1,0 +1,7 @@
+
+
+name: ask_wiki
+
+states: # List of states. States are executed sequentially
+  init: # Name of the state. Unique in each flow
+
