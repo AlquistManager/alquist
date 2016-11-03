@@ -3,22 +3,28 @@ from config import config
 import json
 from ufal.morphodita import *
 
-access_token = config["wit_token"]
-actions = {}
-client = Wit(access_token, actions)
+nlp_type = config["nlp_type"]
 
-def load_entity_dict(filename="phone_brands.json"):
-    ent = json.load(open(filename))
-    ent_type = ent['entity-type']
-    result_dict = {entity : ent_type for entity in ent['entities']}
-    return result_dict
-
-def init_lemmatizer(morph_filename="czech-morfflex-160310.dict"):
-    return Morpho.load(morph_filename)
+if nlp_type == "lemma":
+    def load_entity_dict(filename="phone_brands.json"):
+        ent = json.load(open(filename))
+        ent_type = ent['entity-type']
+        result_dict = {entity: ent_type for entity in ent['entities']}
+        return result_dict
 
 
-entity_dict = load_entity_dict()
-morpho = init_lemmatizer()
+    def init_lemmatizer(morph_filename="czech-morfflex-160310.dict"):
+        return Morpho.load(morph_filename)
+
+
+    entity_dict = load_entity_dict()
+    morpho = init_lemmatizer()
+elif nlp_type == "wit":
+    access_token = config["wit_token"]
+    actions = {}
+    client = Wit(access_token, actions)
+
+
 
 def lemmatize(token):
     lemmas = TaggedLemmas() # container for the result
