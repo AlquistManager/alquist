@@ -115,16 +115,14 @@ class InputContext(State):
         loggers.get(self.bot).get("state_logger").debug('Next state: ' + str(request_data.get('next_state')), extra={'uid': request_data.get('session', False)})
 
         return request_data
-
+"""
 class EntityRecognizer(State):
-"""
-requires:
-link to czech-morfflex-160310.dict: https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-1674
-phone_brands.txt are in slack chat
-pip install ufal.morphodita
+  #  requires:
+   # link to czech-morfflex-160310.dict: https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-1674
+   # phone_brands.txt are in slack chat
+   # pip install ufal.morphodita
 
-possible alternatives to a lemmatizer would be edit distance
-"""
+    possible alternatives to a lemmatizer would be edit distance
     def __init__(self):
         # check init
         self.load_entity_dict()
@@ -138,7 +136,7 @@ possible alternatives to a lemmatizer would be edit distance
                 self.entity_dict.add(line.strip().lower())
 
     def init_lemmatizer(self, morph_filename="czech-morfflex-160310.dict"):
-        from ufal.morphodita import *
+        #from ufal.morphodita import *
         self.morpho = Morpho.load(morph_filename)
 
     def lemmatize(self, token):
@@ -172,7 +170,7 @@ possible alternatives to a lemmatizer would be edit distance
                 found_entities.append(entity)
         request_data.update({'response' : found_entities, 'next_state': self.transitions.get('next_state', False)})
         return request_data
-
+"""
 class PriceRecognizer(State):
     def tokenize(self, sentence):
         return [tok.lower() for tok in sentence.split(" ")]
