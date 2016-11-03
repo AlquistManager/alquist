@@ -20,8 +20,8 @@ if nlp_type == "lemma":
         return Morpho.load(morph_filename)
 
 
-    entity_dict = load_entity_dict()
-    morpho = init_lemmatizer(config["dict_filenames"])
+    entity_dict = load_entity_dict(config["dict_filenames"])
+    morpho = init_lemmatizer()
 elif nlp_type == "wit":
     access_token = config["wit_token"]
     actions = {}
@@ -45,7 +45,7 @@ def find_entity(token):
     if lemma in entity_dict:
         return entity_dict[lemma], lemma
     elif token in entity_dict:
-        return entity_dict[lemma], lemma
+        return entity_dict[token], token
     else:
         return "", ""
 
