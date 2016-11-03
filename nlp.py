@@ -6,10 +6,13 @@ from ufal.morphodita import *
 nlp_type = config["nlp_type"]
 
 if nlp_type == "lemma":
-    def load_entity_dict(filename="phone_brands.json"):
-        ent = json.load(open(filename))
-        ent_type = ent['entity-type']
-        result_dict = {entity: ent_type for entity in ent['entities']}
+    def load_entity_dict(filenames):
+        result_dict = {}
+        for filename in filenames:
+            ent = json.load(open(filename))
+            ent_type = ent['entity-type']
+            result_dict.update({entity: ent_type for entity in ent['entities']})
+            # entity overlap
         return result_dict
 
 
@@ -18,7 +21,7 @@ if nlp_type == "lemma":
 
 
     entity_dict = load_entity_dict()
-    morpho = init_lemmatizer()
+    morpho = init_lemmatizer(config["dict_filenames"])
 elif nlp_type == "wit":
     access_token = config["wit_token"]
     actions = {}
