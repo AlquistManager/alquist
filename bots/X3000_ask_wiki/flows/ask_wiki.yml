@@ -17,6 +17,14 @@ states: # List of states. States are executed sequentially
       entities:
         query: query
 
+  check_exists:
+    type: conditional_exists  
+    properties:
+      key: "{{query}}"
+    transitions:
+      exists : WikiURL
+      notexists: not_found
+      
   WikiURL:
     type: WikiURL
     properties:
@@ -27,5 +35,12 @@ states: # List of states. States are executed sequentially
       url: "{{query_url}}"
       width: 100
       height: 600
+    transitions:
+      next_state: init_2
+
+  not_found:
+    type: message_text
+    properties:
+      text: "Omlouvam se, o tom nic nevim"
     transitions:
       next_state: init_2
