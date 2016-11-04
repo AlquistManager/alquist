@@ -1,11 +1,7 @@
 name: greet_flow
 states:
   init:
-    type: message_text_random
-    properties:
-      responses:
-        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
-        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+    type: Carousel
 
   pause2:
     type: input_special
