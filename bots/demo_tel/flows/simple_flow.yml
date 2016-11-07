@@ -242,7 +242,7 @@ states:
 
 
   simple_out:
-    type: InputSpecial
+    type: input_special
     properties:
     transitions:
       next_state: smart_android_recommend

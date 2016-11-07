@@ -379,7 +379,7 @@ states:
       next_state: smart_win_out
 
   smart_win_out:
-    type: InputSpecial
+    type: input_special
     properties:
     transitions:
       next_state: smart_android_recommend

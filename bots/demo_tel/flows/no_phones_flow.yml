@@ -17,7 +17,7 @@ states:
       next_state: no_matches_3
 
   no_matches_3:
-    type: InputSpecial
+    type: input_special
     properties:
 
 
