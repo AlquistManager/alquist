@@ -5,11 +5,12 @@ from loaded_states import state_dict
 from loggers import loggers
 
 
-def process_request(bot, state_name, context, text, session):
+def process_request(bot, state_name, context, text, session, payload):
     if text == '!undo':
         prev_context = context.get('previous_context', {})
         request_data = {'context': prev_context, 'text': prev_context.get('previous_text', ''), 'session': session,
-                        'next_state': context.get('previous_request', 'init')}
+                        'next_state': context.get('previous_request', 'init'),
+                        'payload': prev_context.get('previous_payload', {})}
         state_name = prev_context.get('previous_request', 'init')
         loggers.get(bot).get("main_logger").info("UNDO", extra={'uid': session})
         dialogue_logger.log("UNDO", session)
@@ -19,15 +20,17 @@ def process_request(bot, state_name, context, text, session):
         prev_context = context.get('previous_context', {})
         request_data = {'context': {'previous_context': context.get('previous_context', {})},
                         'text': context.get('previous_text', ''), 'session': session,
-                        'next_state': 'init'}
+                        'next_state': 'init',
+                        'payload': {}}
         state_name = 'init'
         loggers.get(bot).get("main_logger").info("RESET", extra={'uid': session})
         dialogue_logger.log("RESET", session)
         loggers.get(bot).get("main_logger").info("GOTO: " + str(state_name), extra={'uid': session})
         dialogue_logger.log("GOTO: " + str(state_name), session)
     else:
-        request_data = {'context': context, 'text': text, 'session': session}
-    context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text})
+        request_data = {'context': context, 'text': text, 'session': session, 'payload': payload}
+    context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text,
+                    'previous_payload': copy.deepcopy(payload)})
     if text != '' and text != '!undo':
         loggers.get(bot).get("main_logger").info("USER SAYS: " + request_data['text'], extra={'uid': session})
         dialogue_logger.log("USER SAYS: " + request_data['text'], session)

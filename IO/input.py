@@ -29,6 +29,7 @@ def get_input():
         context = request.json['context']
         session = request.json['session']
         bot = request.json['bot']
+        payload = request.json['payload']
         loaded_states.actual_bot = bot
     except KeyError:
         # Missing 'session_id' or 'text'
@@ -42,7 +43,7 @@ def get_input():
         # execute states
     if loaded_states.state_dict.get(bot) is None:
         return jsonify(ok=False, message="Bot with this name '" + bot + "' doesn't exist.")
-    response = process_request(bot, state, context, text, session)
+    response = process_request(bot, state, context, text, session, payload)
     return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
                    session=session, input=response['input'])
     # except:  # Error in execution
