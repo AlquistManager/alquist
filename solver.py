@@ -1,11 +1,12 @@
 import copy
 import dialogue_logger
-
+from modules.yoda import *
 from loaded_states import state_dict
 from loggers import loggers
 
 
 def process_request(bot, state_name, context, text, session):
+
     if text == '!undo':
         prev_context = context.get('previous_context', {})
         request_data = {'context': prev_context, 'text': prev_context.get('previous_text', ''), 'session': session,
@@ -25,10 +26,16 @@ def process_request(bot, state_name, context, text, session):
         dialogue_logger.log("RESET", session)
         loggers.get(bot).get("main_logger").info("GOTO: " + str(state_name), extra={'uid': session})
         dialogue_logger.log("GOTO: " + str(state_name), session)
+    elif "@YodaQA" in text:
+        request_data = {'context': context, 'text': context.get('previous_text', ''), 'session': session}
+        state_name = context.get('previous_request', 'init')
+        text = process_question(text[8:])
+        response = [{'type': 'text', 'payload': {'text': text}, 'delay': 0}]
+        request_data.update({"response": response, 'next_state': context.get("previous_request", "init")})
     else:
         request_data = {'context': context, 'text': text, 'session': session}
     context.update({'previous_context': copy.deepcopy(context), 'previous_request': state_name, 'previous_text': text})
-    if text != '' and text != '!undo':
+    if text != '' and text != '!undo' and text != '!reset':
         loggers.get(bot).get("main_logger").info("USER SAYS: " + request_data['text'], extra={'uid': session})
         dialogue_logger.log("USER SAYS: " + request_data['text'], session)
     while True:
