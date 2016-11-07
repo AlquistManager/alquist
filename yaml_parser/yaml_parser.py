@@ -481,4 +481,4 @@ class YamlParser:
     # return all subdirectories directly in directory
     def get_immediate_subdirectories(self, a_dir):
         return [name for name in os.listdir(a_dir)
-                if os.path.isdir(os.path.join(a_dir, name))]
+                if os.path.isdir(os.path.join(a_dir, name)) and name!="__pycache__"]
