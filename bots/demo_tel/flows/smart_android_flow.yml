@@ -272,7 +272,7 @@ states:
     type: input_user
     properties:
       entities:
-        brand: brand
+        brand: phone_brands
       require_match: true
     transitions:
       match: smart_android_params

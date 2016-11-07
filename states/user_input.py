@@ -1,6 +1,6 @@
 from loaded_states import intent_transitions
 from loggers import loggers
-from modules.nlp import *
+from modules.nlp.nlp import get_entities
 from .state import State
 
 
@@ -92,6 +92,7 @@ class InputUser(State):
             else:
                 return False
         return True
+
 
 
 class InputContext(State):
