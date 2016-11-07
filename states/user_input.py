@@ -1,7 +1,7 @@
-from loggers import loggers
-from nlp import *
-from .state import State
 from loaded_states import intent_transitions
+from loggers import loggers
+from modules.nlp import *
+from .state import State
 
 
 class InputUser(State):
