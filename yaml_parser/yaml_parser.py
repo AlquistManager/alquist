@@ -3,6 +3,7 @@ import importlib.util
 import os
 from collections import OrderedDict
 
+import sys
 import yaml
 from loaded_states import state_dict, intent_transitions
 from yaml_parser.yaml_ordered_dict import OrderedDictYAMLLoader
@@ -41,7 +42,9 @@ class YamlParser:
                 # check if all states mentioned in transitions really exist
                 self.check_transition_states_exist(bot_name)
             except FileNotFoundError:
-                print(bot_yaml_folder + "folder doesn't exist.")
+                print(
+                    bot_yaml_folder + " folder doesn't exist. Thus bot " + bot_name + " doesn't have correct folder structure.",
+                    file=sys.stderr)
 
     # load yaml file
     def load_file(self, bot_yaml_folder, file_name, bot_name):
