@@ -1,11 +1,13 @@
-from wit import Wit
 from config import config
-import json
-from ufal.morphodita import *
 
 nlp_type = config["nlp_type"]
 
 if nlp_type == "lemma":
+    import json
+    from ufal.morphodita import *
+    import glob
+
+
     def load_entity_dict(filenames):
         result_dict = {}
         for filename in filenames:
@@ -20,13 +22,15 @@ if nlp_type == "lemma":
         return Morpho.load(morph_filename)
 
 
-    entity_dict = load_entity_dict(config["dict_filenames"])
+    entity_dict = load_entity_dict(glob.glob('./modules/nlp/*.json'))
     morpho = init_lemmatizer()
+
 elif nlp_type == "wit":
+    from wit import Wit
+
     access_token = config["wit_token"]
     actions = {}
     client = Wit(access_token, actions)
-
 
 
 def lemmatize(token):
@@ -37,8 +41,10 @@ def lemmatize(token):
         result = morpho.analyze(token.title(), morpho.GUESSER, lemmas)
     return morpho.rawLemma(lemmas[0].lemma).lower()
 
+
 def tokenize(sentence):
     return (tok.lower() for tok in sentence.split(" ")) # generator
+
 
 def find_entity(token):
     lemma = lemmatize(token)
@@ -48,6 +54,7 @@ def find_entity(token):
         return entity_dict[token], token
     else:
         return "", ""
+
 
 def get_entities(text, nlp_type="lemma"):
     ent_out = {}

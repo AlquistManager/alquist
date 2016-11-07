@@ -1,5 +1,5 @@
 from loggers import loggers
-from nlp import *
+from modules.nlp.nlp import get_entities
 from .state import State
 from loaded_states import intent_transitions
 
