@@ -8,3 +8,4 @@ from states.message import MessageCheckboxes
 from states.message import MessageIframe
 from states.user_input import InputContext
 from states.user_input import InputUser
+from states.user_input import InputSpecial

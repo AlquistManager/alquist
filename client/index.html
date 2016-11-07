@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Alquist client</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container">
+    <h1 class="text-center"><a href="" class="main-name"><b>Alquist client</b></a></h1>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+            <!-- AREA FOR SHOWING MESSAGES -->
+            <div id="communication_area">
+            </div>
+
+            <!-- AREA FOR SHOWING BUTTONS -->
+            <table>
+                <tr>
+                    <td class="empty_space"></td>
+                    <td>
+                        <div id="checkboxes">
+                        </div>
+                        <div id="buttons">
+                        </div>
+                    </td>
+                    <td class="empty_space"></td>
+                </tr>
+            </table>
+
+            <!-- AREA FOR SHOWING INPUT FIELD -->
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-9">
+            <form id="form">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="input_field"
+                           placeholder="Write your message...">
+                    <span class="input-group-btn" id="submit_span">
+                        <button class="btn button-main btn-md" type="submit" id="submit">Submit</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2" id="back_buttons">
+            <span class="btn-group">
+                <button class="btn button-main btn-md" id="back">Back</button>
+                <button class="btn button-main btn-md" id="reset">Reset</button>
+            </span>
+        </div>
+        <div class="clearfix visible-xs-block"></div>
+    </div>
+</div>
+
+</body>
+</html>

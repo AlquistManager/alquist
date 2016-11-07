@@ -1,7 +1,8 @@
 # Handles input from the user by Flask
 import uuid
+
 import loaded_states
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 from loggers import create_loggers
@@ -43,6 +44,12 @@ def get_input():
         return jsonify(ok=False, message="Bot with this name '" + bot + "' doesn't exist.")
     response = process_request(bot, state, context, text, session)
     return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
-                   session=session)
+                   session=session, input=response['input'])
     # except:  # Error in execution
     #    return jsonify(ok=False, message="Error during execution.")
+
+
+@flask.route('/client/<file>', defaults={'path': ''})
+@flask.route('/client/<path:path>/<file>')
+def get_dir_subfolder(path, file):
+    return send_from_directory("../client/" + path, file)

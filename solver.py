@@ -41,11 +41,16 @@ def process_request(bot, state_name, context, text, session):
         if has_next:
             next_type = str(state_dict.get(bot)['states'][has_next].get('type', lambda: "nothing"))
             if next_type == str('<class \'states.user_input.InputUser\'>') or next_type == str(
-                    '<class \'InputSpecial.py.InputSpecial\'>'):
+                    '<class \'states.user_input.InputSpecial\'>'):
                 if request_data.get('response', '') != '':
                     loggers.get(bot).get("main_logger").info("BOT SAYS: " + str(request_data['response']),
                                                              extra={'uid': session})
                     dialogue_logger.log("BOT SAYS: " + str(request_data['response']), session)
+                if next_type == str('<class \'states.user_input.InputSpecial\'>'):
+                    show = str(state_dict.get(bot)['states'][has_next].get('properties').get("show_input", "both"))
+                    request_data.update({"input": show})
+                else:
+                    request_data.update({"input": "both"})
                 return request_data
             state_name = has_next
         else:
@@ -57,6 +62,7 @@ def process_request(bot, state_name, context, text, session):
                 loggers.get(bot).get("main_logger").info("===== SESSION END =====", extra={'uid': session})
             dialogue_logger.log("===== SESSION END =====", session)
 
+            request_data.update({"input": "both"})
             return request_data
 
 
