@@ -301,7 +301,7 @@ function showCarousel(parts, urls, delay) {
         var well = $('<div class="well" style="margin-bottom: 20px;"><div class="clearfix"></div></div>').append(carousell);
         $("#carousel").append(well);
         for (var i = 0; i < parts.length; i++) {
-            carousell.append("<a style='height:600px' href='" + urls[i] + "'>" + parts[i] + "</a>");
+            carousell.append("<a style='height:600px' href='" + urls[i] + "' target='_blank'>" + parts[i] + "</a>");
         }
         //scroll to bottom of page
         $("html, body").animate({scrollTop: $(document).height()}, scrollToBottomTime);
