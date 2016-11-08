@@ -1,0 +1,46 @@
+name: ask_wiki
+
+states: # List of states. States are executed sequentially
+  init: # Name of the state. Unique in each flow
+    type: message_text
+    properties:
+      text: "Dobry den, zajima vas neco o mobilech?"
+
+  init_2:
+    type: message_text
+    properties:
+      text: "Zadejte dotaz"
+
+  input:
+    type: input_user
+    properties:
+      entities:
+        query: query
+
+  check_exists:
+    type: conditional_exists  
+    properties:
+      key: "{{query}}"
+    transitions:
+      exists : WikiURL
+      notexists: not_found
+      
+  WikiURL:
+    type: WikiURL
+    properties:
+
+  WikiIframe:
+    type: message_iframe
+    properties:
+      url: "{{query_url}}"
+      width: 100
+      height: 600
+    transitions:
+      next_state: init_2
+
+  not_found:
+    type: message_text
+    properties:
+      text: "Omlouvam se, o tom nic nevim"
+    transitions:
+      next_state: init_2
