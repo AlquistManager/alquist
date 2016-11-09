@@ -166,6 +166,8 @@ class YamlParser:
                 state_properties['type'] = MessageCheckboxes
             elif state_properties['type'].lower() == 'input_special':
                 state_properties['type'] = InputSpecial
+            elif state_properties['type'].lower() == 'message_slider':
+                state_properties['type'] = MessageSlider
             # custom action
             else:
                 founded = False

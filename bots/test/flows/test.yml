@@ -1,0 +1,37 @@
+﻿name: greet_flow
+states:
+  init:
+    type: message_slider
+    properties:
+      entities:
+        - min_price
+        - max_price
+      max-value: 30000
+      min-value: 1000
+      default-values:
+        - 5000
+        - 10000
+      step: 100
+      tooltips: true
+      tooltips-decimals: 0
+      tooltips-prefix: ""
+      tooltips-postfix: "Kč"
+
+  init2:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+      delay: 0
+
+  t:
+    type: input_user
+
+  init3:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Dobrý den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.'
+        - 'Dobrý den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.'
+      delay: 0
