@@ -13,10 +13,7 @@ All information about writing your bot is here https://github.com/AlquistManager
 ## Installation
 You need Python 3. 
 
-We use WIT.ai as our npl service currently so you will need to install WIT as well
 
-	pip install wit
-	
 We use PyYaml. You need to install it by
 
     pip install PyYaml
@@ -24,7 +21,18 @@ We use PyYaml. You need to install it by
 We use Flask-Cors. You need to install it by
 
     pip install -U flask-cors
+    
+We currently use WIT.ai as our npl service so you will need to install WIT as well
 
+	pip install wit
+	
+Alternatively we are testing nlp created using [MorphoDiTa tool](http://ufal.mff.cuni.cz/morphodita) ([Mozilla Public License 2.0](http://www.mozilla.org/MPL/2.0/)) and [MorfFlex Czech models](https://lindat.mff.cuni.cz/repository/xmlui/handle/11234/1-1674) ([Attribution-NonCommercial-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-nc-sa/3.0/)). You will need to install the MorphoDiTa tool package.
+	
+	pip install ufal.morphodita
+	
+Additional required packages can be found in requirements.txt file.
+
+## Run
 To run Alquist use command
 
 	py -3 main.py
@@ -33,13 +41,16 @@ You can change Alquist's parameters. They are stored in the ``config.py``.
 
 ``port`` field defines the port on which the Alquist will run.
 
-``wit_token`` defines which wit.ai app will you use. For our demo use ``NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V``
+``nlp_type`` defines which type of nlp would you like to run (either ``wit`` for Wit.ai or ``lemma`` for MorphoDiTa)
+
+``wit_token`` defines which Wit.ai app will you use. For our demo use ``NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V``
 
 ``yaml_files_path`` path to folder, where yaml files are located.
 
 For example:
 
 	config = {"port": 5000,
+          "nlp_type": "wit",
           "wit_token": "NXOFXMBCIA6YAIXNNWYXJIJPC22AK35V",
           "yaml_files_path": "yaml\demo"}
 
