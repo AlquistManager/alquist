@@ -110,14 +110,9 @@ states:
         next_state: smart_check_price
 
   smart_select_price:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        trait_price: trait_price
-        price: price
-        price_from: price_from
-        price_to: price_to
-      require_match: false
+      show_input: none
     transitions:
       next_state: smart_check_price
 
@@ -386,14 +381,11 @@ states:
           type: Main
 
   smart_android_select_param:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        parameter: parameter
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_param_check_display
-      notmatch: error_select_param
+      next_state: error_select_param
 
   error_select_param:
     type: message_text_random
@@ -483,14 +475,11 @@ states:
 
 
   smart_android_display_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        display_size: display_size
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_params_2
-      notmatch: error_select_display
+      next_state: error_select_display
 
   smart_android_display_2:
     type: message_text
@@ -560,14 +549,11 @@ states:
 
 
   smart_android_processor_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        processor: processor
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_params_2
-      notmatch: error_select_processor
+      next_state: error_select_processor
 
   smart_android_processor_select_strong:
     type: change_context
@@ -615,14 +601,11 @@ states:
           next_state: smart_android_ram_2
 
   smart_android_ram_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        ram: ram
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_params_2
-      notmatch: error_select_ram
+      next_state: error_select_ram
 
   smart_android_ram_2:
     type: message_text
@@ -659,7 +642,7 @@ states:
   smart_android_memory:
     type: message_text
     properties:
-      text: 'Prosím vyberte preferovanou možnost možnost:'
+      text: 'Prosím vyberte preferovanou možnost:'
 
 
   smart_android_memory_3_buttons:
@@ -682,14 +665,11 @@ states:
 
 
   smart_android_memory_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        memory: memory
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_params_2
-      notmatch: error_select_memory
+      next_state: error_select_memory
 
   smart_android_memory_1:
     type: message_text
@@ -768,14 +748,11 @@ states:
           next_state: smart_android_resolution_2
 
   smart_android_resolution_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        resolution: resolution
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_android_params_2
-      notmatch: error_select_resolution
+      next_state: error_select_resolution
 
   smart_android_resolution_2:
     type: message_text

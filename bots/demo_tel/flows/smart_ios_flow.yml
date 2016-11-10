@@ -54,11 +54,9 @@ states:
         next_state: iphone_type_user
 
   iphone_type_user:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        generation: generation
-      require_match: false
+      show_input: none
     transitions:
       next_state: iphone_type_7
 
@@ -179,13 +177,11 @@ states:
         next_state: iphone_type_user
 
   iphone_type_7_user:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        model: model
-      require_match: false
+      show_input: none
     transitions:
-      next_state: iphone_type_7_classic_1
+      next_state: smart_iphone_recommend
 
 
 
@@ -195,15 +191,8 @@ states:
         update_keys:
            model : 'classic'
     transitions:
-        next_state: iphone_type_7_classic_1
-
-
-  iphone_type_7_classic_1:
-    type: message_text
-    properties:
-      text: 'iPhone 7 se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
+
 
   iphone_gen_7_plus:
     type: change_context
@@ -211,128 +200,14 @@ states:
         update_keys:
            model : 'plus'
     transitions:
-        next_state: iphone_type_7_plus_1
-
-
-  iphone_type_7_plus_1:
-    type: message_text
-    properties:
-      text: 'iPhone 7 Plus se vyrábí s interní pamětí s kapacitou 32 GB, 128 GB nebo 256 GB a v různých barevných provedeních. Prosím zvolte, o který model máte zájem:'
-    transitions:
         next_state: smart_iphone_recommend
+
 
   smart_iphone_recommend:
     type: CountPhonesZbozi
     properties:
     transitions:
-      next_state: smart_iphone_recommend_2
-
-  smart_iphone_recommend_2:
-    type: conditional_equal
-    properties:
-      value1: '{{phone_count}}'
-      value2: '0'
-    transitions:
-      equal: no_matches
-      notequal: smart_iphone_recommend_3
-
-  smart_iphone_recommend_3:
-    type: SuggestPhonesZbozi
-    properties:
-
-
-  smart_iphone_recommend_cond_1:
-    type: conditional_exists # used to determine if selected key exists in current context
-    properties:
-      key: '{{suggested_phones_1}}' # context key to check
-    transitions:
-      exists: smart_iphone_recommend_out_1 # transition for when key exists
-      notexists: no_matches #  transition for when the key doesn't exist
-
-
-  smart_iphone_recommend_out_1:
-    type: message_iframe
-    properties:
-      url: '{{suggested_phones_1}}'
-      height: 510
-      width: 50
-      scrolling: 'yes'
-      align: center
-      delay: 1000
-
-  smart_iphone_recommend_cond_2:
-    type: conditional_exists # used to determine if selected key exists in current context
-    properties:
-      key: '{{suggested_phones_2}}' # context key to check
-    transitions:
-      exists: smart_iphone_recommend_out_2 # transition for when key exists
-      notexists: end_demo #  transition for when the key doesn't exist
-
-  smart_iphone_recommend_out_2:
-    type: message_iframe
-    properties:
-      url: '{{suggested_phones_2}}'
-      height: 510
-      width: 50
-      scrolling: 'yes'
-      align: center
-      delay: 1000
-
-  smart_iphone_recommend_cond_3:
-    type: conditional_exists # used to determine if selected key exists in current context
-    properties:
-      key: '{{suggested_phones_3}}' # context key to check
-    transitions:
-      exists: smart_iphone_recommend_out_3 # transition for when key exists
-      notexists: end_demo #  transition for when the key doesn't exist
-
-  smart_iphone_recommend_out_3:
-    type: message_iframe
-    properties:
-      url: '{{suggested_phones_3}}'
-      height: 510
-      width: 50
-      scrolling: 'yes'
-      align: center
-      delay: 1000
-
-  smart_iphone_recommend_cond_4:
-    type: conditional_exists # used to determine if selected key exists in current context
-    properties:
-      key: '{{suggested_phones_4}}' # context key to check
-    transitions:
-      exists: smart_iphone_recommend_out_4 # transition for when key exists
-      notexists: end_demo #  transition for when the key doesn't exist
-
-  smart_iphone_recommend_out_4:
-    type: message_iframe
-    properties:
-      url: '{{suggested_phones_4}}'
-      height: 510
-      width: 50
-      scrolling: 'yes'
-      align: center
-      delay: 1000
-
-  smart_iphone_recommend_cond_5:
-    type: conditional_exists # used to determine if selected key exists in current context
-    properties:
-      key: '{{suggested_phones_5}}' # context key to check
-    transitions:
-      exists: smart_iphone_recommend_out_5 # transition for when key exists
-      notexists: end_demo #  transition for when the key doesn't exist
-
-  smart_iphone_recommend_out_5:
-    type: message_iframe
-    properties:
-      url: '{{suggested_phones_5}}'
-      height: 510
-      width: 50
-      scrolling: 'yes'
-      align: center
-      delay: 1000
-    transitions:
-      next_state: end_demo
+      next_state: smart_android_recommendt2
 
   iphone_type_SE:
     type: CountPhonesZbozi
@@ -445,11 +320,9 @@ states:
         next_state: iphone_type_6S_user
 
   iphone_type_6S_user:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        model: model
-      require_match: false
+      show_input: none
     transitions:
       next_state: iphone_gen_6S_cassic
 
@@ -523,11 +396,9 @@ states:
         next_state: iphone_type_6_user
 
   iphone_type_6_user:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        model: model
-      require_match: false
+      show_input: none
     transitions:
       next_state: smart_iphone_recommend
 
@@ -596,11 +467,9 @@ states:
         next_state: iphone_type_5S_user
 
   iphone_type_5S_user:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        model: model
-      require_match: false
+      show_input: none
     transitions:
       next_state: iphone_gen_5S_cassic
 

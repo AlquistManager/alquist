@@ -50,14 +50,11 @@ states:
           next_state: simple_info
 
   select_type:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        phone_type: phone_type
-      require_match: true
+      show_input: none
     transitions:
-      match: select_type_test
-      notmatch: error_phone_type
+      next_state: select_type_test
 
   select_type_test:
     type: CountPhonesZbozi

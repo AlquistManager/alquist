@@ -29,14 +29,9 @@ states:
 
 
   senior_price_3:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        trait_price: trait_price
-        price: price
-        price_from: price_from
-        price_to: price_to
-      require_match: false
+      show_input: none
     transitions:
       next_state: senior_check_price
 

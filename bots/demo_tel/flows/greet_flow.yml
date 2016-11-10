@@ -1,9 +1,6 @@
 ﻿name: greet_flow
 states:
   init:
-    type: HelloWorld
-    properties:
-  init2:
     type: message_text_random
     properties:
       responses:

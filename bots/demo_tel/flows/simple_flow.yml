@@ -29,14 +29,9 @@ states:
 
 
   simple_price_3:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        trait_price: trait_price
-        price: price
-        price_from: price_from
-        price_to: price_to
-      require_match: false
+      show_input: none
     transitions:
       next_state: simple_check_price
 
@@ -244,5 +239,6 @@ states:
   simple_out:
     type: input_special
     properties:
+      show_input: button
     transitions:
       next_state: smart_android_recommend

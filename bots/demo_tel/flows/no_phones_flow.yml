@@ -19,5 +19,7 @@ states:
   no_matches_3:
     type: input_special
     properties:
+      show_input: none
+
 
 

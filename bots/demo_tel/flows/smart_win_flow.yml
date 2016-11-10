@@ -116,14 +116,9 @@ states:
         next_state: smart_win_check_price
 
   smart_win_select_price:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        trait_price: trait_price
-        price: price
-        price_from: price_from
-        price_to: price_to
-      require_match: false
+      show_input: none
     transitions:
       next_state: smart_win_check_price
 
@@ -276,14 +271,11 @@ states:
           next_state: smart_win_display
 
   smart_win_display_select:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        display_size: display_size
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_win_params_2
-      notmatch: error_select_display_win
+      next_state: error_select_display_win
 
   smart_win_display:
     type: message_text
@@ -381,5 +373,6 @@ states:
   smart_win_out:
     type: input_special
     properties:
+      show_input: button
     transitions:
       next_state: smart_android_recommend

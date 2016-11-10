@@ -40,14 +40,11 @@ states:
           next_state: smart_os_1
 
   smart_select_os:
-    type: input_user
+    type: input_special
     properties:
-      entities:
-        phone_os: os
-      require_match: true
+      show_input: none
     transitions:
-      match: smart_check_os_android
-      notmatch: error_smart_os
+      next_state: error_smart_os
 
 
   smart_os_1:
