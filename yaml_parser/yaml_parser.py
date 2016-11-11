@@ -235,6 +235,8 @@ class YamlParser:
                 self.set_default_properties_message_checkboxes(state_name, state_properties, bot_name)
             elif state_properties['type'] == InputSpecial:
                 self.set_default_properties_input_special(state_properties)
+            elif state_properties['type'] == MessageSlider:
+                self.set_default_properties_message_slider(state_name, state_properties, bot_name)
             else:
                 # custom state
                 if not ('properties' in state_properties) or not (type(state_properties['properties']) is OrderedDict):
@@ -394,6 +396,42 @@ class YamlParser:
             if not ('show_input' in state_properties['properties']):
                 state_properties['properties'].update({'show_input': "both"})
 
+    def set_default_properties_message_slider(self, state_name, state_properties, bot_name):
+        if not ('properties' in state_properties) or not (
+                    type(state_properties['properties']) is OrderedDict):
+            raise ValueError(
+                'You have to specify at least one entity in the slider state "' + state_name + '" of the bot "' + bot_name + '".')
+        else:
+            if not ('entities' in state_properties['properties']) or not (
+                        type(state_properties['properties']['entities']) is list):
+                raise ValueError(
+                    'You have to specify at least one entity as list in the slider state "' + state_name + '" of the bot "' + bot_name + '".')
+            if not ('max_value' in state_properties['properties']):
+                state_properties['properties'].update({'max_value': 100})
+            if not ('min_value' in state_properties['properties']):
+                state_properties['properties'].update({'min_value': 0})
+            if not ('default_values' in state_properties['properties']) or not (
+                        type(state_properties['properties']['default_values']) is list):
+                defaults=[]
+                for i in range(0,len(state_properties['properties']['entities'])):
+                    defaults.append(0)
+                state_properties['properties']['default_values']=defaults
+            elif len(state_properties['properties']['default_values'])!=len(state_properties['properties']['entities']):
+                raise ValueError(
+                    'You specified different number of default values than you specified entites in the slider state "' + state_name + '" of the bot "' + bot_name + '".')
+            if not ('step' in state_properties['properties']):
+                state_properties['properties'].update({'step': 1})
+            if not ('connect' in state_properties['properties']):
+                state_properties['properties'].update({'connect': True})
+            if not ('tooltips' in state_properties['properties']):
+                state_properties['properties'].update({'tooltips': False})
+            if not ('tooltips_decimals' in state_properties['properties']):
+                state_properties['properties'].update({'tooltips_decimals': 0})
+            if not ('tooltips_prefix' in state_properties['properties']):
+                state_properties['properties'].update({'tooltips_prefix': ""})
+            if not ('tooltips_postfix' in state_properties['properties']):
+                state_properties['properties'].update({'tooltips_postfix': ""})
+
     # check and modifies delays
     def check_delays(self, loaded_yaml, bot_name):
         for state_name, state_properties in loaded_yaml['states'].items():
@@ -483,4 +521,4 @@ class YamlParser:
     # return all subdirectories directly in directory
     def get_immediate_subdirectories(self, a_dir):
         return [name for name in os.listdir(a_dir)
-                if os.path.isdir(os.path.join(a_dir, name)) and name!="__pycache__"]
+                if os.path.isdir(os.path.join(a_dir, name)) and name != "__pycache__"]

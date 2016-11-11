@@ -139,19 +139,21 @@ class MessageSlider(State):
         old_response = request_data.get('response', False)
 
         entities = State.contextualize(request_data['context'], self.properties['entities'])
-        max_value = State.contextualize(request_data['context'], self.properties['max-value'])
-        min_value = State.contextualize(request_data['context'], self.properties['min-value'])
-        default_values = State.contextualize(request_data['context'], self.properties['default-values'])
+        max_value = State.contextualize(request_data['context'], self.properties['max_value'])
+        min_value = State.contextualize(request_data['context'], self.properties['min_value'])
+        default_values = State.contextualize(request_data['context'], self.properties['default_values'])
+        connect = State.contextualize(request_data['context'], self.properties['connect'])
         step = State.contextualize(request_data['context'], self.properties['step'])
         tooltips = State.contextualize(request_data['context'], self.properties['tooltips'])
-        tooltips_decimals = State.contextualize(request_data['context'], self.properties['tooltips-decimals'])
-        tooltips_prefix = State.contextualize(request_data['context'], self.properties['tooltips-prefix'])
-        tooltips_postfix = State.contextualize(request_data['context'], self.properties['tooltips-postfix'])
+        tooltips_decimals = State.contextualize(request_data['context'], self.properties['tooltips_decimals'])
+        tooltips_prefix = State.contextualize(request_data['context'], self.properties['tooltips_prefix'])
+        tooltips_postfix = State.contextualize(request_data['context'], self.properties['tooltips_postfix'])
 
         message = {'type': 'slider',
                    'payload': {'entities': entities, 'max_value': max_value, 'min_value': min_value,
                                'default_values': default_values,
-                               'step': step, 'tooltips': tooltips, 'tooltips_decimals': tooltips_decimals,
+                               'step': step, 'connect': connect, 'tooltips': tooltips,
+                               'tooltips_decimals': tooltips_decimals,
                                'tooltips_prefix': tooltips_prefix,
                                'tooltips_postfix': tooltips_postfix},
                    'delay': self.properties['delay']}
