@@ -6,6 +6,7 @@ var payload = {};
 var session = "";
 var showHideTime = 500;
 var scrollToBottomTime = 500;
+var sliderInfo = {};
 
 //Function called right after the page is loaded
 $(document).ready(function () {
@@ -99,6 +100,8 @@ function sendInput(text) {
     text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     hideButtons();
     hideCheckboxes();
+    hideSlider();
+    sendSliderValues();
     $.ajax({
         url: endpoint,
         dataType: 'json',
@@ -158,6 +161,8 @@ function showSystemMessages(messages, input) {
         }
         else if (messages[i]['type'] == "carousel") {
             showCarousel(messages[i]['payload']['parts'], messages[i]['payload']['urls'], cumulatedDelay);
+        } else if (messages[i]['type'] == "slider") {
+            showSlider(messages[i]['payload'], cumulatedDelay);
         }
     }
     // if there is some delay, than hide input
@@ -283,6 +288,35 @@ function showCheckboxes(checkboxes) {
     $("html, body").animate({scrollTop: $(document).height()}, scrollToBottomTime);
 }
 
+function showSlider(slider, cumulatedDelay) {
+    setTimeout(function () {
+        var sliders = $("#sliders");
+        sliders.empty();
+        sliders.html("<div id='slider'></div>");
+        sliderInfo["entities"] = slider["entities"];
+        var sliderElement = document.getElementById('slider');
+
+        noUiSlider.create(sliderElement, {
+            start: slider["default_values"],
+            connect: slider["connect"],
+            range: {
+                'min': slider['min_value'],
+                'max': slider['max_value']
+            },
+            step: slider['step'],
+            tooltips: slider['tooltips'],
+            format: wNumb({
+                decimals: slider['tooltips_decimals'],
+                prefix: slider['tooltips_prefix'],
+                postfix: slider['tooltips_postfix']
+            })
+        });
+        $("#sliders").show(showHideTime);
+        //alert(sliderElement.noUiSlider.get());
+        $("html, body").animate({scrollTop: $(document).height()}, scrollToBottomTime);
+    }, cumulatedDelay);
+}
+
 function showIframe(url, width, height, scrolling, align, delay) {
     var well = $('<table class="message"><tr><td><img src="img/Alquist.png" class="profile_picture_left"></td><td><div class="arrow-left"></div></td><td style="width: 100%"><div class="well well_system"><div class="clearfix"><table style="width:100%"><tr><td><b>Alquist:</b></td><td style="width: 100%; text-align: ' + align + ';"><iframe src=' + url + ' style="height: ' + height + 'px; width: ' + width + '%;"class="message_iframe" scrolling="' + scrolling + '"></iframe></td></tr></table></div></div></td><td class="empty_space" style="float: right;"></td></tr></table>');
     setTimeout(function () {
@@ -334,9 +368,23 @@ function createCheckboxClickCallback(checkboxElement, update_keys) {
     }
 }
 
+function sendSliderValues() {
+    if (sliderInfo["entities"].length == 1) {
+        payload[sliderInfo["entities"][0]] = parseInt(slider.noUiSlider.get());
+    } else {
+        for (var i = 0; i < sliderInfo["entities"].length; i++) {
+            payload[sliderInfo["entities"][i]] = parseInt(slider.noUiSlider.get()[i]);
+        }
+    }
+}
+
 //hide buttons smoothly
 function hideButtons() {
     $('#buttons').hide(showHideTime);
+}
+
+function hideSlider() {
+    $('#sliders').hide(showHideTime);
 }
 
 //hide checkboxes smoothly

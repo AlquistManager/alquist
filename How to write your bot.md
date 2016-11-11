@@ -257,6 +257,74 @@ Example:
 
 ``scrolling`` determines scrolling of iframe, only two possible values are 'yes' and 'no'
 
+### message_checkboxes
+Used to show checkboxes.
+
+Example:
+    
+    [name]:
+    type: message_checkboxes
+    properties:
+      checkboxes:
+        - label: [label]
+          update_keys:
+            [key]: [value]
+          type: [type]
+        - label: [label]
+          update_keys:
+            [key]: [value]
+          type: [type]
+``checkboxes`` list of checkboxes
+
+``label`` text of the checkbox
+
+``update_keys`` list of keys to update
+
+``type`` type of checkbox, has to be implemented in the client
+
+### message_slider
+Used to show slider.
+
+Example:
+    
+    [name]:
+    type: message_slider
+    properties:
+      entities:
+        - [entity_one]
+        - [entity_two]
+      max_value: [max value] (integer)
+      min_value: [min value] (integer)
+      default_values:
+        - [default value of the first slider] (integer)
+        - [default value of the second slider] (integer)
+      step: [one step of slider]
+      connect: [is there colored line between sliders] (true/false)
+      tooltips: [is there label shoving values above slider] (true/false)
+      tooltips_decimals: [how much decimal places to show] (integer)
+      tooltips_prefix: [prefix of tooltip]
+      tooltips_postfix: [postfix of tooltip]
+
+``entities`` into this fields of context the values will be saved, must be list
+
+``max_value`` max value of slider
+
+``min_value`` min value of slider
+
+``default_values`` default values of slider, must be list of the same length as entities
+
+``step`` one step of slider
+
+``connect`` will be sliders connected by color line?
+
+``tooltips`` will be labels with selected values above sliders?
+
+``tooltips_decimals`` number of decimal places in the tooltips
+
+``tooltips_prefix`` text shown in front of the label of tooltip
+
+``tooltips_postfix`` text shown behind of the label of tooltip
+
 ### change_context
 change_context is used to change session context independently on user input.
 
@@ -332,6 +400,22 @@ Example:
 ``entities`` this field contains entities to save to context, **REQUIRED**
 > ``entity1`` context key under which the value is saved
 > ``nlp_entity_name`` name of the entity in the nlp
+
+``next_state`` field contains name of the next state
+
+### input_special
+input_special is used for saving checkboxes and slider values into context. 
+It is necessary to put input_special after each message_checkboxes and message_slider states.
+
+Example:
+
+	[name]:
+        type: input_special
+        properties:
+            show_input: [both, button, input, none]
+        transitions:
+            next_state: [next_state_name]
+``show_input`` this field determines what input will be shown
 
 ``next_state`` field contains name of the next state
 
