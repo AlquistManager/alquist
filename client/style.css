@@ -168,6 +168,10 @@ body {
     padding-left: 0px;
 }
 
+#sliders{
+    margin-bottom: 25px;
+}
+
 @media (max-width: 993px) {
     #back_buttons {
         text-align: right !important;
