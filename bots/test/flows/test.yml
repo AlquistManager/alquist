@@ -6,16 +6,17 @@ states:
       entities:
         - min_price
         - max_price
-      max-value: 30000
-      min-value: 1000
-      default-values:
+      max_value: 30000
+      min_value: 1000
+      default_values:
         - 5000
         - 10000
       step: 100
+      connect: true
       tooltips: true
-      tooltips-decimals: 0
-      tooltips-prefix: ""
-      tooltips-postfix: "Kč"
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "Kč"
 
   init2:
     type: message_text_random
@@ -26,7 +27,7 @@ states:
       delay: 0
 
   t:
-    type: input_user
+    type: input_special
 
   init3:
     type: message_text_random
