@@ -369,11 +369,13 @@ function createCheckboxClickCallback(checkboxElement, update_keys) {
 }
 
 function sendSliderValues() {
-    if (sliderInfo["entities"].length == 1) {
-        payload[sliderInfo["entities"][0]] = parseInt(slider.noUiSlider.get());
-    } else {
-        for (var i = 0; i < sliderInfo["entities"].length; i++) {
-            payload[sliderInfo["entities"][i]] = parseInt(slider.noUiSlider.get()[i]);
+    if ("entities" in sliderInfo ) {
+        if (sliderInfo["entities"].length == 1) {
+            payload[sliderInfo["entities"][0]] = parseInt(slider.noUiSlider.get());
+        } else {
+            for (var i = 0; i < sliderInfo["entities"].length; i++) {
+                payload[sliderInfo["entities"][i]] = parseInt(slider.noUiSlider.get()[i]);
+            }
         }
     }
 }
