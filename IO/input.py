@@ -49,8 +49,21 @@ def get_input():
     # except:  # Error in execution
     #    return jsonify(ok=False, message="Error during execution.")
 
+@flask.route('/client/')
+def get_bot1():
+    return send_from_directory("../client/", "index.html")
 
 @flask.route('/client/<file>', defaults={'path': ''})
 @flask.route('/client/<path:path>/<file>')
-def get_dir_subfolder(path, file):
+def get_bot2(path, file):
+    return send_from_directory("../client/" + path, file)
+
+@flask.route('/<bot>/')
+def get_bot3(bot):
+    return send_from_directory("../client/", "index.html")
+
+
+@flask.route('/<bot>/<file>', defaults={'path': ''})
+@flask.route('/<bot>/<path:path>/<file>')
+def get_bot4(bot, path, file):
     return send_from_directory("../client/" + path, file)

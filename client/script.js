@@ -244,8 +244,12 @@ function getEndpoint() {
 
 //Get endpoint of Alquist from URL parameters
 function getBot() {
-    //Get endpoint from URL
-    var bot = getParameterByName("bot", window.location.href);
+    var bot = window.location.pathname;
+    bot=bot.replace(/\//g,"");
+    if (bot == "") {
+        //Get endpoint from URL
+        bot = getParameterByName("bot", window.location.href);
+    }
     //Use default, if no endpoint is present
     if (bot == null) {
         bot = "";
@@ -372,7 +376,7 @@ function createCheckboxClickCallback(checkboxElement, update_keys) {
 }
 
 function sendSliderValues() {
-    if ("entities" in sliderInfo ) {
+    if ("entities" in sliderInfo) {
         if (sliderInfo["entities"].length == 1) {
             payload[sliderInfo["entities"][0]] = parseInt(slider.noUiSlider.get());
         } else {
@@ -428,7 +432,7 @@ function hideSubmitButon() {
     $('#submit').hide(showHideTime);
 }
 
-function hideCarousel(){
+function hideCarousel() {
     $('#carousel').hide(showHideTime);
 }
 
