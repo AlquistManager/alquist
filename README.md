@@ -59,15 +59,19 @@ For example:
 ###Request
 To communicate with Alquist use POST requests to url, on which the Alquist is running. POST have to contains JSON with fields:
 
-- text
+- ``text``
     Contains user's input text. You can leave it blank, if user has nothing to say (when the Alquist starts a dialogue and we need to prompt
     it to start for example).
-- state
+- ``state``
     Name of state, where we currently are. The state is "init" at the start of dialogue usually. Must contain something every time.
-- context
+- ``context``
     Json object representing context. There must be empty Json object at least every time.
-- session
+- ``session``
     ID of session used during logging. Can be empty at the start of dialogue.
+- ``bot``
+    Name of bot.
+- ``payload``
+    Additional information for states in the form of JSON object.
     
 ###Response
 Response contains JSON with fields:
@@ -75,7 +79,7 @@ Response contains JSON with fields:
 - messages
     List of Alquist's answers. Each answer is object.
     - type
-        Type of message. It can be ``text``, ``button`` or ``iframe``.
+        Type of message. It can be ``text``, ``button``, ``iframe`` or ``slider``.
     - payload
         Information about message. It differs according to type of message:
         - ``text`` type
@@ -99,6 +103,27 @@ Response contains JSON with fields:
                 Will be scrollbar visible?
             - align
                 Iframe's align
+        - ``slider`` type
+            - entities
+                List of entities to save values into context
+            - default_values
+                List of default values of sliders
+            - min_value
+                Minimal value of slider
+            - max_value
+                Maximal value of slider
+            - step
+                Size of step of one slider
+            - connect
+                Should be sliders connected by color line?
+            - tooltips
+                Should be tooltips shown above the sliders?
+            - tooltips_decimals
+                Number of decimal numbers of tooltips
+            - tooltips_prefix
+                Prefix of tooltips
+            - tooltips_postfix
+                Postfix of tooltips
             
     - delay
         Delay of massage in the milliseconds.        
