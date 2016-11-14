@@ -101,6 +101,7 @@ function sendInput(text) {
     hideButtons();
     hideCheckboxes();
     hideSlider();
+    hideCarousel();
     sendSliderValues();
     $.ajax({
         url: endpoint,
@@ -329,8 +330,10 @@ function showIframe(url, width, height, scrolling, align, delay) {
 }
 
 function showCarousel(parts, urls, delay) {
+    $('#carousel').empty();
     //Show it on page
     setTimeout(function () {
+        $('#carousel').show(0);
         var carousell = $('<div class="multiple-items" style="height:600px"> </div>');
         var well = $('<div class="well" style="margin-bottom: 20px;"><div class="clearfix"></div></div>').append(carousell);
         $("#carousel").append(well);
@@ -423,6 +426,10 @@ function hideInput() {
 
 function hideSubmitButon() {
     $('#submit').hide(showHideTime);
+}
+
+function hideCarousel(){
+    $('#carousel').hide(showHideTime);
 }
 
 //hack to have same size of input field and submit button
