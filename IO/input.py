@@ -49,6 +49,7 @@ def get_input():
     # except:  # Error in execution
     #    return jsonify(ok=False, message="Error during execution.")
 
+# Methods to show client
 @flask.route('/client/')
 def get_bot1():
     return send_from_directory("../client/", "index.html")
