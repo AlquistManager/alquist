@@ -244,11 +244,11 @@ function getEndpoint() {
 
 //Get endpoint of Alquist from URL parameters
 function getBot() {
-    var bot = window.location.pathname;
-    bot=bot.replace(/\//g,"");
-    if (bot == "") {
-        //Get endpoint from URL
-        bot = getParameterByName("bot", window.location.href);
+    //Get endpoint from URL
+    var bot = getParameterByName("bot", window.location.href);
+    if (bot == null || bot == "") {
+        bot = window.location.pathname;
+        bot = bot.replace(/\//g, "");
     }
     //Use default, if no endpoint is present
     if (bot == null) {
