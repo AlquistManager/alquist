@@ -18,7 +18,7 @@ states:
   smart_win_init_3:
     type: message_text
     properties:
-      text: 'Nabídka telefonů s Windows Phone je u nás poměrně úzká, mětšina modelů pochází od výdobců Microsoft a Nokia.'
+      text: 'Nabídka telefonů s Windows Phone je u nás poměrně úzká, většina modelů pochází od výdobců Microsoft a Nokia.'
 
   smart_win_2:
     type: message_text
@@ -74,6 +74,24 @@ states:
           type: Main
         - label: 'PŘESKOČIT'
           next_state: smart_win_size
+
+  win_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 20000
+      min_value: 0
+      default_values:
+        - 0
+        - 20000
+      step: 500
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
     transitions:
         next_state: smart_win_select_price
 
@@ -118,7 +136,7 @@ states:
   smart_win_select_price:
     type: input_special
     properties:
-      show_input: none
+      show_input: button
     transitions:
       next_state: smart_win_check_price
 

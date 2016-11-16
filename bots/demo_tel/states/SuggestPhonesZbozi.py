@@ -45,43 +45,43 @@ class SuggestPhonesZbozi(State):
         price = context.get('price', False)
         trait_price = context.get('trait_price', False)
         if price_from and price_to:
-            query += "&minPrice=" + price_from.replace(" ", "")
-            query += "&maxPrice=" + price_to.replace(" ", "")
+            query += "&minPrice=" + str(price_from).replace(" ", "")
+            query += "&maxPrice=" + str(price_to).replace(" ", "")
 
         elif trait_price:
             if trait_price == 'price_from':
                 if price:
-                    query += "&minPrice=" + price.replace(" ", "")
+                    query += "&minPrice=" + str(price).replace(" ", "")
                 elif price_from:
-                    query += "&minPrice=" + price_from.replace(" ", "")
+                    query += "&minPrice=" + str(price_from).replace(" ", "")
                 elif price_to:
-                    query += "&maxPrice=" + price_to.replace(" ", "")
+                    query += "&maxPrice=" + str(price_to).replace(" ", "")
             elif trait_price == 'price_to':
                 if price:
-                    query += "&maxPrice=" + price.replace(" ", "")
+                    query += "&maxPrice=" + str(price).replace(" ", "")
                 elif price_to:
-                    query += "&maxPrice=" + price_to.replace(" ", "")
+                    query += "&maxPrice=" + str(price_to).replace(" ", "")
                 elif price_from:
-                    query += "&minPrice=" + price_from.replace(" ", "")
+                    query += "&minPrice=" + str(price_from).replace(" ", "")
             elif trait_price == 'price_around':
                 if price:
-                    query += "&minPrice=" + str(int(price.replace(" ", "")) - 500)
-                    query += "&maxPrice=" + str(int(price.replace(" ", "")) + 500)
+                    query += "&minPrice=" + str(int(str(price).replace(" ", "")) - 500)
+                    query += "&maxPrice=" + str(int(str(price).replace(" ", "")) + 500)
 
                 elif price_to:
-                    query += "&minPrice=" + str(int(price_to.replace(" ", "")) - 500)
-                    query += "&maxPrice=" + str(int(price_to.replace(" ", "")) + 500)
+                    query += "&minPrice=" + str(int(str(price_to).replace(" ", "")) - 500)
+                    query += "&maxPrice=" + str(int(str(price_to).replace(" ", "")) + 500)
 
                 elif price_from:
-                    query += "&minPrice=" + str(int(price_from.replace(" ", "")) - 500)
-                    query += "&maxPrice=" + str(int(price_from.replace(" ", "")) + 500)
+                    query += "&minPrice=" + str(int(str(price_from).replace(" ", "")) - 500)
+                    query += "&maxPrice=" + str(int(str(price_from).replace(" ", "")) + 500)
         elif price_from:
-            query += "&minPrice=" + price_from.replace(" ", "")
+            query += "&minPrice=" + str(price_from).replace(" ", "")
         elif price_to:
-            query += "&maxPrice=" + price_to.replace(" ", "")
+            query += "&maxPrice=" + str(price_to).replace(" ", "")
         elif price:
-            query += "&minPrice=" + str(int(price.replace(" ", "")) - 500)
-            query += "&maxPrice=" + str(int(price.replace(" ", "")) + 500)
+            query += "&minPrice=" + str(int(str(price).replace(" ", "")) - 500)
+            query += "&maxPrice=" + str(int(str(price).replace(" ", "")) + 500)
 
         display_size = context.get('display_size', False)
         if display_size:
@@ -228,12 +228,21 @@ class SuggestPhonesZbozi(State):
                     url += "&name=" + urllib.parse.quote(product['displayName'])
                     url += "&image=" + "https:" + product['images'][0]['imageUrl']
                     url += "&url=" + "https://www.zbozi.cz/vyrobek/" + product['normalizedName'] + "/"
-                    url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
-                        'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
-                    url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
-                        'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
-                    url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
-                        'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
+                    try:
+                        url += "&param0=" + urllib.parse.quote(product['parameters'][0]['displayName'] + " " + product['parameters'][0]['values'][0][
+                            'displayValue'] + product['parameters'][0]['values'][0]['displayUnit'])
+                    except IndexError:
+                        pass
+                    try:
+                        url += "&param1=" + urllib.parse.quote(product['parameters'][1]['displayName'] + " " + product['parameters'][1]['values'][0][
+                            'displayValue'] + product['parameters'][1]['values'][0]['displayUnit'])
+                    except IndexError:
+                        pass
+                    try:
+                        url += "&param2=" + urllib.parse.quote(product['parameters'][2]['displayName'] + " " + product['parameters'][2]['values'][0][
+                            'displayValue'] + product['parameters'][2]['values'][0]['displayUnit'])
+                    except IndexError:
+                        pass
                     request_data['context'].update(
                         {'suggested_phones_' + str(i): url})
                     i += 1

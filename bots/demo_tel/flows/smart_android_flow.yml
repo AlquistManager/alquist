@@ -68,6 +68,24 @@ states:
           type: Main
         - label: 'PŘESKOČIT'
           next_state: smart_android_brand
+
+  android_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 30000
+      min_value: 0
+      default_values:
+        - 0
+        - 30000
+      step: 500
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
     transitions:
         next_state: smart_select_price
 
@@ -112,7 +130,7 @@ states:
   smart_select_price:
     type: input_special
     properties:
-      show_input: none
+      show_input: button
     transitions:
       next_state: smart_check_price
 

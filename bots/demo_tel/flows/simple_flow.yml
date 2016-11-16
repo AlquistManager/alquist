@@ -27,11 +27,28 @@ states:
         - label: 'PŘESKOČIT'
           next_state: s_price_out_test
 
+  simple_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 6000
+      min_value: 0
+      default_values:
+        - 0
+        - 6000
+      step: 100
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
 
   simple_price_3:
     type: input_special
     properties:
-      show_input: none
+      show_input: button
     transitions:
       next_state: simple_check_price
 

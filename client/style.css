@@ -169,7 +169,13 @@ body {
 }
 
 #sliders{
+    margin-top: 35px;
     margin-bottom: 25px;
+}
+
+.noUi-tooltip {
+    font-size: 12px;
+    font-weight: bold;
 }
 
 @media (max-width: 993px) {
