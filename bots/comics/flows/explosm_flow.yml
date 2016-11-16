@@ -1,0 +1,61 @@
+name: webcomic_bot_explosm
+states:
+  explosm_set_context:
+    type: change_context
+    properties:
+      update_keys:
+        current_comic_exp: "/comics/latest"
+    transitions:
+      next_state: explosm_begin
+
+  explosm_begin:
+    type: get_explosm
+    properties:
+      action: "get_current"
+    transitions:
+      next_state: explosm_choose
+
+ 
+  explosm_choose:
+    type: message_buttons
+    properties:
+        buttons:
+        - label: "previous"
+          next_state: explosm_previous
+          type: Main
+        - label: "next"
+          next_state: explosm_next
+          type: Main
+        - label: "random"
+          next_state: explosm_random
+          type: Main
+        - label: "return"
+          next_state: init
+          type: Main
+
+  input_exp:
+    type: input_user
+    properties:
+      entities:
+        
+  explosm_previous:
+    type: get_explosm
+    properties:
+      action: "get_previous"
+    transitions:
+      next_state: explosm_choose
+
+  explosm_next:
+    type: get_explosm
+    properties:
+      action: "get_next"
+    transitions:
+      next_state: explosm_choose
+
+  explosm_random:
+    type: get_explosm
+    properties:
+      action: "get_random"
+    transitions:
+      next_state: explosm_choose
+  

@@ -1,0 +1,62 @@
+
+name: webcomic_bot_xkcd
+states:
+  xkcd_set_context:
+    type: change_context
+    properties:
+      update_keys:
+        current_comic_xkcd: ""
+    transitions:
+      next_state: xkcd_begin
+
+  xkcd_begin:
+    type: get_xkcd
+    properties:
+      action: "get_current"
+    transitions:
+      next_state: xkcd_choose
+
+ 
+  xkcd_choose:
+    type: message_buttons
+    properties:
+        buttons:
+        - label: "previous"
+          next_state: xkcd_previous
+          type: Main
+        - label: "next"
+          next_state: xkcd_next
+          type: Main
+        - label: "random"
+          next_state: xkcd_random
+          type: Main
+        - label: "return"
+          next_state: init
+          type: Main
+
+  input_xkcd:
+    type: input_user
+    properties:
+      entities:
+        
+  xkcd_previous:
+    type: get_xkcd
+    properties:
+      action: "get_previous"
+    transitions:
+      next_state: xkcd_choose
+
+  xkcd_next:
+    type: get_xkcd
+    properties:
+      action: "get_next"
+    transitions:
+      next_state: xkcd_choose
+
+  xkcd_random:
+    type: get_xkcd
+    properties:
+      action: "get_random"
+    transitions:
+      next_state: xkcd_choose
+  
