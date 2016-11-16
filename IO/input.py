@@ -1,6 +1,7 @@
 # Handles input from the user by Flask
 import uuid
 
+import dialogue_logger
 import loaded_states
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
@@ -38,6 +39,7 @@ def get_input():
         # create UUID for session if it does't exist
     if session is "":
         session = str(uuid.uuid4())
+    dialogue_logger.log("Log Request: " + request.data.decode("utf-8"), session)
 
         # try:
         # execute states
