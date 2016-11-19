@@ -1,0 +1,23 @@
+﻿name: all_flow
+states:
+  all_intro:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: all_intro_2
+
+  all_intro_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: all_intro_3
+
+  all_intro_3:
+    type: message_text
+    properties:
+      text: 'How much do you want to spend?'
+    transitions:
+      next_state: 'smart_price_1'

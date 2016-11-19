@@ -1,0 +1,261 @@
+﻿name: simple_flow
+states:
+  simple_intro:
+    type: message_text
+    properties:
+      text: 'Great, you need a SIMPLE low-cost phone with limitad functionality.'
+
+  simple_price:
+    type: message_text
+    properties:
+      text: 'Chose the price range or SKIP if you want to see all afferings.'
+      delay: 3000
+
+  simple_select_price:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Do 1000 Kč'
+          next_state: simple_price_1_context
+          type: Main
+        - label: '1000 až 2000 Kč'
+          next_state: simple_price_2_context
+          type: Main
+        - label: 'Nad 2000 Kč'
+          next_state: simple_price_3_context
+          type: Main
+        - label: 'PŘESKOČIT'
+          next_state: s_price_out_test
+
+  simple_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 6000
+      min_value: 0
+      default_values:
+        - 0
+        - 6000
+      step: 100
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
+
+  simple_price_3:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: simple_check_price
+
+  simple_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '1000'
+           trait_price: 'price_to'
+    transitions:
+        next_state: simple_check_price
+
+  simple_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '1000'
+           price_to: '2000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: simple_check_price
+
+  simple_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: simple_check_price
+
+
+  simple_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_check_price_from
+
+  simple_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_check_price_to
+
+  simple_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: simple_price_cond1
+      notexists: simple_price_error
+
+  simple_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: simple_price_out1
+      notequal: simple_price_cond2
+
+  simple_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: simple_price_out2
+      notequal: simple_price_cond3
+
+  simple_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: simple_price_out3
+      notequal: simple_price_cond4
+
+  simple_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: simple_price_out4
+      notequal: s_price_out_test
+
+  simple_price_out1:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range starting at&nbsp;{{price}}&nbsp;Euro.'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  simple_price_out2:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range &nbsp;{{price}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  simple_price_out3:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range between&nbsp;{{price_from}}&nbsp;and&nbsp;{{price_to}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  simple_price_out4:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range around&nbsp;{{price}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+
+
+  simple_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, but what is the phone price range?'
+        - 'I am sorry, I still do not understand how much you want to spend.'
+      delay: 1000
+    transitions:
+      next_state: simple_select_price
+
+
+  s_price_out_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: s_price_out_test_2
+
+  s_price_out_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: simple_params
+
+  simple_params:
+    type: message_text
+    properties:
+      text: 'You can select some of the phone features.'
+      delay: 2000
+
+  simple_params2:
+    type: message_text
+    properties:
+      text: 'Check the features and SUBMIT, please.'
+      delay: 2000
+
+  simple_params_buttons:
+    type: message_checkboxes
+    properties:
+      checkboxes:
+        - label: 'Touch screen'
+          update_keys:
+            touchscreen: 'yes'
+          type: Main
+        - label: 'Camera'
+          update_keys:
+            camera: 'yes'
+          type: Main
+        - label: 'Keyboard buttons'
+          update_keys:
+            hw_keyboard: 'yes'
+          type: Main
+        - label: 'Lght'
+          update_keys:
+            light: 'yes'
+          type: Main
+        - label: 'Bluetooth'
+          update_keys:
+            bluetooth: 'yes'
+          type: Main
+        - label: 'WiFi'
+          update_keys:
+            wifi: 'yes'
+          type: Main
+        - label: 'GPS'
+          update_keys:
+            gps: 'yes'
+          type: Main
+        - label: 'Dual SIM'
+          update_keys:
+            dual_sim: 'yes'
+          type: Main
+    transitions:
+      next_state: simple_out
+
+
+  simple_out:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: smart_android_recommend

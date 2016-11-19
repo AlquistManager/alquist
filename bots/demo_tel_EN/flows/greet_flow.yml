@@ -1,0 +1,13 @@
+﻿name: greet_flow
+states:
+  init:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Hi, I am Alquist and I will help you to choose a cell phone!'
+        - 'Hello, I will help you to select a cell phone perfect for you!.'
+        - 'Hi, let me assist you with selectin a cell phone.'
+        - 'Hi, I will assist you selecting a cell phone.'
+      delay: 0
+    transitions:
+      flow: main_flow

@@ -1,0 +1,185 @@
+﻿name: senior_flow
+states:
+  senior_intro:
+    type: message_text
+    properties:
+      text: 'Great, you need a SENIOR phone with large buttons, easy to control, read the screen and inteligible sound.'
+
+  senior_price:
+    type: message_text
+    properties:
+      text: 'Chose the price range or SKIP if you want to see all afferings.'
+      delay: 4000
+
+  senior_select_price:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Do 1000 Kč'
+          next_state: simple_price_1_context
+          type: Main
+        - label: '1000 až 2000 Kč'
+          next_state: simple_price_2_context
+          type: Main
+        - label: 'Nad 2000 Kč'
+          next_state: simple_price_3_context
+          type: Main
+        - label: 'PŘESKOČIT'
+          next_state: s_price_out_test
+
+  senior_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 4000
+      min_value: 0
+      default_values:
+        - 0
+        - 4000
+      step: 100
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
+
+  senior_price_3:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: senior_check_price
+
+  senior_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '1000'
+           trait_price: 'price_to'
+    transitions:
+        next_state: senior_check_price
+
+  senior_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '1000'
+           price_to: '2000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: senior_check_price
+
+  senior_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: senior_check_price
+
+
+  senior_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: senior_price_cond1
+      notexists: senior_check_price_from
+
+  senior_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: senior_price_cond1
+      notexists: senior_check_price_to
+
+  senior_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: senior_price_cond1
+      notexists: senior_price_error
+
+  senior_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: senior_price_out1
+      notequal: senior_price_cond2
+
+  senior_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: senior_price_out2
+      notequal: senior_price_cond3
+
+  senior_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: senior_price_out3
+      notequal: senior_price_cond4
+
+  senior_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: senior_price_out4
+      notequal: s_price_out_test
+
+  senior_price_out1:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range starting at&nbsp;{{price}}&nbsp;Euro.'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  senior_price_out2:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range &nbsp;{{price}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  senior_price_out3:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range between&nbsp;{{price_from}}&nbsp;and&nbsp;{{price_to}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  senior_price_out4:
+    type: message_text
+    properties:
+      text: 'I am looking for phones in the price range around&nbsp;{{price}}&nbsp;Euro'
+      delay: 1000
+    transitions:
+      next_state: s_price_out_test
+
+  senior_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, but what is the phone price range?'
+        - 'I am sorry, I still do not understand how much you want to spend.'
+      delay: 1000
+    transitions:
+      next_state: senior_select_price
+

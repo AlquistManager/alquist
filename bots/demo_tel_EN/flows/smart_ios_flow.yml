@@ -1,0 +1,550 @@
+﻿name: smart_ios_flow
+states:
+  smart_ios_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_ios_init_2
+
+  smart_ios_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_ios_init_3
+
+  smart_ios_init_3:
+    type: message_text
+    properties:
+      text: 'iOS is the iPhone oeprating system from Apple. '
+
+  smart_ios_init_4:
+    type: message_text
+    properties:
+      text: 'What iPhone generation do you wANT? reviw the selection, you can always get back and repeat the selection. '
+      delay: 2500
+
+  simple_select_gen:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 7'
+          next_state: iphone_gen_7_context
+          type: Main
+        - label: 'iPhone SE'
+          next_state: iphone_gen_SE_context
+          type: Main
+        - label: 'iPhone 6S'
+          next_state: iphone_gen_6S_context
+          type: Main
+        - label: 'iPhone 6'
+          next_state: iphone_gen_6_context
+          type: Main
+        - label: 'iPhone 5S/5C'
+          next_state: iphone_gen_5S_context
+          type: Main
+        - label: 'iPhone 5'
+          next_state: iphone_gen_5_context
+          type: Main
+        - label: 'Tell me more ...'
+          next_state: iphone_gen_help
+      transitions:
+        next_state: iphone_type_user
+
+  iphone_type_user:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: iphone_type_7
+
+  iphone_gen_help:
+    type: message_text
+    properties:
+      text: 'iPhone are famouse becase of the stylish design, simplicity of the user interface and great applications. Operating system iOS is very well tuned for the iPhone hardware. iPhones are for many years the best selling smartphones.'
+      delay: 0
+
+  iphone_gen_help_2:
+    type: message_text
+    properties:
+      text: 'The iPhones generations differ in hardware, performance and design and, of course, price tag. Each generation comes with several models. The newest is the generation 7. The price is different,'
+      delay: 5000
+    transitions:
+      next_state: smart_ios_init_4
+
+
+  iphone_gen_7_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '7'
+    transitions:
+        next_state: iphone_type_7
+
+  iphone_gen_6S_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '6s'
+    transitions:
+        next_state: iphone_type_6S
+
+  iphone_gen_6_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '6'
+    transitions:
+        next_state: iphone_type_6
+
+  iphone_gen_5S_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '5S'
+    transitions:
+        next_state: iphone_type_5S
+
+  iphone_gen_5_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: '5'
+    transitions:
+        next_state: iphone_type_5
+
+  iphone_gen_SE_context:
+    type: change_context
+    properties:
+        update_keys:
+           generation: 'SE'
+    transitions:
+        next_state: iphone_type_SE
+
+  iphone_type_7:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_7t2
+
+  iphone_type_7t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_7t3
+
+  iphone_type_7t3:
+    type: message_text
+    properties:
+      text: 'The latest iPhone 7 is compared the the previous mode netter in almost all parameters.'
+
+  iphone_type_7_2:
+    type: message_text
+    properties:
+      text: 'The most importsnt feature is the processor with four cores. The camera has electronic stabilization and stronger battery. '
+      delay: 2000
+
+  iphone_type_7_3:
+    type: message_text
+    properties:
+      text: 'The latest generation comes in two modificationsh, a classical iPhone 7 with 4,7 inch screen and a bigger iPhone 7 Plus with a 5,5 inch screen. You can get both in different colors and with a different size of the internal memory.'
+      delay: 3000
+
+  iphone_type_7_4:
+    type: message_text
+    properties:
+      text: 'Select, please.'
+      delay: 5000
+
+  simple_select_model_7:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 7 '
+          next_state: iphone_gen_7_cassic
+          type: Main
+        - label: 'iPhone 7 Plus'
+          next_state: iphone_gen_7_plus
+          type: Main
+        - label: 'BACK TO THE GENERATION SELECTION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_user
+
+  iphone_type_7_user:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: smart_iphone_recommend
+
+
+
+  iphone_gen_7_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_gen_7_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  smart_iphone_recommend:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_recommendt2
+
+  iphone_type_SE:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_SEt1
+
+  iphone_type_SEt1:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_SEt2
+
+  iphone_type_SEt2:
+    type: message_text
+    properties:
+      text: 'iPhone SE, představený na jaře roku 2016, kombinuje líbivý design a praktickou velikost modelu 5s s nekompromisním výkonem a funkcemi nejnovějších iPhonů 6s a 6s Plus.'
+
+  iphone_type_SE_2:
+    type: message_text
+    properties:
+      text: 'Těšit se můžete na špičkový procesor A9, 2 GB operační paměti, 12 MPx fotoaparát, NFC nebo třeba podporu ještě rychlejších sítí LTE. To vše v malém těle s 4" displejem, který lze snadno ovládat jednou rukou.'
+      delay: 4000
+
+  iphone_type_SE_3:
+    type: message_text
+    properties:
+      text: 'Model SE je dostupný v několika barevných provedeních a s různou kapacitou interní paměti.'
+      delay: 5000
+
+  iphone_type_SE_4:
+    type: message_text
+    properties:
+      text: 'Pokud myslíte, že je iPhone SE je telefon právě pro vás, zvolte pokračovat. Pokud byste raději zvolili jinou generaci, zvolte možnost zpět na výběr generace.'
+      delay: 2000
+
+  simple_select_model_SE:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'CONTINUE'
+          next_state: smart_iphone_recommend
+          type: Main
+        - label: 'BACK TO THE GENERATION SELECTION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_7_user
+
+
+  iphone_type_6S:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_6St2
+
+  iphone_type_6St2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_6St3
+
+  iphone_type_6St3:
+    type: message_text
+    properties:
+      text: 'iPhone 6S was introduced in 2015 following the iPhone 6 model'
+
+  iphone_type_6S_2:
+    type: message_text
+    properties:
+      text: 'The differentiating feature is the "3D Touch". The older touch screens allowed to clici or drag and drop. The hew screen senses how strongly is pressed. The stronger push is used as the right mouse button.'
+      delay: 2000
+
+  iphone_type_6S_3:
+    type: message_text
+    properties:
+      text: 'Further, the camera resolution is increased from 8 eo 12 MPx. As usual the CPU and the graphics were also improved resulting in 70 % speed increase and 90 % improvement in graphics.'
+      delay: 5000
+
+  iphone_type_6S_4:
+    type: message_text
+    properties:
+      text: 'iPhone 6S comes in two models calssical iPhone 6S with 4,7 inch screen and bigger iPhone 6S Plus with 5,5 inch screeen. Both in different colors and with different internal memory.'
+      delay: 4000
+
+  iphone_type_6S_5:
+    type: message_text
+    properties:
+      text: 'Select the model or go back to change generation.'
+      delay: 5000
+
+  simple_select_model_6S:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 6S'
+          next_state: iphone_gen_6S_cassic
+          type: Main
+        - label: 'iPhone 6S Plus'
+          next_state: iphone_gen_6S_plus
+          type: Main
+        - label: 'CHANGE GENERATION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_6S_user
+
+  iphone_type_6S_user:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: iphone_gen_6S_cassic
+
+  iphone_gen_6S_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_gen_6S_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_type_6:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_6t2
+
+  iphone_type_6t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_6t3
+
+  iphone_type_6t3:
+    type: message_text
+    properties:
+      text: 'iPhone 6 was introduced in 2014 following iPhone 5 and iPhone 5S'
+
+  iphone_type_6_2:
+    type: message_text
+    properties:
+      text: 'Compared to its predecessor it is equipped with stronger CPU, camera records video in Full HD, 60 frames per second. It also had fingerprints reader to unlock the phone.'
+      delay: 2000
+
+  iphone_type_6_4:
+    type: message_text
+    properties:
+      text: 'iPhone 6S comes in two models classical iPhone 6S with 4,7 inch screen and bigger iPhone 6S Plus with 5,5 inch screeen. Both in different colors and with different internal memory.'
+      delay: 3000
+
+  iphone_type_6_5:
+    type: message_text
+    properties:
+      text: 'Select the model or go back to change generation.'
+      delay: 5000
+
+  simple_select_model_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 6'
+          next_state: iphone_gen_6_cassic
+          type: Main
+        - label: 'iPhone 6 Plus'
+          next_state: iphone_gen_6_plus
+          type: Main
+        - label: 'CHANGE GENERATION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_6_user
+
+  iphone_type_6_user:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: smart_iphone_recommend
+
+  iphone_gen_6_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_gen_6_plus:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'plus'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_type_5S:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_5St2
+
+  iphone_type_5St2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_5St3
+
+  iphone_type_5St3:
+    type: message_text
+    properties:
+      text: 'This generation was placed on the market  in  2013 following the iPhonu 5. Yhis time Apple introduced two models iPhone 5S and iPhone 5C.'
+
+  iphone_type_5S_2:
+    type: message_text
+    properties:
+      text: 'iPhone 5S has the strongest CPU, better camera and fingerprint reader. You can chose from one of the five exclusive colors.'
+      delay: 3000
+
+  iphone_type_5S_5:
+    type: message_text
+    properties:
+      text: 'Select the model or go back to change generation.'
+      delay: 4000
+
+  simple_select_model_5S:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'iPhone 5S'
+          next_state: iphone_gen_5S_cassic
+          type: Main
+        - label: 'iPhone 5C'
+          next_state: iphone_gen_5C
+          type: Main
+        - label: 'CHANGE GENERATION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_5S_user
+
+  iphone_type_5S_user:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: iphone_gen_5S_cassic
+
+  iphone_gen_5S_cassic:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'classic'
+    transitions:
+        next_state: smart_iphone_recommend
+
+
+  iphone_gen_5C:
+    type: change_context
+    properties:
+        update_keys:
+           model : 'C'
+    transitions:
+        next_state: smart_iphone_recommend
+
+  iphone_type_5:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: iphone_type_5t
+
+  iphone_type_5t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: iphone_type_5t3
+
+  iphone_type_5t3:
+    type: message_text
+    properties:
+      text: 'iPhone 5 was introduced in 2012 following the iPhone 4 and iPhone 4S'
+
+  iphone_type_5_2:
+    type: message_text
+    properties:
+      text: 'Compared to the predecessor it has a 4" screen with the 16:9 aspect ratio. It also has more powerful CPU and graphics.'
+      delay: 2000
+
+  iphone_type_5_4:
+    type: message_text
+    properties:
+      text: 'Also the camera is better, with the panorama mode.'
+      delay: 3000
+
+  iphone_type_5_5:
+    type: message_text
+    properties:
+      text: 'iPhone 5 model comes in black or white and you can choose form a selection of internal memory. '
+      delay: 2000
+
+  iphone_type_5_6:
+    type: message_text
+    properties:
+      text: 'If you have decided to select iPhone 5 continue to select one of the two models or go to back to SELECT GENERATION.'
+      delay: 2000
+
+  simple_select_model_5:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'CONTINUE'
+          next_state: smart_iphone_recommend
+          type: Main
+        - label: 'CHANGE GENERATION'
+          next_state: smart_ios_init_2
+    transitions:
+        next_state: iphone_type_user
+
+
+

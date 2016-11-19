@@ -1,0 +1,396 @@
+﻿name: smart_win_flow
+states:
+  smart_win_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_win_init_2
+
+  smart_win_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_init_3
+
+  smart_win_init_3:
+    type: message_text
+    properties:
+      text: 'The Windows Phone models mostly come from Microsoft or Nokia.'
+
+  smart_win_2:
+    type: message_text
+    properties:
+      text: 'First decide how much to spend for the phone/ '
+      delay: 3000
+
+  smart_win_price_1:
+    type: message_text
+    properties:
+      text: 'The cheapest models start at around 80 Euros.'
+      delay: 3000
+
+  smart_win_price_2:
+    type: message_text
+    properties:
+      text: 'Rge middle class Windows Phone models are priced starting at 90 to 200 Euro. '
+      delay: 2500
+
+  smart_win_price_3:
+    type: message_text
+    properties:
+      text: 'A powerfull model for a reasonable price goes between  200 and 400 Euros.'
+      delay: 3500
+
+  smart_win_price_4:
+    type: message_text
+    properties:
+      text: 'If you want the luxurious you have to be ready to pay more than 400 Euros.'
+      delay: 3500
+
+  smart_win_price_5:
+    type: message_text
+    properties:
+      text: 'Select one of the price ranges, please.'
+      delay: 3500
+
+  smart_win_price_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'eo 80 Euro'
+          next_state: smart_win_price_1_context
+          type: Main
+        - label: '80 - 200 Euro'
+          next_state: smart_win_price_2_context
+          type: Main
+        - label: '200 - 400 Euro'
+          next_state: smart_win_price_3_context
+          type: Main
+        - label: 'More than 400 Euro'
+          next_state: smart_win_price_4_context
+          type: Main
+        - label: 'SKIP'
+          next_state: smart_win_size
+
+  win_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 20000
+      min_value: 0
+      default_values:
+        - 0
+        - 20000
+      step: 500
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Kč"
+    transitions:
+        next_state: smart_win_select_price
+
+  smart_win_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2000'
+           trait_price: 'price_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '2000'
+           price_to: '5000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '5000'
+           price_to: '8000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_price_4_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '8000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: smart_win_check_price
+
+  smart_win_select_price:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: smart_win_check_price
+
+
+  smart_win_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_check_price_from
+
+  smart_win_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_check_price_to
+
+  smart_win_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: smart_win_price_cond1
+      notexists: smart_win_price_error
+
+  smart_win_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: smart_win_price_out1
+      notequal: smart_win_price_cond2
+
+  smart_win_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: smart_win_price_out2
+      notequal: smart_win_price_cond3
+
+  smart_win_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: smart_win_price_out3
+      notequal: smart_win_price_cond4
+
+  smart_win_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: smart_win_price_out4
+      notequal: smart_win_price_out5
+
+  smart_win_price_out1:
+    type: message_text
+    properties:
+      text: 'I am searching phones in a prixe range starting at {{price}} Euro'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out2:
+    type: message_text
+    properties:
+      text: 'I am searching phones in a prixe range below {{price}} Euro'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out3:
+    type: message_text
+    properties:
+      text: 'I am searching phones in a prixe range between {{price_from}} amd {{price_to}} Euro'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out4:
+    type: message_text
+    properties:
+      text: 'I am searching phones in a prixe range around {{price}} EUuro'
+      delay: 1000
+    transitions:
+      next_state: smart_win_price_out5
+
+  smart_win_price_out5:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_win_price_out5t
+
+  smart_win_price_out5t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_size
+
+  smart_win_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, I do not understand.'
+        - 'I am sorry, what price range do you select?'
+      delay: 1000
+    transitions:
+      next_state: smart_win_select_price
+
+  smart_win_size:
+    type: message_text
+    properties:
+      text: 'To narros the search select the screen size.'
+      delay: 1500
+
+  smart_win_display_2:
+    type: message_text
+    properties:
+      text: 'Select the prefered screen size:'
+      delay: 1500
+
+  smart_win_display_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'SMALL (to 3.4")'
+          next_state: smart_win_display_small
+          type: Main
+        - label: 'LARGE (3.4 - 5")'
+          next_state: smart_win_display_big
+          type: Main
+        - label: 'EXTRA LARGE (5"+)'
+          next_state: smart_win_display_extra_big
+          type: Main
+        - label: 'I DO NOT CARE'
+          next_state: smart_win_display_dont_care
+        - label: 'Tell me more ...'
+          next_state: smart_win_display
+
+  smart_win_display_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_display_win
+
+  smart_win_display:
+    type: message_text
+    properties:
+      text: 'WIN phones use the touch screen and the size is in inches. The 4" screen is approximatelly the same size as the credit card.'
+      delay: 1500
+    transitions:
+      next_state: smart_win_display_2
+
+  smart_win_display_small:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4 - 5'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_extra_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '5+'
+    transitions:
+        next_state: smart_win_params_2
+
+  smart_win_display_dont_care:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: 'any'
+    transitions:
+        next_state: smart_win_params_2
+
+
+  error_select_display_win:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Chose one of the selections, please.'
+    transitions:
+      next_state: smart_win_display_3_buttons
+
+  smart_win_params_2:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_win_params_2t
+
+  smart_win_params_2t:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_win_params_2t2
+
+  smart_win_params_2t2:
+    type: message_text
+    properties:
+      text: 'Other paramaters. Select what is important for you and then press the SUGGEST PHONES. If not sure about the parameters click the help button.'
+
+
+  smart_win_params_3:
+    type: message_checkboxes
+    properties:
+      checkboxes:
+        - label: 'NFC'
+          update_keys:
+            nfc: 'yes'
+          type: Main
+        - label: 'Fingerprint reader'
+          update_keys:
+            fingerprint: 'yes'
+          type: Main
+        - label: 'LTE connectivity'
+          update_keys:
+            lte: 'yes'
+          type: Main
+        - label: 'Dual SIM'
+          update_keys:
+            dual_sim: 'yes'
+          type: Main
+    transitions:
+      next_state: smart_win_out
+
+  smart_win_out:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: smart_android_recommend

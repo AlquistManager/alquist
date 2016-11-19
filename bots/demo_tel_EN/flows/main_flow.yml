@@ -1,0 +1,226 @@
+﻿name: main_flow
+states:
+  intro:
+    type: message_text
+    properties:
+      text: 'There are several categories. '
+      text: 'SIMPLE phones with a limited funcitionality. '
+      text: 'SMART phones are the latest models with an access to the Internet with a lot of other functionality. '
+      text: 'SENIOR phones have larger screen, big dialing buttons ans simple user interface. '
+      delay: 1500
+
+  intro2:
+    type: message_text
+    properties:
+      text: 'If not sure what category to select press <b>ALL</b>.'
+      delay: 1500
+
+  select_type_button:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'SIMPLE'
+          next_state: simple_intro_context
+          type: Main
+        - label: 'SMART'
+          next_state: smart_intro_context
+          type: Main
+        - label: 'SENIOR'
+          next_state: senior_intro_context
+          type: Main
+        - label: 'ALL'
+          next_state: all_intro_context
+          type: Main
+        - label: 'MORE INFO'
+          next_state: simple_info
+
+  select_type:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: select_type_test
+
+  select_type_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: select_type_test_2
+
+  select_type_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: type_check_simple
+
+  simple_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'simple'
+    transitions:
+        next_state: simple_intro_context_test
+
+  simple_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: simple_intro_context_test_2
+
+  simple_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: simple_intro
+
+  simple_info:
+    type: message_text
+    properties:
+      text: 'SIMPLE phones have only the most basic functionality. SIMPLE phones do not allow to installing applications, they do not support navigation, the connectivity to Internet and external devices is limited. Typically they are controlled by physical buttons and they have low resolution screen.'
+    transitions:
+      next_state: smart_info
+
+  smart_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'smart'
+    transitions:
+        next_state: smart_intro_context_test
+
+  smart_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_intro_context_test_2
+
+  smart_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_intro
+
+  smart_info:
+    type: message_text
+    properties:
+      text: 'The SMART phones are the most common type today. They allow using the latest applications and connectivity to Internet in full extend. There are three major ctegories Android, iOS or Windows on the market. All offer touch screen user interface allowing easy control.'
+      delay: 5000
+    transitions:
+      next_state: senior_info
+
+  senior_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'senior'
+    transitions:
+        next_state: senior_intro_context_test
+
+  senior_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: senior_intro_context_test_2
+
+  senior_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: senior_intro
+
+  senior_info:
+    type: message_text
+    properties:
+      text: 'SENIOR phones are designed for the older generation. They focus on providing the simplest control, typically with hardware buttons large screen with legible text and high volume sound.'
+      delay: 7000
+    transitions:
+      next_state: all_info
+
+
+  all_intro_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_type: 'all'
+    transitions:
+        next_state: all_intro_context_test
+
+  all_intro_context_test:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: all_intro_context_test_2
+
+  all_intro_context_test_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: all_intro
+
+  all_info:
+    type: message_text
+    properties:
+      text: 'Pressing the ALL button will guid you through all phones,'
+      delay: 5000
+    transitions:
+      next_state: select_type_button
+
+  error_phone_type:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, I have not understood, What kind of phone are you looking for?'
+        - 'Sorr, Id did not get it, what phone do you need?'
+    transitions:
+      next_state: select_type_button
+
+  type_check_simple:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}'
+      value2: 'simple'
+    transitions:
+      equal: simple_intro
+      notequal: type_check_senior
+
+  type_check_senior:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}'
+      value2: 'senior'
+    transitions:
+      equal: senior_intro
+      notequal: type_check_smart
+
+  type_check_smart:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}'
+      value2: 'smart'
+    transitions:
+      equal: smart_intro
+      notequal: type_check_all
+
+  type_check_all:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_type}}'
+      value2: 'all'
+    transitions:
+      equal: all_intro
+      notequal: error_phone_type

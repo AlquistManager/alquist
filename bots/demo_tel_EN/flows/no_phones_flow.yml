@@ -1,0 +1,25 @@
+name: no_phones
+states:
+  no_matches:
+    type: message_text
+    properties:
+      text: 'We have no phones for your parameters selection.'
+      delay: 1000
+    transitions:
+      next_state: no_matches_2
+
+  no_matches_2:
+    type: message_text
+    properties:
+      text: 'Go back and choose again, please.'
+      delay: 1000
+    transitions:
+      next_state: no_matches_3
+
+  no_matches_3:
+    type: input_special
+    properties:
+      show_input: none
+
+
+

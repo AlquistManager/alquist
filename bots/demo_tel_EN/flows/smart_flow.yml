@@ -1,0 +1,165 @@
+﻿name: smart_flow
+states:
+  smart_intro:
+    type: message_text
+    properties:
+      text: 'Smartphone use an operating system .'
+
+  smart_intro_2:
+    type: message_text
+    properties:
+      text: 'Most frequently used are Android, iOS a Windows Phone. If you have no preference click ALL'
+      delay: 2500
+    transitions:
+      next_state: smart_select_os_buttons
+
+  smart_intro_3:
+    type: message_text
+    properties:
+      text: 'Choose the smart phone please. '
+    transitions:
+      next_state: smart_select_os_buttons
+
+  smart_select_os_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Android'
+          next_state: smart_android_init_context
+          type: Main
+        - label: 'iOS'
+          next_state: smart_ios_init_context
+          type: Main
+        - label: 'Windows Phone'
+          next_state: smart_win_init_context
+          type: Main
+        - label: 'ALL'
+          next_state: smart_all_init_context
+          type: Main
+        - label: 'Tell me more ...'
+          next_state: smart_os_1
+
+  smart_select_os:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_smart_os
+
+
+  smart_os_1:
+    type: message_text
+    properties:
+      text: 'People mostly use smartphones these days. The key decision is the selection of the operating system, which is defining the user interface. '
+
+
+  smart_os_2:
+    type: message_text
+    properties:
+      text: 'The most popular operating systems are:'
+      delay: 5000
+
+  smart_os_3:
+    type: message_text
+    properties:
+      text: 'If you slect Android (Google) you have choice of many different brands and prize range. Android is also great for Google edicts, those who use gmail, Google Drive etc. The Google Play offers large number of downloadable applications. nebo na internetu. '
+      delay: 1000
+
+  smart_os_4:
+    type: message_text
+    properties:
+      text: 'iOS (Apple) is the iPhone operating system, The Apple store iTunes offers a large selection of music, video and applications. If you are Apple fan the iPhone is for you. '
+      delay: 5000
+
+  smart_os_5:
+    type: message_text
+    properties:
+      text: 'Windows Phone (Microsoft) has still small market share. It also lacks behind the competition in coice of downloadable applications. However, it will work very well with all Windows PCs.'
+      delay: 5000
+
+  smart_os_6:
+    type: message_text
+    properties:
+      text: 'If you have decided make the selection below. If you are not sure select ALL. '
+      delay: 5000
+    transitions:
+      next_state: smart_intro_3
+
+
+  smart_android_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'android'
+    transitions:
+        next_state: smart_android_init
+
+  smart_ios_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'iOS'
+    transitions:
+        next_state: smart_ios_init
+
+  smart_win_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'win'
+    transitions:
+        next_state: smart_win_init
+
+  smart_all_init_context:
+    type: change_context
+    properties:
+        update_keys:
+           phone_os: 'all'
+    transitions:
+        next_state: all_intro
+
+  error_smart_os:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, I did not get it, what operating system do you want?'
+        - 'Sorry, I do not understand what operating system do you want? '
+      delay: 1000
+    transitions:
+      next_state: smart_select_os_buttons
+
+  smart_check_os_android:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'android'
+    transitions:
+      equal: smart_android_init
+      notequal: smart_check_os_ios
+
+  smart_check_os_ios:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'iOS'
+    transitions:
+      equal: smart_ios_init
+      notequal: smart_check_os_win
+
+  smart_check_os_win:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'win'
+    transitions:
+      equal: smart_win_init
+      notequal: smart_check_os_all
+
+  smart_check_os_all:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_os}}'
+      value2: 'all'
+    transitions:
+      equal: all_intro
+      notequal: error_smart_os

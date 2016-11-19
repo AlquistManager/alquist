@@ -1,0 +1,874 @@
+﻿name: smart_android_flow
+states:
+  smart_android_init:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_init_2
+
+  smart_android_init_2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_init_3
+
+  smart_android_init_3:
+    type: message_text
+    properties:
+      text: 'Another important option is the cost of your phone. You can get Android in all prices.'
+
+  smart_price_1:
+    type: message_text
+    properties:
+      text: 'The cheapest Android phones are around 100 Euro.'
+      delay: 3000
+
+  smart_price_2:
+    type: message_text
+    properties:
+      text: 'The middle class phones are running between 100 to 250 Euro.  '
+      delay: 2500
+
+  smart_price_3:
+    type: message_text
+    properties:
+      text: 'The upper middle class are between 250 and 400 Euro. '
+      delay: 3500
+
+  smart_price_4:
+    type: message_text
+    properties:
+      text: 'The top of the line models cost more than 400 Euro.'
+      delay: 3500
+
+  smart_price_5:
+    type: message_text
+    properties:
+      text: 'Select the price range, please. '
+      delay: 3500
+
+  smart_price_6:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'do 2500 Kč'
+          next_state: smart_price_1_context
+          type: Main
+        - label: '2500 - 5000 Kč'
+          next_state: smart_price_2_context
+          type: Main
+        - label: '5000 - 10 000 Kč'
+          next_state: smart_price_3_context
+          type: Main
+        - label: 'Nad 10 000 Kč'
+          next_state: smart_price_4_context
+          type: Main
+        - label: 'PŘESKOČIT'
+          next_state: smart_android_brand
+
+  android_slider_price:
+    type: message_slider
+    properties:
+      entities:
+        - price_from
+        - price_to
+      max_value: 30000
+      min_value: 0
+      default_values:
+        - 0
+        - 30000
+      step: 500
+      connect: true
+      tooltips: true
+      tooltips_decimals: 0
+      tooltips_prefix: ""
+      tooltips_postfix: "&nbsp;Euro"
+    transitions:
+        next_state: smart_select_price
+
+  smart_price_1_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '2500'
+           trait_price: 'price_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_2_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '2500'
+           price_to: '5000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_3_context:
+    type: change_context
+    properties:
+        update_keys:
+           price_from: '5000'
+           price_to: '10000'
+           trait_price: 'price_from_to'
+    transitions:
+        next_state: smart_check_price
+
+  smart_price_4_context:
+    type: change_context
+    properties:
+        update_keys:
+           price: '10000'
+           trait_price: 'price_from'
+    transitions:
+        next_state: smart_check_price
+
+  smart_select_price:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: smart_check_price
+
+
+  smart_check_price:
+    type: conditional_exists
+    properties:
+      key: '{{price}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_check_price_from
+
+  smart_check_price_from:
+    type: conditional_exists
+    properties:
+      key: '{{price_from}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_check_price_to
+
+  smart_check_price_to:
+    type: conditional_exists
+    properties:
+      key: '{{price_to}}'
+    transitions:
+      exists: smart_price_cond1
+      notexists: smart_price_error
+
+  smart_price_cond1:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from'
+    transitions:
+      equal: smart_price_out1
+      notequal: smart_price_cond2
+
+  smart_price_cond2:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_to'
+    transitions:
+      equal: smart_price_out2
+      notequal: smart_price_cond3
+
+  smart_price_cond3:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_from_to'
+    transitions:
+      equal: smart_price_out3
+      notequal: smart_price_cond4
+
+  smart_price_cond4:
+    type: conditional_equal
+    properties:
+      value1: '{{trait_price}}'
+      value2: 'price_around'
+    transitions:
+      equal: smart_price_out4
+      notequal: smart_android_brand
+
+  smart_price_out1:
+    type: message_text
+    properties:
+      text: 'I search for phone in the price range from &nbsp;{{price}}&nbsp;Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_android_brand
+
+  smart_price_out2:
+    type: message_text
+    properties:
+      text: 'I search for phone in the price range up to&nbsp;{{price}}&nbsp;Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_android_brand
+
+  smart_price_out3:
+    type: message_text
+    properties:
+      text: 'I search for phone in the price range starting from&nbsp;{{price_from}}&nbsp;do&nbsp;{{price_to}}&nbsp;Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_android_brand
+
+  smart_price_out4:
+    type: message_text
+    properties:
+      text: 'I search for phone in the price range around&nbsp;{{price}}&nbsp;Kč'
+      delay: 1000
+    transitions:
+      next_state: smart_android_brand
+
+
+  smart_price_error:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, I do not understand the selected price range, choose one more time. '
+        - 'What price range are you interested in? '
+      delay: 1000
+    transitions:
+      next_state: smart_select_price
+
+  smart_android_brand:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_brandt2
+
+  smart_android_brandt2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_brandt3
+
+  smart_android_brandt3:
+    type: message_text
+    properties:
+      text: 'Chose the manufacturer below&nbsp;or enter your own price range. If you do not care <b>SKIP</b> this selection.'
+      delay: 2000
+
+  smart_android_select_brand_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Samsung'
+          next_state: smart_android_select_brand_samsung
+          type: Main
+        - label: 'HTC'
+          next_state: smart_android_select_brand_htc
+          type: Main
+        - label: 'HUAWEI'
+          next_state: smart_android_select_brand_huawei
+          type: Main
+        - label: 'LG'
+          next_state: smart_android_select_brand_lg
+          type: Main
+        - label: 'SONY'
+          next_state: smart_android_select_brand_sony
+          type: Main
+        - label: 'SKIP'
+          next_state: smart_android_params
+
+  smart_android_select_brand:
+    type: input_user
+    properties:
+      entities:
+        brand: phone_brands
+      require_match: true
+    transitions:
+      match: smart_android_params
+      notmatch: error_select_brand
+
+  smart_android_select_brand_samsung:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'samsung'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_htc:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'HTC'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_huawei:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'huawei'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_lg:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'LG'
+    transitions:
+        next_state: smart_android_params
+
+  smart_android_select_brand_sony:
+    type: change_context
+    properties:
+        update_keys:
+           brand: 'Sony'
+    transitions:
+        next_state: smart_android_params
+
+  error_select_brand:
+    type: message_text_random
+    properties:
+      responses:
+        - 'I am sorry, I do not know this manufacturer. Try one more time or SKIP this selection.'
+    transitions:
+      next_state: smart_android_select_brand_buttons
+
+  smart_android_params:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_paramst2
+
+  smart_android_paramst2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_paramst3
+
+  smart_android_paramst3:
+    type: message_text
+    properties:
+      text: 'We can specify the phone parameters, now.'
+
+  smart_android_params_2:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_params_2t2
+
+  smart_android_params_2t2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_params_2t3
+
+  smart_android_params_2t3:
+    type: message_text
+    properties:
+      text: 'Choose a parameter. The selection will stop one you press <b>SUGGEST&nbsp;PHONES</b>.'
+      delay: 1000
+
+  smart_android_params_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'DISPLAY SIZE'
+          next_state: smart_android_display
+        - label: 'PROCESsOR'
+          next_state: smart_android_processor
+        - label: 'OPERAČNÍ PAMĚŤ'
+          next_state: smart_android_ram
+        - label: 'MEMORY SIZE'
+          next_state: smart_android_memory
+        - label: 'SCREEN RESOLUTION'
+          next_state: smart_android_resolution
+        - label: 'SUGGEST PHONES'
+          next_state: smart_android_recommend
+          type: Main
+
+  smart_android_select_param:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_param
+
+  error_select_param:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Chose the next parameter and soecify the value, please.  Once you are finished choose SELECT PHONES'
+    transitions:
+      next_state: smart_android_params_3_buttons
+
+
+  smart_android_param_check_display:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'display'
+    transitions:
+      equal: smart_android_display
+      notequal: smart_android_param_check_processor
+
+  smart_android_param_check_processor:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'processor'
+    transitions:
+      equal: smart_android_processor
+      notequal: smart_android_param_check_ram
+
+  smart_android_param_check_ram:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'ram'
+    transitions:
+      equal: smart_android_ram
+      notequal: smart_android_param_check_memory
+
+  smart_android_param_check_memory:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'space'
+    transitions:
+      equal: smart_android_memory
+      notequal: smart_android_param_check_resolution
+
+  smart_android_param_check_resolution:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'resolution'
+    transitions:
+      equal: smart_android_resolution
+      notequal: smart_android_param_check_recommend
+
+  smart_android_param_check_recommend:
+    type: conditional_equal
+    properties:
+      value1: '{{parameter}}'
+      value2: 'recommend'
+    transitions:
+      equal: smart_android_recommend
+      notequal: error_select_param
+
+  smart_android_display:
+    type: message_text
+    properties:
+      text: 'Choose the screen size:'
+
+  smart_android_display_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'SMALL (from 3.4 Inch'
+          next_state: smart_android_display_small
+          type: Main
+        - label: 'LARGE (3.4 - 5 Inch)'
+          next_state: smart_android_display_big
+          type: Main
+        - label: 'EXTRA LARGE (5+ inch'
+          next_state: smart_android_display_extra_big
+          type: Main
+        - label: 'I DO NOT CARE'
+          next_state: smart_android_display_dont_care
+        - label: 'Tell me more ...'
+          next_state: smart_android_display_2
+
+
+  smart_android_display_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_display
+
+  smart_android_display_2:
+    type: message_text
+    properties:
+      text: 'Smart phones use touch screens &nbsp;and the size is &nbsp;specified in inches&nbsp;.'
+    transitions:
+      next_state: smart_android_display
+
+
+  smart_android_display_small:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '3.4 - 5'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_extra_big:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: '5+'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_display_dont_care:
+    type: change_context
+    properties:
+        update_keys:
+           display_size: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
+
+  error_select_display:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Select one of the options, please'
+    transitions:
+      next_state: smart_android_display_3_buttons
+
+  smart_android_processor:
+    type: message_text
+    properties:
+      text: 'Fast phone needs powerfull processor. The higher is the number of GHz (gigahertz&nbsp;-&nbsp;unit, v&nbsp;) a&nbsp;The higher number of cores, the faster is the phone.'
+    transitions:
+      next_state: smart_android_processor_3_buttons
+
+  smart_android_processor_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'STRONG PROCESsOR ( > 1.5 GHz)'
+          next_state: smart_android_processor_select_strong
+          type: Main
+        - label: 'I Do NOt CARE ABOUT PROCESSOR'
+          next_state: smart_android_processor_select_any
+
+
+  smart_android_processor_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_processor
+
+  smart_android_processor_select_strong:
+    type: change_context
+    properties:
+        update_keys:
+           processor: 'strong'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_processor_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           processor: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
+
+  error_select_processor:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Choose one of the selections, please'
+    transitions:
+      next_state: smart_android_processor_3_buttons
+
+
+
+
+  smart_android_ram:
+    type: message_text
+    properties:
+      text: 'The RAM memory neds to accomodate running applications. The bigger, the faster is the phone. '
+
+  smart_android_ram_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'I NEED LARGE RAM (2+ GB)'
+          next_state: smart_android_ram_select_2gb
+          type: Main
+        - label: 'I DO NOT CARE ABOUT RAM'
+          next_state: smart_android_ram_select_any
+        - label: 'Tell me more...'
+          next_state: smart_android_ram_2
+
+  smart_android_ram_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_ram
+
+  smart_android_ram_2:
+    type: message_text
+    properties:
+      text: 'A phone with larger RAM may contain applications. &nbsp;It will run more smoothly. These days standard is 1GB&nbsp;RAM, more powerfull phones offer 2&nbsp;up to&nbsp;3&nbsp;GB of RAM.'
+    transitions:
+      next_state: smart_android_ram
+
+  smart_android_ram_select_2gb:
+    type: change_context
+    properties:
+        update_keys:
+           ram: '2 gb'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_ram_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           ram: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
+  error_select_ram:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Choose one of the selections, please'
+    transitions:
+      next_state: smart_android_ram_3_buttons
+
+
+  smart_android_memory:
+    type: message_text
+    properties:
+      text: 'Choose the preferred selection:'
+
+
+  smart_android_memory_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'MORE THAN 8 GB'
+          next_state: smart_android_memory_select_small
+          type: Main
+        - label: 'MORE THAN 16 GB'
+          next_state: smart_android_memory_select_big
+          type: Main
+        - label: 'EXTRA FLASH MEMORY OPTION'
+          next_state: smart_android_memory_select_card
+          type: Main
+        - label: 'I DO NOT CARE ABOUT MEMORY'
+          next_state: smart_android_memory_select_any
+        - label: 'Tell me more ...'
+          next_state: smart_android_memory_1
+
+
+  smart_android_memory_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_memory
+
+  smart_android_memory_1:
+    type: message_text
+    properties:
+      text: 'The size of the phone memory is in &nbsp;GB (gigabytes). The higher the more miusic or pictures, games and&nbsp;applications you can store.We recommend 8 GB, this is the basic today. If you take more pictures or you are in to photography choose bigger size.'
+
+  smart_android_memory_2:
+    type: message_text
+    properties:
+      text: 'You can also opt for a phone with an external memory card. They may be very large up to tent of GB a&nbsp; and they run around 29 Euro. It is then easy to extend the capacity when required. '
+      delay: 2500
+    transitions:
+      next_state: smart_android_memory
+
+  smart_android_memory_select_small:
+    type: change_context
+    properties:
+        update_keys:
+           memory: '8 - 16 GB'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_big:
+    type: change_context
+    properties:
+        update_keys:
+           memory: '16+ GB'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_card:
+    type: change_context
+    properties:
+        update_keys:
+           memory: 'memory card'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_memory_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           memory: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
+  error_select_memory:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Make the selection, please.'
+    transitions:
+      next_state: smart_android_memory_3_buttons
+
+
+
+  smart_android_resolution:
+    type: message_text
+    properties:
+      text: 'Choose the preferred screen resolution please.'
+
+
+  smart_android_resolution_3_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: '1280 x 720 pixels'
+          next_state: smart_android_resolution_select_small
+          type: Main
+        - label: '1920 X 1080 pixels'
+          next_state: smart_android_resolution_select_big
+          type: Main
+        - label: 'I DO NOT CARE ABOUT THE RESOLUTION'
+          next_state: smart_android_resolution_select_any
+        - label: 'Tell me more ...'
+          next_state: smart_android_resolution_2
+
+  smart_android_resolution_select:
+    type: input_special
+    properties:
+      show_input: none
+    transitions:
+      next_state: error_select_resolution
+
+  smart_android_resolution_2:
+    type: message_text
+    properties:
+      text: 'The screen resolution is measure in pixels. Yhe higher is tne number the sharper are the pictures and the fonts. The standard today is 1280 x 720 pixels.'
+    transitions:
+      next_state: smart_android_resolution
+
+  smart_android_resolution_select_small:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: '1280 x 720'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_resolution_select_big:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: '1920 X 1080'
+    transitions:
+        next_state: smart_android_params_2
+
+  smart_android_resolution_select_any:
+    type: change_context
+    properties:
+        update_keys:
+           resolution: 'any'
+    transitions:
+        next_state: smart_android_params_2
+
+  error_select_resolution:
+    type: message_text_random
+    properties:
+      responses:
+        - 'Choose one option, please'
+    transitions:
+      next_state: smart_android_resolution_3_buttons
+
+  smart_android_recommend:
+    type: CountPhonesZbozi
+    properties:
+    transitions:
+      next_state: smart_android_recommendt2
+
+  smart_android_recommendt2:
+    type: conditional_equal
+    properties:
+      value1: '{{phone_count}}'
+      value2: '0'
+    transitions:
+      equal: no_matches
+      notequal: smart_android_recommendt3
+
+  smart_android_recommendt3:
+    type: message_text
+    properties:
+      text: 'Thank you for choosing Alquist the artificial shop assistant. We suggest the below phones.'
+
+
+  smart_android_recommend_2:
+    type: SuggestPhonesZbozi
+    properties:
+
+  smart_android_recommend_3:
+    type: message_text
+    properties:
+      text: 'The selected phones are ordered based on popularity'
+      delay: 1000
+
+  smart_android_recommend_cond_1:
+    type: conditional_exists # used to determine if selected key exists in current context
+    properties:
+      key: '{{suggested_phones_1}}' # context key to check
+    transitions:
+      exists: smart_android_recommend_out # transition for when key exists
+      notexists: no_matches #  transition for when the key doesn't exist
+
+
+  end_demo:
+    type: message_text
+    properties:
+      text: 'To purchase the phone just click on its profile. or press the BUY NOW button. You can also start from the beginning. If you are happy with your selection share it with friends.'
+      delay: 1000
+    transitions:
+      next_state: end_buttons
+
+  smart_android_recommend_out:
+    type: Carousel
+
+  end_buttons:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'BUY NOW'
+          next_state: end_buttons
+        - label: 'START AGAIN'
+          next_state: init
+        - label: 'Share with friends'
+          next_state: end_buttons
