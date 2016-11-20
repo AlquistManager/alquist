@@ -1,54 +1,0 @@
-2016-10-30 18:40:49,151 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - State intro2 complete.
-2016-10-30 18:40:49,152 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Next state: intro3
-2016-10-30 18:40:49,152 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Executing state: intro3 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'intro4'}
-2016-10-30 18:40:49,153 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Response: Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.
-2016-10-30 18:40:49,153 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - State intro3 complete.
-2016-10-30 18:40:49,153 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Next state: intro4
-2016-10-30 18:40:49,154 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Executing state: intro4 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'intro5'}
-2016-10-30 18:40:49,154 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Response: Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.
-2016-10-30 18:40:49,154 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - State intro4 complete.
-2016-10-30 18:40:49,154 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Next state: intro5
-2016-10-30 18:40:49,155 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Executing state: intro5 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'select_type_button'}
-2016-10-30 18:40:49,155 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Response: Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.
-2016-10-30 18:40:49,155 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - State intro5 complete.
-2016-10-30 18:40:49,155 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Next state: select_type_button
-2016-10-30 18:40:49,156 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Executing state: select_type_button Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'LEVNÁ VARIANTA'), ('next_state', 'simple_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'CHYTRÝ TELEFON'), ('next_state', 'smart_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'PRO SENIORY'), ('next_state', 'senior_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'VŠECHNY TELEFONY'), ('next_state', 'all_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'Více o kategoriích'), ('next_state', 'simple_info'), ('type', '')])]), ('delay', 0)]) Transitions: {'next_state': 'select_type'}
-2016-10-30 18:40:49,156 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Button: OrderedDict([('label', 'LEVNÁ VARIANTA'), ('next_state', 'simple_intro_context'), ('type', 'Main')])
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Button: OrderedDict([('label', 'CHYTRÝ TELEFON'), ('next_state', 'smart_intro_context'), ('type', 'Main')])
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Button: OrderedDict([('label', 'PRO SENIORY'), ('next_state', 'senior_intro_context'), ('type', 'Main')])
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Button: OrderedDict([('label', 'VŠECHNY TELEFONY'), ('next_state', 'all_intro_context'), ('type', 'Main')])
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Button: OrderedDict([('label', 'Více o kategoriích'), ('next_state', 'simple_info'), ('type', '')])
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - State select_type_button complete.
-2016-10-30 18:40:49,157 - State info - 606ae4b4-9567-4360-8dc3-5c321b5bf62b - DEBUG - Next state: select_type
-2016-11-05 12:08:31,932 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: init2 Type: <class 'states.message.MessageRandomText'> Properties: OrderedDict([('responses', ['Dobrý Den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.', 'Dobrý Den, pomohu Vám vybrat mobilní telefon přesně podle vašich požadavků.']), ('delay', 0)]) Transitions: OrderedDict([('next_state', 'intro')])
-2016-11-05 12:08:31,969 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Dobrý Den, rád Vám pomohu s výběrem a nákupem mobilního telefonu.
-2016-11-05 12:08:31,969 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State init2 complete.
-2016-11-05 12:08:31,970 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: intro
-2016-11-05 12:08:31,972 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: intro Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.'), ('delay', 1500)]) Transitions: {'next_state': 'intro2'}
-2016-11-05 12:08:31,973 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Nejprve je nutné rozhodnout se, jaký typ mobilního telefonu Vám bude vyhovovat.
-2016-11-05 12:08:31,973 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State intro complete.
-2016-11-05 12:08:31,973 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: intro2
-2016-11-05 12:08:31,974 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: intro2 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Telefony s omezenými funkcemi, ale nízkou cenou najdete v kategorii <b>LEVNÁ VARIANTA</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'intro3'}
-2016-11-05 12:08:31,993 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Telefony s omezenými funkcemi, ale nízkou cenou najdete v kategorii <b>LEVNÁ VARIANTA</b>.
-2016-11-05 12:08:31,994 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State intro2 complete.
-2016-11-05 12:08:31,994 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: intro3
-2016-11-05 12:08:31,995 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: intro3 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'intro4'}
-2016-11-05 12:08:31,995 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Pro nejnovější smartphony zvolte <b>CHYTRÝ TELEFON</b>.
-2016-11-05 12:08:31,995 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State intro3 complete.
-2016-11-05 12:08:31,995 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: intro4
-2016-11-05 12:08:31,996 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: intro4 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'intro5'}
-2016-11-05 12:08:31,996 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Pro starší generace jsou k dispozici telefony <b>PRO SENIORY</b>.
-2016-11-05 12:08:31,996 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State intro4 complete.
-2016-11-05 12:08:31,997 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: intro5
-2016-11-05 12:08:31,997 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: intro5 Type: <class 'states.message.MessageText'> Properties: OrderedDict([('text', 'Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.'), ('delay', 1500)]) Transitions: {'next_state': 'select_type_button'}
-2016-11-05 12:08:32,000 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Response: Pokud si nejste jistí, kterou kategorii zvolit, můžete vybrat možnost <b>PROCHÁZET VŠE</b>.
-2016-11-05 12:08:32,000 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State intro5 complete.
-2016-11-05 12:08:32,000 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: select_type_button
-2016-11-05 12:08:32,001 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Executing state: select_type_button Type: <class 'states.message.MessageButtons'> Properties: OrderedDict([('buttons', [OrderedDict([('label', 'LEVNÁ VARIANTA'), ('next_state', 'simple_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'CHYTRÝ TELEFON'), ('next_state', 'smart_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'PRO SENIORY'), ('next_state', 'senior_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'VŠECHNY TELEFONY'), ('next_state', 'all_intro_context'), ('type', 'Main')]), OrderedDict([('label', 'Více o kategoriích'), ('next_state', 'simple_info'), ('type', '')])]), ('delay', 0)]) Transitions: {'next_state': 'select_type'}
-2016-11-05 12:08:32,001 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Button: OrderedDict([('label', 'LEVNÁ VARIANTA'), ('next_state', 'simple_intro_context'), ('type', 'Main')])
-2016-11-05 12:08:32,001 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Button: OrderedDict([('label', 'CHYTRÝ TELEFON'), ('next_state', 'smart_intro_context'), ('type', 'Main')])
-2016-11-05 12:08:32,002 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Button: OrderedDict([('label', 'PRO SENIORY'), ('next_state', 'senior_intro_context'), ('type', 'Main')])
-2016-11-05 12:08:32,002 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Button: OrderedDict([('label', 'VŠECHNY TELEFONY'), ('next_state', 'all_intro_context'), ('type', 'Main')])
-2016-11-05 12:08:32,002 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Button: OrderedDict([('label', 'Více o kategoriích'), ('next_state', 'simple_info'), ('type', '')])
-2016-11-05 12:08:32,002 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - State select_type_button complete.
-2016-11-05 12:08:32,002 - State info - 46c5867d-61fa-4cca-918e-89bce439fd5d - DEBUG - Next state: select_type

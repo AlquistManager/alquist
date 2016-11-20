@@ -4,12 +4,27 @@ states:
     type: message_text
     properties:
       text: 'There are several categories. '
-      text: 'SIMPLE phones with a limited funcitionality. '
-      text: 'SMART phones are the latest models with an access to the Internet with a lot of other functionality. '
-      text: 'SENIOR phones have larger screen, big dialing buttons ans simple user interface. '
       delay: 1500
 
   intro2:
+    type: message_text
+    properties:
+      text: 'SIMPLE phones with a limited funcitionality. '
+      delay: 1500
+
+  intro3:
+    type: message_text
+    properties:
+      text: 'SMART phones are the latest models with an access to the Internet with a lot of other functionality. '
+      delay: 1500
+
+  intro4:
+    type: message_text
+    properties:
+      text: 'SENIOR phones have larger screen, big dialing buttons ans simple user interface. '
+      delay: 1500
+
+  intro5:
     type: message_text
     properties:
       text: 'If not sure what category to select press <b>ALL</b>.'
