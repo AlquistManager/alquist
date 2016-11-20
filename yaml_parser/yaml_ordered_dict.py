@@ -45,6 +45,6 @@ class OrderedDictYAMLLoader(yaml.Loader):
                                                         key_node.start_mark)
             value = self.construct_object(value_node, deep=deep)
             if key in mapping:
-                raise KeyError('There are two same keys in the yaml file.')
+                raise KeyError('There are two same keys "'+node+'" in the yaml file.')
             mapping[key] = value
         return mapping
