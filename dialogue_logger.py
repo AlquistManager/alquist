@@ -13,8 +13,11 @@ def log(log, sessionID):
     encoded_session_id = urllib.parse.quote(sessionID)
     encoded_log = urllib.parse.quote(log)
     request = baseURL + sessionIDField + "=" + encoded_session_id + "&" + logField + "=" + encoded_log + "&submit=Submit"
-    log_thread = logThread(request)
-    log_thread.start()
+    try:
+        log_thread = logThread(request)
+        log_thread.start()
+    except RuntimeError:
+        pass
 
 
 def send_log(request):
