@@ -4,6 +4,7 @@ from python:3
 RUN pip install wit \
  && pip install PyYaml \
  && pip install -U flask-cors \
+ && pip install bs4 \
  && pip install ufal.morphodita
 
 ADD . /alquist

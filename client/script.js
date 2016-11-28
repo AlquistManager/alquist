@@ -237,7 +237,7 @@ function getEndpoint() {
     var endpoint = getParameterByName("e", window.location.href);
     //Use default, if no endpoint is present
     if (endpoint == null) {
-        endpoint = "http://localhost:5000/";
+        endpoint = window.location.protocol+"\/\/"+window.location.host+"/";
     }
     return endpoint;
 }
