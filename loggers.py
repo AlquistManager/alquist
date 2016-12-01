@@ -34,7 +34,7 @@ def create_loggers():
 
         main_logger.addHandler(nfo_handler)
         state_logger.addHandler(db_handler)
-        loggers.update({folder: {"main_logger": main_logger, "state_logger": state_logger}})
+        loggers.update({folder.lower(): {"main_logger": main_logger, "state_logger": state_logger}})
 
 
 # return all subdirectories directly in directory

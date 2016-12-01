@@ -11,7 +11,7 @@ ADD . /alquist
 
 WORKDIR /alquist
 
-CMD ["python3", "main.py"]
+CMD ["python3","-u", "main.py"]
 
 # Expose port
 EXPOSE 5000

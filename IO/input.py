@@ -29,7 +29,7 @@ def get_input():
         state = request.json['state']
         context = request.json['context']
         session = request.json['session']
-        bot = request.json['bot']
+        bot = request.json['bot'].lower()
         payload = request.json['payload']
         loaded_states.actual_bot = bot
     except KeyError:
