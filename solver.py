@@ -76,6 +76,10 @@ def process_request(bot, state_name, context, text, session, payload):
 
 
 def build_state(bot, state_name):
+    print(state_name)
     next_st = state_dict.get(bot)['states'][state_name]
     func = next_st.get('type', lambda: "nothing")
-    return func(state_name, next_st['properties'], next_st['transitions'], bot)
+    if 'transitions' in next_st:
+        return func(state_name, next_st['properties'], next_st['transitions'], bot)
+    else:
+        return func(state_name, next_st['properties'], {'next_state': None}, bot)

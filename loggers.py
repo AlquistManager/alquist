@@ -2,6 +2,7 @@ import logging.handlers
 import os
 
 loggers = {}
+handlers = {}
 
 
 # create loggers for each bot
@@ -34,6 +35,7 @@ def create_loggers():
 
         main_logger.addHandler(nfo_handler)
         state_logger.addHandler(db_handler)
+        handlers.update({folder.lower(): {"db_handler": db_handler, "nfo_handler": nfo_handler}})
         loggers.update({folder.lower(): {"main_logger": main_logger, "state_logger": state_logger}})
 
 

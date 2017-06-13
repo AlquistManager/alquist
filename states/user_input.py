@@ -11,7 +11,13 @@ class InputUser(State):
         loggers.get(self.bot).get("state_logger").debug('User message: ' + request_data['text'],
                                                         extra={'uid': request_data.get('session', False)})
 
-        response = get_entities(request_data['text'])
+        # Get nlp type to use for processing input
+        if 'nlp_type' in self.properties:
+            nlp_type = self.properties['nlp_type']
+        else:
+            nlp_type = None
+
+        response = get_entities(request_data['text'], nlp_type)
         loggers.get(self.bot).get("state_logger").debug('NLP output: ' + str(response),
                                                         extra={'uid': request_data.get('session', False)})
 
@@ -21,8 +27,9 @@ class InputUser(State):
 
         # Switch intent according to user response
         response_intent = response.get('intent', False)
+        intents_project = intent_transitions[self.bot]
         if response_intent:
-            if intent_transitions.get(response_intent, False) and response_intent != request_data['context'].get(
+            if intents_project.get(response_intent, False) and response_intent != request_data['context'].get(
                     'intent', False):
                 loggers.get(self.bot).get("state_logger").debug('Switching intent: current intent: ' + str(
                     request_data['context'].get('intent', False)) + ', user intent: ' + str(response_intent),
@@ -30,7 +37,7 @@ class InputUser(State):
                 loggers.get(self.bot).get("state_logger").debug('State ' + self.name + ' complete.',
                                                                 extra={'uid': request_data.get('session', False)})
                 request_data['context'].update(response)
-                request_data.update({'next_state': intent_transitions.get(response_intent, False)})
+                request_data.update({'next_state': intents_project.get(response_intent, False)})
 
                 loggers.get(self.bot).get("state_logger").debug('Next state: ' + str(request_data.get('next_state')),
                                                                 extra={'uid': request_data.get('session', False)})

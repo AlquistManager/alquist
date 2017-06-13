@@ -1,0 +1,147 @@
+name: Math Practice
+states:
+  init:
+    type: message_text
+    properties:
+      text: "Hello!"
+      
+  test:
+    type: message_text
+    properties:
+      text: "test"
+      
+  welcome_question:
+    type: message_text
+    properties:
+      text: "What would you like to practice?"
+      
+  choice:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: "sums"
+          next_state: sums
+          type: something
+        - label: "substraction"
+          next_state: substraction
+          type: something
+      
+  problem_count:
+    type: message_text
+    properties:
+      text: "How many questions?"
+    transitions:
+      next_state: count_slider
+      
+  count_slider:
+    type: message_slider
+    properties:
+      entities:
+        - maxcount
+      max_value: 50
+      min_value: 1
+      tooltips: true
+    transitions:
+      next_state: count_input_special
+      
+  count_input_special:
+    type: input_special
+    properties:
+      show_input: button
+    transitions:
+      next_state: generate_numbers
+
+  substraction:
+    type: change_context
+    properties:
+      update_keys:
+        operation: '-'
+    transitions:
+      next_state: problem_count
+      
+  generate_numbers:
+    type: GenerateNumbers
+    properties:
+    transitions:
+      next_state: counter
+      
+  counter:
+    type: Counter
+    properties:
+    transitions:
+      next_state: display_task
+      
+  sums:
+    type: change_context
+    properties:
+      update_keys: 
+        operation: '+'
+    transitions:
+      next_state:
+        problem_count
+
+  display_task:
+    type: message_text
+    properties:
+      text: '#{{counter}}: {{number1}} {{operation}} {{number2}} = ?'
+    transitions:
+      next_state: input
+      
+  input:
+    type: input_user
+    properties:
+      entities:
+        result_user: raw_text
+    transitions:
+      next_state: right_wrong
+      
+  right_wrong:
+    type: conditional_equal
+    properties:
+      value1: '{{result_user}}'
+      value2: '{{result}}'
+    transitions: 
+      equal: result_right
+      notequal: result_wrong
+      
+  result_right:
+    type: message_text
+    properties:
+      text: "Great! That's right!"
+    transitions:
+      next_state: is_counter_done
+      
+  result_wrong:
+    type: message_text
+    properties:
+      text: 'That is a wrong answer. The correct answer was {{result}}.'
+    transitions:
+      next_state: is_counter_done
+      
+  is_counter_done:
+    type: conditional_equal
+    properties:
+      value1: '{{counter}}'
+      value2: '{{maxcount}}'
+    transitions:
+      equal: again_question
+      notequal: generate_numbers
+      
+  again_question:
+    type: message_text
+    properties:
+      text: 'Do you want to keep on practicing?'
+      
+  again:
+    type: message_buttons
+    properties:
+      buttons:
+        - label: 'Yes'
+          next_state: welcome_question
+        - label: 'No'
+          next_state: end
+      
+  end:
+    type: message_text
+    properties:
+      text: 'Goodbye.'

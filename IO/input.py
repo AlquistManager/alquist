@@ -9,15 +9,25 @@ from flask_cors import CORS
 from loggers import create_loggers
 from solver import process_request
 from yaml_parser.yaml_parser import YamlParser
+from os.path import dirname, abspath, join, isdir
+from os import listdir
+from config import config
 
 flask = Flask(__name__)
 cors = CORS(flask)
 
-
 # Load and parse yaml files
 @flask.before_first_request
 def load_yamls():
-    YamlParser()
+    #load only bots that are functional
+    folder = dirname(dirname(abspath(__file__)))
+    bots_folder = join(folder, 'bots')
+    for f in listdir(bots_folder):
+        try:
+            if isdir(join(bots_folder, f)):
+                YamlParser(f)
+        except:
+            print("Error in bot " + f + ", unable to load.")
     create_loggers()
 
 
@@ -47,7 +57,7 @@ def get_input():
         return jsonify(ok=False, message="Bot with this name '" + bot + "' doesn't exist.")
     response = process_request(bot, state, context, text, session, payload)
     return jsonify(messages=response['response'], state=response['next_state'], context=response['context'],
-                   session=session, input=response['input'])
+                   session=session, input=response['input'], debug=config["debug"])
     # except:  # Error in execution
     #    return jsonify(ok=False, message="Error during execution.")
 

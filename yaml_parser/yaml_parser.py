@@ -16,35 +16,45 @@ from os.path import isfile, join
 class YamlParser:
     modules = {}
 
-    def __init__(self):
+    def __init__(self, bot_name=""):
         # clear all content in dictionary with loaded states
-        state_dict.clear()
-        # load all bots
-        for bot_name in self.get_immediate_subdirectories("bots"):
-            # folder, where yaml files are stored
-            bot_yaml_folder = "bots/" + bot_name + "/flows/"
-            bot_states_folder = "bots/" + bot_name + "/states/"
-            try:
-                self.import_custom_states(bot_states_folder, bot_name)
-                # create fields in state_dict and intent_transitions for bot
-                state_dict.update({bot_name.lower(): {}})
-                intent_transitions.update({bot_name.lower(): {}})
-                # find all .yml and .yaml files
-                files = [f for f in listdir(bot_yaml_folder)
-                         if isfile(join(bot_yaml_folder, f)) if f.endswith(('.yml', '.yaml'))]
-                # load all files
-                for file_name in files:
-                    self.load_file(bot_yaml_folder, file_name, bot_name)
-                # check if init state is present
-                self.check_init_state(state_dict.get(bot_name.lower()), bot_name)
-                # check if all states from intent_transitions exists
-                self.check_intent_transitions_states_exist(bot_name)
-                # check if all states mentioned in transitions really exist
-                self.check_transition_states_exist(bot_name)
-            except FileNotFoundError:
-                print(
-                    bot_yaml_folder + " folder doesn't exist. Thus bot " + bot_name + " doesn't have correct folder structure.",
-                    file=sys.stderr)
+        # load only one bot if it is specified, otherwise load all bots
+        if bot_name != "":
+            self.initialize(bot_name)
+        else:
+            state_dict.clear()
+            for bot_name in self.get_immediate_subdirectories("bots"):
+                self.initialize(bot_name)
+
+    def initialize(self, bot_name):
+        # folder, where yaml files are stored
+        bot_yaml_folder = "bots/" + bot_name + "/flows/"
+        bot_states_folder = "bots/" + bot_name + "/states/"
+        try:
+            self.import_custom_states(bot_states_folder, bot_name)
+            # create fields in state_dict and intent_transitions for bot
+            state_dict.update({bot_name.lower(): {}})
+            intent_transitions.update({bot_name.lower(): {}})
+            # find all .yml and .yaml files
+            files = [f for f in listdir(bot_yaml_folder)
+                     if isfile(join(bot_yaml_folder, f)) if f.endswith(('.yml', '.yaml'))]
+            # load all files
+            for file_name in files:
+                # checks if file size is not 0
+                if os.stat(join(bot_yaml_folder, file_name)).st_size == 0:
+                    print(file_name)
+                    continue
+                self.load_file(bot_yaml_folder, file_name, bot_name)
+            # check if init state is present
+            self.check_init_state(state_dict.get(bot_name.lower()), bot_name)
+            # check if all states from intent_transitions exists
+            self.check_intent_transitions_states_exist(bot_name)
+            # check if all states mentioned in transitions really exist
+            self.check_transition_states_exist(bot_name)
+        except FileNotFoundError:
+            print(
+                bot_yaml_folder + " folder doesn't exist. Thus bot " + bot_name + " doesn't have correct folder structure.",
+                file=sys.stderr)
 
     # load yaml file
     def load_file(self, bot_yaml_folder, file_name, bot_name):
@@ -90,7 +100,7 @@ class YamlParser:
 
     # Add transition to nodes, which has default value
     def add_transitions(self, state_parameters, states, i):
-        if not ("transitions" in state_parameters):
+        if not ("transitions" in state_parameters) and not (state_parameters['type'] == 'message_buttons'):
             # If the transitions field is missing, add next state
             if i + 1 < len(states):
                 state_parameters['transitions'] = {'next_state': states[i + 1][0]}
@@ -412,11 +422,12 @@ class YamlParser:
                 state_properties['properties'].update({'min_value': 0})
             if not ('default_values' in state_properties['properties']) or not (
                         type(state_properties['properties']['default_values']) is list):
-                defaults=[]
-                for i in range(0,len(state_properties['properties']['entities'])):
+                defaults = []
+                for i in range(0, len(state_properties['properties']['entities'])):
                     defaults.append(0)
-                state_properties['properties']['default_values']=defaults
-            elif len(state_properties['properties']['default_values'])!=len(state_properties['properties']['entities']):
+                state_properties['properties']['default_values'] = defaults
+            elif len(state_properties['properties']['default_values']) != len(
+                    state_properties['properties']['entities']):
                 raise ValueError(
                     'You specified different number of default values than you specified entites in the slider state "' + state_name + '" of the bot "' + bot_name + '".')
             if not ('step' in state_properties['properties']):
@@ -460,44 +471,45 @@ class YamlParser:
     def check_transition_states_exist(self, bot_name):
         # iterate through all loaded states and check states mentioned in all possible transitions fields
         for state_name, state_content in state_dict.get(bot_name.lower())['states'].items():
-            if 'match' in state_content['transitions']:
-                reference_state = state_content['transitions']['match']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'notmatch' in state_content['transitions']:
-                reference_state = state_content['transitions']['notmatch']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'equal' in state_content['transitions']:
-                reference_state = state_content['transitions']['equal']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'notequal' in state_content['transitions']:
-                reference_state = state_content['transitions']['notequal']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'exists' in state_content['transitions']:
-                reference_state = state_content['transitions']['exists']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'notexists' in state_content['transitions']:
-                reference_state = state_content['transitions']['notexists']
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
-            if 'next_state' in state_content['transitions']:
-                reference_state = state_content['transitions']['next_state']
-                # next state can be empty
-                if reference_state == "" or reference_state is None:
-                    continue
-                if reference_state not in state_dict.get(bot_name.lower())['states']:
-                    raise ValueError(
-                        'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+            if 'transitions' in state_content:
+                if 'match' in state_content['transitions']:
+                    reference_state = state_content['transitions']['match']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'notmatch' in state_content['transitions']:
+                    reference_state = state_content['transitions']['notmatch']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'equal' in state_content['transitions']:
+                    reference_state = state_content['transitions']['equal']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'notequal' in state_content['transitions']:
+                    reference_state = state_content['transitions']['notequal']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'exists' in state_content['transitions']:
+                    reference_state = state_content['transitions']['exists']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'notexists' in state_content['transitions']:
+                    reference_state = state_content['transitions']['notexists']
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
+                if 'next_state' in state_content['transitions']:
+                    reference_state = state_content['transitions']['next_state']
+                    # next state can be empty
+                    if reference_state == "" or reference_state is None:
+                        continue
+                    if reference_state not in state_dict.get(bot_name.lower())['states']:
+                        raise ValueError(
+                            'State "' + reference_state + '" mentioned in "' + state_name + '" transitions field doesn\'t exist in bot "' + bot_name + '".')
             # testing of button transitions, special case
             if 'buttons' in state_content['properties']:
                 for button in state_content['properties']['buttons']:

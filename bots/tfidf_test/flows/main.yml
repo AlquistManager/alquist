@@ -1,0 +1,85 @@
+name: TF-IDF test
+intent_transitions:
+    breakingNews: breaking_news
+    topicNews: topic_news
+    readArticle: read_article
+    repeat: repeat
+    joke: joke
+    funfact: fun_fact
+    help: help
+    sports: sports
+states:
+  init:
+    type: message_text
+    properties:
+      text: "What do you want to know?"
+      
+  input_name:
+    type: input_user
+    properties:
+      nlp_type: tfidf
+      entities:
+        intent: whatever
+        
+  breaking_news:
+    type: message_text
+    properties:
+      text: "breaking news"
+    transitions:
+      next_state: end_state
+
+  topic_news:
+    type: message_text
+    properties:
+      text: "topic news"
+    transitions:
+      next_state: end_state
+      
+  read_article:
+    type: message_text
+    properties:
+      text: "read article"
+    transitions:
+      next_state: end_state
+
+  repeat:
+    type: message_text
+    properties:
+      text: "repeat"
+    transitions:
+      next_state: end_state
+
+  joke:
+    type: message_text
+    properties:
+      text: "joke"
+    transitions:
+      next_state: end_state
+      
+  fun_fact:
+    type: message_text
+    properties:
+      text: "fun fact"
+    transitions:
+      next_state: end_state
+     
+  help:
+    type: message_text
+    properties:
+      text: "help"
+    transitions:
+      next_state: end_state
+
+  sports:
+    type: message_text
+    properties:
+      text: "sports"
+    transitions:
+      next_state: end_state
+      
+  end_state:
+    type: message_text
+    properties:
+      text: "END"
+    transitions:
+      next_state: init
