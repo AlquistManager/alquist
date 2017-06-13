@@ -8,7 +8,7 @@ You can test current demo at https://alquistmanager.github.io/alquist-client/?e=
 
 You can use HTML client https://github.com/konrajak/alquist-client for workig with Alquist.
 
-All information about writing your bot is here https://github.com/AlquistManager/alquist-yaml-editor/blob/master/How%20to%20write%20your%20bot.md
+All information about writing your bot is here https://github.com/AlquistManager/alquist/blob/master/How%20to%20write%20your%20bot.md
 
 You can use Alquist Editor for creating your own bot https://github.com/AlquistManager/alquist-yaml-editor
 
@@ -55,7 +55,7 @@ For example:
 
 ## API
 
-###Request
+### Request
 To communicate with Alquist use POST requests to url, on which the Alquist is running. POST have to contains JSON with fields:
 
 - ``text``
@@ -72,7 +72,7 @@ To communicate with Alquist use POST requests to url, on which the Alquist is ru
 - ``payload``
     Additional information for states in the form of JSON object.
     
-###Response
+### Response
 Response contains JSON with fields:
 
 - messages
@@ -133,8 +133,8 @@ Response contains JSON with fields:
 - session
     Generated ID of session used during logging. Use this ID in the next request (session field).
     
-###Example
-####Request
+### Example
+#### Request
     curl -H "Content-Type: application/json; charset=\"utf-8\"" -X POST -d "{\"text\":\"INSERT_INPUT_TEXT\", \"state\":\"INSERT_STATE_NAME\", \"context\":\"INSERT_CONTEXT_OBJECT\", \"session\":\"INSERT_SESSION_ID\"}" "INSERT_ALQUIST_URL"
 
 Specific example:
@@ -143,7 +143,7 @@ Specific example:
 
 ## Docker
 Alquist is prepared to be run in a Docker container. The setup process is quite straightforward.
-###Building an image
+### Building an image
 Dockerfile is already present in the main directory. Run ``docker build -t alquist .`` to build the Docker image for Alquist. Alternatively, you can obtain pre-built image from Docker Hub with the ``docker pull alquistmanager/alquist`` command.
-###Launching a container
+### Launching a container
 Once the image is built, run the ``run-docker-container.sh`` bash script. There are two parameters required: First is a port you want Alquist to run on and the second is absolute path to your ``.yml`` files.
