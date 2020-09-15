@@ -7,7 +7,7 @@ requests==2.11.1
 Werkzeug==0.11.11
 beautifulsoup4==4.5.3
 ordereddict==1.1
-PyYAML==3.12
+PyYAML==5.1
 gunicorn==19.4.5
 itsdangerous==0.24
 click==6.6
