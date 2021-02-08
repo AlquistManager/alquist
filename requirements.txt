@@ -1,7 +1,7 @@
 Flask==0.11.1
 Flask_Cors==3.0.2
 wit==4.2.0
-httplib2==0.10.3
+httplib2==0.19.0
 ufal.morphodita==1.9.2.1
 requests==2.11.1
 Werkzeug==0.11.11
