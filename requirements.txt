@@ -1,5 +1,5 @@
 Flask==0.11.1
-Flask_Cors==3.0.2
+Flask_Cors==3.0.9
 wit==4.2.0
 httplib2==0.10.3
 ufal.morphodita==1.9.2.1
