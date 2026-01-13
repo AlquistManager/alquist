@@ -11,7 +11,7 @@ PyYAML==3.12
 gunicorn==19.4.5
 itsdangerous==0.24
 click==6.6
-Jinja2==2.8
+Jinja2==2.11.3
 MarkupSafe==0.23
 six==1.10.0
 bs4==0.0.1
