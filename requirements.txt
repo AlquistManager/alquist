@@ -4,7 +4,7 @@ wit==4.2.0
 httplib2==0.10.3
 ufal.morphodita==1.9.2.1
 requests==2.11.1
-Werkzeug==0.11.11
+Werkzeug==0.15.5
 beautifulsoup4==4.5.3
 ordereddict==1.1
 PyYAML==3.12
