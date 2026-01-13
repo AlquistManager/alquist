@@ -8,7 +8,7 @@ Werkzeug==0.11.11
 beautifulsoup4==4.5.3
 ordereddict==1.1
 PyYAML==3.12
-gunicorn==19.4.5
+gunicorn==19.5.0
 itsdangerous==0.24
 click==6.6
 Jinja2==2.8
